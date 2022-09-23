@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,7 @@ Route::middleware('auth')->group(function() {
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
 
+    Route::get('/user/export/{format}', [UserController::class, 'export'])->name('user.export');
     Route::resource('user', UserController::class);
     Route::controller(UserController::class)->group(function () {
         Route::post('/user/trigger', 'trigger')->name('user.trigger');

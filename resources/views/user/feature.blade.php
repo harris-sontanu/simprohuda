@@ -15,8 +15,8 @@
                     <div class="dropdown-submenu dropdown-submenu-left">
                         <a href="#" class="dropdown-item">Level</a>
                         <div class="dropdown-menu">
-                            <a href="#" class="dropdown-item trigger" data-action="role" data-val="author">Author</a>
-                            <a href="#" class="dropdown-item trigger" data-action="role" data-val="editor">Editor</a>
+                            <a href="#" class="dropdown-item trigger" data-action="role" data-val="opd">Perangkat Daerah</a>
+                            <a href="#" class="dropdown-item trigger" data-action="role" data-val="bagianhukum">Bagian Hukum</a>
                             <a href="#" class="dropdown-item trigger" data-action="role" data-val="administrator">Administrator</a>
                         </div>
                     </div>
@@ -24,8 +24,8 @@
                 <div class="dropdown-submenu dropdown-submenu-left">
                     <a href="#" class="dropdown-item">Export</a>
                     <div class="dropdown-menu">
-                        <a href="{{ route('admin.user.export', 'excel') }}" class="dropdown-item export" data-action="excel">Excel</a>
-                        <a href="{{ route('admin.user.export', 'pdf') }}" class="dropdown-item export" data-action="pdf">PDF</a>
+                        <a href="{{ route('user.export', 'excel') }}" class="dropdown-item export" data-action="excel">Excel</a>
+                        <a href="{{ route('user.export', 'pdf') }}" class="dropdown-item export" data-action="pdf">PDF</a>
                     </div>
                 </div>
                 <div class="dropdown-divider"></div>

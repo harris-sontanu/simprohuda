@@ -38,7 +38,7 @@
             <ul class="nav nav-sidebar" data-nav-type="accordion">
 
                 <li class="nav-item">
-                    <a href="/admin/dashboard" class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
+                    <a href="/dashboard" class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
                         <i class="icon-home4"></i>
                         <span>
                             Dasbor
@@ -65,7 +65,7 @@
                     </ul>
                 </li>
 
-                <li class="nav-item nav-item-submenu">
+                <li class="nav-item nav-item-submenu {{ request()->is('user*') ? 'nav-item-expanded nav-item-open' : '' }}">
                     <a href="#" class="nav-link"><i class="icon-users"></i> <span>Operator</span></a>
 
                     <ul class="nav nav-group-sub" data-submenu-title="Page layouts">
@@ -74,7 +74,7 @@
                     </ul>
                 </li>
 
-                <li class="nav-item nav-item-submenu {{ request()->is('user*') ? 'nav-item-expanded nav-item-open' : '' }}">
+                <li class="nav-item nav-item-submenu">
                     <a href="#" class="nav-link"><i class="icon-cog"></i> <span>Pengaturan</span></a>
 
                     <ul class="nav nav-group-sub" data-submenu-title="Page layouts">
@@ -82,6 +82,15 @@
                         <li class="nav-item"><a href="#" class="nav-link">Profil</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">Akun</a></li>
                     </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="icon-book3"></i>
+                        <span>
+                            Panduan
+                        </span>
+                    </a>
                 </li>
 
             </ul>

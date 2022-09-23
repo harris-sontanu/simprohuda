@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Dashboard - JDIH')
+@section('title', $pageTitle)
 @section('content')
 
 @include('layouts.breadcrumb')

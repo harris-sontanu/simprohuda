@@ -2,7 +2,7 @@
 <div class="modal fade" id="create-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered">
         <div class="modal-content">
-            <form action="{{ route('admin.user.store') }}" method="post">
+            <form action="{{ route('user.store') }}" method="post">
                 @csrf
                 <div class="modal-header">
                     <h5 class="modal-title font-weight-bold" id="exampleModalLabel">Tambah Operator</h5>

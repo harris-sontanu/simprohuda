@@ -7,13 +7,19 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Config;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected $pageTitle = ' - JDIH Admin';
+    protected $pageTitle;
     protected $limit = 25;
+
+    public function __construct() 
+    {
+        $this->pageTitle = ' - ' . Config::get('app.name');
+    }
 
     protected function removeImage($image)
     {
