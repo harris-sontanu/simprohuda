@@ -26,14 +26,15 @@ class UserRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'name'  => 'required|string',
-            'username'  => 'required|string|min:6',
-            'email' => 'required|email|unique:users',
+            'name'      => 'required|string',
+            'username'  => 'required|string|unique:users|min:6',
+            'email'     => 'required|email|unique:users',
             'password'  => 'required|string|min:6|confirmed',
-            'role'  => 'required',
-            'phone' => 'nullable',
-            'www'   => 'nullable|url',
-            'bio'   => 'nullable',
+            'role'      => 'required',
+            'phone'     => 'nullable',
+            'picture'   => 'nullable|image|max:2048',
+            'www'       => 'nullable|url',
+            'bio'       => 'nullable',
             'facebook'  => 'nullable|url',
             'twitter'   => 'nullable|url',
             'instagram' => 'nullable|url',

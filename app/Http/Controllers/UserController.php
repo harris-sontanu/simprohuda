@@ -89,6 +89,30 @@ class UserController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        $pageHeader = 'Tambah Operator';
+        $pageTitle = $pageHeader . $this->pageTitle;
+        $breadCrumbs = [
+            route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
+            '#' => 'Operator',
+            'Tambah' => TRUE
+        ];
+
+        $roles = $this->roles;
+        return view('user.create', compact(
+            'pageTitle',
+            'pageHeader',
+            'breadCrumbs',
+            'roles',
+        ));
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -101,7 +125,7 @@ class UserController extends Controller
 
         User::create($validated);
 
-        return redirect('/users')->with('message', '<strong>Berhasil!</strong> Operator baru telah berhasil disimpan');
+        return redirect('/user')->with('message', '<strong>Berhasil!</strong> Operator baru telah berhasil disimpan');
     }
 
     /**

@@ -81,21 +81,6 @@
             }
         })
 
-        $('.export').click(function() {
-
-            let el    = $(this).attr('href'),
-                order = '',
-                items = new collect_data();
-
-            const params = new URLSearchParams(window.location.search);
-            if (params.has('order')) {
-                order = '&order=' + params.get('order') + '&sort=' + params.get('sort');
-            }
-
-            $(this).attr('href', el + '?id=' + items + order);
-            console.log($(this).attr('href'));
-        })
-
         $('.delete-form').submit(function(e) {
             e.preventDefault();
 

@@ -29,6 +29,6 @@
                 @endif
             </div>
         </div>
-        <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#create-modal"><i class="icon-user-plus mr-2"></i>Tambah</button>
+        <a href="{{ route('user.create') }}" class="btn btn-secondary btn-sm"><i class="icon-user-plus mr-2"></i>Tambah</a>
     </div>
 </div>

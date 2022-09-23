@@ -69,7 +69,7 @@
                     <a href="#" class="nav-link"><i class="icon-users"></i> <span>Operator</span></a>
 
                     <ul class="nav nav-group-sub" data-submenu-title="Page layouts">
-                        <li class="nav-item"><a href="#" class="nav-link">Tambah</a></li>
+                        <li class="nav-item"><a href="{{ route('user.create') }}" class="nav-link {{ (request()->is('user/create')) ? 'active' : '' }}">Tambah</a></li>
                         <li class="nav-item"><a href="{{ route('user.index') }}" class="nav-link {{ (request()->is('user')) ? 'active' : '' }}">Daftar Operator</a></li>
                         <li class="nav-item"><a href="{{ route('user.edit', Auth::user()->id) }}" class="nav-link">Profilku</a></li>
                     </ul>

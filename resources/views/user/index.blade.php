@@ -165,7 +165,6 @@
 
 @section('modal')
     @include('user.show_modal')
-    @include('user.create')
 @endsection
 
 @section('script')
