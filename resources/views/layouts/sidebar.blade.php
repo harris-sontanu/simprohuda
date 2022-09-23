@@ -61,7 +61,7 @@
 
                     <ul class="nav nav-group-sub" data-submenu-title="Page layouts">
                         <li class="nav-item"><a href="#" class="nav-link">Tambah</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Daftar</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">Daftar Perangkat Daerah</a></li>
                     </ul>
                 </li>
 
@@ -70,7 +70,8 @@
 
                     <ul class="nav nav-group-sub" data-submenu-title="Page layouts">
                         <li class="nav-item"><a href="#" class="nav-link">Tambah</a></li>
-                        <li class="nav-item"><a href="{{ route('user.index') }}" class="nav-link {{ (request()->is('user')) ? 'active' : '' }}">Daftar</a></li>
+                        <li class="nav-item"><a href="{{ route('user.index') }}" class="nav-link {{ (request()->is('user')) ? 'active' : '' }}">Daftar Operator</a></li>
+                        <li class="nav-item"><a href="{{ route('user.edit', Auth::user()->id) }}" class="nav-link">Profilku</a></li>
                     </ul>
                 </li>
 
@@ -79,8 +80,6 @@
 
                     <ul class="nav nav-group-sub" data-submenu-title="Page layouts">
                         <li class="nav-item"><a href="#" class="nav-link">Aplikasi</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Profil</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Akun</a></li>
                     </ul>
                 </li>
 

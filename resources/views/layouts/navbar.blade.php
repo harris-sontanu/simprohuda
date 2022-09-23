@@ -52,8 +52,7 @@
             </a>
 
             <div class="dropdown-menu dropdown-menu-right">
-                <a href="{{ route('user.edit', Auth::user()->id) }}" class="dropdown-item"><i class="icon-user mr-2"></i>Profil</a>
-                <a href="#" class="dropdown-item"><i class="icon-cog mr-2"></i>Pengaturan</a>
+                <a href="{{ route('user.edit', Auth::user()->id) }}" class="dropdown-item"><i class="icon-user mr-2"></i>Profilku</a>
                 <div class="dropdown-divider"></div>
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
