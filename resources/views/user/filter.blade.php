@@ -3,17 +3,22 @@
 <div class="card-body bg-light">
     <form action="{{ route('user.index') }}" id="filter-form" class="filter-form" method="GET">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-group">
                     <input type="text" class="form-control" name="name" placeholder="Nama" value="{{ Request::get('name') }}">
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Email" name="email" value="{{ Request::get('email') }}">
+                    <input type="text" class="form-control" placeholder="Nama Akun" name="username" value="{{ Request::get('username') }}">
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="Email" name="email" value="{{ Request::get('email') }}">
+                </div>
+            </div>
+            <div class="col-md-3">
                 <div class="form-group">
                     <select name="role" id="role" class="custom-select">
                         <option value="">Pilih Level</option>
@@ -26,25 +31,12 @@
         </div>
 
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Telepon" name="phone" value="{{ Request::get('phone') }}">
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Website" name="www" value="{{ Request::get('www') }}">
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Biografi" name="bio" value="{{ Request::get('bio') }}">
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-prepend">
@@ -54,7 +46,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-prepend">
@@ -64,7 +56,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="form-group">
                     <button type="submit" name="filter" value="true" class="btn btn-secondary mr-2"><i class="icon-search4 mr-2 font-size-base"></i>Cari</button>
                     <button type="button" class="btn btn-light reset">Reset</button>

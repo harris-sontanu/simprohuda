@@ -1,5 +1,10 @@
 <script>
     $(function() {
+        
+        $(document).on('change', '.custom-file-input', function() {
+            let filename = $(this)[0].files[0].name;
+            $(this).next().html(filename);
+        })
 
         if ($().daterangepicker) {
             $('.daterange-single').daterangepicker({
