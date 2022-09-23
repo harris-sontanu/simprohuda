@@ -46,7 +46,6 @@ Route::middleware('auth')->group(function() {
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
 
-    Route::get('/user/export/{format}', [UserController::class, 'export'])->name('user.export');
     Route::resource('user', UserController::class);
     Route::controller(UserController::class)->group(function () {
         Route::post('/user/trigger', 'trigger')->name('user.trigger');

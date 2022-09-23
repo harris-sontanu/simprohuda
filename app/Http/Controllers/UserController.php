@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Carbon;
 use Intervention\Image\Facades\Image;
-use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -217,21 +216,6 @@ class UserController extends Controller
         }
 
         $request->session()->flash('message', '<span class="badge badge-pill badge-success">' . $count . '</span> ' . $message);
-    }
-
-    public function export($format, Request $request)
-    {
-        $array_id = explode(',', $request->id);
-
-        if ($format === 'excel')
-        {
-            return Excel::download(new UsersExport($array_id, $request->order, $request->sort), 'users.xlsx');
-        }
-        else if ($format === 'pdf')
-        {
-            return (new UsersExport($array_id, $request->order, $request->sort))
-                ->download('users.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
-        }
     }
 
     /**

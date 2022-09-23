@@ -21,13 +21,6 @@
                         </div>
                     </div>
                 @endif
-                <div class="dropdown-submenu dropdown-submenu-left">
-                    <a href="#" class="dropdown-item">Export</a>
-                    <div class="dropdown-menu">
-                        <a href="{{ route('user.export', 'excel') }}" class="dropdown-item export" data-action="excel">Excel</a>
-                        <a href="{{ route('user.export', 'pdf') }}" class="dropdown-item export" data-action="pdf">PDF</a>
-                    </div>
-                </div>
                 <div class="dropdown-divider"></div>
                 @if (Request::get('tab') == 'trash')
                     <a href="#" class="dropdown-item trigger" data-action="delete">Hapus</a>
