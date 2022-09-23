@@ -60,6 +60,11 @@ class User extends Authenticatable
         'last_logged_in_at' => 'datetime'
     ];
 
+    public function institutes()
+    {
+        return $this->hasMany(Institute::class, 'operator_id');
+    }
+
     public function scopePending($query)
     {
         return $query->whereNull('deleted_at')

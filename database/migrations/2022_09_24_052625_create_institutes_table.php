@@ -23,9 +23,9 @@ return new class extends Migration
             $table->string('code')->nullable();
             $table->text('desc')->nullable();
             $table->integer('sort')->default(0);
-            $table->unsignedBigInteger('operator')->nullable();
+            $table->unsignedBigInteger('operator_id')->nullable();
 
-            $table->foreign('operator')
+            $table->foreign('operator_id')
                 ->references('id')
                 ->on('users')
                 ->nullOnDelete();

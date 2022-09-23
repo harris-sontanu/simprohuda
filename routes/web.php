@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InstituteController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -55,4 +56,5 @@ Route::middleware('auth')->group(function() {
         Route::put('/user/{user}/set-new-password', 'setNewPassword')->name('user.set-new-password');
     });
 
+    Route::resource('institute', InstituteController::class);
 });

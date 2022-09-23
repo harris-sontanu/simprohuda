@@ -21,7 +21,7 @@ class InstituteSeeder extends Seeder
             ->count(15)
             ->state(new Sequence(
                 fn ($sequence) => [
-                    'operator' => User::where('role', 'bagianhukum')->get()->random()
+                    'operator_id' => User::where('role', 'bagianhukum')->get()->random()
                 ],
             ))
             ->create();
