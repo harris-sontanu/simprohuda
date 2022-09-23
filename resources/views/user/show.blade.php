@@ -1,4 +1,4 @@
-<div class="card-body text-center bg-secondary card-img-top text-white @if (Route::currentRouteName() == 'admin.user.show') rounded-0 @endif" style="background-image: url(/assets/admin/images/backgrounds/panel_bg.png); background-size: contain;">
+<div class="card-body text-center bg-secondary card-img-top text-white @if (Route::currentRouteName() == 'user.show') rounded-0 @endif" style="background-image: url(/assets/images/backgrounds/panel_bg.png); background-size: contain;">
     <div class="card-img-actions d-inline-block mb-3">
         <img class="img-fluid rounded-circle" src="{{ $user->userPictureUrl($user->picture, $user->name) }}" alt="{{ $user->name }}" width="170" height="170">
     </div>

@@ -157,4 +157,17 @@ class User extends Authenticatable
         );
     }
 
+    protected function role(): Attribute
+    {   
+        $roles = [
+            'administrator' => 'Administrator',
+            'bagianhukum' => 'Bagian Hukum',
+            'opd' => 'Perangkat Daerah'
+        ];
+
+        return Attribute::make(
+            get: fn ($value) => $roles[$value],
+        );
+    }
+
 }

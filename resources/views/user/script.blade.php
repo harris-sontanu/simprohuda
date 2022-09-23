@@ -195,7 +195,7 @@
             $(this).find('.modal-title').html(name);
 
             $.ajax({
-                url: '/admin/user/' + id,
+                url: '/user/' + id,
                 method: 'GET',
                 beforeSend: function() {
                     $('#ajax-modal-content').html('<div class="modal-body">loading...</div>');
@@ -235,7 +235,7 @@
         });
 
         $.ajax({
-            url: '/admin/user/trigger',
+            url: '/user/trigger',
             method: 'POST',
             data: {'items':items, 'action': action, 'val': val}
         }).done(function(){

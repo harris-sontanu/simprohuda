@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Exports\UsersExport;
 use App\Http\Requests\UserRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -102,7 +101,7 @@ class UserController extends Controller
 
         User::create($validated);
 
-        return redirect('/admin/users')->with('message', '<strong>Berhasil!</strong> Operator baru telah berhasil disimpan');
+        return redirect('/users')->with('message', '<strong>Berhasil!</strong> Operator baru telah berhasil disimpan');
     }
 
     /**
@@ -114,7 +113,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::withTrashed()->findOrFail($id);
-        return view('admin.user.show', compact('user'));
+        return view('user.show', compact('user'));
     }
 
     /**
@@ -128,14 +127,13 @@ class UserController extends Controller
         $pageHeader = 'Ubah Operator';
         $pageTitle = $pageHeader . $this->pageTitle;
         $breadCrumbs = [
-            route('admin.dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
-            '#' => 'Pengaturan',
-            route('admin.user.index') => 'Operator',
+            route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
+            route('user.index') => 'Operator',
             'Ubah' => TRUE
         ];
 
         $roles = $this->roles;
-        return view('admin.user.edit', compact(
+        return view('user.edit', compact(
             'pageTitle',
             'pageHeader',
             'breadCrumbs',
@@ -162,7 +160,7 @@ class UserController extends Controller
             $this->removeImage($oldPicture);
         }
 
-        return redirect('/admin/user')->with('message', '<strong>Berhasil!</strong> Perubahan data Operator telah berhasil disimpan');
+        return redirect('/user')->with('message', '<strong>Berhasil!</strong> Perubahan data Operator telah berhasil disimpan');
     }
 
     private function handleRequest($request)
@@ -226,10 +224,10 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $action = route('admin.user.restore', $user->id);
+        $action = route('user.restore', $user->id);
         $user->delete();
 
-        return redirect('/admin/user')->with('trash-message', ['<strong>Berhasil!</strong> Data Operator telah dibuang ke Trash', $action]);
+        return redirect('/user')->with('trash-message', ['<strong>Berhasil!</strong> Data Operator telah dibuang ke Trash', $action]);
     }
 
     public function restore($id)
@@ -247,7 +245,7 @@ class UserController extends Controller
 
         $this->removeImage($user->picture);
 
-        return redirect('/admin/user?tab=trash')->with('message', '<strong>Berhasil!</strong> Data Operator telah berhasil dihapus');
+        return redirect('/user?tab=trash')->with('message', '<strong>Berhasil!</strong> Data Operator telah berhasil dihapus');
     }
 
     public function deleteAvatar(Request $request, User $user)

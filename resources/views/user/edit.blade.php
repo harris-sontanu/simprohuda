@@ -1,21 +1,21 @@
-@extends('admin.layouts.app')
+@extends('layouts.app')
 
 @section('title', $pageTitle)
 @section('content')
 
-    @include('admin.layouts.breadcrumb')
+    @include('layouts.breadcrumb')
 
     <!-- Content area -->
     <div class="content">
 
-        @include('admin.layouts.message')
+        @include('layouts.message')
 
         <div class="d-lg-flex align-items-lg-start">
 
             <div class="flex-1">
 
                 <!-- Form -->
-                <form id="post-form" method="POST" action="{{ route('admin.user.update', $user->id) }}" novalidate enctype="multipart/form-data">
+                <form id="post-form" method="POST" action="{{ route('user.update', $user->id) }}" novalidate enctype="multipart/form-data">
                     @method('PUT')
                     @csrf
                     <div class="card">
@@ -50,7 +50,7 @@
                                                             <label class="custom-file-label" for="customFile">Choose file</label>
                                                             <span class="form-text text-muted">Format: gif, png, jpg. Ukuran maks: 2Mb.
                                                             @if ($user->picture)
-                                                                <a href="{{ route('admin.user.delete-avatar', $user->id) }}" class="remove-avatar" role="button" data-id="{{ $user->id }}">Hapus foto?</a>
+                                                                <a href="{{ route('user.delete-avatar', $user->id) }}" class="remove-avatar" role="button" data-id="{{ $user->id }}">Hapus foto?</a>
                                                             @endif</span>
                                                             @error('picture')
                                                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -208,7 +208,7 @@
 
             <div class="sidebar sidebar-light sidebar-component sidebar-component-right sidebar-expand-lg">
 
-                <div class="sidebar-content">@include('admin.user.show')</div>
+                <div class="sidebar-content">@include('user.show')</div>
 
             </div>
 
@@ -220,9 +220,9 @@
 @endsection
 
 @section('modal')
-    @include('admin.user.new_password')
+    @include('user.new_password')
 @endsection
 
 @section('script')
-    @include('admin.user.script')
+    @include('user.script')
 @endsection

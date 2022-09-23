@@ -2,7 +2,7 @@
 <div class="modal fade" id="new-password-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered">
         <div class="modal-content">
-            <form action="{{ route('admin.user.set-new-password', $user->id) }}" method="post" autocomplete="off">
+            <form action="{{ route('user.set-new-password', $user->id) }}" method="post" autocomplete="off">
                 @method('PUT')
                 @csrf
                 <div class="modal-header bg-light">
