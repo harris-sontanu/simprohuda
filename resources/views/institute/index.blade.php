@@ -82,7 +82,7 @@
                                 </td>
                                 <td class="safezone">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-light btn-sm rounded-pill rounded-right-0" data-toggle="modal" data-target="#edit-modal" data-id="{{ $institute->id }}" data-name="{{ $institute->name }}"><i class="icon-pencil"></i></button>
+                                        <a href="{{ route('institute.edit', $institute->id) }}" class="btn btn-light btn-sm rounded-pill rounded-right-0"><i class="icon-pencil"></i></a>
                                         <form class="delete-form" action="{{ route('institute.destroy', $institute->id) }}" data-name="{{ $institute->name; }}" method="POST">
                                             @method('DELETE')
                                             @csrf

@@ -121,7 +121,30 @@ class InstituteController extends Controller
      */
     public function edit(Institute $institute)
     {
-        //
+        $pageHeader = 'Ubah Perangkat Daerah';
+        $pageTitle = $pageHeader . $this->pageTitle;
+        $breadCrumbs = [
+            route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
+            route('institute.index') => 'Perangkat Daerah',
+            'Ubah' => TRUE
+        ];
+        
+        $categories = $this->categories;
+        $operators = User::opd()->sorted()->pluck('name', 'id');
+
+        $plugins = [
+            'assets/js/plugins/forms/selects/select2.min.js',
+        ];
+
+        return view('institute.edit', compact(
+            'pageTitle',
+            'pageHeader',
+            'breadCrumbs',
+            'institute',
+            'categories',
+            'operators',
+            'plugins'
+        ));
     }
 
     /**
@@ -131,9 +154,12 @@ class InstituteController extends Controller
      * @param  \App\Models\Institute  $institute
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Institute $institute)
-    {
-        //
+    public function update(InstituteRequest $request, Institute $institute)
+    {        
+        $validated = $request->validated();
+        $institute->update($validated);
+
+        return redirect('/institute')->with('message', '<strong>Berhasil!</strong> Data Perangkat Daerah telah berhasil diperbarui');
     }
 
     /**

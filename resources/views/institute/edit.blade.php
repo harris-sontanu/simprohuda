@@ -11,7 +11,8 @@
         @include('layouts.message')
 
         <!-- Form -->
-        <form id="post-form" method="POST" action="{{ route('institute.store') }}" novalidate>
+        <form id="post-form" method="POST" action="{{ route('institute.update', $institute->id) }}" novalidate>
+            @method('PUT')
             @csrf
             <div class="card">
                 <div class="card-body">
@@ -22,7 +23,7 @@
                             <div class="form-group row">
                                 <label class="col-lg-3 col-form-label font-weight-semibold" for="name">Nama:</label>
                                 <div class="col-lg-9">
-                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}">
+                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $institute->name }}">
                                     @error('name')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @endif
@@ -32,7 +33,7 @@
                             <div class="form-group row">
                                 <label for="abbrev" class="col-lg-3 col-form-label font-weight-semibold">Singkatan:</label>
                                 <div class="col-lg-9">
-                                    <input id="abbrev" type="text" class="form-control @error('abbrev') is-invalid @enderror" name="abbrev" value="{{ old('abbrev') }}">
+                                    <input id="abbrev" type="text" class="form-control @error('abbrev') is-invalid @enderror" name="abbrev" value="{{ $institute->abbrev }}">
                                     @error('abbrev')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @endif
@@ -45,7 +46,7 @@
                                     <select name="category" id="category" class="select @error('category') is-invalid @enderror">
                                         <option value="">Pilih Jenis</option>
                                         @foreach ($categories as $key => $value)
-                                            <option value="{{ $key }}" @selected(old('category') == $key)>{{ $value }}</option>
+                                            <option value="{{ $key }}" @selected($institute->getRawOriginal('category') == $key)>{{ $value }}</option>
                                         @endforeach
                                     </select>
                                     @error('category')
@@ -57,7 +58,7 @@
                             <div class="form-group row">
                                 <label for="code" class="col-lg-3 col-form-label font-weight-semibold">Kode:</label>
                                 <div class="col-lg-9">
-                                    <input id="code" type="text" class="form-control @error('code') is-invalid @enderror" name="code" value="{{ old('code') }}">
+                                    <input id="code" type="text" class="form-control @error('code') is-invalid @enderror" name="code" value="{{ $institute->code }}">
                                     @error('code')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @endif
@@ -67,7 +68,7 @@
                             <div class="form-group row">
                                 <label for="desc" class="col-lg-3 col-form-label font-weight-semibold">Deskripsi:</label>
                                 <div class="col-lg-9">
-                                    <textarea id="desc" rows="4" class="form-control @error('desc') is-invalid @enderror" name="desc">{{ old('desc') }}</textarea>
+                                    <textarea id="desc" rows="4" class="form-control @error('desc') is-invalid @enderror" name="desc">{{ $institute->desc }}</textarea>
                                     @error('desc')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @endif
@@ -80,7 +81,7 @@
                                     <select name="operator_id" id="operator_id" class="select @error('operator_id') is-invalid @enderror">
                                         <option value="">Pilih Operator</option>
                                         @foreach ($operators as $key => $value)
-                                            <option value="{{ $key }}" @selected(old('category') == $key)>{{ $value }}</option>
+                                            <option value="{{ $key }}" @selected($institute->operator_id == $key)>{{ $value }}</option>
                                         @endforeach
                                     </select>
                                     @error('operator_id')
@@ -91,7 +92,7 @@
 
                             <div class="form-group row mb-0">
                                 <div class="col-lg-9 offset-lg-3">
-                                    <button type="submit" class="btn btn-secondary">Simpan</button>
+                                    <button type="submit" class="btn btn-secondary">Ubah</button>
                                 </div>
                             </div>
 
