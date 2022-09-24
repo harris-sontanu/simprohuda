@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Legislation;
 
 use App\Http\Controllers\Legislation\LegislationController;
+use App\Models\Institute;
 use App\Models\Legislation;
 use Illuminate\Http\Request;
 
@@ -54,8 +55,14 @@ class PerdaController extends LegislationController
 
         $tabFilters = $this->tabFilters($request);
 
+        $institutes = Institute::sorted()->pluck('name', 'id');
+
         $plugins = [
+            'assets/js/plugins/notifications/bootbox.min.js',
             'assets/js/plugins/forms/selects/select2.min.js',
+            'assets/js/plugins/ui/moment/moment.min.js',
+            'assets/js/plugins/pickers/daterangepicker.js',
+            'assets/js/plugins/table/finderSelect/jquery.finderSelect.min.js',
         ];
 
         return view('legislation.perda.index', compact(
@@ -66,6 +73,7 @@ class PerdaController extends LegislationController
             'tabFilters',
             'onlyTrashed',
             'count',
+            'institutes',
             'plugins'
         ));
     }
@@ -108,6 +116,30 @@ class PerdaController extends LegislationController
                                 ->onlyTrashed()
                                 ->count()
         ];
+    }
+
+    public function trigger(Request $request)
+    {
+        $ids = $request->items;
+        $count = count($ids);
+
+        $message = 'data Rancangan Produk Hukum telah berhasil diperbarui';
+        foreach ($ids as $id)
+        {
+            $legislation = Legislation::withTrashed()->find($id);
+            if ($request->action === 'trash')
+            {
+                $legislation->delete();
+                $message = 'data Rancangan Produk Hukum telah berhasil dibatalkan';
+            }
+            else if ($request->action === 'delete')
+            {
+                $legislation->forceDelete();
+                $message = 'data Rancangan Produk Hukum telah berhasil dihapus';
+            }
+        }
+
+        $request->session()->flash('message', '<span class="badge badge-pill badge-success">' . $count . '</span> ' . $message);
     }
 
     /**

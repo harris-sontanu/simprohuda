@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Traits\HelperTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
 
 class Legislation extends Model
 {
@@ -69,13 +70,17 @@ class Legislation extends Model
             $status = 'validated';
         }
 
+        if (!empty($this->deleted_at)) {
+            $status = 'canceled';
+        }
+
         return $status;
     }
 
     public function statusBadge(): Attribute
     {
         if ($this->status() == 'draft') {
-            $statusBadge = '<span class="badge badge-pill badge-secondary">Draf</span>';
+            $statusBadge = '<span class="badge badge-pill badge-light">Draf</span>';
         } else if ($this->status() == 'posted') {
             $statusBadge = '<span class="badge badge-pill badge-primary">Aktif</span>';
         } else if ($this->status() == 'repaired') {
@@ -84,6 +89,8 @@ class Legislation extends Model
             $statusBadge = '<span class="badge badge-pill badge-purple">Revisi</span>';
         } else if ($this->status() == 'validated') {
             $statusBadge = '<span class="badge badge-pill badge-success">Valid</span>';
+        } else if ($this->status() == 'canceled') {
+            $statusBadge = '<span class="badge badge-pill badge-dark">Batal</span>';
         }
 
         return Attribute::make(
@@ -102,8 +109,7 @@ class Legislation extends Model
     {   
         if (isset($request['search']) AND $search = $request['search']) {
             $query->where(function($q) use ($search) {
-                $q->where('title', 'LIKE', '%' . $search . '%')
-                ->orWhere('institutes.name', 'LIKE', '%' . $search . '%');
+                $q->where('title', 'LIKE', '%' . $search . '%');
             });
         }
     }
@@ -118,8 +124,24 @@ class Legislation extends Model
             $query->where('legislations.institute_id', '=', $institute);
         }
 
-        if ($reg_number = $request->reg_number AND $reg_number = $request->reg_number) {
-            $query->where('reg_number', 'LIKE', '%' . $reg_number . '%');
+        if ($created_at = $request->created_at AND $created_at = $request->created_at) {
+            $query->whereDate('legislations.created_at', Carbon::parse($created_at)->format('Y-m-d'));
+        }
+        
+        if ($posted_at = $request->posted_at AND $posted_at = $request->posted_at) {
+            $query->whereDate('legislations.posted_at', Carbon::parse($posted_at)->format('Y-m-d'));
+        }
+
+        if ($repaired_at = $request->repaired_at AND $repaired_at = $request->repaired_at) {
+            $query->whereDate('legislations.repaired_at', Carbon::parse($repaired_at)->format('Y-m-d'));
+        }
+
+        if ($revised_at = $request->revised_at AND $revised_at = $request->revised_at) {
+            $query->whereDate('legislations.revised_at', Carbon::parse($revised_at)->format('Y-m-d'));
+        }
+
+        if ($validated_at = $request->validated_at AND $validated_at = $request->validated_at) {
+            $query->whereDate('legislations.validated_at', Carbon::parse($validated_at)->format('Y-m-d'));
         }
     }
 
@@ -127,10 +149,8 @@ class Legislation extends Model
     {   
         if ($order = $request->order)
         {
-            if ($order === 'category') {                
-                $query->orderBy('category_abbrev', $request->sort);
-            } else if ($order === 'user') {
-                $query->orderBy('user_name', $request->sort);
+            if ($order === 'institute') {                
+                $query->orderBy('institute_name', $request->sort);
             } else {
                 $query->orderBy($order, $request->sort);
             }

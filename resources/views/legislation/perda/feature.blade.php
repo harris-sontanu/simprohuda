@@ -7,7 +7,7 @@
                 @if (Request::get('tab') == 'trash')
                     <a href="#" class="dropdown-item trigger" data-action="delete">Hapus</a>
                 @else
-                    <a href="#" class="dropdown-item trigger" data-action="trash">Buang</a>
+                    <a href="#" class="dropdown-item trigger" data-action="trash">Batalkan</a>
                 @endif
             </div>
         </div>

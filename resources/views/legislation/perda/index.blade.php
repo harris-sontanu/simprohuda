@@ -29,7 +29,7 @@
 
             <div id="filter-options" @empty (Request::get('filter')) style="display: none" @endempty>
 
-                {{-- @include('user.filter') --}}
+                @include('legislation.perda.filter')
 
             </div>
 
