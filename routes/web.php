@@ -5,6 +5,7 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InstituteController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Legislation\PerdaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,4 +58,13 @@ Route::middleware('auth')->group(function() {
     });
 
     Route::resource('institute', InstituteController::class);
+
+    Route::name('legislation.')->group(function () {
+        Route::resource('/legislation/perda', PerdaController::class);
+        Route::controller(PerdaController::class)->group(function () {
+            Route::post('/legislation/perda/trigger', 'trigger')->name('perda.trigger');
+            Route::put('/legislation/perda/{id}/restore', 'restore')->name('perda.restore');
+            Route::delete('/legislation/perda/{id}/force-destroy', 'forceDestroy')->name('perda.force-destroy');
+        });
+    });
 });

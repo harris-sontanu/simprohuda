@@ -32,6 +32,11 @@ class Institute extends Model
     {
         return $this->belongsTo(User::class);
     }
+    
+    public function legislations()
+    {
+        return $this->hasMany(Legislation::class);
+    }
 
     protected function category(): Attribute
     {
