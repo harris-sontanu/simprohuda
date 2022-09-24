@@ -60,7 +60,7 @@
                     <a href="#" class="nav-link"><i class="icon-office"></i> <span>Perangkat Daerah</span></a>
 
                     <ul class="nav nav-group-sub" data-submenu-title="Perangkat Daerah">
-                        <li class="nav-item"><a href="#" class="nav-link">Tambah</a></li>
+                        <li class="nav-item"><a href="{{ route('institute.create') }}" class="nav-link {{ (request()->is('institute/create')) ? 'active' : '' }}">Tambah</a></li>
                         <li class="nav-item"><a href="{{ route('institute.index') }}" class="nav-link {{ (request()->is('institute')) ? 'active' : '' }}">Daftar Perangkat Daerah</a></li>
                     </ul>
                 </li>

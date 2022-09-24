@@ -29,7 +29,7 @@ class InstituteController extends Controller
         $pageTitle = $pageHeader . $this->pageTitle;
         $breadCrumbs = [
             route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
-            '#' => 'Perangkat Daerah',
+            route('institute.index') => 'Perangkat Daerah',
             'Daftar' => TRUE
         ];
 
@@ -40,9 +40,6 @@ class InstituteController extends Controller
         $limit = !empty($request->limit) ? $request->limit : $this->limit;
         $institutes = $institutes->paginate($limit)
                     ->withQueryString();
-        
-        $categories = $this->categories;
-        $operators = User::opd()->sorted()->pluck('name', 'id');
 
         $plugins = [
             'assets/js/plugins/notifications/bootbox.min.js',
@@ -54,8 +51,6 @@ class InstituteController extends Controller
             'pageHeader',
             'breadCrumbs',
             'institutes',
-            'categories',
-            'operators',
             'count',
             'plugins'
         ));
@@ -68,7 +63,29 @@ class InstituteController extends Controller
      */
     public function create()
     {
-        //
+        $pageHeader = 'Tambah Perangkat Daerah';
+        $pageTitle = $pageHeader . $this->pageTitle;
+        $breadCrumbs = [
+            route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
+            route('institute.index') => 'Perangkat Daerah',
+            'Tambah' => TRUE
+        ];
+        
+        $categories = $this->categories;
+        $operators = User::opd()->sorted()->pluck('name', 'id');
+
+        $plugins = [
+            'assets/js/plugins/forms/selects/select2.min.js',
+        ];
+
+        return view('institute.create', compact(
+            'pageTitle',
+            'pageHeader',
+            'breadCrumbs',
+            'categories',
+            'operators',
+            'plugins'
+        ));
     }
 
     /**
