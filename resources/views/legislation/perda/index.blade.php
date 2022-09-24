@@ -76,18 +76,40 @@
                             @endif
                             <th width="1"><input type="checkbox" /></th>
                             <th class="@php echo (!empty($sort) AND Request::get('order') == 'reg_number') ? 'sorting_' . $sort : 'sorting'; @endphp">
-                                <a href="{{ route('legislation.perda.index', ['order' => 'reg_number', 'sort' => $sortState] + Request::all()) }}" class="text-dark d-block"><abbr title="Nomor Urut Registrasi" data-popup="tooltip">Nomor</abbr></a>
+                                <a href="{{ route('legislation.perda.index', ['order' => 'reg_number', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block"><abbr title="Nomor Urut Registrasi" data-popup="tooltip">Nomor</abbr></a>
                             </th>
                             <th class="@php echo (!empty($sort) AND Request::get('order') == 'title') ? 'sorting_' . $sort : 'sorting'; @endphp">
-                                <a href="{{ route('legislation.perda.index', ['order' => 'title', 'sort' => $sortState] + Request::all()) }}" class="text-dark d-block">Judul</a>
+                                <a href="{{ route('legislation.perda.index', ['order' => 'title', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block">Judul</a>
                             </th>
                             <th class="@php echo (!empty($sort) AND Request::get('order') == 'institute') ? 'sorting_' . $sort : 'sorting'; @endphp">
-                                <a href="{{ route('legislation.perda.index', ['order' => 'institute', 'sort' => $sortState] + Request::all()) }}" class="text-dark d-block">Perangkat Daerah</a>
+                                <a href="{{ route('legislation.perda.index', ['order' => 'institute', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block">Perangkat Daerah</a>
                             </th>
                             <th>Status</th>
-                            <th class="text-nowrap @php echo (!empty($sort) AND Request::get('order') == 'posted_at') ? 'sorting_' . $sort : 'sorting'; @endphp">
-                                <a href="{{ route('legislation.perda.index', ['order' => 'posted_at', 'sort' => $sortState] + Request::all()) }}" class="text-dark d-block">Tgl. Diusulkan</a>
+                            @if (in_array(Request::get('tab'), ['total', 'draf', 'aktif']))    
+                            <th class="text-nowrap @php echo (!empty($sort) AND Request::get('order') == 'created_at') ? 'sorting_' . $sort : 'sorting'; @endphp">
+                                <a href="{{ route('legislation.perda.index', ['order' => 'created_at', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block">Tgl. Dibuat</a>
                             </th>
+                            @endif
+                            @if (Request::get('tab') !== 'draf')                                
+                                <th class="text-nowrap @php echo (!empty($sort) AND Request::get('order') == 'posted_at') ? 'sorting_' . $sort : 'sorting'; @endphp">
+                                    <a href="{{ route('legislation.perda.index', ['order' => 'posted_at', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block">Tgl. Diusulkan</a>
+                                </th>
+                            @endif
+                            @if (in_array(Request::get('tab'), ['perbaikan', 'revisi', 'valid']))                                
+                                <th class="text-nowrap @php echo (!empty($sort) AND Request::get('order') == 'repaired_at') ? 'sorting_' . $sort : 'sorting'; @endphp">
+                                    <a href="{{ route('legislation.perda.index', ['order' => 'repaired_at', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block">Tgl. Perbaikan</a>
+                                </th>
+                            @endif
+                            @if (in_array(Request::get('tab'), ['revisi', 'valid']))                                
+                                <th class="text-nowrap @php echo (!empty($sort) AND Request::get('order') == 'revised_at') ? 'sorting_' . $sort : 'sorting'; @endphp">
+                                    <a href="{{ route('legislation.perda.index', ['order' => 'revised_at', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block">Tgl. Revisi</a>
+                                </th>
+                            @endif
+                            @if (Request::get('tab') === 'valid')                                
+                                <th class="text-nowrap @php echo (!empty($sort) AND Request::get('order') == 'posted_at') ? 'sorting_' . $sort : 'sorting'; @endphp">
+                                    <a href="{{ route('legislation.perda.index', ['order' => 'posted_at', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block">Tgl. Valid</a>
+                                </th>
+                            @endif
                             <th width="1" class="text-center">Aksi</th>
                         </tr>
                     </thead>
@@ -98,8 +120,22 @@
                                 <td>{{ $legislation->reg_number }}</td>
                                 <td><span class="font-weight-semibold">{{ $legislation->title }}</span></td>
                                 <td>{{ $legislation->institute->name }}</td>
-                                <td>{!! $legislation->statusBadge !!}</td>
-                                <td><abbr data-popup="tooltip" title="{{ $legislation->dateFormatted($legislation->posted_at, true) }}">{{ $legislation->dateFormatted($legislation->posted_at) }}</abbr></td>
+                                <td>{!! $legislation->statusBadge !!}</td>                                
+                                @if (in_array(Request::get('tab'), ['total', 'draf', 'aktif'])) 
+                                    <td><abbr data-popup="tooltip" title="{{ $legislation->dateFormatted($legislation->created_at, true) }}">{{ $legislation->dateFormatted($legislation->created_at) }}</abbr></td>
+                                @endif
+                                @if (Request::get('tab') !== 'draf')    
+                                    <td><abbr data-popup="tooltip" title="{{ $legislation->dateFormatted($legislation->posted_at, true) }}">{{ $legislation->dateFormatted($legislation->posted_at) }}</abbr></td>
+                                @endif
+                                @if (in_array(Request::get('tab'), ['perbaikan', 'revisi', 'valid'])) 
+                                    <td><abbr data-popup="tooltip" title="{{ $legislation->dateFormatted($legislation->repaired_at, true) }}">{{ $legislation->dateFormatted($legislation->repaired_at) }}</abbr></td>
+                                @endif
+                                @if (in_array(Request::get('tab'), ['revisi', 'valid'])) 
+                                    <td><abbr data-popup="tooltip" title="{{ $legislation->dateFormatted($legislation->repaired_at, true) }}">{{ $legislation->dateFormatted($legislation->repaired_at) }}</abbr></td>
+                                @endif
+                                @if (Request::get('tab') === 'valid') 
+                                    <td><abbr data-popup="tooltip" title="{{ $legislation->dateFormatted($legislation->validated_at, true) }}">{{ $legislation->dateFormatted($legislation->validated_at) }}</abbr></td>
+                                @endif
                                 <td class="safezone">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-light btn-sm rounded-pill rounded-right-0" data-toggle="modal" data-target="#show-modal" data-id="{{ $legislation->id }}" data-title="{{ $legislation->title }}"><i class="icon-eye2"></i></button>
@@ -109,7 +145,7 @@
                                                 <form action="{{ route('legislation.perda.restore', $legislation->id) }}" method="POST">
                                                     @method('PUT')
                                                     @csrf
-                                                    <button type="submit" class="dropdown-item"><i class="icon-undo"></i> Restore</button>
+                                                    <button type="submit" class="dropdown-item"><i class="icon-undo"></i> Kembalikan</button>
                                                 </form>
                                                 <form class="delete-form" action="{{ route('legislation.perda.force-destroy', $legislation->id) }}" method="POST">
                                                     @method('DELETE')
@@ -117,11 +153,11 @@
                                                     <button type="submit" class="dropdown-item" title="Hapus"><i class="icon-cross2"></i> Hapus</button>
                                                 </form>
                                             @else
-                                                <a href="{{ route('legislation.perda.edit', $legislation->id) }}" class="dropdown-item"><i class="icon-pencil"></i> Ubah</a>
+                                                <a href="{{ route('legislation.perda.edit', $legislation->id) }}" class="dropdown-item"><i class="icon-pencil"></i> Perbaiki</a>
                                                 <form action="{{ route('legislation.perda.destroy', $legislation->id) }}" method="POST">
                                                     @method('DELETE')
                                                     @csrf
-                                                    <button type="submit" class="dropdown-item" title="Hapus"><i class="icon-trash"></i> Buang</button>
+                                                    <button type="submit" class="dropdown-item" title="Hapus"><i class="icon-trash"></i> Batal</button>
                                                 </form>
                                             @endif
                                         </div>

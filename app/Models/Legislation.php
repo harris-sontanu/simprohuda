@@ -30,25 +30,22 @@ class Legislation extends Model
 
     public function scopeDraft($query)
     {
-        return $query->whereNull(['posted_at', 'repaired_at', 'revised_at', 'validated_at']);
+        return $query->whereNull('posted_at');
     }
     
     public function scopePosted($query)
     {
-        return $query->whereNotNull('posted_at')
-                    ->whereNull(['repaired_at', 'revised_at', 'validated_at']);
+        return $query->whereNotNull('posted_at');
     }
 
     public function scopeRepaired($query)
     {
-        return $query->whereNotNull('repaired_at')
-                    ->whereNull(['revised_at', 'validated_at']);
+        return $query->whereNotNull('repaired_at');
     }
 
     public function scopeRevised($query)
     {
-        return $query->whereNotNull('revised_at')
-                    ->whereNull('validated_at');
+        return $query->whereNotNull('revised_at');
     }
 
     public function scopeValidated($query)
