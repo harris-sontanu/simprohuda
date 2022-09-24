@@ -92,7 +92,7 @@
                             @endif
                             @if (Request::get('tab') !== 'draf')                                
                                 <th class="text-nowrap @php echo (!empty($sort) AND Request::get('order') == 'posted_at') ? 'sorting_' . $sort : 'sorting'; @endphp">
-                                    <a href="{{ route('legislation.perda.index', ['order' => 'posted_at', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block">Tgl. Diusulkan</a>
+                                    <a href="{{ route('legislation.perda.index', ['order' => 'posted_at', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block">Tgl. Diajukan</a>
                                 </th>
                             @endif
                             @if (in_array(Request::get('tab'), ['perbaikan', 'revisi', 'valid']))                                

@@ -149,7 +149,28 @@ class PerdaController extends LegislationController
      */
     public function create()
     {
-        //
+        $pageHeader = 'Pengajuan Rancangan Peraturan Daerah';
+        $pageTitle = $pageHeader . $this->pageTitle;
+        $breadCrumbs = [
+            route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
+            '#' => 'Produk Hukum',
+            route('legislation.perda.index') => 'Ranperda',
+            'Pengajuan' => true
+        ];
+
+        $institutes = Institute::sorted()->pluck('name', 'id');
+
+        $plugins = [
+            'assets/js/plugins/forms/selects/select2.min.js',
+        ];
+
+        return view('legislation.perda.create', compact(
+            'pageTitle',
+            'pageHeader',
+            'breadCrumbs',
+            'institutes',
+            'plugins'
+        ));
     }
 
     /**
