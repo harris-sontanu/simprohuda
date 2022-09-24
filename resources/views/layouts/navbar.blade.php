@@ -28,7 +28,7 @@
 
         <div class="navbar-search d-flex align-items-center py-2 py-lg-0">
             <div class="form-group-feedback form-group-feedback-left flex-grow-1">
-                <input type="text" class="form-control" placeholder="Cari Produk Hukum...">
+                <input type="text" class="form-control" placeholder="Cari Rancangan Produk Hukum...">
                 <div class="form-control-feedback">
                     <i class="icon-search4"></i>
                 </div>

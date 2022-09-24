@@ -9,7 +9,7 @@
 
     <div class="navbar-collapse collapse" id="navbar-footer">
         <span class="navbar-text">
-            &copy; 2022. <a href="#">JDIH Admin</a> by <a href="#" target="_blank">Balemedia IT Solution</a>
+            &copy; 2022. <a href="#">{{ config('app.name') }}</a> oleh <a href="https://jdih.klungkungkab.go.id" target="_blank">Bagian Hukum Setda Kabupaten Klungkung</a>
         </span>
 
         <ul class="navbar-nav ml-lg-auto">

@@ -1,39 +1,9 @@
 <script>
     $(function() {
-        
+
         $('.select').select2({
             minimumResultsForSearch: Infinity
         });
-
-        $('#edit-modal').on('show.bs.modal', function(event) {
-            let button = $(event.relatedTarget), // Button that triggered the modal
-                id = button.data('id');
-
-            $.get('/admin/legislation/institute/' + id + '/edit', function(data) {
-                $('#ajax-modal-body').html(data);
-            })
-        });
-
-        $(document).on('submit', '#update-institute-form', function(e) {
-            e.preventDefault();
-
-            let form = $(this);
-
-            $.ajax({
-                url : form.attr('action'),
-                method: 'PUT',
-                data: form.serialize(),
-            }).done(function() {
-                location.reload();
-            }).fail(function(response) {
-                let errors = response.responseJSON.errors;
-                Object.entries(errors).forEach((entry) => {
-                    const [key, value] = entry;
-                    form.find('#' + key).addClass('is-invalid');
-                    form.find('#' + key).parent().append('<div class="invalid-feedback">' + value + '</div>');
-                })
-            });
-        })
 
         $('.delete-form').submit(function(e) {
             e.preventDefault();
@@ -43,7 +13,7 @@
             
             bootbox.confirm({
                 title: 'Konfirmasi Perintah',
-                message: 'Apakah Anda yakin menghapus data pemrakarsa <strong>' + name + '</strong>?',
+                message: 'Apakah Anda yakin menghapus data perangkat daerah <strong>' + name + '</strong>?',
                 buttons: {
                     confirm: {
                         label: 'Yakin',

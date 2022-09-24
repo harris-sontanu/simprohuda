@@ -169,7 +169,9 @@ class InstituteController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Institute $institute)
-    {
-        //
+    {        
+        $institute->delete();
+
+        return redirect('/institute')->with('message', '<strong>Berhasil!</strong> Data Perangkat Daerah telah berhasil dihapus');
     }
 }
