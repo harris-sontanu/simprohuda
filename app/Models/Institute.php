@@ -12,6 +12,22 @@ class Institute extends Model
 {
     use HasFactory, HelperTrait;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'slug',
+        'abbrev',
+        'category',
+        'code',
+        'desc',
+        'sort',
+        'operator_id',
+    ];
+
     public function operator()
     {
         return $this->belongsTo(User::class);
@@ -19,8 +35,17 @@ class Institute extends Model
 
     protected function category(): Attribute
     {
+        $categories = [
+            'sekretariat daerah' => 'Sekretariat Daerah',
+            'sekretariat dprd' => 'Sekertariat DPRD',
+            'dinas' => 'Dinas',
+            'lembaga teknis daerah' => 'Lembaga Teknis Daerah',
+            'kecamatan' => 'Kecamatan',
+            'kelurahan' => 'Kelurahan',
+        ];
+
         return Attribute::make(
-            get: fn ($value) => Str::title($value),
+            get: fn ($value) => $categories[$value],
         );
     }
 

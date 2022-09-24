@@ -65,6 +65,15 @@ class User extends Authenticatable
         return $this->hasMany(Institute::class, 'operator_id');
     }
 
+    public function scopeSorted($query, $request = [])
+    {
+        if (isset($request['order'])) {
+            return $query->orderBy($request['order'], $request['sort']);
+        } else {
+            return $query->orderBy('name', 'asc');
+        }
+    }
+
     public function scopePending($query)
     {
         return $query->whereNull('deleted_at')
@@ -173,6 +182,11 @@ class User extends Authenticatable
         return Attribute::make(
             get: fn ($value) => $roles[$value],
         );
+    }
+
+    public function scopeOpd($query)
+    {
+        return $query->where('role', 'opd');
     }
 
 }

@@ -67,12 +67,17 @@
                                         <td>{{ $institute->code }}</td>
                                         <td class="text-center"><span class="badge badge-dark badge-pill">0</span></td>
                                         <td>
-                                            <div class="d-flex align-items-center">
-                                                <div class="mr-2">
-                                                    <img src="{{ $institute->userPictureUrl($institute->operator->picture, $institute->operator->name) }}" alt="{{ $institute->operator->name }}" class="rounded-circle" width="32" height="32">
-                                                </div>
-                                                <div class="div"><span class="font-weight-bold">{{ $institute->operator->name }}</span></div>
-                                            </div>
+                                            
+                                            @empty ($institute->operator)
+                                                <a href="#" class="btn btn-icon btn-light btn-sm rounded-pill"><i class="icon-plus22"></i></a>    
+                                            @else 
+                                                <div class="d-flex align-items-center">
+                                                    <div class="mr-2">
+                                                        <img src="{{ $institute->userPictureUrl($institute->operator->picture, $institute->operator->name) }}" alt="{{ $institute->operator->name }}" class="rounded-circle" width="32" height="32">
+                                                    </div>
+                                                    <div class="div"><span class="font-weight-bold">{{ $institute->operator->name }}</span></div>
+                                                </div>                                            
+                                            @endempty
                                         </td>
                                         <td class="safezone">
                                             <div class="btn-group">
@@ -107,54 +112,9 @@
             <div class="sidebar sidebar-light bg-transparent sidebar-component sidebar-component-right border-0 shadow-none order-1 order-lg-2 sidebar-expand-lg">
 
                 <div class="sidebar-content">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title font-weight-bold">Tambah Perangkat Daerah</h5>
-                        </div>
-                        <div class="card-body">
-
-                            <form action="{{ route('institute.store') }}" method="post" novalidate>
-                                @csrf
-                                <div class="form-group">
-                                    <label for="name" class="font-weight-semibold">Nama:</label>
-                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}">
-                                    @error('name')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @endif
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="abbrev" class="font-weight-semibold">Singkatan:</label>
-                                    <input id="abbrev" type="text" class="form-control @error('abbrev') is-invalid @enderror" name="abbrev" value="{{ old('abbrev') }}">
-                                    @error('abbrev')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @endif
-                                </div>
-
-
-                                <div class="form-group">
-                                    <label for="code" class="font-weight-semibold">Kode:</label>
-                                    <input id="code" type="text" class="form-control @error('code') is-invalid @enderror" name="code" value="{{ old('code') }}">
-                                    @error('code')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @endif
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="desc" class="font-weight-semibold">Deskripsi:</label>
-                                    <textarea id="desc" rows="4" class="form-control @error('desc') is-invalid @enderror" name="desc">{{ old('desc') }}</textarea>
-                                    @error('desc')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @endif
-                                </div>
-
-                                <div class="text-right">
-                                    <button type="submit" class="btn btn-secondary">Simpan<i class="icon-paperplane ml-2"></i></button>
-                                </div>
-                            </form>
                     
-                        </div>
-                    </div>
+                    @include('institute.create')
+
                 </div>
 
             </div>

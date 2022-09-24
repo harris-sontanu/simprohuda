@@ -3,10 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Institute;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\InstituteRequest;
 
 class InstituteController extends Controller
 {
+    protected $categories = [
+        'sekretariat daerah' => 'Sekretariat Daerah',
+        'sekretariat dprd' => 'Sekertariat DPRD',
+        'dinas' => 'Dinas',
+        'lembaga teknis daerah' => 'Lembaga Teknis Daerah',
+        'kecamatan' => 'Kecamatan',
+        'kelurahan' => 'Kelurahan',
+    ];
+
     /**
      * Display a listing of the resource.
      *
@@ -29,9 +40,13 @@ class InstituteController extends Controller
         $limit = !empty($request->limit) ? $request->limit : $this->limit;
         $institutes = $institutes->paginate($limit)
                     ->withQueryString();
+        
+        $categories = $this->categories;
+        $operators = User::opd()->sorted()->pluck('name', 'id');
 
         $plugins = [
             'assets/js/plugins/notifications/bootbox.min.js',
+            'assets/js/plugins/forms/selects/select2.min.js',
         ];
 
         return view('institute.index', compact(
@@ -39,6 +54,8 @@ class InstituteController extends Controller
             'pageHeader',
             'breadCrumbs',
             'institutes',
+            'categories',
+            'operators',
             'count',
             'plugins'
         ));
@@ -60,9 +77,12 @@ class InstituteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(InstituteRequest $request)
     {
-        //
+        $validated = $request->validated();
+        Institute::create($validated);
+
+        return redirect('/institute')->with('message', '<strong>Berhasil!</strong> Data Perangkat Daerah telah berhasil disimpan');
     }
 
     /**
