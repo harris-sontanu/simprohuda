@@ -218,11 +218,9 @@ class PerdaController extends LegislationController
             'name'  => 'Ranperda',
         ]);
 
-        if ($request->hasFile('attachment_file')) 
+        $attachments = $request->attachments;
+        if (!empty($attachments))
         {
-            $files  = $request->file('attachment_file');
-            $titles = $request->attachment_name;
-
             // Get the next order
             $currentOrder = $legislation->documents->where('type', 'attachment')->max('order');
             if (!empty($currentOrder)) {
@@ -230,24 +228,51 @@ class PerdaController extends LegislationController
             } else {
                 $i = 1;
             }
-            
-            $key = 0;
-            foreach ($files as $attachment) {
+
+            foreach ($attachments as $attachment) {
 
                 $documentStorage = $this->documentStorage($legislation, 'attachment', $i);    
-                $file_name = $documentStorage['file_name'] . $currentTime . '.' . $attachment->getClientOriginalExtension();     
+                $file_name = $documentStorage['file_prefix_name'] . $currentTime . '.' . $attachment['file']->getClientOriginalExtension();     
 
-                $path = $attachment->storeAs($documentStorage['path'], $file_name, 'public');
+                $path = $attachment['file']->storeAs($documentStorage['path'], $file_name, 'public');
                 
                 $legislation->documents()->create([
                     'type'  => 'attachment',
                     'order' => $i,
                     'path'  => $path,
-                    'name'  => $titles[0],
+                    'name'  => $attachment['title'],
                 ]);
 
                 $i++;
-                $key++;
+            }
+        }
+            
+        $requirements = $request->requirements;
+        if (!empty($requirements))
+        {
+            // Get the next order
+            $currentOrder = $legislation->documents->where('type', 'requirement')->max('order');
+            if (!empty($currentOrder)) {
+                $i = $currentOrder + 1;
+            } else {
+                $i = 1;
+            }
+
+            foreach ($requirements as $requirement) {
+
+                $documentStorage = $this->documentStorage($legislation, 'requirement', $i);    
+                $file_name = $documentStorage['file_prefix_name'] . $currentTime . '.' . $requirement['file']->getClientOriginalExtension();     
+
+                $path = $requirement['file']->storeAs($documentStorage['path'], $file_name, 'public');
+                
+                $legislation->documents()->create([
+                    'type'  => 'requirement',
+                    'order' => $i,
+                    'path'  => $path,
+                    'name'  => $requirement['title'],
+                ]);
+
+                $i++;
             }
         }
     }

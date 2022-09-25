@@ -30,10 +30,12 @@ class PerdaRequest extends FormRequest
             'background'   => 'nullable',
             'institute_id' => 'required',
             'master'       => 'required|file|mimes:pdf,doc,docx|max:2048',
-            'attachment'   => 'nullable|array',
-            'attachment.*' => 'sometimes|file|mimes:pdf|max:2048',
-            'requirement'  => 'nullable|array',
-            'requirement.*'=> 'sometimes|file|mimes:pdf|max:2048'
+            'attachments'   => 'array',
+            'attachments.*.title' => 'required_with:attachments.*.file',
+            'attachments.*.file'  => 'required_with:attachments.*.title|file|mimes:pdf, doc, docx|max:2048',
+            'requirements'   => 'array',
+            'requirements.*.title' => 'required_with:requirements.*.file',
+            'requirements.*.file'  => 'required_with:requirements.*.title|file|mimes:pdf, doc, docx|max:2048',
         ];
     }
 

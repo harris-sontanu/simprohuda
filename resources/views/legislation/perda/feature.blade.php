@@ -4,7 +4,7 @@
         <div id="bulk-actions" class="btn-group mr-2" style="display: none">
             <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown"><span id="count-selected" class="badge badge-pill badge-pink mr-2">0</span>Aksi</button>
             <div class="dropdown-menu dropdown-menu-right">
-                @if (Request::get('tab') == 'trash')
+                @if (Request::get('tab') == 'batal')
                     <a href="#" class="dropdown-item trigger" data-action="delete">Hapus</a>
                 @else
                     <a href="#" class="dropdown-item trigger" data-action="trash">Batalkan</a>

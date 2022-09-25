@@ -83,12 +83,15 @@
                                             <label class="col-lg-3 col-form-label">Lampiran:</label>
                                             <div class="col-lg-9">
                                                 <div class="mb-3">
-                                                    <input type="text" class="form-control" name="attachment_title[]" placeholder="Judul Lampiran" />
+                                                    <input type="text" class="form-control @error('attachments.*.title') is-invalid @enderror" name="attachments[][title]" placeholder="Judul Lampiran" value="{{ old('attachments.*.title') }}" />
+                                                    @error('attachments.*.title')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @endif
                                                 </div>
                                                 <div class="custom-file">
-                                                    <input id="customFile" type="file" class="custom-file-input @error('attachment_file') is-invalid @enderror" name="attachment_file" accept=".pdf, .doc, .docx">
+                                                    <input id="customFile" type="file" class="custom-file-input @error('attachments.*.file') is-invalid @enderror" name="attachments[][file]" accept=".pdf, .doc, .docx">
                                                     <label class="custom-file-label" for="customFile">Choose file</label>
-                                                    @error('attachment_file')
+                                                    @error('attachments.*.file')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @endif
                                                 </div>
@@ -105,11 +108,11 @@
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label" for="background">Surat Pengantar:</label>
                                             <div class="col-lg-9">
-                                                <input type="hidden" name="requirement_name[]" value="Surat Pengantar" />
+                                                <input type="hidden" name="requirements[][title]" value="Surat Pengantar" />
                                                 <div class="custom-file">
-                                                    <input id="customFile" type="file" class="custom-file-input @error('requirement_file') is-invalid @enderror" name="requirement_file[]" accept=".pdf">
+                                                    <input id="customFile" type="file" class="custom-file-input @error('requirements.*.file') is-invalid @enderror" name="requirements[][file]" accept=".pdf">
                                                     <label class="custom-file-label" for="customFile">Choose file</label>
-                                                    @error('requirement_file')
+                                                    @error('requirements.*.file')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @endif
                                                 </div>
@@ -120,11 +123,11 @@
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label" for="background">Naskah Akademik:</label>
                                             <div class="col-lg-9">
-                                                <input type="hidden" name="name[]" value="Naskah Akademik" />
+                                                <input type="hidden" name="requirements[][title]" value="Naskah Akademik" />
                                                 <div class="custom-file">
-                                                    <input id="customFile" type="file" class="custom-file-input @error('requirement') is-invalid @enderror" name="requirement[]" accept=".pdf">
+                                                    <input id="customFile" type="file" class="custom-file-input @error('requirements.*.file') is-invalid @enderror" name="requirements[][file]" accept=".pdf">
                                                     <label class="custom-file-label" for="customFile">Choose file</label>
-                                                    @error('requirement')
+                                                    @error('requirements.*.file')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @endif
                                                 </div>
@@ -135,11 +138,11 @@
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label" for="background">Notulensi Rapat Pembahasan:</label>
                                             <div class="col-lg-9">
-                                                <input type="hidden" name="name[]" value="Notulensi Rapat" />
+                                                <input type="hidden" name="requirements[][title]" value="Notulensi Rapat" />
                                                 <div class="custom-file">
-                                                    <input id="customFile" type="file" class="custom-file-input @error('requirement') is-invalid @enderror" name="requirement[]" accept=".pdf">
+                                                    <input id="customFile" type="file" class="custom-file-input @error('requirements.*.file') is-invalid @enderror" name="requirements[][file]" accept=".pdf">
                                                     <label class="custom-file-label" for="customFile">Choose file</label>
-                                                    @error('requirement')
+                                                    @error('requirements.*.file')
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @endif
                                                 </div>
