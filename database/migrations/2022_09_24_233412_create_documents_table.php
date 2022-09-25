@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('legislation_id')
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->enum('type', ['master', 'abstract', 'attachment']);
+            $table->enum('type', ['master', 'abstract', 'attachment', 'requirement']);
             $table->tinyInteger('order')->default(1);
             $table->string('path');
             $table->string('name');

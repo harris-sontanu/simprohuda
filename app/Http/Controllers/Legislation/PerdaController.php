@@ -125,19 +125,19 @@ class PerdaController extends LegislationController
         $ids = $request->items;
         $count = count($ids);
 
-        $message = 'data Rancangan Produk Hukum telah berhasil diperbarui';
+        $message = 'data Rancangan Peraturan Daerah telah berhasil diperbarui';
         foreach ($ids as $id)
         {
             $legislation = Legislation::withTrashed()->find($id);
             if ($request->action === 'trash')
             {
                 $legislation->delete();
-                $message = 'data Rancangan Produk Hukum telah berhasil dibatalkan';
+                $message = 'data Rancangan Peraturan Daerah telah berhasil dibatalkan';
             }
             else if ($request->action === 'delete')
             {
                 $legislation->forceDelete();
-                $message = 'data Rancangan Produk Hukum telah berhasil dihapus';
+                $message = 'data Rancangan Peraturan Daerah telah berhasil dihapus';
             }
         }
 
@@ -319,6 +319,29 @@ class PerdaController extends LegislationController
      */
     public function destroy(Legislation $legislation)
     {
-        //
+        $action = route('legislation.perda.restore', $legislation->id);
+        $legislation->delete();
+
+        return redirect('/legislation/perda')->with('trash-message', ['<strong>Berhasil!</strong> Data Rancangan Peraturan Daerah telah dibatalkan', $action]);
+    }
+
+    public function restore($id)
+    {
+        $legislation = Legislation::withTrashed()->findOrFail($id);
+        $legislation->restore();
+
+        return redirect()->back()->with('message', 'Data Rancangan Peraturan Daerah telah dikembalikan');
+    }
+
+    public function forceDestroy($id)
+    {
+        $legislation = Legislation::withTrashed()->findOrFail($id);
+        $legislation->forceDelete();
+
+        foreach ($legislation->documents as $document) {
+            $this->removeDocument($document->path);
+        }
+
+        return redirect('/admin/legislation/perda?tab=batal')->with('message', '<strong>Berhasil!</strong> Data Rancangan Peraturan Daerah telah berhasil dihapus');
     }
 }

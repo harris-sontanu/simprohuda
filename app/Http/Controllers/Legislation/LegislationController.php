@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Legislation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class LegislationController extends Controller
 {
@@ -41,5 +42,12 @@ class LegislationController extends Controller
             'path' => $storage_path, 
             'file_prefix_name' => $file_prefix_name
         ];
+    }
+
+    protected function removeDocument($documentPath)
+    {
+        if (Storage::disk('public')->exists($documentPath)) {
+            Storage::disk('public')->delete($documentPath);
+        }
     }
 }
