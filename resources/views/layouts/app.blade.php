@@ -34,6 +34,28 @@
 
 	<script src="{{ asset('assets/js/app.js') }}"></script>
     @yield('script')
+	
+	<script>
+		$(function() {
+			var $window = $(window),
+				$html = $('#sidebar-main');
+
+			console.log($window.width());
+
+			function resize() {
+				if ($window.width() > 960 && $window.width() < 1600) {
+					console.log('sdasd');
+					return $html.addClass('sidebar-main-resized');
+				}
+
+				$html.removeClass('sidebar-main-resized');
+			}
+
+			$window
+				.resize(resize)
+				.trigger('resize');
+		});
+	</script>
 	<!-- /theme JS files -->
 
 </head>

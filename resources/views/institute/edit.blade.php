@@ -76,7 +76,7 @@
                             </div>
                 
                             <div class="form-group row">
-                                <label for="operator_id" class="col-lg-3 col-form-label font-weight-semibold">Jenis:</label>
+                                <label for="operator_id" class="col-lg-3 col-form-label font-weight-semibold">Operator:</label>
                                 <div class="col-lg-9">
                                     <select name="operator_id" id="operator_id" class="select @error('operator_id') is-invalid @enderror">
                                         <option value="">Pilih Operator</option>

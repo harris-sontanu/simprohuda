@@ -14,6 +14,25 @@ class Legislation extends Model
 {
     use HasFactory, SoftDeletes, HelperTrait;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'type',
+        'title',
+        'slug',
+        'reg_number',
+        'year',
+        'background',
+        'institute_id',
+        'posted_at',
+        'repaired_at',
+        'revised_at',
+        'validated_at',
+    ];
+
     protected $casts  = [
         'posted_at'     => 'datetime',
         'repaired_at'   => 'datetime',
@@ -26,6 +45,11 @@ class Legislation extends Model
     public function institute()
     {
         return $this->belongsTo(Institute::class);
+    }
+
+    public function documents()
+    {
+        return $this->hasMany(Document::class);
     }
 
     public function scopeDraft($query)
@@ -99,6 +123,13 @@ class Legislation extends Model
     {           
         return Attribute::make(
             get: fn ($value) => Str::padLeft($value, 4, '0')
+        );
+    }
+
+    public function createdYear(): Attribute
+    {           
+        return Attribute::make(
+            get: fn ($value) => Carbon::parse($this->created_at)->translatedFormat('Y')
         );
     }
 

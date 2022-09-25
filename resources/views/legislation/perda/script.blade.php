@@ -153,7 +153,7 @@
 
             let html = '<div class="my-3"><input type="text" class="form-control" name="name[]" placeholder="Judul Lampiran" /></div>'
                      + '<div class="custom-file">'
-                     + '<input id="customFile" type="file" class="custom-file-input" name="attachment" accept=".doc, .docx">'
+                     + '<input id="customFile" type="file" class="custom-file-input" name="attachment" accept=".pdf, .doc, .docx">'
                      + '<label class="custom-file-label" for="customFile">Choose file</label>'
                      + '</div>';
 

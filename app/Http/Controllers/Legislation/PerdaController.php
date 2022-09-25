@@ -6,6 +6,8 @@ use App\Http\Controllers\Legislation\LegislationController;
 use App\Models\Institute;
 use App\Models\Legislation;
 use Illuminate\Http\Request;
+use App\Http\Requests\PerdaRequest;
+use Illuminate\Support\Carbon;
 
 class PerdaController extends LegislationController
 {
@@ -179,9 +181,75 @@ class PerdaController extends LegislationController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PerdaRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        $current_year = Carbon::now()->format('Y');
+        $validated['type'] = 'perda';
+        $validated['reg_number'] = $this->nextRegNumber('perda', $current_year);
+
+        $msg_suffix = 'sebagai Draf';
+        if ($request->has('post')) {
+            $validated['posted_at'] = now();
+            $msg_suffix = 'dan diajukan ke Bagian Hukum';
+        }
+
+        $new_legislation = Legislation::create($validated);
+
+        $this->documentUpload($new_legislation, $request);
+
+        return redirect('/legislation/perda')->with('message', '<strong>Berhasil!</strong> Data Rancangan Peraturan Daerah telah berhasil disimpan ' . $msg_suffix);
+    }
+
+    private function documentUpload($legislation, $request)
+    {
+        $file = $request->file('master');
+        $currentTime = Carbon::now()->timestamp;
+
+        $documentStorage = $this->documentStorage($legislation, 'master');
+        $file_name = $documentStorage['file_prefix_name'] . $currentTime . '.' . $file->getClientOriginalExtension();    
+
+        $path = $file->storeAs($documentStorage['path'], $file_name, 'public');
+        
+        $legislation->documents()->create([
+            'type'  => 'master',
+            'path'  => $path,
+            'name'  => 'Ranperda',
+        ]);
+
+        if ($request->hasFile('attachment_file')) 
+        {
+            $files  = $request->file('attachment_file');
+            $titles = $request->attachment_name;
+
+            // Get the next order
+            $currentOrder = $legislation->documents->where('type', 'attachment')->max('order');
+            if (!empty($currentOrder)) {
+                $i = $currentOrder + 1;
+            } else {
+                $i = 1;
+            }
+            
+            $key = 0;
+            foreach ($files as $attachment) {
+
+                $documentStorage = $this->documentStorage($legislation, 'attachment', $i);    
+                $file_name = $documentStorage['file_name'] . $currentTime . '.' . $attachment->getClientOriginalExtension();     
+
+                $path = $attachment->storeAs($documentStorage['path'], $file_name, 'public');
+                
+                $legislation->documents()->create([
+                    'type'  => 'attachment',
+                    'order' => $i,
+                    'path'  => $path,
+                    'name'  => $titles[0],
+                ]);
+
+                $i++;
+                $key++;
+            }
+        }
     }
 
     /**

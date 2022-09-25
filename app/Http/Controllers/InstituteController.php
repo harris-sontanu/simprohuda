@@ -11,7 +11,7 @@ class InstituteController extends Controller
 {
     protected $categories = [
         'sekretariat daerah' => 'Sekretariat Daerah',
-        'sekretariat dprd' => 'Sekertariat DPRD',
+        'sekretariat dprd' => 'Sekretariat DPRD',
         'dinas' => 'Dinas',
         'lembaga teknis daerah' => 'Lembaga Teknis Daerah',
         'kecamatan' => 'Kecamatan',
