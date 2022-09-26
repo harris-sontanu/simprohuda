@@ -74,32 +74,6 @@
                                 </tr>
                             </thead>
                             <tbody id="status-relation-table-body">
-                                <tr>
-                                    <td>
-                                        <div class="media">
-                                            <div class="mr-3">
-                                                <i class="icon-file-pdf text-danger icon-2x top-0"></i>
-                                            </div>
-    
-                                            <div class="media-body">
-                                                <a href="{{ $master->source }}" class="media-title d-block font-weight-semibold text-dark" title="{{ $master->name }}" target="_blank" download="">{{ $master->name }}</a>
-    
-                                                <ul class="list-inline list-inline-condensed list-inline-dotted font-size-sm text-muted mb-0">
-                                                    <li class="list-inline-item">Batang Tubuh</li>
-                                                    <li class="list-inline-item">
-                                                        <button type="button" data-toggle="modal" data-target="#edit-modal" class="btn btn-link btn-sm p-0" data-id="1">Ubah</button>
-                                                    </li>
-                                                    <li class="list-inline-item">
-                                                        <button type="button" class="btn btn-link btn-sm p-0 delete-document" title="Hapus" data-route="http://jdih.test/admin/legislation/document/1">Hapus</button>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>{{ $master->name }}</td>
-                                    <td>{{ $master->dateFormatted($master->created_at) }}</td>
-                                    <td></td>
-                                </tr>
                                 <tr class="table-warning">
                                     <td colspan="6" class="text-center">
                                         <span class="text-muted">Belum ada Dokumen</span>

@@ -8,24 +8,67 @@
 <!-- Content area -->
 <div class="content">
 
-	<!-- Basic card -->
-	<div class="card">
-		<div class="card-header">
-			<h5 class="card-title">Basic card</h5>
+	<div class="row">
+		<div class="col-sm-6 col-xl-3">
+			<div class="card card-body">
+				<div class="media">
+					<div class="mr-3 align-self-center">
+						<i class="icon-pointer icon-3x text-success"></i>
+					</div>
+
+					<div class="media-body text-right">
+						<h3 class="font-weight-semibold mb-0">{{ $total }}</h3>
+						<span class="text-uppercase font-size-sm text-muted">total rancangan</span>
+					</div>
+				</div>
+			</div>
 		</div>
 
-		<div class="card-body">
-			<h6 class="font-weight-semibold">Start your development with no hassle!</h6>
-			<p class="mb-3">Common problem of templates is that all code is deeply integrated into the core. This limits your freedom in decreasing amount of code, i.e. it becomes pretty difficult to remove unnecessary code from the project. Limitless allows you to remove unnecessary and extra code easily just by removing the path to specific LESS file with component styling. All plugins and their options are also in separate files. Use only components you actually need!</p>
+		<div class="col-sm-6 col-xl-3">
+			<div class="card card-body">
+				<div class="media">
+					<div class="mr-3 align-self-center">
+						<i class="icon-enter6 icon-3x text-indigo"></i>
+					</div>
 
-			<h6 class="font-weight-semibold">What is this?</h6>
-			<p class="mb-3">Starter kit is a set of pages, useful for developers to start development process from scratch. Each layout includes base components only: layout, page kits, color system which is still optional, bootstrap files and bootstrap overrides. No extra CSS/JS files and markup. CSS files are compiled without any plugins or components. Starter kit was moved to a separate folder for better accessibility.</p>
+					<div class="media-body text-right">
+						<h3 class="font-weight-semibold mb-0">{{ $totalPerda }}</h3>
+						<span class="text-uppercase font-size-sm text-muted">total ranperda</span>
+					</div>
+				</div>
+			</div>
+		</div>
 
-			<h6 class="font-weight-semibold">How does it work?</h6>
-			<p>You open one of the starter pages, add necessary plugins, uncomment paths to files in components.less file, compile new CSS. That's it. I'd also recommend to open one of main pages with functionality you need and copy all paths/JS code from there to your new page, it's just faster and easier.</p>
+		<div class="col-sm-6 col-xl-3">
+			<div class="card card-body">
+				<div class="media">
+					<div class="media-body">
+						<h3 class="font-weight-semibold mb-0">{{ $totalPerbup }}</h3>
+						<span class="text-uppercase font-size-sm text-muted">total ranperbup</span>
+					</div>
+
+					<div class="ml-3 align-self-center">
+						<i class="icon-bubbles4 icon-3x text-primary"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-sm-6 col-xl-3">
+			<div class="card card-body">
+				<div class="media">
+					<div class="media-body">
+						<h3 class="font-weight-semibold mb-0">{{ $totalSk }}</h3>
+						<span class="text-uppercase font-size-sm text-muted">total sk</span>
+					</div>
+
+					<div class="ml-3 align-self-center">
+						<i class="icon-bag icon-3x text-danger"></i>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-	<!-- /basic card -->
 
 
 	<!-- Basic table -->

@@ -184,4 +184,18 @@ class Legislation extends Model
             ->where('type', 'perda');
     }
 
+    public function scopePerbup($query)
+    {
+        return $query->select(['legislations.*', 'institutes.abbrev AS institute_abbrev', 'institutes.name AS institute_name'])
+            ->join('institutes', 'legislations.institute_id', '=', 'institutes.id')
+            ->where('type', 'perbup');
+    }
+
+    public function scopeSk($query)
+    {
+        return $query->select(['legislations.*', 'institutes.abbrev AS institute_abbrev', 'institutes.name AS institute_name'])
+            ->join('institutes', 'legislations.institute_id', '=', 'institutes.id')
+            ->where('type', 'sk');
+    }
+
 }

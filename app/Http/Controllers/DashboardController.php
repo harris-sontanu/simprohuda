@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Legislation;
 
 class DashboardController extends Controller
 {
@@ -11,6 +12,18 @@ class DashboardController extends Controller
         $pageHeader = 'Dasbor';
         $pageTitle = $pageHeader . $this->pageTitle;
 
-        return view('dashboard', compact('pageTitle', 'pageHeader'));
+        $total = Legislation::all()->count();
+        $totalPerda = Legislation::perda()->count();
+        $totalPerbup = Legislation::perbup()->count();
+        $totalSk = Legislation::sk()->count();
+
+        return view('dashboard', compact(
+            'pageTitle', 
+            'pageHeader', 
+            'total', 
+            'totalPerda',
+            'totalPerbup',
+            'totalSk'
+        ));
     }
 }
