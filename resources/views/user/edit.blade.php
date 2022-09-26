@@ -99,7 +99,7 @@
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label font-weight-semibold" for="username">Nama Akun:</label>
                                             <div class="col-lg-9">
-                                                <input id="username" type="email" name="username" class="form-control @error('username') is-invalid @enderror" placeholder="Nama Akun" value="{{ $user->username }}" required>
+                                                <input id="username" type="email" name="username" readonly class="form-control @error('username') is-invalid @enderror" placeholder="Nama Akun" value="{{ $user->username }}">
                                                 @error('username')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @endif

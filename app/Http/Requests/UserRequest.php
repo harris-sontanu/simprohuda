@@ -50,6 +50,14 @@ class UserRequest extends FormRequest
                     'email',
                     Rule::unique('users', 'email')->ignore($this->route('user'))
                 ];
+
+                $rules['username'] = [
+                    'required',
+                    'string',
+                    'min:6',
+                    Rule::unique('users', 'username')->ignore($this->route('user'))
+                ];
+
                 $rules = Arr::except($rules, ['password']);
                 break;
         }
