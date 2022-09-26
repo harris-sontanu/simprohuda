@@ -17,13 +17,16 @@ class DashboardController extends Controller
         $totalPerbup = Legislation::perbup()->count();
         $totalSk = Legislation::sk()->count();
 
+        $legislations = Legislation::posted()->latest()->take(5)->get();
+
         return view('dashboard', compact(
             'pageTitle', 
             'pageHeader', 
             'total', 
             'totalPerda',
             'totalPerbup',
-            'totalSk'
+            'totalSk',
+            'legislations',
         ));
     }
 }

@@ -13,7 +13,7 @@
 			<div class="card card-body">
 				<div class="media">
 					<div class="mr-3 align-self-center">
-						<i class="icon-pointer icon-3x text-success"></i>
+						<i class="icon-stack2 icon-3x text-success"></i>
 					</div>
 
 					<div class="media-body text-right">
@@ -28,7 +28,7 @@
 			<div class="card card-body">
 				<div class="media">
 					<div class="mr-3 align-self-center">
-						<i class="icon-enter6 icon-3x text-indigo"></i>
+						<i class="icon-library2 icon-3x text-indigo"></i>
 					</div>
 
 					<div class="media-body text-right">
@@ -48,7 +48,7 @@
 					</div>
 
 					<div class="ml-3 align-self-center">
-						<i class="icon-bubbles4 icon-3x text-primary"></i>
+						<i class="icon-archive icon-3x text-primary"></i>
 					</div>
 				</div>
 			</div>
@@ -63,188 +63,74 @@
 					</div>
 
 					<div class="ml-3 align-self-center">
-						<i class="icon-bag icon-3x text-danger"></i>
+						<i class="icon-book3 icon-3x text-danger"></i>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
+	<div class="d-lg-flex align-items-lg-start">            
 
-	<!-- Basic table -->
-	<div class="card">
-		<div class="card-header">
-			<h5 class="card-title">Basic table</h5>
-		</div>
+		<div class="flex-1">
 
-		<div class="card-body">
-			Seed project includes the most basic components that can help you in development process - basic grid example, card, table and form layouts with standard components. Nothing extra. Easily turn on and off styles of different components in <code>_config.scss</code> file so that your CSS is always as clean as possible. Bootstrap components are always enabled though.
-		</div>
-
-		<div class="table-responsive">
-			<table class="table">
-				<thead>
-					<tr>
-						<th>#</th>
-						<th>First Name</th>
-						<th>Last Name</th>
-						<th>Username</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>1</td>
-						<td>Eugene</td>
-						<td>Kopyov</td>
-						<td>@Kopyov</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>Victoria</td>
-						<td>Baker</td>
-						<td>@Vicky</td>
-					</tr>
-					<tr>
-						<td>3</td>
-						<td>James</td>
-						<td>Alexander</td>
-						<td>@Alex</td>
-					</tr>
-					<tr>
-						<td>4</td>
-						<td>Franklin</td>
-						<td>Morrison</td>
-						<td>@Frank</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
-	<!-- /basic table -->
-
-
-	<!-- Form layouts -->
-	<div class="row">
-		<div class="col-lg-6">
-
-			<!-- Horizontal form -->
+			<!-- Basic table -->
 			<div class="card">
-				<div class="card-header header-elements-inline">
-					<h5 class="card-title">Horizontal form</h5>
-					<div class="header-elements">
-						<div class="list-icons">
-							<a class="list-icons-item" data-action="collapse"></a>
-							<a class="list-icons-item" data-action="reload"></a>
-							<a class="list-icons-item" data-action="remove"></a>
-						</div>
-					</div>
+				<div class="card-header">
+					<h5 class="card-title font-weight-bold">Rancangan Produk Hukum Terbaru</h5>
 				</div>
 
-				<div class="collapse show">
-					<div class="card-body">
-						<form action="#">
-							<div class="form-group row">
-								<label class="col-lg-3 col-form-label">Text input</label>
-								<div class="col-lg-9">
-									<input type="text" class="form-control">
-								</div>
-							</div>
-
-							<div class="form-group row">
-								<label class="col-lg-3 col-form-label">Password</label>
-								<div class="col-lg-9">
-									<input type="password" class="form-control">
-								</div>
-							</div>
-
-							<div class="form-group row">
-								<label class="col-lg-3 col-form-label">Select</label>
-								<div class="col-lg-9">
-									<select name="select" class="custom-select">
-										<option value="opt1">Basic select</option>
-										<option value="opt2">Option 2</option>
-										<option value="opt3">Option 3</option>
-										<option value="opt4">Option 4</option>
-										<option value="opt5">Option 5</option>
-										<option value="opt6">Option 6</option>
-										<option value="opt7">Option 7</option>
-										<option value="opt8">Option 8</option>
-									</select>
-								</div>
-							</div>
-
-							<div class="form-group row">
-								<label class="col-lg-3 col-form-label">Textarea</label>
-								<div class="col-lg-9">
-									<textarea rows="5" cols="5" class="form-control" placeholder="Default textarea"></textarea>
-								</div>
-							</div>
-
-							<div class="text-right">
-								<button type="submit" class="btn btn-primary">Submit form <i class="icon-paperplane ml-2"></i></button>
-							</div>
-						</form>
-					</div>
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr class="bg-light">
+								<th><abbr title="Nomor Urut Registrasi" data-popup="tooltip">Nomor</abbr></th>
+								<th>Jenis</th>
+								<th>Judul</th>
+								<th>Perangkat Daerah</th>
+								<th>Tgl. Diajukan</th>
+							</tr>
+						</thead>
+						<tbody>
+							@forelse ($legislations as $legislation)
+								<tr>
+									<td>{{ $legislation->reg_number }}</td>
+									<td>{{ $legislation->type }}</td>
+									<td>{{ $legislation->title }}</td>
+									<td>{{ $legislation->institute->name }}</td>
+									<td>{{ $legislation->dateFormatted($legislation->posted_at) }}</td>
+								</tr>
+							@empty
+								
+							@endforelse
+							
+						</tbody>
+					</table>
 				</div>
 			</div>
-			<!-- /horizotal form -->
+			<!-- /basic table -->
 
 		</div>
+            
+		<div class="sidebar sidebar-light bg-transparent sidebar-component sidebar-component-right wmin-lg-350 border-0 shadow-none order-1 order-lg-2 sidebar-expand-lg">
 
-		<div class="col-lg-6">
+			<div class="sidebar-content">
 
-			<!-- Vertical form -->
-			<div class="card">
-				<div class="card-header header-elements-inline">
-					<h5 class="card-title">Vertical form</h5>
-					<div class="header-elements">
-						<div class="list-icons">
-							<a class="list-icons-item" data-action="collapse"></a>
-							<a class="list-icons-item" data-action="reload"></a>
-							<a class="list-icons-item" data-action="remove"></a>
-						</div>
-					</div>
-				</div>
+				<div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title font-weight-bold">Status Rancangan</h6>
+                    </div>
+                    <div class="card-body">
 
-				<div class="collapse show">
-					<div class="card-body">
-						<form action="#">
-							<div class="form-group">
-								<label>Text input</label>
-								<input type="text" class="form-control">
-							</div>
+                        <div class="svg-center" id="donut_basic_details"></div>
 
-							<div class="form-group">
-								<label>Select</label>
-								<select name="select" class="custom-select">
-									<option value="opt1">Basic select</option>
-									<option value="opt2">Option 2</option>
-									<option value="opt3">Option 3</option>
-									<option value="opt4">Option 4</option>
-									<option value="opt5">Option 5</option>
-									<option value="opt6">Option 6</option>
-									<option value="opt7">Option 7</option>
-									<option value="opt8">Option 8</option>
-								</select>
-							</div>
+                    </div>
+                </div>
 
-							<div class="form-group">
-								<label>Textarea</label>
-								<textarea rows="4" cols="4" class="form-control" placeholder="Default textarea"></textarea>
-							</div>
-
-							<div class="text-right">
-								<button type="submit" class="btn btn-primary">Submit form <i class="icon-paperplane ml-2"></i></button>
-							</div>
-						</form>
-					</div>
-				</div>
 			</div>
-			<!-- /vertical form -->
 
 		</div>
 	</div>
-	<!-- /form layouts -->
 
 </div>
 <!-- /content area -->

@@ -115,6 +115,19 @@ class Legislation extends Model
         );
     }
 
+    public function type(): Attribute
+    {   
+        $types = [
+            'perda'  => 'Ranperda',
+            'perbup' => 'Ranperbup',
+            'sk'     => 'Rancangan SK'
+        ];
+
+        return Attribute::make(
+            get: fn ($value) => $types[$value]
+        );
+    }
+
     public function regNumber(): Attribute
     {           
         return Attribute::make(
