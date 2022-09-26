@@ -13,7 +13,7 @@
 			<div class="card card-body">
 				<div class="media">
 					<div class="mr-3 align-self-center">
-						<i class="icon-stack2 icon-3x text-success"></i>
+						<i class="icon-library2 icon-3x text-pink"></i>
 					</div>
 
 					<div class="media-body text-right">
@@ -28,7 +28,7 @@
 			<div class="card card-body">
 				<div class="media">
 					<div class="mr-3 align-self-center">
-						<i class="icon-library2 icon-3x text-indigo"></i>
+						<i class="icon-stack2 icon-3x text-primary"></i>
 					</div>
 
 					<div class="media-body text-right">
@@ -48,7 +48,7 @@
 					</div>
 
 					<div class="ml-3 align-self-center">
-						<i class="icon-archive icon-3x text-primary"></i>
+						<i class="icon-archive icon-3x text-warning"></i>
 					</div>
 				</div>
 			</div>
@@ -98,7 +98,7 @@
 									<td>{{ $legislation->type }}</td>
 									<td>{{ $legislation->title }}</td>
 									<td>{{ $legislation->institute->name }}</td>
-									<td>{{ $legislation->dateFormatted($legislation->posted_at) }}</td>
+									<td><abbr data-popup="tooltip" title="{{ $legislation->dateFormatted($legislation->posted_at, true) }}">{{ $legislation->dateFormatted($legislation->posted_at) }}</abbr></td>
 								</tr>
 							@empty
 								
@@ -138,5 +138,5 @@
 @endsection
 
 @section('script')
-    @include('script')
+    @include('dashboard.script')
 @endsection

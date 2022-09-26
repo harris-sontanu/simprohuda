@@ -17,7 +17,10 @@ class DashboardController extends Controller
         $totalPerbup = Legislation::perbup()->count();
         $totalSk = Legislation::sk()->count();
 
-        $legislations = Legislation::posted()->latest()->take(5)->get();
+        $legislations = Legislation::posted()
+							->latest()
+							->take(5)
+							->get();
 
         $plugins = [
             'assets/js/plugins/visualization/echarts/echarts.min.js',
@@ -25,7 +28,7 @@ class DashboardController extends Controller
 			'assets/js/plugins/visualization/d3/d3_tooltip.js',
         ];
 
-        return view('dashboard', compact(
+        return view('dashboard.index', compact(
             'pageTitle', 
             'pageHeader', 
             'total', 

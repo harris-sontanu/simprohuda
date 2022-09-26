@@ -1,5 +1,6 @@
 <script>
     $(function() {
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
@@ -13,6 +14,7 @@
         }).done(function(response) {
             donutWithDetails("#donut_basic_details", 146, response);
         });
+        
     });
 
     // Chart setup
