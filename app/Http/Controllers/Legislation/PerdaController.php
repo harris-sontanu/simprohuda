@@ -8,6 +8,7 @@ use App\Models\Legislation;
 use Illuminate\Http\Request;
 use App\Http\Requests\PerdaRequest;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 class PerdaController extends LegislationController
 {
@@ -160,6 +161,8 @@ class PerdaController extends LegislationController
             'Pengajuan' => true
         ];
 
+        $nextRegNumber = $this->nextRegNumber('perda', now()->translatedFormat('Y'));
+        $nextRegNumber = Str::padLeft($nextRegNumber, 4, '0');
         $institutes = Institute::sorted()->pluck('name', 'id');
 
         $plugins = [
@@ -170,6 +173,7 @@ class PerdaController extends LegislationController
             'pageTitle',
             'pageHeader',
             'breadCrumbs',
+            'nextRegNumber',
             'institutes',
             'plugins'
         ));

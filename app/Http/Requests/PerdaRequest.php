@@ -33,7 +33,7 @@ class PerdaRequest extends FormRequest
             'attachments'   => 'array',
             'attachments.*.title' => 'required_with:attachments.*.file',
             'attachments.*.file'  => 'required_with:attachments.*.title|file|mimes:pdf, doc, docx|max:2048',
-            'requirements'   => 'array',
+            'requirements'   => 'required|array',
             'requirements.*.title' => 'required_with:requirements.*.file',
             'requirements.*.file'  => 'required_with:requirements.*.title|file|mimes:pdf, doc, docx|max:2048',
         ];

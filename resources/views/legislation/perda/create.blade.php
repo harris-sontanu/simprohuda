@@ -180,7 +180,7 @@
                                     </tr>
                                     <tr>
                                         <td class="font-weight-semibold text-nowrap"><i class="icon-embed2 mr-2"></i>Nomor Registrasi:</td>
-                                        <td class="text-right">0043</td>
+                                        <td class="text-right">{{ $nextRegNumber }}</td>
                                     </tr>
                                     <tr>
                                         <td class="font-weight-semibold text-nowrap"><i class="icon-calendar22 mr-2"></i>Tgl. Dibuat:</td>
