@@ -136,3 +136,7 @@
 <!-- /content area -->
 
 @endsection
+
+@section('script')
+    @include('script')
+@endsection

@@ -47,6 +47,8 @@ Route::middleware('auth')->group(function() {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
+    Route::post('/dashboard/pie-chart', [DashboardController::class, 'pieChart'])
+        ->name('dashboard.pie-chart');
 
     Route::resource('user', UserController::class);
     Route::controller(UserController::class)->group(function () {
