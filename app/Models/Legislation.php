@@ -28,14 +28,12 @@ class Legislation extends Model
         'background',
         'institute_id',
         'posted_at',
-        'repaired_at',
         'revised_at',
         'validated_at',
     ];
 
     protected $casts  = [
         'posted_at'     => 'datetime',
-        'repaired_at'   => 'datetime',
         'revised_at'    => 'datetime',
         'validated_at'  => 'datetime',
     ];
@@ -52,6 +50,11 @@ class Legislation extends Model
         return $this->hasMany(Document::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function scopeDraft($query)
     {
         return $query->whereNull('posted_at');
@@ -59,17 +62,14 @@ class Legislation extends Model
     
     public function scopePosted($query)
     {
-        return $query->whereNotNull('posted_at');
-    }
-
-    public function scopeRepaired($query)
-    {
-        return $query->whereNotNull('repaired_at');
+        return $query->whereNotNull('posted_at')
+                    ->whereNull(['revised_at', 'validated_at']);
     }
 
     public function scopeRevised($query)
     {
-        return $query->whereNotNull('revised_at');
+        return $query->whereNotNull('revised_at')
+                    ->whereNull('validated_at');
     }
 
     public function scopeValidated($query)
@@ -79,15 +79,13 @@ class Legislation extends Model
 
     public function status()
     {
-        if (empty($this->posted_at) AND empty($this->repaired_at) AND empty($this->revised_at) AND empty($this->validated_at)) {
+        if (empty($this->posted_at) AND empty($this->revised_at) AND empty($this->validated_at)) {
             $status = 'draft';
-        } else if (!empty($this->posted_at) AND empty($this->repaired_at) AND empty($this->revised_at) AND empty($this->validated_at)) {
+        } else if (!empty($this->posted_at) AND empty($this->revised_at) AND empty($this->validated_at)) {
             $status = 'posted';
-        } else if (!empty($this->posted_at) AND !empty($this->repaired_at) AND empty($this->revised_at) AND empty($this->validated_at)) {
-            $status = 'repaired';
-        } else if (!empty($this->posted_at) AND !empty($this->repaired_at) AND !empty($this->revised_at) AND empty($this->validated_at)) {
+        } else if (!empty($this->revised_at) AND empty($this->validated_at)) {
             $status = 'revised';
-        } else if (!empty($this->posted_at) AND !empty($this->repaired_at) AND !empty($this->revised_at) AND !empty($this->validated_at)) {
+        } else if (!empty($this->validated_at)) {
             $status = 'validated';
         }
 
@@ -104,10 +102,8 @@ class Legislation extends Model
             $statusBadge = '<span class="badge badge-pill badge-light">Draf</span>';
         } else if ($this->status() == 'posted') {
             $statusBadge = '<span class="badge badge-pill badge-primary">Aktif</span>';
-        } else if ($this->status() == 'repaired') {
-            $statusBadge = '<span class="badge badge-pill badge-warning">Perbaikan</span>';
         } else if ($this->status() == 'revised') {
-            $statusBadge = '<span class="badge badge-pill badge-purple">Revisi</span>';
+            $statusBadge = '<span class="badge badge-pill badge-warning">Revisi</span>';
         } else if ($this->status() == 'validated') {
             $statusBadge = '<span class="badge badge-pill badge-success">Valid</span>';
         } else if ($this->status() == 'canceled') {
@@ -158,10 +154,6 @@ class Legislation extends Model
         
         if ($posted_at = $request->posted_at AND $posted_at = $request->posted_at) {
             $query->whereDate('legislations.posted_at', Carbon::parse($posted_at)->format('Y-m-d'));
-        }
-
-        if ($repaired_at = $request->repaired_at AND $repaired_at = $request->repaired_at) {
-            $query->whereDate('legislations.repaired_at', Carbon::parse($repaired_at)->format('Y-m-d'));
         }
 
         if ($revised_at = $request->revised_at AND $revised_at = $request->revised_at) {

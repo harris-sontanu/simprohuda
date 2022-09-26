@@ -47,16 +47,6 @@
                         <span class="input-group-prepend">
                             <span class="input-group-text"><i class="icon-calendar22"></i></span>
                         </span>
-                        <input type="text" class="form-control daterange-single" name="repaired_at" value="{{ Request::get('repaired_at') }}" placeholder="Tgl. Perbaikan">
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <div class="input-group">
-                        <span class="input-group-prepend">
-                            <span class="input-group-text"><i class="icon-calendar22"></i></span>
-                        </span>
                         <input type="text" class="form-control daterange-single" name="revised_at" value="{{ Request::get('revised_at') }}" placeholder="Tgl. Revisi">
                     </div>
                 </div>

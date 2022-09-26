@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Traits\HelperTrait;
 
 class Document extends Model
 {
-    use HasFactory;
+    use HasFactory, HelperTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -31,7 +32,7 @@ class Document extends Model
 
     public function extClass(): Attribute
     {         
-        $file = explode('.', $this->name);
+        $file = explode('.', $this->path);
         $ext = $file[1];
 
         if ($ext === 'pdf') {
@@ -58,9 +59,9 @@ class Document extends Model
     public function typeTranslate(): Attribute
     {      
         if ($this->type === 'master') {
-            $type = 'Batang Tubuh';
-        } else if ($this->type === 'abstract') {
-            $type = 'Abstrak';
+            $type = 'Rancangan';
+        } else if ($this->type === 'requirement') {
+            $type = 'Persyaratan';
         } else if ($this->type === 'attachment') {
             $type = 'Lampiran';
         }

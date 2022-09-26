@@ -25,27 +25,20 @@ class LegislationFactory extends Factory
 
         $posted_at = null;
         if (rand(0, 1) === 1) {
-            $posted_at = $created_at;
-        }
-
-        $repaired_at = null;
-        if (!empty($posted_at)) {
-            if (rand(0, 1) === 1) {
-                $repaired_at = Carbon::parse($dateTime)->addDays(rand(1, 5));
-            }
+            $posted_at = Carbon::parse($dateTime)->addDays(rand(1, 2));
         }
 
         $revised_at = null;
-        if (!empty($repaired_at)) {
+        if (!empty($posted_at)) {
             if (rand(0, 1) === 1) {
-                $revised_at = Carbon::parse($repaired_at)->addDays(rand(1, 5));
+                $revised_at = Carbon::parse($posted_at)->addDays(rand(1, 5));
             }
         }
 
         $validated_at = null;
         if (!empty($revised_at)) {
             if (rand(0, 1) === 1) {
-                $validated_at = Carbon::parse($validated_at)->addDays(rand(1, 5));
+                $validated_at = Carbon::parse($revised_at)->addDays(rand(1, 3));
             }
         }
 
@@ -60,8 +53,7 @@ class LegislationFactory extends Factory
             'year'       => $year,
             'created_at' => $created_at,
             'background' => (rand(0, 1) === 1) ? fake()->paragraph() : null,
-            'posted_at'  => $posted_at,      
-            'repaired_at'=> $repaired_at,
+            'posted_at'  => $posted_at,    
             'revised_at' => $revised_at,
             'validated_at' => $validated_at,  
         ];

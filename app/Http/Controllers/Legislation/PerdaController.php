@@ -39,8 +39,6 @@ class PerdaController extends LegislationController
                 $legislations->draft();
             } else if ($tab === 'aktif') {
                 $legislations->posted();
-            } else if ($tab === 'perbaikan') {
-                $legislations->repaired();
             } else if ($tab === 'revisi') {
                 $legislations->revised();
             } else if ($tab === 'valid') {
@@ -97,11 +95,6 @@ class PerdaController extends LegislationController
                                 ->search($request->only(['search']))
                                 ->filter($request)
                                 ->posted()
-                                ->count(),
-            'perbaikan' => Legislation::perda()
-                                ->search($request->only(['search']))
-                                ->filter($request)
-                                ->repaired()
                                 ->count(),
             'revisi'    => Legislation::perda()
                                 ->search($request->only(['search']))
@@ -199,7 +192,7 @@ class PerdaController extends LegislationController
             $msg_suffix = 'dan diajukan ke Bagian Hukum';
         }
 
-        $new_legislation = Legislation::create($validated);
+        $new_legislation = $request->user()->legislations()->create($validated);
 
         $this->documentUpload($new_legislation, $request);
 
@@ -219,7 +212,7 @@ class PerdaController extends LegislationController
         $legislation->documents()->create([
             'type'  => 'master',
             'path'  => $path,
-            'name'  => 'Ranperda',
+            'name'  => 'Draf Ranperda',
         ]);
 
         $attachments = $request->attachments;
@@ -300,7 +293,33 @@ class PerdaController extends LegislationController
      */
     public function edit(Legislation $legislation)
     {
-        //
+        $pageHeader = 'Perbaikan Rancangan Peraturan Daerah';
+        $pageTitle = $pageHeader . $this->pageTitle;
+        $breadCrumbs = [
+            route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
+            '#' => 'Produk Hukum',
+            route('legislation.perda.index') => 'Ranperda',
+            'Perbaikan' => true
+        ];
+
+        $master = $legislation->documents()->where('type', 'master')->first();
+        $attachments = $legislation->documents()->where('type', 'attachment')->get();
+        $requirements = $legislation->documents()->where('type', 'requirement')->get();
+
+        $plugins = [
+            'assets/js/plugins/forms/selects/select2.min.js',
+        ];
+
+        return view('legislation.perda.edit', compact(
+            'pageTitle',
+            'pageHeader',
+            'breadCrumbs',
+            'master',
+            'attachments',
+            'requirements',
+            'legislation',
+            'plugins',
+        ));
     }
 
     /**

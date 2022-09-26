@@ -95,11 +95,6 @@
                                     <a href="{{ route('legislation.perda.index', ['order' => 'posted_at', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block">Tgl. Diajukan</a>
                                 </th>
                             @endif
-                            @if (in_array(Request::get('tab'), ['perbaikan', 'revisi', 'valid']))                                
-                                <th class="text-nowrap @php echo (!empty($sort) AND Request::get('order') == 'repaired_at') ? 'sorting_' . $sort : 'sorting'; @endphp">
-                                    <a href="{{ route('legislation.perda.index', ['order' => 'repaired_at', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block">Tgl. Perbaikan</a>
-                                </th>
-                            @endif
                             @if (in_array(Request::get('tab'), ['revisi', 'valid']))                                
                                 <th class="text-nowrap @php echo (!empty($sort) AND Request::get('order') == 'revised_at') ? 'sorting_' . $sort : 'sorting'; @endphp">
                                     <a href="{{ route('legislation.perda.index', ['order' => 'revised_at', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block">Tgl. Revisi</a>
@@ -127,11 +122,8 @@
                                 @if (Request::get('tab') !== 'draf')    
                                     <td><abbr data-popup="tooltip" title="{{ $legislation->dateFormatted($legislation->posted_at, true) }}">{{ $legislation->dateFormatted($legislation->posted_at) }}</abbr></td>
                                 @endif
-                                @if (in_array(Request::get('tab'), ['perbaikan', 'revisi', 'valid'])) 
-                                    <td><abbr data-popup="tooltip" title="{{ $legislation->dateFormatted($legislation->repaired_at, true) }}">{{ $legislation->dateFormatted($legislation->repaired_at) }}</abbr></td>
-                                @endif
                                 @if (in_array(Request::get('tab'), ['revisi', 'valid'])) 
-                                    <td><abbr data-popup="tooltip" title="{{ $legislation->dateFormatted($legislation->repaired_at, true) }}">{{ $legislation->dateFormatted($legislation->repaired_at) }}</abbr></td>
+                                    <td><abbr data-popup="tooltip" title="{{ $legislation->dateFormatted($legislation->revised_at, true) }}">{{ $legislation->dateFormatted($legislation->revised_at) }}</abbr></td>
                                 @endif
                                 @if (Request::get('tab') === 'valid') 
                                     <td><abbr data-popup="tooltip" title="{{ $legislation->dateFormatted($legislation->validated_at, true) }}">{{ $legislation->dateFormatted($legislation->validated_at) }}</abbr></td>

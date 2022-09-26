@@ -67,7 +67,7 @@
                                         <legend class="font-weight-bold"><i class="icon-file-text2 mr-2"></i>Dokumen Rancangan</legend>
 
                                         <div class="form-group row">
-                                            <label class="col-lg-3 col-form-label" for="background">Batang Tubuh:</label>
+                                            <label class="col-lg-3 col-form-label" for="background">Draf Ranperda:</label>
                                             <div class="col-lg-9">
                                                 <div class="custom-file">
                                                     <input id="customFile" type="file" class="custom-file-input @error('master') is-invalid @enderror" name="master" accept=".pdf, .doc, .docx">

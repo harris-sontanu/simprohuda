@@ -65,6 +65,11 @@ class User extends Authenticatable
         return $this->hasMany(Institute::class, 'operator_id');
     }
 
+    public function legislations()
+    {
+        return $this->hasMany(Legislation::class);
+    }
+
     public function scopeSorted($query, $request = [])
     {
         if (isset($request['order'])) {
