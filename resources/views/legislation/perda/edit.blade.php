@@ -54,6 +54,10 @@
 
                         </div>
 
+                        <div class="card-body">
+                            <button type="button" class="btn btn-light btn-sm"><i class="icon-plus22 mr-2"></i>Tambah Dokumen</button>
+                        </div>
+
                         <div class="table-responsive">
                             <table class="table table-xs table-striped">
                                 <thead>

@@ -81,7 +81,7 @@
 				</div>
 
 				<div class="table-responsive">
-					<table class="table">
+					<table class="table table-striped">
 						<thead>
 							<tr class="bg-light">
 								<th><abbr title="Nomor Urut Registrasi" data-popup="tooltip">Nomor</abbr></th>
