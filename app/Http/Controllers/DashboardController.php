@@ -12,10 +12,10 @@ class DashboardController extends Controller
         $pageHeader = 'Dasbor';
         $pageTitle = $pageHeader . $this->pageTitle;
 
-        $total = Legislation::all()->count();
-        $totalPerda = Legislation::perda()->count();
-        $totalPerbup = Legislation::perbup()->count();
-        $totalSk = Legislation::sk()->count();
+        $total 		  = Legislation::all()->count();
+        $totalPerda   = Legislation::perda()->count();
+        $totalPerbup  = Legislation::perbup()->count();
+        $totalSk 	  = Legislation::sk()->count();
 
         $legislations = Legislation::posted()
 							->latest()
@@ -42,29 +42,29 @@ class DashboardController extends Controller
 
     public function pieChart()
 	{
-        $draft = Legislation::draft()->count();
-        $posted = Legislation::posted()->count();
-        $revised = Legislation::revised()->count();
-        $validated = Legislation::validated()->count();
+        $draft 		= Legislation::draft()->count();
+        $posted 	= Legislation::posted()->count();
+        $revised 	= Legislation::revised()->count();
+        $validated 	= Legislation::validated()->count();
 
 		$json = [
 			[
 				'status' => 'Draft', 
 				'icon'	=> '<i class="status-mark border-blue position-left"></i>',
 				'value' => $draft,
-				'color' => '#03A9F4'
+				'color' => '#f35c86'
 			],
 			[
 				'status' => 'Aktif', 
 				'icon'	=> '<i class="status-mark border-orange position-left"></i>',
 				'value' => $posted,
-				'color' => '#FF9800'
+				'color' => '#03A9F4'
 			],
 			[
 				'status' => 'Revisi', 
 				'icon'	=> '<i class="status-mark border-teal position-left"></i>',
 				'value' => $revised,
-				'color' => '#009688'
+				'color' => '#f58646'
 			],
 			[
 				'status' => 'Valid', 

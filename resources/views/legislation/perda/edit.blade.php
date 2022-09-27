@@ -10,18 +10,17 @@
 
         @include('layouts.message')
 
-        <div class="d-lg-flex align-items-lg-start">            
+        <!-- Form -->
+        <form method="POST" action="{{ route('legislation.perda.update', $legislation->id) }}" novalidate enctype="multipart/form-data">
+            @method('PUT')
+            @csrf
 
-            <div class="flex-1">
+            <div class="d-lg-flex align-items-lg-start">            
 
-                <div class="card">
-                    <div class="card-body">
+                <div class="flex-1">
 
-                        <!-- Form -->
-                        <form method="POST" action="{{ route('legislation.perda.update', $legislation->id) }}" novalidate enctype="multipart/form-data">
-                            @method('PUT')
-                            @csrf
-
+                    <div class="card">
+                        <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-8 offset-lg-2">
 
@@ -48,83 +47,82 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group row">
-                                            <div class="col-lg-9 offset-lg-3">
-                                                <button type="submit" class="btn btn-secondary">Ubah</button>
-                                            </div>
-                                        </div>
-
                                     </fieldset>
 
                                 </div>
                             </div>
-                        </form>
 
-                    </div>
-
-                    <div class="table-responsive">
-                        <table class="table table-xs table-striped">
-                            <thead>
-                                <tr class="bg-light">
-                                    <th>Nama</th>
-                                    <th>Dokumen</th>
-                                    <th>Tgl. Unggah</th>
-                                    <th>Status</th>
-                                    <th class="text-center" width="1">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody id="status-relation-table-body">
-                                <tr class="table-warning">
-                                    <td colspan="6" class="text-center">
-                                        <span class="text-muted">Belum ada Dokumen</span>
-                                    </td>
-                                </tr>                                                                              
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="sidebar sidebar-light bg-transparent sidebar-component sidebar-component-right wmin-lg-350 border-0 shadow-none order-1 order-lg-2 sidebar-expand-lg">
-
-                <div class="sidebar-content">
-                    
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title font-weight-bold"><i class="icon-earth mr-2"></i>Publikasi</h5>
                         </div>
 
-                        <table class="table table-borderless border-0 table-xs mb-3">
-                            <tbody>
-                                <tr>
-                                    <td class="font-weight-semibold text-nowrap"><i class="icon-pen mr-2"></i>Status:</td>
-                                    <td class="text-right">{!! $legislation->statusBadge !!}</td>
-                                </tr><tr>
-                                    <td class="font-weight-semibold text-nowrap"><i class="icon-office mr-2"></i>Perangkat Daerah:</td>
-                                    <td class="text-right">{{ $legislation->institute->name }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="font-weight-semibold text-nowrap"><i class="icon-user-tie mr-2"></i>Operator:</td>
-                                    <td class="text-right">{{ $legislation->user->name }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="font-weight-semibold text-nowrap"><i class="icon-embed2 mr-2"></i>Nomor Registrasi:</td>
-                                    <td class="text-right">{{ $legislation->reg_number }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="font-weight-semibold text-nowrap"><i class="icon-calendar22 mr-2"></i>Tgl. Dibuat:</td>
-                                    <td class="text-right">{{ $legislation->dateFormatted($legislation->created_at) }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="table-responsive">
+                            <table class="table table-xs table-striped">
+                                <thead>
+                                    <tr class="bg-light">
+                                        <th>Nama</th>
+                                        <th>Dokumen</th>
+                                        <th>Tgl. Unggah</th>
+                                        <th>Status</th>
+                                        <th class="text-center" width="1">Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="status-relation-table-body">
+                                    <tr class="table-warning">
+                                        <td colspan="6" class="text-center">
+                                            <span class="text-muted">Belum ada Dokumen</span>
+                                        </td>
+                                    </tr>                                                                              
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sidebar sidebar-light bg-transparent sidebar-component sidebar-component-right wmin-lg-350 border-0 shadow-none order-1 order-lg-2 sidebar-expand-lg">
+
+                    <div class="sidebar-content">
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title font-weight-bold"><i class="icon-earth mr-2"></i>Publikasi</h5>
+                            </div>
+
+                            <table class="table table-borderless border-0 table-xs">
+                                <tbody>
+                                    <tr>
+                                        <td class="font-weight-semibold text-nowrap"><i class="icon-pen mr-2"></i>Status:</td>
+                                        <td class="text-right">{!! $legislation->statusBadge !!}</td>
+                                    </tr><tr>
+                                        <td class="font-weight-semibold text-nowrap"><i class="icon-office mr-2"></i>Perangkat Daerah:</td>
+                                        <td class="text-right">{{ $legislation->institute->name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-semibold text-nowrap"><i class="icon-user-tie mr-2"></i>Operator:</td>
+                                        <td class="text-right">{{ $legislation->user->name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-semibold text-nowrap"><i class="icon-embed2 mr-2"></i>Nomor Registrasi:</td>
+                                        <td class="text-right">{{ $legislation->reg_number }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-semibold text-nowrap"><i class="icon-calendar22 mr-2"></i>Tgl. Dibuat:</td>
+                                        <td class="text-right">{{ $legislation->dateFormatted($legislation->created_at) }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="card-footer bg-white border-0 d-flex justify-content-end align-items-center">
+                                <button type="submit" class="btn btn-secondary">Ubah</button>
+                            </div>
+
+                        </div>
 
                     </div>
 
                 </div>
-
+                    
             </div>
-                
-        </div>
+
+        </form>
 
     </div>
     <!-- /content area -->
