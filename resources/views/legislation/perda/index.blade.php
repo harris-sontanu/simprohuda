@@ -179,6 +179,10 @@
 
 @endsection
 
+@section('modal')
+    @include('legislation.perda.create')
+@endsection
+
 @section('script')
     @include('legislation.perda.script')
 @endsection

@@ -156,7 +156,7 @@ class PerdaController extends LegislationController
 
         $nextRegNumber = $this->nextRegNumber('perda', now()->translatedFormat('Y'));
         $nextRegNumber = Str::padLeft($nextRegNumber, 4, '0');
-        $institutes = Institute::sorted()->pluck('name', 'id');
+        $institutes    = Institute::sorted()->pluck('name', 'id');
 
         $plugins = [
             'assets/js/plugins/forms/selects/select2.min.js',
