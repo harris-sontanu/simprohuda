@@ -10,19 +10,19 @@
 
         @include('layouts.message')
 
-        <!-- Form -->
-        <form method="POST" action="{{ route('legislation.perda.update', $legislation->id) }}" novalidate enctype="multipart/form-data">
-            @method('PUT')
-            @csrf
+        <div class="d-lg-flex align-items-lg-start">            
 
-            <div class="d-lg-flex align-items-lg-start">            
+            <div class="flex-1">
 
-                <div class="flex-1">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-8 offset-lg-2">
 
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-lg-8 offset-lg-2">
+                                <!-- Form -->
+                                <form method="POST" action="{{ route('legislation.perda.update', $legislation->id) }}" novalidate enctype="multipart/form-data">
+                                    @method('PUT')
+                                    @csrf
 
                                     <fieldset>
                                         <legend class="font-weight-bold"><i class="icon-reading mr-2"></i> Formulir Pengajuan Ranperda</legend>
@@ -47,86 +47,136 @@
                                             </div>
                                         </div>
 
+                                        <div class="form-group row mb-0">
+                                            <div class="col-lg-9 offset-lg-3">
+                                                <button type="submit" class="btn btn-secondary">Ubah</button>
+                                            </div>
+                                        </div>
+
                                     </fieldset>
+                                </form>
 
-                                </div>
                             </div>
-
-                        </div>
-
-                        <div class="card-body">
-                            <button type="button" class="btn btn-light btn-sm"><i class="icon-plus22 mr-2"></i>Tambah Dokumen</button>
-                        </div>
-
-                        <div class="table-responsive">
-                            <table class="table table-xs table-striped">
-                                <thead>
-                                    <tr class="bg-light">
-                                        <th>Nama</th>
-                                        <th>Dokumen</th>
-                                        <th>Tgl. Unggah</th>
-                                        <th>Status</th>
-                                        <th class="text-center" width="1">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="status-relation-table-body">
-                                    <tr class="table-warning">
-                                        <td colspan="6" class="text-center">
-                                            <span class="text-muted">Belum ada Dokumen</span>
-                                        </td>
-                                    </tr>                                                                              
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="sidebar sidebar-light bg-transparent sidebar-component sidebar-component-right wmin-lg-350 border-0 shadow-none order-1 order-lg-2 sidebar-expand-lg">
-
-                    <div class="sidebar-content">
-                        
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title font-weight-bold"><i class="icon-earth mr-2"></i>Publikasi</h5>
-                            </div>
-
-                            <table class="table table-borderless border-0 table-xs">
-                                <tbody>
-                                    <tr>
-                                        <td class="font-weight-semibold text-nowrap"><i class="icon-pen mr-2"></i>Status:</td>
-                                        <td class="text-right">{!! $legislation->statusBadge !!}</td>
-                                    </tr><tr>
-                                        <td class="font-weight-semibold text-nowrap"><i class="icon-office mr-2"></i>Perangkat Daerah:</td>
-                                        <td class="text-right">{{ $legislation->institute->name }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-weight-semibold text-nowrap"><i class="icon-user-tie mr-2"></i>Operator:</td>
-                                        <td class="text-right">{{ $legislation->user->name }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-weight-semibold text-nowrap"><i class="icon-embed2 mr-2"></i>Nomor Registrasi:</td>
-                                        <td class="text-right">{{ $legislation->reg_number }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-weight-semibold text-nowrap"><i class="icon-calendar22 mr-2"></i>Tgl. Dibuat:</td>
-                                        <td class="text-right">{{ $legislation->dateFormatted($legislation->created_at) }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                            <div class="card-footer bg-white border-0 d-flex justify-content-end align-items-center">
-                                <button type="submit" class="btn btn-secondary">Ubah</button>
-                            </div>
-
                         </div>
 
                     </div>
 
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr class="bg-light">
+                                    <th>Nama</th>
+                                    <th>Dokumen</th>
+                                    <th>Tgl. Unggah</th>
+                                    <th>Status</th>
+                                    <th class="text-center" width="1">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="status-relation-table-body">
+                                <tr class="table-active table-border-double">
+                                    <td colspan="2"><span class="font-weight-semibold">Dokumen Rancangan</span></td>
+                                    <td colspan="3" class="text-right">
+                                        <button type="button" class="btn btn-sm btn-light"><i class="icon-file-upload mr-2"></i>Unggah Lampiran</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Draf Ranperda</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-light btn-sm rounded-pill rounded-right-0"><i class="icon-eye2"></i></a>
+                                            <button type="button" class="btn btn-light btn-sm rounded-pill rounded-left-0"><i class="icon-file-upload"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="table-active table-border-double">
+                                    <td colspan="5"><span class="font-weight-semibold">Dokumen Persyaratan</span></td>
+                                </tr> 
+                                <tr>
+                                    <td>Surat Pengantar</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-light btn-sm rounded-pill rounded-right-0"><i class="icon-eye2"></i></a>
+                                            <button type="button" class="btn btn-light btn-sm rounded-pill rounded-left-0"><i class="icon-file-upload"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>        
+                                <tr>
+                                    <td>Naskah Akademik</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-light btn-sm rounded-pill rounded-right-0"><i class="icon-eye2"></i></a>
+                                            <button type="button" class="btn btn-light btn-sm rounded-pill rounded-left-0"><i class="icon-file-upload"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>                                 
+                                <tr>
+                                    <td>Notulensi Rapat Pembahasan</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>-</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-light btn-sm rounded-pill rounded-right-0"><i class="icon-eye2"></i></a>
+                                            <button type="button" class="btn btn-light btn-sm rounded-pill rounded-left-0"><i class="icon-file-upload"></i></button>
+                                        </div>
+                                    </td>
+                                </tr>                                                                        
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-                    
             </div>
+            
+            <div class="sidebar sidebar-light bg-transparent sidebar-component sidebar-component-right wmin-lg-350 border-0 shadow-none order-1 order-lg-2 sidebar-expand-lg">
 
-        </form>
+                <div class="sidebar-content">
+                    
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title font-weight-bold"><i class="icon-earth mr-2"></i>Publikasi</h5>
+                        </div>
+
+                        <table class="table table-borderless border-0 table-xs mb-3">
+                            <tbody>
+                                <tr>
+                                    <td class="font-weight-semibold text-nowrap"><i class="icon-pen mr-2"></i>Status:</td>
+                                    <td class="text-right">{!! $legislation->statusBadge !!}</td>
+                                </tr><tr>
+                                    <td class="font-weight-semibold text-nowrap"><i class="icon-office mr-2"></i>Perangkat Daerah:</td>
+                                    <td class="text-right">{{ $legislation->institute->name }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-weight-semibold text-nowrap"><i class="icon-user-tie mr-2"></i>Operator:</td>
+                                    <td class="text-right">{{ $legislation->user->name }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-weight-semibold text-nowrap"><i class="icon-embed2 mr-2"></i>Nomor Registrasi:</td>
+                                    <td class="text-right">{{ $legislation->reg_number }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-weight-semibold text-nowrap"><i class="icon-calendar22 mr-2"></i>Tgl. Dibuat:</td>
+                                    <td class="text-right">{{ $legislation->dateFormatted($legislation->created_at) }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+                
+        </div>
+
 
     </div>
     <!-- /content area -->
