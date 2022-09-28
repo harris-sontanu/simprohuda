@@ -10,11 +10,6 @@
             </div>
             <div class="col-md-3">
                 <div class="form-group">
-                    <input type="number" class="form-control" name="reg_number" placeholder="Nomor Registrasi" value="{{ Request::get('reg_number') }}">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="form-group">
                     <select name="institute" id="institute" class="select">
                         <option value="">Pilih Perangkat Daerah</option>
                         @foreach ($institutes as $key => $value)
@@ -33,9 +28,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="row">
             <div class="col-md-3">
                 <div class="form-group">
                     <div class="input-group">
@@ -46,6 +38,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="row">
             <div class="col-md-3">
                 <div class="form-group">
                     <div class="input-group">

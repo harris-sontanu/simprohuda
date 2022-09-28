@@ -11,6 +11,6 @@
                 @endif
             </div>
         </div>
-        <button type="button" data-toggle="modal" data-target="#create-legislation-modal" class="btn btn-secondary btn-sm"><i class="icon-plus22 mr-2"></i>Ajukan Ranperda</button>
+        <a href="{{ route('legislation.perda.create') }}" class="btn btn-secondary btn-sm"><i class="icon-plus22 mr-2"></i>Ajukan Ranperda</a>
     </div>
 </div>
