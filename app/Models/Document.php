@@ -23,6 +23,17 @@ class Document extends Model
         'order',
         'path',
         'name',
+        'title',
+        'caption',
+        'posted_at',
+        'revised_at',
+        'validated_at',
+    ];
+
+    protected $casts  = [
+        'posted_at'     => 'datetime',
+        'revised_at'    => 'datetime',
+        'validated_at'  => 'datetime',
     ];
 
     public function legislation()

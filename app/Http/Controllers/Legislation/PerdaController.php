@@ -180,11 +180,10 @@ class PerdaController extends LegislationController
      */
     public function store(PerdaRequest $request)
     {
-        $validated = $request->validated();
+        $validated = $request->safe()->only(['title', 'slug', 'background', 'institute_id']);
 
-        $current_year = Carbon::now()->format('Y');
         $validated['type'] = 'perda';
-        $validated['reg_number'] = $this->nextRegNumber('perda', $current_year);
+        $validated['reg_number'] = $this->nextRegNumber('perda', now()->translatedFormat('Y'));
 
         $msg_suffix = 'sebagai Draf';
         if ($request->has('post')) {
@@ -200,23 +199,28 @@ class PerdaController extends LegislationController
     }
 
     private function documentUpload($legislation, $request)
-    {
-        $file = $request->file('master');
+    {   
         $currentTime = Carbon::now()->timestamp;
 
-        $documentStorage = $this->documentStorage($legislation, 'master');
-        $file_name = $documentStorage['file_prefix_name'] . $currentTime . '.' . $file->getClientOriginalExtension();    
-
-        $path = $file->storeAs($documentStorage['path'], $file_name, 'public');
-        
-        $legislation->documents()->create([
-            'type'  => 'master',
-            'path'  => $path,
-            'name'  => 'Draf Ranperda',
-        ]);
+        if ($request->hasFile('master'))
+        {
+            $file = $request->file('master');
+    
+            $documentStorage = $this->documentStorage($legislation, 'master');
+            $file_name = $documentStorage['file_prefix_name'] . $currentTime . '.' . $file->getClientOriginalExtension();    
+    
+            $path = $file->storeAs($documentStorage['path'], $file_name, 'public');
+            
+            $legislation->documents()->create([
+                'type'  => 'master',
+                'path'  => $path,
+                'name'  => $file_name,
+                'title' => 'Draf Ranperda',
+            ]);
+        }
 
         $attachments = $request->attachments;
-        if (!empty($attachments))
+        if (!empty($attachments[0]['file']))
         {
             // Get the next order
             $currentOrder = $legislation->documents->where('type', 'attachment')->max('order');
@@ -237,40 +241,66 @@ class PerdaController extends LegislationController
                     'type'  => 'attachment',
                     'order' => $i,
                     'path'  => $path,
-                    'name'  => $attachment['title'],
+                    'name'  => $file_name,
+                    'title'  => $attachment['title'],
                 ]);
 
                 $i++;
             }
         }
-            
-        $requirements = $request->requirements;
-        if (!empty($requirements))
+
+        if ($request->hasFile('surat_pengantar'))
         {
-            // Get the next order
-            $currentOrder = $legislation->documents->where('type', 'requirement')->max('order');
-            if (!empty($currentOrder)) {
-                $i = $currentOrder + 1;
-            } else {
-                $i = 1;
-            }
+            $file = $request->file('surat_pengantar');
+    
+            $documentStorage = $this->documentStorage($legislation, 'requirement');
+            $file_name = $documentStorage['file_prefix_name'] . $currentTime . '.' . $file->getClientOriginalExtension();    
+    
+            $path = $file->storeAs($documentStorage['path'], $file_name, 'public');
+            
+            $legislation->documents()->create([
+                'type'  => 'requirement',
+                'order' => 1,
+                'path'  => $path,
+                'name'  => $file_name,
+                'title' => 'Surat Pengantar',
+            ]);
+        }
 
-            foreach ($requirements as $requirement) {
+        if ($request->hasFile('naskah_akademik'))
+        {
+            $file = $request->file('naskah_akademik');
+    
+            $documentStorage = $this->documentStorage($legislation, 'requirement', 2);
+            $file_name = $documentStorage['file_prefix_name'] . $currentTime . '.' . $file->getClientOriginalExtension();    
+    
+            $path = $file->storeAs($documentStorage['path'], $file_name, 'public');
+            
+            $legislation->documents()->create([
+                'type'  => 'requirement',
+                'order' => 2,
+                'path'  => $path,
+                'name'  => $file_name,
+                'title' => 'Naskah Akademik',
+            ]);
+        }
 
-                $documentStorage = $this->documentStorage($legislation, 'requirement', $i);    
-                $file_name = $documentStorage['file_prefix_name'] . $currentTime . '.' . $requirement['file']->getClientOriginalExtension();     
-
-                $path = $requirement['file']->storeAs($documentStorage['path'], $file_name, 'public');
-                
-                $legislation->documents()->create([
-                    'type'  => 'requirement',
-                    'order' => $i,
-                    'path'  => $path,
-                    'name'  => $requirement['title'],
-                ]);
-
-                $i++;
-            }
+        if ($request->hasFile('notulensi_rapat'))
+        {
+            $file = $request->file('notulensi_rapat');
+    
+            $documentStorage = $this->documentStorage($legislation, 'requirement', 3);
+            $file_name = $documentStorage['file_prefix_name'] . $currentTime . '.' . $file->getClientOriginalExtension();    
+    
+            $path = $file->storeAs($documentStorage['path'], $file_name, 'public');
+            
+            $legislation->documents()->create([
+                'type'  => 'requirement',
+                'order' => 3,
+                'path'  => $path,
+                'name'  => $file_name,
+                'title' => 'Notulensi Rapat',
+            ]);
         }
     }
 
@@ -329,9 +359,18 @@ class PerdaController extends LegislationController
      * @param  \App\Models\Legislation  $legislation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Legislation $legislation)
+    public function update(PerdaRequest $request, Legislation $legislation)
     {
-        //
+        $validated = $request->validated();
+
+        if ($request->has('post')) 
+        {
+            // Check document requirements
+        }
+        
+        $legislation->update($validated);
+
+        return redirect('/legislation/perda/' . $legislation->id . '/edit')->with('message', '<strong>Berhasil!</strong> Data Pengajuan Rancangan Peraturan Daerah telah berhasil diperbarui');
     }
 
     /**
