@@ -10,11 +10,23 @@
 
         @include('layouts.message')
 
-        @if ($errors->any())
+        @if ($errors->has(['master', 'surat_pengantar', 'naskah_akademik', 'notulensi_rapat']))
             <div class="alert alert-danger border-0 alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert"><span>×</span></button>
                 <ul class="list-unstyled mb-0">
-                    @foreach ($errors->all() as $error)
+                    @foreach ($errors->get('master') as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                    @foreach ($errors->get('attachments.*') as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                    @foreach ($errors->get('surat_pengantar') as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                    @foreach ($errors->get('naskah_akademik') as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                    @foreach ($errors->get('notulensi_rapat') as $error)
                         <li>{{ $error }}</li>
                     @endforeach
                 </ul>
@@ -97,13 +109,45 @@
                                 </tr>
                                 <tr>
                                     <td>Draf Ranperda</td>
-                                    <td>-</td>
+                                    <td>
+                                        @empty ($master)
+                                            @php $action = 'create'; @endphp
+                                        @else
+                                            @php $action = 'edit'; @endphp
+                                            <div class="media">
+                                                <div class="mr-3">
+                                                    <i class="{{ $master->extClass; }} icon-2x top-0"></i>
+                                                </div>
+        
+                                                <div class="media-body">
+                                                    <a href="{{ $master->source }}" class="media-title d-block font-weight-semibold text-body" title="{{ $master->name }}" target="_blank" download>{{ $master->name; }}</a>
+        
+                                                    <ul class="list-inline list-inline-condensed list-inline-dotted font-size-sm text-muted">
+                                                        <li class="list-inline-item">{{ $master->size() }}</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        @endempty
+                                    </td>
                                     <td>-</td>
                                     <td>-</td>
                                     <td>
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-light btn-sm rounded-pill rounded-right-0"><i class="icon-eye2"></i></a>
-                                            <button type="button" class="btn btn-light btn-sm rounded-pill rounded-left-0"><i class="icon-file-upload"></i></button>
+                                            <button type="button" class="btn btn-light btn-sm rounded-pill rounded-right-0" data-popup="tooltip" title="Pratinjau Dokumen"><i class="icon-eye2"></i></a>
+                                            <button 
+                                                type="button" 
+                                                class="btn btn-light btn-sm rounded-pill rounded-left-0 upload-document" 
+                                                data-toggle="modal" 
+                                                data-target="#upload-doc-modal" 
+                                                data-legislation="{{ $legislation->id }}" 
+                                                data-title="Draf Ranperda" 
+                                                data-action="{{ $action }}" 
+                                                data-type="master" 
+                                                data-order="1" 
+                                                data-popup="tooltip" 
+                                                title="Unggah Dokumen">
+                                                <i class="icon-file-upload"></i>
+                                            </button>
                                         </div>
                                     </td>
                                 </tr>
@@ -197,6 +241,10 @@
     </div>
     <!-- /content area -->
 
+@endsection
+
+@section('modal')
+    @include('legislation.document.upload-modal')
 @endsection
 
 @section('script')

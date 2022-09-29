@@ -159,6 +159,19 @@
 
             $(this).before(html);
         })
+
+        $('#upload-doc-modal').on('show.bs.modal', function(event) {
+            let button = $(event.relatedTarget), // Button that triggered the modal
+                legislation = button.data('legislation'),
+                title = button.data('title'),
+                action = button.data('action'),
+                type = button.data('type'),
+                order = button.data('order');
+
+            $.get('/legislation/document/modal', function(data) {
+                $('#ajax-modal-body').html(data);
+            })
+        });
         
     })
 

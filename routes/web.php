@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InstituteController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Legislation\PerdaController;
+use App\Http\Controllers\Legislation\DocumentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,5 +69,10 @@ Route::middleware('auth')->group(function() {
             Route::put('/legislation/perda/{id}/restore', 'restore')->name('perda.restore');
             Route::delete('/legislation/perda/{id}/force-destroy', 'forceDestroy')->name('perda.force-destroy');
         });
+
+        Route::resource('/legislation/document', DocumentController::class);
+        Route::get('/legislation/document', [DocumentController::class, 'modal'])
+            ->name('document.modal');
     });
+
 });
