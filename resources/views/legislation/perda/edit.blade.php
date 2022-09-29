@@ -10,6 +10,17 @@
 
         @include('layouts.message')
 
+        @if ($errors->any())
+            <div class="alert alert-danger border-0 alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert"><span>×</span></button>
+                <ul class="list-unstyled mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <div class="d-lg-flex align-items-lg-start">            
 
             <div class="flex-1">
@@ -20,7 +31,7 @@
                             <div class="col-lg-8 offset-lg-2">
 
                                 <!-- Form -->
-                                <form method="POST" action="{{ route('legislation.perda.update', $legislation->id) }}" novalidate enctype="multipart/form-data">
+                                <form method="POST" action="{{ route('legislation.perda.update', $legislation->id) }}" novalidate>
                                     @method('PUT')
                                     @csrf
 

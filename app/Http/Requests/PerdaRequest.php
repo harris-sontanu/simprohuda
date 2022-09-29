@@ -59,7 +59,7 @@ class PerdaRequest extends FormRequest
                                     'mimes:pdf, doc, docx',
                                     'max:2048',
                                  ],
-            'notulesi_rapat'  => [
+            'notulensi_rapat'  => [
                                     Rule::requiredIf($request->has('post')),
                                     'file',
                                     'mimes:pdf, doc, docx',
@@ -75,10 +75,10 @@ class PerdaRequest extends FormRequest
                     Rule::unique('legislations')->ignore($this->route('perda'))
                 ];
 
-                // $rules = Arr::except($rules, ['password', 'institute_id', 'master', 'attachments', 'requirements']);
+                $rules = Arr::except($rules, ['institute_id']);
                 break;
         }
-
+        
         return $rules;
     }
 
@@ -92,5 +92,20 @@ class PerdaRequest extends FormRequest
         $this->merge([
             'slug' => Str::slug($this->title),
         ]);
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'master.required'   => 'Dokumen Draf Ranperda belum diunggah',
+            'surat_pengantar.required'   => 'Dokumen Surat Pengantar belum diunggah',
+            'naskah_akademik.required'   => 'Dokumen Naskah Akademik belum diunggah',
+            'notulensi_rapat.required'   => 'Dokumen Notulensi Rapat belum diunggah',
+        ];
     }
 }

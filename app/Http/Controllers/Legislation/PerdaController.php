@@ -361,13 +361,7 @@ class PerdaController extends LegislationController
      */
     public function update(PerdaRequest $request, Legislation $legislation)
     {
-        $validated = $request->validated();
-
-        if ($request->has('post')) 
-        {
-            // Check document requirements
-        }
-        
+        $validated = $request->validated();        
         $legislation->update($validated);
 
         return redirect('/legislation/perda/' . $legislation->id . '/edit')->with('message', '<strong>Berhasil!</strong> Data Pengajuan Rancangan Peraturan Daerah telah berhasil diperbarui');
