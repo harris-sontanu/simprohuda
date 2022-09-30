@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('legislations', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['perda', 'perbup', 'sk']);
+            $table->enum('type', ['ranperda', 'ranperbup', 'ransk']);
             $table->string('title', 767);
             $table->string('slug', 767)->unique();
             $table->unsignedInteger('reg_number');

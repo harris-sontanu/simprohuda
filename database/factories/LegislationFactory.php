@@ -43,7 +43,7 @@ class LegislationFactory extends Factory
         }
 
         $year = Carbon::parse($created_at)->translatedFormat('Y');
-        $type = ['perda', 'perbup', 'sk'];
+        $type = ['ranperda', 'ranperbup', 'ransk'];
 
         return [
             'type'       => $type[rand(0, 2)],

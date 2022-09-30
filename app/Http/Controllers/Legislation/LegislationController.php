@@ -30,7 +30,7 @@ class LegislationController extends Controller
 
         $prefix = 'draf';
         if ($documentType === 'requirement') {
-            $prefix = 'req' . Str::padLeft($sequence, 2, '0');
+            $prefix = 'syrt' . Str::padLeft($sequence, 2, '0');
         } else if ($documentType === 'attachment') {
             $prefix = 'lamp' . Str::padLeft($sequence, 2, '0');
         }
