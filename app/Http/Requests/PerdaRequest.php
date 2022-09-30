@@ -39,9 +39,8 @@ class PerdaRequest extends FormRequest
                                 'max:2048',
                                ],
             'attachments'   => 'nullable|array',
-            'attachments.*.title' => [Rule::requiredIf($request->has('post')), 'required_with:attachments.*.file'],
+            'attachments.*.title' => ['required_with:attachments.*.file'],
             'attachments.*.file'  => [
-                                        Rule::requiredIf($request->has('post')),
                                         'required_with:attachments.*.title',
                                         'file',
                                         'mimes:pdf, doc, docx',
@@ -59,7 +58,7 @@ class PerdaRequest extends FormRequest
                                     'mimes:pdf, doc, docx',
                                     'max:2048',
                                  ],
-            'notulensi_rapat'  => [
+            'notulensi_rapat' => [
                                     Rule::requiredIf($request->has('post')),
                                     'file',
                                     'mimes:pdf, doc, docx',

@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class DocumentRequest extends FormRequest
 {
@@ -21,14 +23,19 @@ class DocumentRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(Request $request)
     {
         return [
             'legislation_id' => 'required',
             'type'      => 'required',
             'order'     => 'required|numeric',
             'title'     => 'required',
-            'master'    => 'sometimes|required|file|mimes:pdf,doc,docx|max:2048'
+            'master'    => [
+                            Rule::requiredIf($request->title === 'Draf Ranperda'),
+                            'file',
+                            'mimes:pdf,doc,docx',
+                            'max:2048'
+                           ],
         ];
     }
 }

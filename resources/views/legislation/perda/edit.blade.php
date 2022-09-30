@@ -112,15 +112,16 @@
                                     <td>
                                         @empty ($master)
                                             @php $action = 'create'; @endphp
+                                            -
                                         @else
                                             @php $action = 'edit'; @endphp
                                             <div class="media">
                                                 <div class="mr-3">
-                                                    <i class="{{ $master->extClass; }} icon-2x top-0"></i>
+                                                    <i class="{{ $master->extClass; }} icon-2x top-0 mt-1"></i>
                                                 </div>
         
                                                 <div class="media-body">
-                                                    <a href="{{ $master->source }}" class="media-title d-block font-weight-semibold text-body" title="{{ $master->name }}" target="_blank" download>{{ $master->name; }}</a>
+                                                    <a href="{{ $master->source }}" class="media-title d-block font-weight-semibold text-body m-0" title="{{ $master->name }}" target="_blank" download>{{ $master->name; }}</a>
         
                                                     <ul class="list-inline list-inline-condensed list-inline-dotted font-size-sm text-muted mb-0">
                                                         <li class="list-inline-item">{{ $master->size() }}</li>
@@ -129,8 +130,20 @@
                                             </div>
                                         @endempty
                                     </td>
-                                    <td>-</td>
-                                    <td>-</td>
+                                    <td>
+                                        @empty ($master)
+                                            -
+                                        @else
+                                            <abbr data-popup="tooltip" title="{{ $master->dateFormatted($master->created_at, true) }}">{{ $master->dateFormatted($master->created_at) }}</abbr>
+                                        @endempty
+                                    </td>
+                                    <td>
+                                        @empty ($master)
+                                            -
+                                        @else
+                                            {!! $master->statusBadge !!}
+                                        @endempty
+                                    </td>
                                     <td>
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-light btn-sm rounded-pill rounded-right-0" data-popup="tooltip" title="Pratinjau Dokumen"><i class="icon-eye2"></i></a>

@@ -26,7 +26,8 @@ class LegislationController extends Controller
     
     protected function documentStorage($legislation, $documentType, $sequence = 1)
     {   
-        $paddedNextRegNumber = Str::padLeft($this->nextRegNumber($legislation->type, $legislation->created_year), 4, '0');
+        $nextRegNumber = $this->nextRegNumber($legislation->getRawOriginal('type'), $legislation->created_year);
+        $paddedNextRegNumber = Str::padLeft($nextRegNumber, 4, '0');
         $storage_path = 'produk-hukum/' . $legislation->type . '/' . $legislation->created_year . '/' . $paddedNextRegNumber;
 
         $prefix = 'draf';
@@ -62,6 +63,7 @@ class LegislationController extends Controller
                 'path'  => $path,
                 'name'  => $file_name,
                 'title' => 'Draf Ranperda',
+                'posted_at' => ($request->has('post')) ? now() : null,
             ]);
         }
 

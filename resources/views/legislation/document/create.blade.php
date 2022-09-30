@@ -4,6 +4,7 @@
     <input type="hidden" name="type" value="{{ $type }}">
     <input type="hidden" name="order" value="{{ $order }}">
     <input type="hidden" name="title" value="{{ $title }}">
+    <input type="hidden" name="post">
     <div class="modal-header">
         <h5 class="modal-title font-weight-bold" id="exampleModalLabel">Unggah Dokumen {{ $title }}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">

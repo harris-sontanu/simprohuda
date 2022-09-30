@@ -103,4 +103,36 @@ class Document extends Model
 
         return round($bytes, $precision) . ' ' . $units[$pow]; 
     }
+
+    public function status()
+    {
+        if (empty($this->posted_at) AND empty($this->revised_at) AND empty($this->validated_at)) {
+            $status = 'draft';
+        } else if (!empty($this->posted_at) AND empty($this->revised_at) AND empty($this->validated_at)) {
+            $status = 'posted';
+        } else if (!empty($this->revised_at) AND empty($this->validated_at)) {
+            $status = 'revised';
+        } else if (!empty($this->validated_at)) {
+            $status = 'validated';
+        }
+
+        return $status;
+    }
+
+    public function statusBadge(): Attribute
+    {
+        if ($this->status() == 'draft') {
+            $statusBadge = '<span class="badge badge-pill badge-light">Draf</span>';
+        } else if ($this->status() == 'posted') {
+            $statusBadge = '<span class="badge badge-pill badge-primary">Aktif</span>';
+        } else if ($this->status() == 'revised') {
+            $statusBadge = '<span class="badge badge-pill badge-warning">Revisi</span>';
+        } else if ($this->status() == 'validated') {
+            $statusBadge = '<span class="badge badge-pill badge-success">Valid</span>';
+        }
+
+        return Attribute::make(
+            get: fn ($value) => $statusBadge
+        );
+    }
 }
