@@ -168,9 +168,16 @@
                 type = button.data('type'),
                 order = button.data('order');
 
-            $.get('/legislation/document/modal', function(data) {
-                $('#ajax-modal-body').html(data);
-            })
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.post( "/legislation/document/modal", {id: legislation, title: title, action: action, type: type, order: order})
+                .done(function(data) {
+                    console.log(data)
+                })
         });
         
     })

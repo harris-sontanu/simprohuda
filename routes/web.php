@@ -71,7 +71,7 @@ Route::middleware('auth')->group(function() {
         });
 
         Route::resource('/legislation/document', DocumentController::class);
-        Route::get('/legislation/document', [DocumentController::class, 'modal'])
+        Route::post('/legislation/document/modal', [DocumentController::class, 'modal'])
             ->name('document.modal');
     });
 
