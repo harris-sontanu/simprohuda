@@ -70,9 +70,11 @@ Route::middleware('auth')->group(function() {
             Route::delete('/legislation/perda/{id}/force-destroy', 'forceDestroy')->name('perda.force-destroy');
         });
 
-        Route::resource('/legislation/document', DocumentController::class);
-        Route::post('/legislation/document/modal', [DocumentController::class, 'modal'])
-            ->name('document.modal');
+        Route::resource('/legislation/document', DocumentController::class)->except([
+            'index', 'create'
+        ]);
+        Route::post('/legislation/document/create', [DocumentController::class, 'create'])
+            ->name('document.create');
     });
 
 });

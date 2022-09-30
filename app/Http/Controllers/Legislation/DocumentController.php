@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Legislation;
 use App\Http\Controllers\Legislation\LegislationController;
 use App\Models\Document;
 use Illuminate\Http\Request;
+use App\Http\Requests\DocumentRequest;
+use App\Models\Legislation;
 
 class DocumentController extends LegislationController
 {
@@ -23,9 +25,14 @@ class DocumentController extends LegislationController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $legislationId = $request->legislation_id;
+        $type  = $request->type;
+        $order = $request->order;
+        $title = $request->title;
+
+        return view('legislation.document.create', compact('legislationId', 'type', 'order', 'title'));
     }
 
     /**
@@ -34,9 +41,14 @@ class DocumentController extends LegislationController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DocumentRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $legislation = Legislation::find($request->legislation_id);
+
+        $this->documentUpload($legislation, $request, $request->order);
+
+        $request->session()->flash('message', '<strong>Berhasil!</strong> Dokumen ' . $request->title . ' telah berhasil diunggah');
     }
 
     /**
@@ -50,23 +62,6 @@ class DocumentController extends LegislationController
         //
     }
 
-    public function modal(Request $request)
-    {
-        if ($request->action == 'edit')
-        {
-            $document = Document::find($request->id);
-            return view('legislation.document.edit', compact('document'));
-        }
-        else
-        {   
-            $legislationId = $request->legislation_id;
-            $type = $request->type;
-            $order = $request->order;
-            $title = $request->title;
-            return view('legislation.document.create', compact('legislationId', 'type', 'order', 'title'));
-        }         
-    }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -75,7 +70,7 @@ class DocumentController extends LegislationController
      */
     public function edit(Document $document)
     {
-        //
+        return view('legislation.document.edit', compact('document'));
     }
 
     /**

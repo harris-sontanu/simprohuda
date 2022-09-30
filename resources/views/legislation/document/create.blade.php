@@ -3,6 +3,7 @@
     <input type="hidden" name="legislation_id" value="{{ $legislationId }}">
     <input type="hidden" name="type" value="{{ $type }}">
     <input type="hidden" name="order" value="{{ $order }}">
+    <input type="hidden" name="title" value="{{ $title }}">
     <div class="modal-header">
         <h5 class="modal-title font-weight-bold" id="exampleModalLabel">Unggah Dokumen {{ $title }}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -13,7 +14,7 @@
         <div class="form-group mb-0">
             <label class="font-weight-semibold">Dokumen</label>
             <div class="custom-file">
-                <input id="document" type="file" class="custom-file-input" name="document">
+                <input id="document" type="file" class="custom-file-input" name="master">
                 <label class="custom-file-label" for="document">Choose file</label>
             </div>
         </div>

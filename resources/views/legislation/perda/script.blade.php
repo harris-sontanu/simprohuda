@@ -164,14 +164,19 @@
             let button = $(event.relatedTarget), // Button that triggered the modal
                 action = button.data('action');
 
-            if (action == 'create') {
+            if (action == 'create') 
+            {
                 var legislation = button.data('legislation'),
+                    route = '/legislation/document/create',
                     title = button.data('title'),
                     type = button.data('type'),
                     order = button.data('order'),
                     data = {legislation_id:legislation, title:title, action:action, type:type, order:order};
-            } else if (action == 'edit') {
+            } 
+            else if (action == 'edit') 
+            {
                 var id = button.data('id'),
+                    route = '/legislation/document/' + id + '/edit' ,
                     data = {id:id, action:action};
             }
 
@@ -181,11 +186,41 @@
                 }
             });
 
-            $.post( "/legislation/document/modal", data)
+            $.post(route, data)
                 .done(function(html) {
                     $('#ajax-modal-body').html(html);
                 })
         });
+
+        $(document).on('submit', '#store-document-form', function(e) {
+            e.preventDefault();
+
+            let form = $(this),
+                formData = new FormData(this);
+            
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: form.attr('action'),
+                method: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+            }).done(function() {
+                location.reload();
+            }).fail(function(response) {
+                let errors = response.responseJSON.errors;
+                Object.entries(errors).forEach((entry) => {
+                    const [key, value] = entry;
+                    form.find('#document').addClass('is-invalid');
+                    form.find('#document').parent().append('<div class="invalid-feedback">' + value + '</div>');
+                });
+            })
+        })
         
     })
 
