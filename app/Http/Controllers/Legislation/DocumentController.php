@@ -52,7 +52,19 @@ class DocumentController extends LegislationController
 
     public function modal(Request $request)
     {
-        dd($request->all());
+        if ($request->action == 'edit')
+        {
+            $document = Document::find($request->id);
+            return view('legislation.document.edit', compact('document'));
+        }
+        else
+        {   
+            $legislationId = $request->legislation_id;
+            $type = $request->type;
+            $order = $request->order;
+            $title = $request->title;
+            return view('legislation.document.create', compact('legislationId', 'type', 'order', 'title'));
+        }         
     }
 
     /**

@@ -122,7 +122,7 @@
                                                 <div class="media-body">
                                                     <a href="{{ $master->source }}" class="media-title d-block font-weight-semibold text-body" title="{{ $master->name }}" target="_blank" download>{{ $master->name; }}</a>
         
-                                                    <ul class="list-inline list-inline-condensed list-inline-dotted font-size-sm text-muted">
+                                                    <ul class="list-inline list-inline-condensed list-inline-dotted font-size-sm text-muted mb-0">
                                                         <li class="list-inline-item">{{ $master->size() }}</li>
                                                     </ul>
                                                 </div>
@@ -139,11 +139,15 @@
                                                 class="btn btn-light btn-sm rounded-pill rounded-left-0 upload-document" 
                                                 data-toggle="modal" 
                                                 data-target="#upload-doc-modal" 
-                                                data-legislation="{{ $legislation->id }}" 
-                                                data-title="Draf Ranperda" 
                                                 data-action="{{ $action }}" 
-                                                data-type="master" 
-                                                data-order="1" 
+                                                @if ($action == 'edit')
+                                                    data-id="{{ $master->id }}";
+                                                @else    
+                                                    data-legislation="{{ $legislation->id }}" 
+                                                    data-title="Draf Ranperda" 
+                                                    data-type="master" 
+                                                    data-order="1" 
+                                                @endif
                                                 data-popup="tooltip" 
                                                 title="Unggah Dokumen">
                                                 <i class="icon-file-upload"></i>

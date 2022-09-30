@@ -162,11 +162,18 @@
 
         $('#upload-doc-modal').on('show.bs.modal', function(event) {
             let button = $(event.relatedTarget), // Button that triggered the modal
-                legislation = button.data('legislation'),
-                title = button.data('title'),
-                action = button.data('action'),
-                type = button.data('type'),
-                order = button.data('order');
+                action = button.data('action');
+
+            if (action == 'create') {
+                var legislation = button.data('legislation'),
+                    title = button.data('title'),
+                    type = button.data('type'),
+                    order = button.data('order'),
+                    data = {legislation_id:legislation, title:title, action:action, type:type, order:order};
+            } else if (action == 'edit') {
+                var id = button.data('id'),
+                    data = {id:id, action:action};
+            }
 
             $.ajaxSetup({
                 headers: {
@@ -174,9 +181,9 @@
                 }
             });
 
-            $.post( "/legislation/document/modal", {id: legislation, title: title, action: action, type: type, order: order})
-                .done(function(data) {
-                    console.log(data)
+            $.post( "/legislation/document/modal", data)
+                .done(function(html) {
+                    $('#ajax-modal-body').html(html);
                 })
         });
         
