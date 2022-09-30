@@ -167,29 +167,30 @@
             if (action == 'create') 
             {
                 var legislation = button.data('legislation'),
-                    route = '/legislation/document/create',
                     title = button.data('title'),
                     type = button.data('type'),
                     order = button.data('order'),
                     data = {legislation_id:legislation, title:title, action:action, type:type, order:order};
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.post('/legislation/document/create', data)
+                    .done(function(html) {
+                        $('#ajax-modal-body').html(html);
+                    })
             } 
             else if (action == 'edit') 
             {
-                var id = button.data('id'),
-                    route = '/legislation/document/' + id + '/edit' ,
-                    data = {id:id, action:action};
-            }
+                var id = button.data('id');
 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $.post(route, data)
-                .done(function(html) {
+                $.get('/legislation/document/' + id + '/edit', function(html) {
                     $('#ajax-modal-body').html(html);
                 })
+            }
         });
 
         $(document).on('submit', '#store-document-form', function(e) {

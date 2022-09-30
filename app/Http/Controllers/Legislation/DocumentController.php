@@ -7,6 +7,7 @@ use App\Models\Document;
 use Illuminate\Http\Request;
 use App\Http\Requests\DocumentRequest;
 use App\Models\Legislation;
+use Illuminate\Support\Carbon;
 
 class DocumentController extends LegislationController
 {
@@ -43,7 +44,7 @@ class DocumentController extends LegislationController
      */
     public function store(DocumentRequest $request)
     {
-        $validated = $request->validated();
+        $request->validated();
         $legislation = Legislation::find($request->legislation_id);
 
         $this->documentUpload($legislation, $request, $request->order);
@@ -80,9 +81,31 @@ class DocumentController extends LegislationController
      * @param  \App\Models\Document  $document
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Document $document)
+    public function update(DocumentRequest $request, Document $document)
     {
-        //
+        $request->validated();
+
+        $currentTime = Carbon::now()->timestamp;
+        $legislation = Legislation::find($document->legislation_id);
+
+        if ($request->hasFile('master'))
+        {
+            $file = $request->file('master');
+    
+            $documentStorage = $this->documentStorage($legislation, 'master');
+            $file_name = $documentStorage['file_prefix_name'] . $currentTime . '.' . $file->getClientOriginalExtension();    
+    
+            $path = $file->storeAs($documentStorage['path'], $file_name, 'public');
+            
+            Document::where('id', $document->id)->update([
+                'path'  => $path,
+                'name'  => $file_name,
+                'revised_at' => now(),
+            ]);
+
+            // Remove old file
+            $this->removeDocument($document->path);
+        }
     }
 
     /**

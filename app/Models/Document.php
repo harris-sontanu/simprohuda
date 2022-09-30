@@ -88,6 +88,23 @@ class Document extends Model
             get: fn ($value) => Storage::url($this->path)
         );
     }
+
+    public function input(): Attribute
+    {     
+        if ($this->title === 'Draf Ranperda') {
+            $input = 'master';
+        } else if ($this->title === 'Surat Pengantar') {
+            $input = 'surat_pengantar';
+        } else if ($this->title === 'Naskah Akademik') {
+            $input = 'naskah_akademik';
+        } else if ($this->title === 'Notulensi Rapat') {
+            $input = 'notulensi_rapat';
+        }
+
+        return Attribute::make(
+            get: fn ($value) => $input
+        );
+    }
     
     public function size($precision = 2)
     {   
