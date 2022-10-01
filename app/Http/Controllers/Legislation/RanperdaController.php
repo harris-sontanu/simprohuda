@@ -5,13 +5,20 @@ namespace App\Http\Controllers\Legislation;
 use App\Http\Controllers\Legislation\LegislationController;
 use App\Models\Institute;
 use App\Models\Legislation;
+use App\Models\Type;
 use Illuminate\Http\Request;
-use App\Http\Requests\PerdaRequest;
-use Illuminate\Support\Carbon;
+use App\Http\Requests\RanperdaRequest;
 use Illuminate\Support\Str;
 
-class PerdaController extends LegislationController
+class RanperdaController extends LegislationController
 {
+    protected $type;
+
+    public function __construct()
+    {
+        $this->type = Type::where('slug', 'ranperda')->first();
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -24,10 +31,10 @@ class PerdaController extends LegislationController
         $breadCrumbs = [
             route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
             '#' => 'Produk Hukum',
-            'Ranperda' => TRUE
+            $this->type->name => TRUE
         ];
 
-        $legislations = Legislation::perda();
+        $legislations = Legislation::ranperda();
 
         $onlyTrashed = FALSE;
         if ($tab = $request->tab)
@@ -66,7 +73,7 @@ class PerdaController extends LegislationController
             'assets/js/plugins/table/finderSelect/jquery.finderSelect.min.js',
         ];
 
-        return view('legislation.perda.index', compact(
+        return view('legislation.ranperda.index', compact(
             'pageTitle',
             'pageHeader',
             'breadCrumbs',
@@ -82,31 +89,31 @@ class PerdaController extends LegislationController
     private function tabFilters($request)
     {
         return [
-            'total'     => Legislation::perda()
+            'total'     => Legislation::ranperda()
                                 ->search($request->only(['search']))
                                 ->filter($request)
                                 ->count(),
-            'draf'      => Legislation::perda()
+            'draf'      => Legislation::ranperda()
                                 ->search($request->only(['search']))
                                 ->filter($request)
                                 ->draft()
                                 ->count(),
-            'aktif'     => Legislation::perda()
+            'aktif'     => Legislation::ranperda()
                                 ->search($request->only(['search']))
                                 ->filter($request)
                                 ->posted()
                                 ->count(),
-            'revisi'    => Legislation::perda()
+            'revisi'    => Legislation::ranperda()
                                 ->search($request->only(['search']))
                                 ->filter($request)
                                 ->revised()
                                 ->count(),
-            'valid'     => Legislation::perda()
+            'valid'     => Legislation::ranperda()
                                 ->search($request->only(['search']))
                                 ->filter($request)
                                 ->validated()
                                 ->count(),
-            'batal'     => Legislation::perda()
+            'batal'     => Legislation::ranperda()
                                 ->search($request->only(['search']))
                                 ->filter($request)
                                 ->onlyTrashed()
@@ -150,11 +157,11 @@ class PerdaController extends LegislationController
         $breadCrumbs = [
             route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
             '#' => 'Produk Hukum',
-            route('legislation.perda.index') => 'Ranperda',
+            route('legislation.ranperda.index') => $this->type->name,
             'Pengajuan' => true
         ];
 
-        $nextRegNumber = $this->nextRegNumber('perda', now()->translatedFormat('Y'));
+        $nextRegNumber = $this->nextRegNumber($this->type->id, now()->translatedFormat('Y'));
         $nextRegNumber = Str::padLeft($nextRegNumber, 4, '0');
         $institutes = Institute::sorted()->pluck('name', 'id');
 
@@ -162,7 +169,7 @@ class PerdaController extends LegislationController
             'assets/js/plugins/forms/selects/select2.min.js',
         ];
 
-        return view('legislation.perda.create', compact(
+        return view('legislation.ranperda.create', compact(
             'pageTitle',
             'pageHeader',
             'breadCrumbs',
@@ -178,12 +185,12 @@ class PerdaController extends LegislationController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PerdaRequest $request)
+    public function store(RanperdaRequest $request)
     {
         $validated = $request->safe()->only(['title', 'slug', 'background', 'institute_id']);
 
-        $validated['type'] = 'perda';
-        $validated['reg_number'] = $this->nextRegNumber('perda', now()->translatedFormat('Y'));
+        $validated['type_id'] = $this->type->id;
+        $validated['reg_number'] = $this->nextRegNumber($this->type->id, now()->translatedFormat('Y'));
 
         $msg_suffix = 'sebagai Draf';
         if ($request->has('post')) {
@@ -195,7 +202,7 @@ class PerdaController extends LegislationController
 
         $this->documentUpload($new_legislation, $request);
 
-        return redirect('/legislation/perda')->with('message', '<strong>Berhasil!</strong> Data Rancangan Peraturan Daerah telah berhasil disimpan ' . $msg_suffix);
+        return redirect('/legislation/ranperda')->with('message', '<strong>Berhasil!</strong> Data Rancangan Peraturan Daerah telah berhasil disimpan ' . $msg_suffix);
     }
 
     /**
@@ -222,7 +229,7 @@ class PerdaController extends LegislationController
         $breadCrumbs = [
             route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
             '#' => 'Produk Hukum',
-            route('legislation.perda.index') => 'Ranperda',
+            route('legislation.ranperda.index') => $this->type->name,
             'Perbaikan' => true
         ];
 
@@ -234,7 +241,7 @@ class PerdaController extends LegislationController
             'assets/js/plugins/forms/selects/select2.min.js',
         ];
 
-        return view('legislation.perda.edit', compact(
+        return view('legislation.ranperda.edit', compact(
             'pageTitle',
             'pageHeader',
             'breadCrumbs',
@@ -253,12 +260,12 @@ class PerdaController extends LegislationController
      * @param  \App\Models\Legislation  $legislation
      * @return \Illuminate\Http\Response
      */
-    public function update(PerdaRequest $request, Legislation $legislation)
+    public function update(RanperdaRequest $request, Legislation $legislation)
     {
         $validated = $request->validated();        
         $legislation->update($validated);
 
-        return redirect('/legislation/perda/' . $legislation->id . '/edit')->with('message', '<strong>Berhasil!</strong> Data Pengajuan Rancangan Peraturan Daerah telah berhasil diperbarui');
+        return redirect('/legislation/ranperda/' . $legislation->id . '/edit')->with('message', '<strong>Berhasil!</strong> Data Pengajuan Rancangan Peraturan Daerah telah berhasil diperbarui');
     }
 
     /**
@@ -269,10 +276,10 @@ class PerdaController extends LegislationController
      */
     public function destroy(Legislation $legislation)
     {
-        $action = route('legislation.perda.restore', $legislation->id);
+        $action = route('legislation.ranperda.restore', $legislation->id);
         $legislation->delete();
 
-        return redirect('/legislation/perda')->with('trash-message', ['<strong>Berhasil!</strong> Data Rancangan Peraturan Daerah telah dibatalkan', $action]);
+        return redirect('/legislation/ranperda')->with('trash-message', ['<strong>Berhasil!</strong> Data Rancangan Peraturan Daerah telah dibatalkan', $action]);
     }
 
     public function restore($id)
@@ -292,6 +299,6 @@ class PerdaController extends LegislationController
             $this->removeDocument($document->path);
         }
 
-        return redirect('/admin/legislation/perda?tab=batal')->with('message', '<strong>Berhasil!</strong> Data Rancangan Peraturan Daerah telah berhasil dihapus');
+        return redirect('/admin/legislation/ranperda?tab=batal')->with('message', '<strong>Berhasil!</strong> Data Rancangan Peraturan Daerah telah berhasil dihapus');
     }
 }

@@ -43,7 +43,7 @@
                             <div class="col-lg-8 offset-lg-2">
 
                                 <!-- Form -->
-                                <form method="POST" action="{{ route('legislation.perda.update', $legislation->id) }}" novalidate>
+                                <form method="POST" action="{{ route('legislation.ranperda.update', $legislation->id) }}" novalidate>
                                     @method('PUT')
                                     @csrf
 
@@ -265,5 +265,5 @@
 @endsection
 
 @section('script')
-    @include('legislation.perda.script')
+    @include('legislation.ranperda.script')
 @endsection

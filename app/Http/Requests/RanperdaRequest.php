@@ -8,7 +8,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 
-class PerdaRequest extends FormRequest
+class RanperdaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -71,7 +71,7 @@ class PerdaRequest extends FormRequest
             case 'PATCH':
                 $rules['slug'] = [
                     'required',
-                    Rule::unique('legislations')->ignore($this->route('perda'))
+                    Rule::unique('legislations')->ignore($this->route('ranperda'))
                 ];
 
                 $rules = Arr::except($rules, ['institute_id']);

@@ -1,7 +1,7 @@
 <hr class="border-dashed m-0" />
 
 <div class="card-body bg-light">
-    <form action="{{ route('legislation.perda.index') }}" id="filter-form" class="filter-form" method="GET">
+    <form action="{{ route('legislation.ranperda.index') }}" id="filter-form" class="filter-form" method="GET">
         <div class="row">
             <div class="col-md-3">
                 <div class="form-group">

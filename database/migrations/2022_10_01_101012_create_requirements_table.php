@@ -20,7 +20,6 @@ return new class extends Migration
                 ->references('id')
                 ->on('types')
                 ->cascadeOnDelete();
-            $table->enum('category', ['master', 'abstract', 'attachment', 'requirement']);
             $table->string('title');
             $table->string('term');
             $table->text('desc')->nullable();

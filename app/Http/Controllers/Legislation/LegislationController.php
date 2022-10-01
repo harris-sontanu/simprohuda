@@ -10,15 +10,9 @@ use Illuminate\Support\Carbon;
 
 class LegislationController extends Controller
 {
-    protected $type = [
-        'perda'  => 'Peraturan Daerah',
-        'perbup' => 'Peraturan Bupati',
-        'sk'     => 'Surat Keputusan'
-    ];
-
-    protected function nextRegNumber($type, $year) 
+    protected function nextRegNumber($type_id, $year) 
     {
-        $number = Legislation::where('type', $type)
+        $number = Legislation::where('type_id', $type_id)
                     ->whereYear('created_at', $year)->max('reg_number');
 
         return $number + 1;
@@ -28,14 +22,14 @@ class LegislationController extends Controller
     {   
         $storage_path = 'produk-hukum/' . $legislation->getRawOriginal('type') . '/' . $legislation->created_year . '/' . $legislation->reg_number;
 
-        $prefix = 'draf';
+        $prepend = 'draf';
         if ($documentType === 'requirement') {
-            $prefix = 'syrt' . Str::padLeft($sequence, 2, '0');
+            $prepend = 'syrt' . Str::padLeft($sequence, 2, '0');
         } else if ($documentType === 'attachment') {
-            $prefix = 'lamp' . Str::padLeft($sequence, 2, '0');
+            $prepend = 'lamp' . Str::padLeft($sequence, 2, '0');
         }
 
-        $file_prefix_name = $legislation->created_year . $legislation->getRawOriginal('type') . $legislation->reg_number . $prefix;
+        $file_prefix_name = $legislation->created_year . $legislation->getRawOriginal('type') . $legislation->reg_number . $prepend;
 
         return [
             'path' => $storage_path, 

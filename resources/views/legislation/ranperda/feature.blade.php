@@ -11,6 +11,6 @@
                 @endif
             </div>
         </div>
-        <a href="{{ route('legislation.perda.create') }}" class="btn btn-secondary btn-sm"><i class="icon-plus22 mr-2"></i>Ajukan Ranperda</a>
+        <a href="{{ route('legislation.ranperda.create') }}" class="btn btn-secondary btn-sm"><i class="icon-plus22 mr-2"></i>Ajukan Ranperda</a>
     </div>
 </div>

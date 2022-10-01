@@ -233,7 +233,7 @@
         });
 
         $.ajax({
-            url: '/legislation/perda/trigger',
+            url: '/legislation/ranperda/trigger',
             method: 'POST',
             data: {'items':items, 'action': action, 'val': val}
         }).done(function(){

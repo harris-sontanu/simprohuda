@@ -14,7 +14,7 @@
             <div class="card-header header-elements-sm-inline">
                 <div class="card-title">
                     <div class="form-group-feedback form-group-feedback-left">
-                        <form action="{{ route('legislation.perda.index') }}" method="get">
+                        <form action="{{ route('legislation.ranperda.index') }}" method="get">
                             <input type="search" name="search" class="form-control rounded-pill" placeholder="Cari judul, perangkat daerah..." @if (Request::get('search')) value="{{ Request::get('search') }}" @endif autofocus>
                             <div class="form-control-feedback">
                                 <i class="icon-search4 opacity-50 font-size-base"></i>
@@ -23,13 +23,13 @@
                     </div>
                 </div>
 
-                @include('legislation.perda.feature')
+                @include('legislation.ranperda.feature')
 
             </div>
 
             <div id="filter-options" @empty (Request::get('filter')) style="display: none" @endempty>
 
-                @include('legislation.perda.filter')
+                @include('legislation.ranperda.filter')
 
             </div>
 
@@ -39,7 +39,7 @@
                         @foreach ($tabFilters as $key => $value)
                             @php $active = ((empty(Request::get('tab')) AND $key === 'total') OR Request::get('tab') == $key) ? ' active' : '' @endphp
                             <li class="nav-item">
-                                <a href="{{ route('legislation.perda.index', ['tab' => $key] + Request::all()) }}" class="nav-link{{ $active }}">
+                                <a href="{{ route('legislation.ranperda.index', ['tab' => $key] + Request::all()) }}" class="nav-link{{ $active }}">
                                     {{ Str::ucfirst($key) }}<span class="badge badge-secondary badge-pill ml-2">{{ $value }}</span>
                                 </a>
                             </li>
@@ -76,33 +76,33 @@
                             @endif
                             <th width="1"><input type="checkbox" /></th>
                             <th class="@php echo (!empty($sort) AND Request::get('order') == 'reg_number') ? 'sorting_' . $sort : 'sorting'; @endphp">
-                                <a href="{{ route('legislation.perda.index', ['order' => 'reg_number', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block"><abbr title="Nomor Urut Registrasi" data-popup="tooltip">Nomor</abbr></a>
+                                <a href="{{ route('legislation.ranperda.index', ['order' => 'reg_number', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block"><abbr title="Nomor Urut Registrasi" data-popup="tooltip">Nomor</abbr></a>
                             </th>
                             <th class="@php echo (!empty($sort) AND Request::get('order') == 'title') ? 'sorting_' . $sort : 'sorting'; @endphp">
-                                <a href="{{ route('legislation.perda.index', ['order' => 'title', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block">Judul</a>
+                                <a href="{{ route('legislation.ranperda.index', ['order' => 'title', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block">Judul</a>
                             </th>
                             <th class="@php echo (!empty($sort) AND Request::get('order') == 'institute') ? 'sorting_' . $sort : 'sorting'; @endphp">
-                                <a href="{{ route('legislation.perda.index', ['order' => 'institute', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block">Perangkat Daerah</a>
+                                <a href="{{ route('legislation.ranperda.index', ['order' => 'institute', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block">Perangkat Daerah</a>
                             </th>
                             <th>Status</th>
                             @if (in_array(Request::get('tab'), ['total', 'draf', 'aktif']))    
                             <th class="text-nowrap @php echo (!empty($sort) AND Request::get('order') == 'created_at') ? 'sorting_' . $sort : 'sorting'; @endphp">
-                                <a href="{{ route('legislation.perda.index', ['order' => 'created_at', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block">Tgl. Dibuat</a>
+                                <a href="{{ route('legislation.ranperda.index', ['order' => 'created_at', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block">Tgl. Dibuat</a>
                             </th>
                             @endif
                             @if (Request::get('tab') !== 'draf')                                
                                 <th class="text-nowrap @php echo (!empty($sort) AND Request::get('order') == 'posted_at') ? 'sorting_' . $sort : 'sorting'; @endphp">
-                                    <a href="{{ route('legislation.perda.index', ['order' => 'posted_at', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block">Tgl. Diajukan</a>
+                                    <a href="{{ route('legislation.ranperda.index', ['order' => 'posted_at', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block">Tgl. Diajukan</a>
                                 </th>
                             @endif
                             @if (in_array(Request::get('tab'), ['revisi', 'valid']))                                
                                 <th class="text-nowrap @php echo (!empty($sort) AND Request::get('order') == 'revised_at') ? 'sorting_' . $sort : 'sorting'; @endphp">
-                                    <a href="{{ route('legislation.perda.index', ['order' => 'revised_at', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block">Tgl. Revisi</a>
+                                    <a href="{{ route('legislation.ranperda.index', ['order' => 'revised_at', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block">Tgl. Revisi</a>
                                 </th>
                             @endif
                             @if (Request::get('tab') === 'valid')                                
                                 <th class="text-nowrap @php echo (!empty($sort) AND Request::get('order') == 'posted_at') ? 'sorting_' . $sort : 'sorting'; @endphp">
-                                    <a href="{{ route('legislation.perda.index', ['order' => 'posted_at', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block">Tgl. Valid</a>
+                                    <a href="{{ route('legislation.ranperda.index', ['order' => 'posted_at', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block">Tgl. Valid</a>
                                 </th>
                             @endif
                             <th width="1" class="text-center">Aksi</th>
@@ -134,19 +134,19 @@
                                         <button type="button" class="btn btn-light btn-sm dropdown-toggle rounded-pill rounded-left-0" data-toggle="dropdown"></button>
                                         <div class="dropdown-menu dropdown-menu-right">
                                             @if ($onlyTrashed)
-                                                <form action="{{ route('legislation.perda.restore', $legislation->id) }}" method="POST">
+                                                <form action="{{ route('legislation.ranperda.restore', $legislation->id) }}" method="POST">
                                                     @method('PUT')
                                                     @csrf
                                                     <button type="submit" class="dropdown-item"><i class="icon-undo"></i> Kembalikan</button>
                                                 </form>
-                                                <form class="delete-form" action="{{ route('legislation.perda.force-destroy', $legislation->id) }}" method="POST">
+                                                <form class="delete-form" action="{{ route('legislation.ranperda.force-destroy', $legislation->id) }}" method="POST">
                                                     @method('DELETE')
                                                     @csrf
                                                     <button type="submit" class="dropdown-item" title="Hapus"><i class="icon-cross2"></i> Hapus</button>
                                                 </form>
                                             @else
-                                                <a href="{{ route('legislation.perda.edit', $legislation->id) }}" class="dropdown-item"><i class="icon-pencil"></i> Perbaiki</a>
-                                                <form action="{{ route('legislation.perda.destroy', $legislation->id) }}" method="POST">
+                                                <a href="{{ route('legislation.ranperda.edit', $legislation->id) }}" class="dropdown-item"><i class="icon-pencil"></i> Perbaiki</a>
+                                                <form action="{{ route('legislation.ranperda.destroy', $legislation->id) }}" method="POST">
                                                     @method('DELETE')
                                                     @csrf
                                                     <button type="submit" class="dropdown-item" title="Hapus"><i class="icon-trash"></i> Batal</button>
@@ -180,5 +180,5 @@
 @endsection
 
 @section('script')
-    @include('legislation.perda.script')
+    @include('legislation.ranperda.script')
 @endsection

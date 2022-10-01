@@ -5,7 +5,7 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InstituteController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\Legislation\PerdaController;
+use App\Http\Controllers\Legislation\RanperdaController;
 use App\Http\Controllers\Legislation\DocumentController;
 
 /*
@@ -63,11 +63,11 @@ Route::middleware('auth')->group(function() {
     Route::resource('institute', InstituteController::class);
 
     Route::name('legislation.')->group(function () {
-        Route::resource('/legislation/perda', PerdaController::class);
-        Route::controller(PerdaController::class)->group(function () {
-            Route::post('/legislation/perda/trigger', 'trigger')->name('perda.trigger');
-            Route::put('/legislation/perda/{id}/restore', 'restore')->name('perda.restore');
-            Route::delete('/legislation/perda/{id}/force-destroy', 'forceDestroy')->name('perda.force-destroy');
+        Route::resource('/legislation/ranperda', RanperdaController::class);
+        Route::controller(RanperdaController::class)->group(function () {
+            Route::post('/legislation/ranperda/trigger', 'trigger')->name('ranperda.trigger');
+            Route::put('/legislation/ranperda/{id}/restore', 'restore')->name('ranperda.restore');
+            Route::delete('/legislation/ranperda/{id}/force-destroy', 'forceDestroy')->name('ranperda.force-destroy');
         });
 
         Route::resource('/legislation/document', DocumentController::class)->except([

@@ -50,7 +50,7 @@
                     <a href="#" class="nav-link"><i class="icon-stack2"></i> <span>Produk Hukum</span></a>
 
                     <ul class="nav nav-group-sub" data-submenu-title="Produk Hukum">
-                        <li class="nav-item"><a href="{{ route('legislation.perda.index') }}" class="nav-link {{ (request()->is('legislation/perda/*')) ? 'active' : '' }}">Ranperda</a></li>
+                        <li class="nav-item"><a href="{{ route('legislation.ranperda.index') }}" class="nav-link {{ (request()->is('legislation/ranperda*')) ? 'active' : '' }}">Ranperda</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">Ranperbup</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">Rancangan SK</a></li>
                     </ul>

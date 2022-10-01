@@ -11,7 +11,7 @@
         @include('layouts.message')
 
         <!-- Form -->
-        <form method="POST" action="{{ route('legislation.perda.store') }}" novalidate enctype="multipart/form-data">
+        <form method="POST" action="{{ route('legislation.ranperda.store') }}" novalidate enctype="multipart/form-data">
             @csrf
 
             <div class="d-lg-flex align-items-lg-start">            
@@ -204,5 +204,5 @@
 @endsection
 
 @section('script')
-    @include('legislation.perda.script')
+    @include('legislation.ranperda.script')
 @endsection

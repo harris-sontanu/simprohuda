@@ -38,7 +38,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/web.php'));
         });
 
-        Route::bind('perda', function ($value) {
+        Route::bind('ranperda', function ($value) {
             return Legislation::where('id', $value)->firstOrFail();
         });
     }
