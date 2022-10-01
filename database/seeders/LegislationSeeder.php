@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Type;
 use App\Models\Institute;
 use App\Models\Legislation;
 use App\Models\User;
@@ -22,8 +23,9 @@ class LegislationSeeder extends Seeder
             ->count(55)
             ->state(new Sequence(
                 fn ($sequence) => [
+                    'type_id' => Type::get()->random(),
                     'institute_id' => Institute::get()->random(),
-                    'user_id'  => User::all()->random(),
+                    'user_id'  => User::admin()->get()->random(),
                 ],
             ))
             ->create();

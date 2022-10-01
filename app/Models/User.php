@@ -189,6 +189,11 @@ class User extends Authenticatable
         );
     }
 
+    public function scopeAdmin($query)
+    {
+        return $query->where('role', 'administrator');
+    }
+
     public function scopeOpd($query)
     {
         return $query->where('role', 'opd');

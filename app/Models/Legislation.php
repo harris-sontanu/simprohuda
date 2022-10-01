@@ -194,21 +194,21 @@ class Legislation extends Model
     {
         return $query->select(['legislations.*', 'institutes.abbrev AS institute_abbrev', 'institutes.name AS institute_name'])
             ->join('institutes', 'legislations.institute_id', '=', 'institutes.id')
-            ->where('type', 'perda');
+            ->where('type_id', 1);
     }
 
     public function scopePerbup($query)
     {
         return $query->select(['legislations.*', 'institutes.abbrev AS institute_abbrev', 'institutes.name AS institute_name'])
             ->join('institutes', 'legislations.institute_id', '=', 'institutes.id')
-            ->where('type', 'perbup');
+            ->where('type', 'ranperbup');
     }
 
     public function scopeSk($query)
     {
         return $query->select(['legislations.*', 'institutes.abbrev AS institute_abbrev', 'institutes.name AS institute_name'])
             ->join('institutes', 'legislations.institute_id', '=', 'institutes.id')
-            ->where('type', 'sk');
+            ->where('type', 'ransk');
     }
 
 }
