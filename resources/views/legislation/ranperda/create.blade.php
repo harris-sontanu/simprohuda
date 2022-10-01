@@ -105,47 +105,26 @@
                                     <fieldset>
                                         <legend class="font-weight-bold"><i class="icon-stack mr-2"></i>Dokumen Persyaratan</legend>
                                         
-                                        <div class="form-group row">
-                                            <label class="col-lg-3 col-form-label" for="background">Surat Pengantar:</label>
-                                            <div class="col-lg-9">
-                                                <div class="custom-file">
-                                                    <input id="customFile" type="file" class="custom-file-input @error('surat_pengantar') is-invalid @enderror" name="surat_pengantar" accept=".pdf">
-                                                    <label class="custom-file-label" for="customFile">Choose file</label>
-                                                    @error('surat_pengantar')
-                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        @foreach ($requirements as $requirement)  
+                                            @php
+                                                $term = $requirement->term;
+                                            @endphp                                          
+                                            <div class="form-group row">
+                                                <label class="col-lg-3 col-form-label" for="background">{{ $requirement->title }}:</label>
+                                                <div class="col-lg-9">
+                                                    <div class="custom-file">
+                                                        <input id="customFile" type="file" class="custom-file-input @error('surat_pengantar') is-invalid @enderror" name="{{ $requirement->term }}">
+                                                        <label class="custom-file-label" for="customFile">Choose file</label>
+                                                        @error('surat_pengantar')
+                                                            <div class="invalid-feedback">{{ $message }}</div>
+                                                        @endif
+                                                    </div>
+                                                    @if (!empty($requirement->desc))
+                                                        <span class="form-text text-muted font-size-sm">{{ $requirement->desc }}</span>
                                                     @endif
                                                 </div>
-                                                <span class="form-text text-muted font-size-sm">Surat Pengantar Kepala Perangkat Daerah pemrakarsa Ranperda.</span>
                                             </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-lg-3 col-form-label" for="background">Naskah Akademik:</label>
-                                            <div class="col-lg-9">
-                                                <div class="custom-file">
-                                                    <input id="customFile" type="file" class="custom-file-input @error('naskah_akademik') is-invalid @enderror" name="naskah_akademik" accept=".pdf">
-                                                    <label class="custom-file-label" for="customFile">Choose file</label>
-                                                    @error('naskah_akademik')
-                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                    @endif
-                                                </div>
-                                                <span class="form-text text-muted font-size-sm">Naskah Akademik Ranperda yang sudah berpedoman dengan ketentuan Lampiran I UU 12 Tahun 2011 beserta perubahannya.</span>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group row">
-                                            <label class="col-lg-3 col-form-label" for="background">Notulensi Rapat Pembahasan:</label>
-                                            <div class="col-lg-9">
-                                                <div class="custom-file">
-                                                    <input id="customFile" type="file" class="custom-file-input @error('notulensi_rapat') is-invalid @enderror" name="notulensi_rapat" accept=".pdf">
-                                                    <label class="custom-file-label" for="customFile">Choose file</label>
-                                                    @error('notulensi_rapat')
-                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                    @endif
-                                                </div>
-                                                <span class="form-text text-muted font-size-sm">Notulensi rapat pembahasan Ranperda yg diadakan oleh Perangkat Daerah</span>
-                                            </div>
-                                        </div>
+                                        @endforeach
 
                                     </fieldset>
 

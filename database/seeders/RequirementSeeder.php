@@ -29,7 +29,7 @@ class RequirementSeeder extends Seeder
             'category' => 'requirement',
             'title'    => 'Surat Pengantar',
             'term'     => 'surat_pengantar',
-            'title'    => 'Surat Pengantar Kepala Perangkat Daerah pemrakarsa Ranperda.',
+            'desc'     => 'Surat Pengantar Kepala Perangkat Daerah pemrakarsa Ranperda.',
             'format'   => 'pdf,doc,docx',
             'order'    => 1, 
         ]);
@@ -39,7 +39,7 @@ class RequirementSeeder extends Seeder
             'category' => 'requirement',
             'title'    => 'Naskah Akademik',
             'term'     => 'naskah_akademik',
-            'title'    => 'Naskah Akademik Ranperda yang sudah berpedoman dengan ketentuan Lampiran I UU 12 Tahun 2011 beserta perubahannya.',
+            'desc'     => 'Naskah Akademik Ranperda yang sudah berpedoman dengan ketentuan Lampiran I UU 12 Tahun 2011 beserta perubahannya.',
             'format'   => 'pdf,doc,docx',
             'order'    => 2, 
         ]);
@@ -49,7 +49,7 @@ class RequirementSeeder extends Seeder
             'category' => 'requirement',
             'title'    => 'Notulensi Rapat Pembahasan',
             'term'     => 'notulensi_rapat',
-            'title'    => 'Notulensi rapat pembahasan Ranperda yg diadakan oleh Perangkat Daerah.',
+            'desc'     => 'Notulensi rapat pembahasan Ranperda yg diadakan oleh Perangkat Daerah.',
             'format'   => 'pdf,doc,docx',
             'order'    => 3, 
         ]);

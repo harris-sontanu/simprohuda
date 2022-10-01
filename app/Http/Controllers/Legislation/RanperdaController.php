@@ -6,6 +6,7 @@ use App\Http\Controllers\Legislation\LegislationController;
 use App\Models\Institute;
 use App\Models\Legislation;
 use App\Models\Type;
+use App\Models\Requirement;
 use Illuminate\Http\Request;
 use App\Http\Requests\RanperdaRequest;
 use Illuminate\Support\Str;
@@ -164,6 +165,8 @@ class RanperdaController extends LegislationController
         $nextRegNumber = $this->nextRegNumber($this->type->id, now()->translatedFormat('Y'));
         $nextRegNumber = Str::padLeft($nextRegNumber, 4, '0');
         $institutes = Institute::sorted()->pluck('name', 'id');
+        $master = Requirement::master($this->type->id)->first();
+        $requirements = Requirement::requirements($this->type->id)->get();
 
         $plugins = [
             'assets/js/plugins/forms/selects/select2.min.js',
@@ -175,6 +178,7 @@ class RanperdaController extends LegislationController
             'breadCrumbs',
             'nextRegNumber',
             'institutes',
+            'requirements',
             'plugins'
         ));
     }

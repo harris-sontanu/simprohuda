@@ -23,8 +23,6 @@ return new class extends Migration
                 ->references('id')
                 ->on('requirements')
                 ->cascadeOnDelete();
-            $table->enum('type', ['master', 'attachment', 'abstract']);
-            $table->string('title');
             $table->string('path');
             $table->string('name');
             $table->timestamps();

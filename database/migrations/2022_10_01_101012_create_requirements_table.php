@@ -20,12 +20,12 @@ return new class extends Migration
                 ->references('id')
                 ->on('types')
                 ->cascadeOnDelete();
+            $table->enum('category', ['master', 'attachment', 'abstract', 'requirement']);
             $table->string('title');
             $table->string('term');
             $table->text('desc')->nullable();
             $table->string('format')->default('pdf');
             $table->mediumInteger('order')->default(1);
-            $table->timestamps();
         });
     }
 
