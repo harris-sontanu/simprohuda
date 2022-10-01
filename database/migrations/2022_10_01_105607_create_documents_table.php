@@ -18,8 +18,11 @@ return new class extends Migration
             $table->foreignId('legislation_id')
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->enum('type', ['master', 'abstract', 'attachment', 'requirement']);
-            $table->tinyInteger('order')->default(1);
+            $table->unsignedMediumInteger('requirement_id');
+            $table->foreign('requirement_id')
+                ->references('id')
+                ->on('requirements')
+                ->cascadeOnDelete();
             $table->string('path');
             $table->string('name');
             $table->timestamps();

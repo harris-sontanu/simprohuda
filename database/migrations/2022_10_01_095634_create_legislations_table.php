@@ -15,7 +15,10 @@ return new class extends Migration
     {
         Schema::create('legislations', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['ranperda', 'ranperbup', 'ransk']);
+            $table->unsignedSmallInteger('type_id');
+            $table->foreign('type_id')
+                ->references('id')
+                ->on('types');
             $table->string('title', 767);
             $table->string('slug', 767)->unique();
             $table->unsignedInteger('reg_number');
@@ -25,6 +28,8 @@ return new class extends Migration
             $table->foreign('institute_id')
                 ->references('id')
                 ->on('institutes');
+            $table->foreignId('user_id')
+                ->constrained();
             
             $table->timestamp('posted_at')->nullable();
             $table->timestamp('repaired_at')->nullable();

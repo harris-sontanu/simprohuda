@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('legislations', function (Blueprint $table) {
-            $table->foreignId('user_id')
-                ->after('institute_id')
-                ->constrained();
+        Schema::create('types', function (Blueprint $table) {
+            $table->smallIncrements('id');
+            $table->string('name');
+            $table->string('slug')->unique();
+            $table->text('desc')->nullable();
         });
     }
 
@@ -27,9 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('legislations', function (Blueprint $table) {
-            $table->dropForeign(['user_id']);
-            $table->dropColumn('user_id');
-        });
+        Schema::dropIfExists('types');
     }
 };
