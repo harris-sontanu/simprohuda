@@ -47,7 +47,7 @@
                                                 <textarea class="form-control 
                                                     @error('title') is-invalid @enderror 
                                                     @error('slug') is-invalid @enderror" 
-                                                    name="title" id="title" cols="30" rows="4">{{ old('title') }}</textarea>
+                                                    name="title" id="title" spellcheck="false" cols="30" rows="4">{{ old('title') }}</textarea>
                                                 @error('title')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @endif
@@ -60,7 +60,7 @@
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label" for="background">Alasan Pengajuan:</label>
                                             <div class="col-lg-9">
-                                                <textarea class="form-control @error('background') is-invalid @enderror" name="background" id="background" cols="30" rows="4" >{{ old('background') }}</textarea>
+                                                <textarea class="form-control @error('background') is-invalid @enderror" name="background" id="background" spellcheck="false" cols="30" rows="4" >{{ old('background') }}</textarea>
                                                 @error('background')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @endif

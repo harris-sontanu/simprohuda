@@ -21,6 +21,11 @@ class Requirement extends Model
         return $this->belongsTo(Type::class);
     }
 
+    public function documents()
+    {
+        return $this->hasMany(Document::class);
+    }
+
     public function scopeMaster($query, $type_id)
     {
         return $query->where('type_id', $type_id)

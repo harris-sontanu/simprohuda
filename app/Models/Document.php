@@ -38,6 +38,11 @@ class Document extends Model
         return $this->belongsTo(Legislation::class);
     }
 
+    public function requirement()
+    {
+        return $this->belongsTo(Requirement::class);
+    }
+
     public function extClass(): Attribute
     {         
         $file = explode('.', $this->path);
@@ -148,5 +153,21 @@ class Document extends Model
         return Attribute::make(
             get: fn ($value) => $statusBadge
         );
+    }
+
+    public function scopeMaster($query, $legislation_id)
+    {
+        return $query->select(['documents.*', 'requirements.*'])
+            ->join('requirements', 'documents.requirement_id', '=', 'requirements.id')
+            ->where('documents.legislation_id', $legislation_id)
+            ->where('requirements.category', 'master');
+    }
+
+    public function scopeRequirements($query, $legislation_id)
+    {
+        return $query->select(['documents.*', 'requirements.*'])
+            ->join('requirements', 'documents.requirement_id', '=', 'requirements.id')
+            ->where('documents.legislation_id', $legislation_id)
+            ->where('requirements.category', 'requirement');
     }
 }

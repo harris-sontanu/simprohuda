@@ -9,6 +9,7 @@ use App\Models\Type;
 use App\Models\Requirement;
 use Illuminate\Http\Request;
 use App\Http\Requests\RanperdaRequest;
+use App\Models\Document;
 use Illuminate\Support\Str;
 
 class RanperdaController extends LegislationController
@@ -239,9 +240,8 @@ class RanperdaController extends LegislationController
             'Perbaikan' => true
         ];
 
-        $master = $legislation->documents()->where('type', 'master')->first();
-        $attachments = $legislation->documents()->where('type', 'attachment')->get();
-        $requirements = $legislation->documents()->where('type', 'requirement')->get();
+        $master = Document::master($legislation->id)->first();
+        $requirements = Document::requirements($legislation->id)->get();
 
         $plugins = [
             'assets/js/plugins/forms/selects/select2.min.js',
@@ -252,7 +252,6 @@ class RanperdaController extends LegislationController
             'pageHeader',
             'breadCrumbs',
             'master',
-            'attachments',
             'requirements',
             'legislation',
             'plugins',
