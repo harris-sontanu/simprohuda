@@ -13,9 +13,9 @@ class DashboardController extends Controller
         $pageTitle = $pageHeader . $this->pageTitle;
 
         $total 		  = Legislation::all()->count();
-        $totalPerda   = Legislation::perda()->count();
-        $totalPerbup  = Legislation::perbup()->count();
-        $totalSk 	  = Legislation::sk()->count();
+        $totalPerda   = Legislation::ranperda()->count();
+        $totalPerbup  = Legislation::ranperbup()->count();
+        $totalSk 	  = Legislation::ransk()->count();
 
         $legislations = Legislation::posted()
 							->latest()

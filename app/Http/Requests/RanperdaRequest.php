@@ -7,6 +7,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
+use App\Models\Requirement;
 
 class RanperdaRequest extends FormRequest
 {
@@ -21,6 +22,19 @@ class RanperdaRequest extends FormRequest
     }
 
     /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'title' => 'judul',
+            'institute_id'  => 'perangkat daerah',
+        ];
+    }
+
+    /**
      * Get the validation rules that apply to the request.
      *
      * @return array<string, mixed>
@@ -32,39 +46,17 @@ class RanperdaRequest extends FormRequest
             'slug'          => 'required|unique:legislations',
             'background'    => 'nullable',
             'institute_id'  => 'required',
-            'master'        => [
-                                Rule::requiredIf($request->has('post')),
-                                'file',
-                                'mimes:pdf,doc,docx',
-                                'max:2048',
-                               ],
-            'attachments'   => 'nullable|array',
-            'attachments.*.title' => ['required_with:attachments.*.file'],
-            'attachments.*.file'  => [
-                                        'required_with:attachments.*.title',
-                                        'file',
-                                        'mimes:pdf, doc, docx',
-                                        'max:2048',
-                                     ],
-            'surat_pengantar' => [
-                                    Rule::requiredIf($request->has('post')),
-                                    'file',
-                                    'mimes:pdf, doc, docx',
-                                    'max:2048',
-                                 ],
-            'naskah_akademik' => [
-                                    Rule::requiredIf($request->has('post')),
-                                    'file',
-                                    'mimes:pdf, doc, docx',
-                                    'max:2048',
-                                 ],
-            'notulensi_rapat' => [
-                                    Rule::requiredIf($request->has('post')),
-                                    'file',
-                                    'mimes:pdf, doc, docx',
-                                    'max:2048',
-                                 ],
         ];
+
+        if ($request->has('post')) {
+            $master = Requirement::master(1)->first();
+            $rules[$master->term] = 'required|file|mimes:'.$master->format.'|max:2048';
+
+            $requirements = Requirement::requirements(1)->get();
+            foreach ($requirements as $requirement) {                
+                $rules[$requirement->term] = 'required|file|mimes:'.$requirement->format.'|max:2048';
+            }
+        }
 
         switch ($this->method()) {
             case 'PUT':
@@ -98,13 +90,13 @@ class RanperdaRequest extends FormRequest
      *
      * @return array
      */
-    public function messages()
-    {
-        return [
-            'master.required'   => 'Dokumen Draf Ranperda belum diunggah',
-            'surat_pengantar.required'   => 'Dokumen Surat Pengantar belum diunggah',
-            'naskah_akademik.required'   => 'Dokumen Naskah Akademik belum diunggah',
-            'notulensi_rapat.required'   => 'Dokumen Notulensi Rapat belum diunggah',
-        ];
-    }
+    // public function messages()
+    // {
+    //     return [
+    //         'master.required'   => 'Dokumen Draf Ranperda belum diunggah',
+    //         'surat_pengantar.required'   => 'Dokumen Surat Pengantar belum diunggah',
+    //         'naskah_akademik.required'   => 'Dokumen Naskah Akademik belum diunggah',
+    //         'notulensi_rapat.required'   => 'Dokumen Notulensi Rapat belum diunggah',
+    //     ];
+    // }
 }

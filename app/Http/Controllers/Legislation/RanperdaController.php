@@ -178,6 +178,7 @@ class RanperdaController extends LegislationController
             'breadCrumbs',
             'nextRegNumber',
             'institutes',
+            'master',
             'requirements',
             'plugins'
         ));
@@ -191,22 +192,25 @@ class RanperdaController extends LegislationController
      */
     public function store(RanperdaRequest $request)
     {
-        $validated = $request->safe()->only(['title', 'slug', 'background', 'institute_id']);
+        $validated = $request->validated();
 
         $validated['type_id'] = $this->type->id;
         $validated['reg_number'] = $this->nextRegNumber($this->type->id, now()->translatedFormat('Y'));
 
-        $msg_suffix = 'sebagai Draf';
-        if ($request->has('post')) {
+        // dd($request);
+
+        $msg_append = 'sebagai Draf';
+        if ($request->has('post')) 
+        {
             $validated['posted_at'] = now();
-            $msg_suffix = 'dan diajukan ke Bagian Hukum';
+            $msg_append = 'dan diajukan ke Bagian Hukum';
         }
 
-        $new_legislation = $request->user()->legislations()->create($validated);
+        // $new_legislation = $request->user()->legislations()->create($validated);
 
-        $this->documentUpload($new_legislation, $request);
+        // $this->documentUpload($new_legislation, $request);
 
-        return redirect('/legislation/ranperda')->with('message', '<strong>Berhasil!</strong> Data Rancangan Peraturan Daerah telah berhasil disimpan ' . $msg_suffix);
+        // return redirect('/legislation/ranperda')->with('message', '<strong>Berhasil!</strong> Data Rancangan Peraturan Daerah telah berhasil disimpan ' . $msg_append);
     }
 
     /**

@@ -149,17 +149,6 @@
             return true;
         });
 
-        $(document).on('click', '.new-attachment', function() {
-
-            let html = '<div class="my-3"><input type="text" class="form-control" name="attachments[][title]" placeholder="Judul Lampiran" /></div>'
-                     + '<div class="custom-file">'
-                     + '<input id="customFile" type="file" class="custom-file-input" name="attachments[][file]" accept=".pdf, .doc, .docx">'
-                     + '<label class="custom-file-label" for="customFile">Choose file</label>'
-                     + '</div>';
-
-            $(this).before(html);
-        })
-
         $('#upload-doc-modal').on('show.bs.modal', function(event) {
             let button = $(event.relatedTarget), // Button that triggered the modal
                 action = button.data('action');

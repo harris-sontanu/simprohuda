@@ -40,6 +40,11 @@ class Legislation extends Model
 
     protected $status;
 
+    public function type()
+    {
+        return $this->belongsTo(Type::class);
+    }
+
     public function institute()
     {
         return $this->belongsTo(Institute::class);
@@ -115,19 +120,6 @@ class Legislation extends Model
         );
     }
 
-    public function type(): Attribute
-    {   
-        $types = [
-            'ranperda'  => 'Ranperda',
-            'ranperbup' => 'Ranperbup',
-            'ransk'     => 'Rancangan SK'
-        ];
-
-        return Attribute::make(
-            get: fn ($value) => $types[$value]
-        );
-    }
-
     public function regNumber(): Attribute
     {           
         return Attribute::make(
@@ -197,18 +189,18 @@ class Legislation extends Model
             ->where('type_id', 1);
     }
 
-    public function scopePerbup($query)
+    public function scopeRanperbup($query)
     {
         return $query->select(['legislations.*', 'institutes.abbrev AS institute_abbrev', 'institutes.name AS institute_name'])
             ->join('institutes', 'legislations.institute_id', '=', 'institutes.id')
-            ->where('type', 'ranperbup');
+            ->where('type_id', 2);
     }
 
-    public function scopeSk($query)
+    public function scopeRansk($query)
     {
         return $query->select(['legislations.*', 'institutes.abbrev AS institute_abbrev', 'institutes.name AS institute_name'])
             ->join('institutes', 'legislations.institute_id', '=', 'institutes.id')
-            ->where('type', 'ransk');
+            ->where('type_id', 3);
     }
 
 }

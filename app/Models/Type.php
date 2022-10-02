@@ -15,4 +15,14 @@ class Type extends Model
      * @var bool
      */
     public $timestamps = false;
+
+    public function legislations()
+    {
+        return $this->hasMany(Legislation::class);
+    }
+
+    public function requirements()
+    {
+        return $this->hasMany(Requirements::class);
+    }
 }

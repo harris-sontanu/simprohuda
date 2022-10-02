@@ -16,6 +16,11 @@ class Requirement extends Model
      */
     public $timestamps = false;
 
+    public function type()
+    {
+        return $this->belongsTo(Type::class);
+    }
+
     public function scopeMaster($query, $type_id)
     {
         return $query->where('type_id', $type_id)

@@ -95,15 +95,14 @@
 							@forelse ($legislations as $legislation)
 								<tr>
 									<td>{{ $legislation->reg_number }}</td>
-									<td>{{ $legislation->type }}</td>
+									<td>{{ $legislation->type->name }}</td>
 									<td>{{ $legislation->title }}</td>
 									<td>{{ $legislation->institute->name }}</td>
 									<td><abbr data-popup="tooltip" title="{{ $legislation->dateFormatted($legislation->posted_at, true) }}">{{ $legislation->dateFormatted($legislation->posted_at) }}</abbr></td>
 								</tr>
 							@empty
 								
-							@endforelse
-							
+							@endforelse							
 						</tbody>
 					</table>
 				</div>
