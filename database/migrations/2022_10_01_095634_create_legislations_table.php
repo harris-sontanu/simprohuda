@@ -32,7 +32,6 @@ return new class extends Migration
                 ->constrained();
             
             $table->timestamp('posted_at')->nullable();
-            $table->timestamp('repaired_at')->nullable();
             $table->timestamp('revised_at')->nullable();
             $table->timestamp('validated_at')->nullable();
             $table->softDeletes();

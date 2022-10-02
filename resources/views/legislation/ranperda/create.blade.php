@@ -29,7 +29,7 @@
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label" for="phone">Perangkat Daerah:</label>
                                             <div class="col-lg-9">
-                                                <select name="institute_id" id="institute_id" class="select @error('institute_id') is-invalid @enderror">
+                                                <select name="institute_id" id="institute_id" class="select @error('institute_id') is-invalid @enderror" autofocus>
                                                     <option value="">Pilih Perangkat Daerah</option>
                                                     @foreach ($institutes as $key => $value)
                                                         <option value="{{ $key }}" @selected(old('institute_id') == $key)>{{ $value }}</option>
@@ -44,8 +44,14 @@
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label" for="title">Judul:</label>
                                             <div class="col-lg-9">
-                                                <textarea class="form-control @error('title') is-invalid @enderror" name="title" id="title" cols="30" rows="4" autofocus>{{ old('title') }}</textarea>
+                                                <textarea class="form-control 
+                                                    @error('title') is-invalid @enderror 
+                                                    @error('slug') is-invalid @enderror" 
+                                                    name="title" id="title" cols="30" rows="4">{{ old('title') }}</textarea>
                                                 @error('title')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @endif
+                                                @error('slug')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @endif
                                             </div>

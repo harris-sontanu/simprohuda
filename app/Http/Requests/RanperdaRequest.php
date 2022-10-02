@@ -30,6 +30,7 @@ class RanperdaRequest extends FormRequest
     {
         return [
             'title' => 'judul',
+            'slug'  => 'judul',
             'institute_id'  => 'perangkat daerah',
         ];
     }

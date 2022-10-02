@@ -23,6 +23,6 @@ class Type extends Model
 
     public function requirements()
     {
-        return $this->hasMany(Requirements::class);
+        return $this->hasMany(Requirement::class);
     }
 }

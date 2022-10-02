@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Legislation;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Carbon;
 
 class LegislationController extends Controller
 {
@@ -20,7 +19,7 @@ class LegislationController extends Controller
     
     protected function documentStorage($legislation, $documentType, $sequence = 1)
     {   
-        $storage_path = 'produk-hukum/' . $legislation->getRawOriginal('type') . '/' . $legislation->created_year . '/' . $legislation->reg_number;
+        $storage_path = 'produk-hukum/' . $legislation->type->slug . '/' . $legislation->created_year . '/' . $legislation->reg_number;
 
         $prepend = 'draf';
         if ($documentType === 'requirement') {
@@ -29,7 +28,7 @@ class LegislationController extends Controller
             $prepend = 'lamp' . Str::padLeft($sequence, 2, '0');
         }
 
-        $file_prefix_name = $legislation->created_year . $legislation->getRawOriginal('type') . $legislation->reg_number . $prepend;
+        $file_prefix_name = $legislation->created_year . $legislation->type->slug . $legislation->reg_number . $prepend;
 
         return [
             'path' => $storage_path, 
@@ -39,109 +38,53 @@ class LegislationController extends Controller
 
     protected function documentUpload($legislation, $request)
     {   
-        $currentTime = Carbon::now()->timestamp;
+        $currentTime = '_' . now()->timestamp;
 
-        if ($request->hasFile('master'))
+        // Upload master document
+        $master = $legislation->type->requirements->where('category', 'master')->first();
+        if ($request->hasFile($master->term))
         {
-            $file = $request->file('master');
+            $file = $request->file($master->term);
     
-            $documentStorage = $this->documentStorage($legislation, 'master');
+            $documentStorage = $this->documentStorage($legislation, $master->term);
             $file_name = $documentStorage['file_prefix_name'] . $currentTime . '.' . $file->getClientOriginalExtension();    
     
             $path = $file->storeAs($documentStorage['path'], $file_name, 'public');
             
             $legislation->documents()->create([
-                'type'  => 'master',
+                'requirement_id'    => $master->id,
                 'path'  => $path,
                 'name'  => $file_name,
-                'title' => 'Draf Ranperda',
                 'posted_at' => ($request->has('post')) ? now() : null,
             ]);
         }
 
-        $attachments = $request->attachments;
-        if (!empty($attachments[0]['file']))
-        {
-            // Get the next order
-            $currentOrder = $legislation->documents->where('type', 'attachment')->max('order');
-            if (!empty($currentOrder)) {
-                $i = $currentOrder + 1;
-            } else {
-                $i = 1;
-            }
+        // Upload all requirement documents
+        $requirements = $legislation->type->requirements
+                            ->where('category', 'requirement')
+                            ->sortBy('order');
 
-            foreach ($attachments as $attachment) {
+        $requirements->values()->all();
 
-                $documentStorage = $this->documentStorage($legislation, 'attachment', $i);    
-                $file_name = $documentStorage['file_prefix_name'] . $currentTime . '.' . $attachment['file']->getClientOriginalExtension();     
-
-                $path = $attachment['file']->storeAs($documentStorage['path'], $file_name, 'public');
+        foreach ($requirements as $requirement) {
+            if ($request->hasFile($requirement->term))
+            {
+                $file = $request->file($requirement->term);
+        
+                $documentStorage = $this->documentStorage($legislation, 'requirement', $requirement->order);
+                $file_name = $documentStorage['file_prefix_name'] . $currentTime . '.' . $file->getClientOriginalExtension();    
+        
+                $path = $file->storeAs($documentStorage['path'], $file_name, 'public');
                 
                 $legislation->documents()->create([
-                    'type'  => 'attachment',
-                    'order' => $i,
+                    'requirement_id'    => $requirement->id,
                     'path'  => $path,
                     'name'  => $file_name,
-                    'title'  => $attachment['title'],
+                    'posted_at' => ($request->has('post')) ? now() : null,
                 ]);
-
-                $i++;
             }
         }
 
-        if ($request->hasFile('surat_pengantar'))
-        {
-            $file = $request->file('surat_pengantar');
-    
-            $documentStorage = $this->documentStorage($legislation, 'requirement');
-            $file_name = $documentStorage['file_prefix_name'] . $currentTime . '.' . $file->getClientOriginalExtension();    
-    
-            $path = $file->storeAs($documentStorage['path'], $file_name, 'public');
-            
-            $legislation->documents()->create([
-                'type'  => 'requirement',
-                'order' => 1,
-                'path'  => $path,
-                'name'  => $file_name,
-                'title' => 'Surat Pengantar',
-            ]);
-        }
-
-        if ($request->hasFile('naskah_akademik'))
-        {
-            $file = $request->file('naskah_akademik');
-    
-            $documentStorage = $this->documentStorage($legislation, 'requirement', 2);
-            $file_name = $documentStorage['file_prefix_name'] . $currentTime . '.' . $file->getClientOriginalExtension();    
-    
-            $path = $file->storeAs($documentStorage['path'], $file_name, 'public');
-            
-            $legislation->documents()->create([
-                'type'  => 'requirement',
-                'order' => 2,
-                'path'  => $path,
-                'name'  => $file_name,
-                'title' => 'Naskah Akademik',
-            ]);
-        }
-
-        if ($request->hasFile('notulensi_rapat'))
-        {
-            $file = $request->file('notulensi_rapat');
-    
-            $documentStorage = $this->documentStorage($legislation, 'requirement', 3);
-            $file_name = $documentStorage['file_prefix_name'] . $currentTime . '.' . $file->getClientOriginalExtension();    
-    
-            $path = $file->storeAs($documentStorage['path'], $file_name, 'public');
-            
-            $legislation->documents()->create([
-                'type'  => 'requirement',
-                'order' => 3,
-                'path'  => $path,
-                'name'  => $file_name,
-                'title' => 'Notulensi Rapat',
-            ]);
-        }
     }
 
     protected function removeDocument($documentPath)

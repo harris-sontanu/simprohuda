@@ -25,6 +25,10 @@ return new class extends Migration
                 ->cascadeOnDelete();
             $table->string('path');
             $table->string('name');
+
+            $table->timestamp('posted_at')->nullable();
+            $table->timestamp('revised_at')->nullable();
+            $table->timestamp('validated_at')->nullable();
             $table->timestamps();
         });
     }

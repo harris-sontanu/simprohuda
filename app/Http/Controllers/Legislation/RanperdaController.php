@@ -197,8 +197,6 @@ class RanperdaController extends LegislationController
         $validated['type_id'] = $this->type->id;
         $validated['reg_number'] = $this->nextRegNumber($this->type->id, now()->translatedFormat('Y'));
 
-        // dd($request);
-
         $msg_append = 'sebagai Draf';
         if ($request->has('post')) 
         {
@@ -206,11 +204,11 @@ class RanperdaController extends LegislationController
             $msg_append = 'dan diajukan ke Bagian Hukum';
         }
 
-        // $new_legislation = $request->user()->legislations()->create($validated);
+        $new_legislation = $request->user()->legislations()->create($validated);
 
-        // $this->documentUpload($new_legislation, $request);
+        $this->documentUpload($new_legislation, $request);
 
-        // return redirect('/legislation/ranperda')->with('message', '<strong>Berhasil!</strong> Data Rancangan Peraturan Daerah telah berhasil disimpan ' . $msg_append);
+        return redirect('/legislation/ranperda')->with('message', '<strong>Berhasil!</strong> Data Rancangan Peraturan Daerah telah berhasil disimpan ' . $msg_append);
     }
 
     /**

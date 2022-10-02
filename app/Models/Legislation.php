@@ -20,7 +20,7 @@ class Legislation extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'type',
+        'type_id',
         'title',
         'slug',
         'reg_number',

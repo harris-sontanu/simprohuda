@@ -19,12 +19,9 @@ class Document extends Model
      */
     protected $fillable = [
         'legislation_id',
-        'type',
-        'order',
+        'requirement_id',
         'path',
         'name',
-        'title',
-        'caption',
         'posted_at',
         'revised_at',
         'validated_at',
