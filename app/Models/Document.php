@@ -167,7 +167,6 @@ class Document extends Model
     {
         return $query->select(['documents.*', 'requirements.*'])
             ->join('requirements', 'documents.requirement_id', '=', 'requirements.id')
-            ->where('documents.legislation_id', $legislation_id)
-            ->where('requirements.category', 'requirement');
+            ->where('documents.legislation_id', $legislation_id);
     }
 }

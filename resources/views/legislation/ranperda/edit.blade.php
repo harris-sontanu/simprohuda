@@ -101,112 +101,76 @@
                                 </tr>
                             </thead>
                             <tbody id="status-relation-table-body">
-                                <tr class="table-active table-border-double">
-                                    <td colspan="2"><span class="font-weight-semibold">Dokumen Rancangan</span></td>
-                                    <td colspan="3" class="text-right">
-                                        <button type="button" class="btn btn-sm btn-light"><i class="icon-file-upload mr-2"></i>Unggah Lampiran</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Draf Ranperda</td>
-                                    <td>
-                                        @empty ($master)
-                                            @php $action = 'create'; @endphp
-                                            -
-                                        @else
-                                            @php $action = 'edit'; @endphp
-                                            <div class="media">
-                                                <div class="mr-3">
-                                                    <i class="{{ $master->extClass; }} icon-2x top-0 mt-1"></i>
+                                @php $category = ''; @endphp
+                                @foreach ($requirements as $requirement)
+                                    @if($category !== $requirement->category AND $requirement->category === 'master')
+                                        <tr class="table-active table-border-double">
+                                            <td colspan="5"><span class="font-weight-semibold">Dokumen Rancangan</span></td>
+                                        </tr>
+                                    @elseif ($category !== $requirement->category AND $requirement->category === 'requirement')
+                                        <tr class="table-active table-border-double">
+                                            <td colspan="5"><span class="font-weight-semibold">Dokumen Persyaratan</span></td>
+                                        </tr> 
+                                    @endif
+                                    @php $row = true; @endphp
+                                    @foreach ($documents as $document)
+                                        @if ($document->requirement_id === $requirement->id)
+                                            <tr>
+                                                <td>{{ $document->title }}</td>
+                                                <td>
+                                                    <div class="media">
+                                                        <div class="mr-3">
+                                                            <i class="{{ $document->extClass; }} icon-2x top-0 mt-1"></i>
+                                                        </div>
+                
+                                                        <div class="media-body">
+                                                            <a href="{{ $document->source }}" class="media-title d-block font-weight-semibold text-body m-0" title="{{ $document->name }}" target="_blank" download>{{ $document->name; }}</a>
+                
+                                                            <ul class="list-inline list-inline-condensed list-inline-dotted font-size-sm text-muted mb-0">
+                                                                <li class="list-inline-item">{{ $document->size(); }}</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <abbr data-popup="tooltip" title="{{ $document->dateFormatted($document->created_at, true) }}">{{ $document->dateFormatted($document->created_at) }}</abbr>
+                                                </td>
+                                                <td>{!! $document->statusBadge !!}</td>
+                                                <td class="text-center">
+                                                    <div class="list-icons">
+                                                        <a href="#" class="list-icons-item" data-popup="tooltip" title="Pratinjau Dokumen"><i class="icon-file-eye"></i></a>
+                                                        <a 
+                                                            href="#" 
+                                                            class="list-icons-item upload-document" 
+                                                            data-toggle="modal" 
+                                                            data-target="#upload-doc-modal" 
+                                                            data-action="edit" 
+                                                            data-id="{{ $document->id }}"
+                                                            data-popup="tooltip" 
+                                                            title="Perbaiki Dokumen">
+                                                            <i class="icon-file-upload"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @php $row = false; @endphp
+                                        @endif
+                                    @endforeach  
+                                    @if ($row)                                        
+                                        <tr>
+                                            <td>{{ $requirement->title }}</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td class="text-center">
+                                                <div class="list-icons">
+                                                    <a href="#" class="list-icons-item"><i class="icon-file-plus"></i></a>
                                                 </div>
-        
-                                                <div class="media-body">
-                                                    <a href="{{ $master->source }}" class="media-title d-block font-weight-semibold text-body m-0" title="{{ $master->name }}" target="_blank" download>{{ $master->name; }}</a>
-        
-                                                    <ul class="list-inline list-inline-condensed list-inline-dotted font-size-sm text-muted mb-0">
-                                                        <li class="list-inline-item">{{ $master->size() }}</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        @endempty
-                                    </td>
-                                    <td>
-                                        @empty ($master)
-                                            -
-                                        @else
-                                            <abbr data-popup="tooltip" title="{{ $master->dateFormatted($master->created_at, true) }}">{{ $master->dateFormatted($master->created_at) }}</abbr>
-                                        @endempty
-                                    </td>
-                                    <td>
-                                        @empty ($master)
-                                            -
-                                        @else
-                                            {!! $master->statusBadge !!}
-                                        @endempty
-                                    </td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-light btn-sm rounded-pill rounded-right-0" data-popup="tooltip" title="Pratinjau Dokumen"><i class="icon-eye2"></i></a>
-                                            <button 
-                                                type="button" 
-                                                class="btn btn-light btn-sm rounded-pill rounded-left-0 upload-document" 
-                                                data-toggle="modal" 
-                                                data-target="#upload-doc-modal" 
-                                                data-action="{{ $action }}" 
-                                                @if ($action == 'edit')
-                                                    data-id="{{ $master->id }}";
-                                                @else    
-                                                    data-legislation="{{ $legislation->id }}" 
-                                                    data-title="Draf Ranperda" 
-                                                    data-type="master" 
-                                                    data-order="1" 
-                                                @endif
-                                                data-popup="tooltip" 
-                                                title="Unggah Dokumen">
-                                                <i class="icon-file-upload"></i>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="table-active table-border-double">
-                                    <td colspan="5"><span class="font-weight-semibold">Dokumen Persyaratan</span></td>
-                                </tr> 
-                                <tr>
-                                    <td>Surat Pengantar</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-light btn-sm rounded-pill rounded-right-0"><i class="icon-eye2"></i></a>
-                                            <button type="button" class="btn btn-light btn-sm rounded-pill rounded-left-0"><i class="icon-file-upload"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>        
-                                <tr>
-                                    <td>Naskah Akademik</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-light btn-sm rounded-pill rounded-right-0"><i class="icon-eye2"></i></a>
-                                            <button type="button" class="btn btn-light btn-sm rounded-pill rounded-left-0"><i class="icon-file-upload"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>                                 
-                                <tr>
-                                    <td>Notulensi Rapat Pembahasan</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <button type="button" class="btn btn-light btn-sm rounded-pill rounded-right-0"><i class="icon-eye2"></i></a>
-                                            <button type="button" class="btn btn-light btn-sm rounded-pill rounded-left-0"><i class="icon-file-upload"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>                                                                        
+                                            </td>
+                                        </tr>
+                                    @endif
+                                    @php $category = $requirement->category; @endphp                                  
+                                @endforeach                                                                        
                             </tbody>
                         </table>
                     </div>

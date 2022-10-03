@@ -7,9 +7,9 @@ use App\Models\Institute;
 use App\Models\Legislation;
 use App\Models\Type;
 use App\Models\Requirement;
+use App\Models\Document;
 use Illuminate\Http\Request;
 use App\Http\Requests\RanperdaRequest;
-use App\Models\Document;
 use Illuminate\Support\Str;
 
 class RanperdaController extends LegislationController
@@ -239,9 +239,9 @@ class RanperdaController extends LegislationController
             route('legislation.ranperda.index') => $this->type->name,
             'Perbaikan' => true
         ];
-
-        $master = Document::master($legislation->id)->first();
-        $requirements = Document::requirements($legislation->id)->get();
+        
+        $requirements = Requirement::where('type_id', $this->type->id)->orderBy('order')->get();
+        $documents = Document::requirements($legislation->id)->get();
 
         $plugins = [
             'assets/js/plugins/forms/selects/select2.min.js',
@@ -251,8 +251,8 @@ class RanperdaController extends LegislationController
             'pageTitle',
             'pageHeader',
             'breadCrumbs',
-            'master',
             'requirements',
+            'documents',
             'legislation',
             'plugins',
         ));
