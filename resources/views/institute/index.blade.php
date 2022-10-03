@@ -80,13 +80,13 @@
                                         </div>                                            
                                     @endempty
                                 </td>
-                                <td class="safezone">
-                                    <div class="btn-group">
-                                        <a href="{{ route('institute.edit', $institute->id) }}" class="btn btn-light btn-sm rounded-pill rounded-right-0"><i class="icon-pencil"></i></a>
+                                <td class="text-center safezone">
+                                    <div class="list-icons">
+                                        <a href="{{ route('institute.edit', $institute->id) }}" class="list-icons-item" data-popup="tooltip" title="Ubah"><i class="icon-pencil"></i></a>
                                         <form class="delete-form" action="{{ route('institute.destroy', $institute->id) }}" data-name="{{ $institute->name; }}" method="POST">
                                             @method('DELETE')
                                             @csrf
-                                            <button type="submit" class="btn btn-light btn-sm rounded-pill rounded-left-0 border-left-0 delete"><i class="icon-cross2"></i></button>
+                                            <button type="submit" class="btn btn-link list-icons-item p-0 delete" data-popup="tooltip" title="Hapus"><i class="icon-trash"></i></button>
                                         </form>
                                     </div>
                                 </td>

@@ -128,31 +128,28 @@
                                 @if (Request::get('tab') === 'valid') 
                                     <td><abbr data-popup="tooltip" title="{{ $legislation->dateFormatted($legislation->validated_at, true) }}">{{ $legislation->dateFormatted($legislation->validated_at) }}</abbr></td>
                                 @endif
-                                <td class="safezone">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-light btn-sm rounded-pill rounded-right-0" data-toggle="modal" data-target="#show-modal" data-id="{{ $legislation->id }}" data-title="{{ $legislation->title }}"><i class="icon-eye2"></i></button>
-                                        <button type="button" class="btn btn-light btn-sm dropdown-toggle rounded-pill rounded-left-0" data-toggle="dropdown"></button>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            @if ($onlyTrashed)
-                                                <form action="{{ route('legislation.ranperda.restore', $legislation->id) }}" method="POST">
-                                                    @method('PUT')
-                                                    @csrf
-                                                    <button type="submit" class="dropdown-item"><i class="icon-undo"></i> Kembalikan</button>
-                                                </form>
-                                                <form class="delete-form" action="{{ route('legislation.ranperda.force-destroy', $legislation->id) }}" method="POST">
-                                                    @method('DELETE')
-                                                    @csrf
-                                                    <button type="submit" class="dropdown-item" title="Hapus"><i class="icon-cross2"></i> Hapus</button>
-                                                </form>
-                                            @else
-                                                <a href="{{ route('legislation.ranperda.edit', $legislation->id) }}" class="dropdown-item"><i class="icon-pencil"></i> Perbaiki</a>
-                                                <form action="{{ route('legislation.ranperda.destroy', $legislation->id) }}" method="POST">
-                                                    @method('DELETE')
-                                                    @csrf
-                                                    <button type="submit" class="dropdown-item" title="Hapus"><i class="icon-trash"></i> Batal</button>
-                                                </form>
-                                            @endif
-                                        </div>
+                                <td class="text-center safezone">
+                                    <div class="list-icons">
+                                        <a href="#" class="list-icons-item" data-popup="tooltip" title="Pratinjau" data-toggle="modal" data-target="#show-modal" data-id="{{ $legislation->id }}"><i class="icon-eye"></i></a>
+                                        @if ($onlyTrashed)
+                                            <form action="{{ route('legislation.ranperda.restore', $legislation->id) }}" method="POST">
+                                                @method('PUT')
+                                                @csrf
+                                                <button type="submit" class="btn btn-link list-icons-item p-0" data-popup="tooltip" title="Kembalikan"><i class="icon-undo2"></i></button>
+                                            </form>
+                                            <form class="delete-form" action="{{ route('legislation.ranperda.force-destroy', $legislation->id) }}" method="POST">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-link list-icons-item p-0" data-popup="tooltip" title="Hapus"><i class="icon-cross2"></i></button>
+                                            </form>
+                                        @else
+                                            <a href="{{ route('legislation.ranperda.edit', $legislation->id) }}" data-popup="tooltip" title="Ubah" class="list-icons-item"><i class="icon-pencil"></i></a>
+                                            <form action="{{ route('legislation.ranperda.destroy', $legislation->id) }}" method="POST">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-link list-icons-item p-0" data-popup="tooltip" title="Batal"><i class="icon-trash"></i></button>
+                                            </form>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

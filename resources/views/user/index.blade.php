@@ -111,32 +111,29 @@
                                 <td>{!! $user->statusBadgeHtml !!}</td>
                                 <td><abbr data-popup="tooltip" title="{{ $user->dateFormatted($user->last_logged_in_at, true) }}">{{ $user->dateFormatted($user->last_logged_in_at) }}</abbr></td>
                                 <td><abbr data-popup="tooltip" title="{{ $user->dateFormatted($user->created_at, true) }}">{{ $user->dateFormatted($user->created_at) }}</abbr></td>
-                                <td class="safezone">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-light btn-sm rounded-pill rounded-right-0" data-toggle="modal" data-target="#show-modal" data-id="{{ $user->id }}" data-name="{{ $user->name }}"><i class="icon-eye2"></i></button>
-                                        <button type="button" class="btn btn-light btn-sm dropdown-toggle rounded-pill rounded-left-0" data-toggle="dropdown"></button>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            @if ($onlyTrashed)
-                                                <form action="{{ route('user.restore', $user->id) }}" method="POST">
-                                                    @method('PUT')
-                                                    @csrf
-                                                    <button type="submit" class="dropdown-item"><i class="icon-undo"></i> Restore</button>
-                                                </form>
-                                                <form class="delete-form" action="{{ route('user.force-destroy', $user->id) }}" method="POST">
-                                                    @method('DELETE')
-                                                    @csrf
-                                                    <button type="submit" class="dropdown-item" title="Hapus"><i class="icon-cross2"></i> Hapus</button>
-                                                </form>
-                                            @else
-                                                <a href="{{ route('user.edit', $user->id) }}" class="dropdown-item"><i class="icon-pencil"></i> Ubah</a>
-                                                @php $disabled = ($user->id == 1 OR $user->id == Auth::user()->id) ? 'disabled' : ''; @endphp
-                                                <form action="{{ route('user.destroy', $user->id) }}" method="POST">
-                                                    @method('DELETE')
-                                                    @csrf
-                                                    <button type="submit" class="dropdown-item" {{ $disabled }} title="Hapus"><i class="icon-trash"></i> Buang</button>
-                                                </form>
-                                            @endif
-                                        </div>
+                                <td class="text-center safezone">
+                                    <div class="list-icons">
+                                        <a href="#" class="list-icons-item" data-popup="tooltip" title="Pratinjau" data-toggle="modal" data-id="{{ $user->id }}" data-name="{{ $user->name }}"><i class="icon-eye"></i></a>
+                                        @if ($onlyTrashed)
+                                            <form action="{{ route('user.restore', $user->id) }}" method="POST">
+                                                @method('PUT')
+                                                @csrf
+                                                <button type="submit" class="btn btn-link list-icons-item p-0" data-popup="tooltip" title="Kembalikan"><i class="icon-undo2"></i></button>
+                                            </form>
+                                            <form class="delete-form" action="{{ route('user.force-destroy', $user->id) }}" method="POST">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-link list-icons-item p-0" data-popup="tooltip" title="Hapus"><i class="icon-cross2"></i></button>
+                                            </form>
+                                        @else
+                                            <a href="{{ route('user.edit', $user->id) }}" class="list-icons-item" data-popup="tooltip" title="Ubah"><i class="icon-pencil"></i></a>
+                                            @php $disabled = ($user->id == 1 OR $user->id == Auth::user()->id) ? 'disabled' : ''; @endphp
+                                            <form action="{{ route('user.destroy', $user->id) }}" method="POST">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-link list-icons-item p-0" {{ $disabled }} data-popup="tooltip" title="Buang"><i class="icon-trash"></i></button>
+                                            </form>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

@@ -87,3 +87,16 @@
 	content: "";
 	opacity: 0.25;
 }
+
+button.list-icons-item:not([class*="text-"]) {
+	color: inherit;
+}
+
+button.list-icons-item {
+	display: inline-block;
+	transition: color ease-in-out .15s;
+}
+
+button.list-icons-item:hover {
+	opacity: 0.7;
+}
