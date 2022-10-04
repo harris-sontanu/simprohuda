@@ -120,6 +120,11 @@ class DocumentController extends LegislationController
             'name'  => $file_name,
             'revised_at' => empty($legislation->posted_at) ? null : now(),
         ]);
+
+        // Update legislation revise date except for draft
+        if ($legislation->status() != 'draft') {
+            $legislation->update(['revised_at' => now()]);
+        }
     }
 
     /**
