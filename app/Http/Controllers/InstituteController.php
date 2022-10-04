@@ -72,6 +72,7 @@ class InstituteController extends Controller
         ];
         
         $categories = $this->categories;
+        $correctors = User::bagianHukum()->sorted()->pluck('name', 'id');
         $operators = User::opd()->sorted()->pluck('name', 'id');
 
         $plugins = [
@@ -82,6 +83,7 @@ class InstituteController extends Controller
             'pageTitle',
             'pageHeader',
             'breadCrumbs',
+            'correctors',
             'categories',
             'operators',
             'plugins'

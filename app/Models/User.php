@@ -199,4 +199,9 @@ class User extends Authenticatable
         return $query->where('role', 'opd');
     }
 
+    public function scopeBagianHukum($query)
+    {
+        return $query->where('role', 'bagianhukum');
+    }
+
 }

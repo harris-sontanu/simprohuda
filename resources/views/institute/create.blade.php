@@ -13,85 +13,107 @@
         <!-- Form -->
         <form id="post-form" method="POST" action="{{ route('institute.store') }}" novalidate>
             @csrf
-            <div class="card">
-                <div class="card-body">
 
-                    <div class="row">
-                        <div class="col-lg-8 offset-lg-2">
+            <div class="d-lg-flex align-items-lg-start">            
 
-                            <div class="form-group row">
-                                <label class="col-lg-3 col-form-label font-weight-semibold" for="name">Nama:</label>
-                                <div class="col-lg-9">
-                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}">
-                                    @error('name')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @endif
-                                </div>
-                            </div>
+                <div class="flex-1">
 
-                            <div class="form-group row">
-                                <label for="abbrev" class="col-lg-3 col-form-label font-weight-semibold">Singkatan:</label>
-                                <div class="col-lg-9">
-                                    <input id="abbrev" type="text" class="form-control @error('abbrev') is-invalid @enderror" name="abbrev" value="{{ old('abbrev') }}">
-                                    @error('abbrev')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @endif
-                                </div>
-                            </div>
-                
-                            <div class="form-group row">
-                                <label for="category" class="col-lg-3 col-form-label font-weight-semibold">Jenis:</label>
-                                <div class="col-lg-9">
-                                    <select name="category" id="category" class="select @error('category') is-invalid @enderror">
-                                        <option value="">Pilih Jenis</option>
-                                        @foreach ($categories as $key => $value)
-                                            <option value="{{ $key }}" @selected(old('category') == $key)>{{ $value }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('category')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @endif
-                                </div>
-                            </div>
-                
-                            <div class="form-group row">
-                                <label for="code" class="col-lg-3 col-form-label font-weight-semibold">Kode:</label>
-                                <div class="col-lg-9">
-                                    <input id="code" type="text" class="form-control @error('code') is-invalid @enderror" name="code" value="{{ old('code') }}">
-                                    @error('code')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @endif
-                                </div>
-                            </div>
-                
-                            <div class="form-group row">
-                                <label for="desc" class="col-lg-3 col-form-label font-weight-semibold">Deskripsi:</label>
-                                <div class="col-lg-9">
-                                    <textarea id="desc" rows="4" class="form-control @error('desc') is-invalid @enderror" name="desc">{{ old('desc') }}</textarea>
-                                    @error('desc')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @endif
-                                </div>
-                            </div>
-                
-                            <div class="form-group row">
-                                <label for="operator_id" class="col-lg-3 col-form-label font-weight-semibold">Jenis:</label>
-                                <div class="col-lg-9">
-                                    <select name="operator_id" id="operator_id" class="select @error('operator_id') is-invalid @enderror">
-                                        <option value="">Pilih Operator</option>
-                                        @foreach ($operators as $key => $value)
-                                            <option value="{{ $key }}" @selected(old('category') == $key)>{{ $value }}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('operator_id')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @endif
-                                </div>
-                            </div>
+                    <div class="card">
+                        <div class="card-body">
 
-                            <div class="form-group row mb-0">
-                                <div class="col-lg-9 offset-lg-3">
-                                    <button type="submit" class="btn btn-secondary">Simpan</button>
+                            <div class="row">
+                                <div class="col-lg-8 offset-lg-2">
+                                    
+                                    <fieldset>
+                                        <legend class="font-weight-bold"><i class="icon-office mr-2"></i>Profil</legend>
+                                        <div class="form-group row">
+                                            <label class="col-lg-3 col-form-label font-weight-semibold" for="name">Nama:</label>
+                                            <div class="col-lg-9">
+                                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}">
+                                                @error('name')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @endif
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="abbrev" class="col-lg-3 col-form-label font-weight-semibold">Singkatan:</label>
+                                            <div class="col-lg-9">
+                                                <input id="abbrev" type="text" class="form-control @error('abbrev') is-invalid @enderror" name="abbrev" value="{{ old('abbrev') }}">
+                                                @error('abbrev')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @endif
+                                            </div>
+                                        </div>
+                            
+                                        <div class="form-group row">
+                                            <label for="category" class="col-lg-3 col-form-label font-weight-semibold">Jenis:</label>
+                                            <div class="col-lg-9">
+                                                <select name="category" id="category" class="select @error('category') is-invalid @enderror">
+                                                    <option value="">Pilih Jenis</option>
+                                                    @foreach ($categories as $key => $value)
+                                                        <option value="{{ $key }}" @selected(old('category') == $key)>{{ $value }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('category')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @endif
+                                            </div>
+                                        </div>
+                            
+                                        <div class="form-group row">
+                                            <label for="code" class="col-lg-3 col-form-label font-weight-semibold">Kode:</label>
+                                            <div class="col-lg-9">
+                                                <input id="code" type="text" class="form-control @error('code') is-invalid @enderror" name="code" value="{{ old('code') }}">
+                                                @error('code')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @endif
+                                            </div>
+                                        </div>
+                            
+                                        <div class="form-group row">
+                                            <label for="desc" class="col-lg-3 col-form-label font-weight-semibold">Deskripsi:</label>
+                                            <div class="col-lg-9">
+                                                <textarea id="desc" rows="4" class="form-control @error('desc') is-invalid @enderror" name="desc">{{ old('desc') }}</textarea>
+                                                @error('desc')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    
+                                    <fieldset>
+                                        <legend class="font-weight-bold"><i class="icon-users4 mr-2"></i>Akun</legend>
+                                        <div class="form-group row">
+                                            <label for="corrector_id" class="col-lg-3 col-form-label font-weight-semibold">Pemeriksa:</label>
+                                            <div class="col-lg-9">
+                                                <select name="corrector_id" id="corrector_id" class="select @error('corrector_id') is-invalid @enderror">
+                                                    <option value="">Pilih Pemeriksa</option>
+                                                    @foreach ($correctors as $key => $value)
+                                                        <option value="{{ $key }}" @selected(old('corrector_id') == $key)>{{ $value }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('corrector_id')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="operator_id" class="col-lg-3 col-form-label font-weight-semibold">Operator:</label>
+                                            <div class="col-lg-9">
+                                                <select name="operator_id" id="operator_id" class="select @error('operator_id') is-invalid @enderror">
+                                                    <option value="">Pilih Operator</option>
+                                                    @foreach ($operators as $key => $value)
+                                                        <option value="{{ $key }}" @selected(old('operator_id') == $key)>{{ $value }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @error('operator_id')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
                                 </div>
                             </div>
 
@@ -99,6 +121,35 @@
                     </div>
 
                 </div>
+
+                <div class="sidebar sidebar-light bg-transparent sidebar-component sidebar-component-right wmin-lg-350 border-0 shadow-none order-1 order-lg-2 sidebar-expand-lg">
+
+                    <div class="sidebar-content">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title font-weight-bold"><i class="icon-earth mr-2"></i>Publikasi</h5>
+                            </div>
+
+                            <table class="table table-borderless border-0 table-xs">
+                                <tbody>
+                                    <tr>
+                                        <td class="font-weight-semibold text-nowrap"><i class="icon-user-tie mr-2"></i>Operator:</td>
+                                        <td class="text-right">{{ Auth::user()->name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-semibold text-nowrap"><i class="icon-calendar22 mr-2"></i>Tgl. Dibuat:</td>
+                                        <td class="text-right">{{ now()->translatedFormat('j F Y') }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="card-footer bg-white border-0 d-flex justify-content-end align-items-center">
+                                <button type="submit" class="btn btn-secondary">Simpan</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
             </div>
         </form>
 
