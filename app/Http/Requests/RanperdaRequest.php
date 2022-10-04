@@ -73,7 +73,7 @@ class RanperdaRequest extends FormRequest
                         $document = Document::where('legislation_id', $this->route('ranperda')->id)
                                         ->where('requirement_id', $requirement->id);
                         if ($document->doesntExist()) {
-                            $rules[$requirement->term] = 'required';
+                            $rules[$requirement->term] = 'required|file|mimes:'.$requirement->format.'|max:2048';
                         }
                     }
                 }

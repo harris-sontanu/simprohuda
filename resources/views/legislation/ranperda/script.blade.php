@@ -87,7 +87,7 @@
             if (action === 'delete') {
                 bootbox.confirm({
                     title: 'Konfirmasi Perintah',
-                    message: 'Apakah Anda yakin ingin menghapus rancangan produk hukum?',
+                    message: 'Apakah Anda yakin ingin menghapus rancangan peraturan daerah?',
                     buttons: {
                         confirm: {
                             label: 'Yakin',
@@ -116,7 +116,7 @@
 
             bootbox.confirm({
                 title: 'Konfirmasi Perintah',
-                message: 'Apakah Anda yakin ingin menghapus rancangan produk hukum?',
+                message: 'Apakah Anda yakin ingin menghapus rancangan peraturan daerah?',
                 buttons: {
                     confirm: {
                         label: 'Yakin',

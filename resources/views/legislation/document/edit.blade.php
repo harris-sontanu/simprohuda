@@ -2,16 +2,16 @@
     @method('PUT')
     @csrf
     <div class="modal-header">
-        <h5 class="modal-title font-weight-bold" id="exampleModalLabel">Unggah Dokumen {{ $document->title }}</h5>
+        <h5 class="modal-title font-weight-bold" id="exampleModalLabel">Perbaiki Dokumen {{ $document->requirement->title }}</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
     </div>
     <div class="modal-body">
         <div class="form-group mb-0">
-            <label class="font-weight-semibold">Dokumen</label>
+            <label for="document">Unggah Perbaikan</label>
             <div class="custom-file">
-                <input id="document" type="file" class="custom-file-input" name="{{ $document->input }}">
+                <input id="document" type="file" class="custom-file-input" name="{{ $document->requirement->term }}">
                 <label class="custom-file-label" for="document">Choose file</label>
             </div>
         </div>

@@ -5,9 +5,7 @@ namespace App\Http\Controllers\Legislation;
 use App\Http\Controllers\Legislation\LegislationController;
 use App\Models\Document;
 use Illuminate\Http\Request;
-use App\Http\Requests\DocumentRequest;
 use App\Models\Legislation;
-use Illuminate\Support\Carbon;
 
 class DocumentController extends LegislationController
 {
@@ -42,7 +40,7 @@ class DocumentController extends LegislationController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(DocumentRequest $request)
+    public function store(Request $request)
     {
         $request->validated();
         $legislation = Legislation::find($request->legislation_id);
@@ -81,31 +79,30 @@ class DocumentController extends LegislationController
      * @param  \App\Models\Document  $document
      * @return \Illuminate\Http\Response
      */
-    public function update(DocumentRequest $request, Document $document)
+    public function update(Request $request, Document $document)
     {
-        $request->validated();
+        $request->validate([
+            $document->requirement->term => 'required|file|mimes:'.$document->requirement->format.'|max:2048',
+        ]);
 
-        $currentTime = Carbon::now()->timestamp;
+        $currentTime = '_' . now()->timestamp;
+
+        $file = $request->file($document->requirement->term);
         $legislation = Legislation::find($document->legislation_id);
 
-        if ($request->hasFile('master'))
-        {
-            $file = $request->file('master');
-    
-            $documentStorage = $this->documentStorage($legislation, 'master');
-            $file_name = $documentStorage['file_prefix_name'] . $currentTime . '.' . $file->getClientOriginalExtension();    
-    
-            $path = $file->storeAs($documentStorage['path'], $file_name, 'public');
-            
-            Document::where('id', $document->id)->update([
-                'path'  => $path,
-                'name'  => $file_name,
-                'revised_at' => now(),
-            ]);
+        $documentStorage = $this->documentStorage($legislation, $document->requirement->term);
+        $file_name = $documentStorage['file_prefix_name'] . $currentTime . '.' . $file->getClientOriginalExtension();    
 
-            // Remove old file
-            $this->removeDocument($document->path);
-        }
+        $path = $file->storeAs($documentStorage['path'], $file_name, 'public');
+
+        // Remove old file
+        $this->removeDocument($document->path);
+
+        $document->update([
+            'path'  => $path,
+            'name'  => $file_name,
+            'revised_at' => now(),
+        ]);
     }
 
     /**
