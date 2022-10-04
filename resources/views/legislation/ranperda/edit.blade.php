@@ -152,7 +152,18 @@
                                             <td>-</td>
                                             <td class="text-center">
                                                 <div class="list-icons">
-                                                    <a href="#" class="list-icons-item" data-popup="tooltip" title="Unggah"><i class="icon-file-plus"></i></a>
+                                                    <a 
+                                                        href="#" 
+                                                        class="list-icons-item" 
+                                                        data-toggle="modal" 
+                                                        data-target="#upload-doc-modal"
+                                                        data-action="create" 
+                                                        data-legislation="{{ $legislation->id }}"
+                                                        data-requirement="{{ $requirement->id }}"
+                                                        data-popup="tooltip" 
+                                                        title="Unggah">
+                                                        <i class="icon-file-plus"></i>
+                                                    </a>
                                                 </div>
                                             </td>
                                         </tr>

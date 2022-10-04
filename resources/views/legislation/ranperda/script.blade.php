@@ -155,11 +155,9 @@
 
             if (action == 'create') 
             {
-                var legislation = button.data('legislation'),
-                    title = button.data('title'),
-                    type = button.data('type'),
-                    order = button.data('order'),
-                    data = {legislation_id:legislation, title:title, action:action, type:type, order:order};
+                var requirement = button.data('requirement'),
+                    legislation = button.data('legislation'),
+                    data = {legislation_id: legislation, requirement_id:requirement};
 
                 $.ajaxSetup({
                     headers: {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Legislation;
 
 use App\Http\Controllers\Legislation\LegislationController;
 use App\Models\Document;
+use App\Models\Requirement;
 use Illuminate\Http\Request;
 use App\Models\Legislation;
 
@@ -27,11 +28,9 @@ class DocumentController extends LegislationController
     public function create(Request $request)
     {
         $legislationId = $request->legislation_id;
-        $type  = $request->type;
-        $order = $request->order;
-        $title = $request->title;
+        $requirement = Requirement::find($request->requirement_id);
 
-        return view('legislation.document.create', compact('legislationId', 'type', 'order', 'title'));
+        return view('legislation.document.create', compact('legislationId', 'requirement'));
     }
 
     /**
@@ -42,10 +41,28 @@ class DocumentController extends LegislationController
      */
     public function store(Request $request)
     {
-        $request->validated();
+        $requirement = Requirement::find($request->requirement_id);
+        $request->validate([
+            $requirement->term => 'required|file|mimes:'.$requirement->format.'|max:2048',
+        ]);
         $legislation = Legislation::find($request->legislation_id);
 
-        $this->documentUpload($legislation, $request, $request->order);
+        $currentTime = '_' . now()->timestamp;
+
+        $file = $request->file($requirement->term);
+
+        $documentStorage = $this->documentStorage($legislation, $requirement->category, $requirement->order);
+        $file_name = $documentStorage['file_prefix_name'] . $currentTime . '.' . $file->getClientOriginalExtension();    
+
+        $path = $file->storeAs($documentStorage['path'], $file_name, 'public');
+        
+        Document::create([
+            'legislation_id'    => $request->legislation_id,
+            'requirement_id'    => $request->requirement_id,
+            'path'              => $path,
+            'name'              => $file_name,
+            'posted_at'         => empty($legislation->posted_at) ? null : now(),
+        ]);
 
         $request->session()->flash('message', '<strong>Berhasil!</strong> Dokumen ' . $request->title . ' telah berhasil diunggah');
     }
@@ -90,7 +107,7 @@ class DocumentController extends LegislationController
         $file = $request->file($document->requirement->term);
         $legislation = Legislation::find($document->legislation_id);
 
-        $documentStorage = $this->documentStorage($legislation, $document->requirement->term);
+        $documentStorage = $this->documentStorage($legislation, $document->requirement->category, $document->requirement->order);
         $file_name = $documentStorage['file_prefix_name'] . $currentTime . '.' . $file->getClientOriginalExtension();    
 
         $path = $file->storeAs($documentStorage['path'], $file_name, 'public');
