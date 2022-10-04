@@ -66,7 +66,7 @@
                                 </td>
                                 <td>{{ $institute->abbrev }}</td>
                                 <td>{{ $institute->code }}</td>
-                                <td class="text-center"><span class="badge badge-dark badge-pill">0</span></td>
+                                <td class="text-center"><span class="badge badge-dark badge-pill">{{ $institute->legislations->count() }}</span></td>
                                 <td>
                                     
                                     @empty ($institute->operator)

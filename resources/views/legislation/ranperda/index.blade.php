@@ -143,7 +143,7 @@
                                                 <button type="submit" class="btn btn-link list-icons-item p-0" data-popup="tooltip" title="Hapus"><i class="icon-cross2"></i></button>
                                             </form>
                                         @else
-                                            <a href="{{ route('legislation.ranperda.edit', $legislation->id) }}" data-popup="tooltip" title="Ubah" class="list-icons-item"><i class="icon-pencil"></i></a>
+                                            <a href="{{ route('legislation.ranperda.edit', $legislation->id) }}" data-popup="tooltip" title="Perbaiki" class="list-icons-item"><i class="icon-pencil"></i></a>
                                             <form action="{{ route('legislation.ranperda.destroy', $legislation->id) }}" method="POST">
                                                 @method('DELETE')
                                                 @csrf
