@@ -155,17 +155,9 @@ class Document extends Model
         );
     }
 
-    public function scopeMaster($query, $legislation_id)
-    {
-        return $query->select(['documents.*', 'requirements.*'])
-            ->join('requirements', 'documents.requirement_id', '=', 'requirements.id')
-            ->where('documents.legislation_id', $legislation_id)
-            ->where('requirements.category', 'master');
-    }
-
     public function scopeRequirements($query, $legislation_id)
     {
-        return $query->select(['documents.*', 'requirements.*'])
+        return $query->select(['documents.*', 'requirements.category', 'requirements.title', 'requirements.term', 'requirements.desc', 'requirements.format', 'requirements.order'])
             ->join('requirements', 'documents.requirement_id', '=', 'requirements.id')
             ->where('documents.legislation_id', $legislation_id);
     }

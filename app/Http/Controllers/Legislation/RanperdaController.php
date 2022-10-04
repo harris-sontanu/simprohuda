@@ -240,7 +240,7 @@ class RanperdaController extends LegislationController
             'Perbaikan' => true
         ];
         
-        $requirements = Requirement::where('type_id', $this->type->id)->orderBy('order')->get();
+        $requirements = Requirement::mandatory($this->type->id)->get();
         $documents = Document::requirements($legislation->id)->get();
 
         $plugins = [

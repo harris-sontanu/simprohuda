@@ -118,7 +118,7 @@ class DocumentController extends LegislationController
         $document->update([
             'path'  => $path,
             'name'  => $file_name,
-            'revised_at' => now(),
+            'revised_at' => empty($legislation->posted_at) ? null : now(),
         ]);
     }
 
