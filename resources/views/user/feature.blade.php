@@ -8,8 +8,8 @@
                     <div class="dropdown-submenu dropdown-submenu-left">
                         <a href="#" class="dropdown-item">Status</a>
                         <div class="dropdown-menu">
-                            <a href="#" class="dropdown-item trigger" data-action="status" data-val="active">Active</a>
-                            <a href="#" class="dropdown-item trigger" data-action="status" data-val="pending">Pending</a>
+                            <a href="#" class="dropdown-item trigger" data-action="status" data-val="active">Aktif</a>
+                            <a href="#" class="dropdown-item trigger" data-action="status" data-val="pending">Tinjau</a>
                         </div>
                     </div>
                     <div class="dropdown-submenu dropdown-submenu-left">

@@ -35,12 +35,12 @@ class UserController extends Controller
         ];
 
         $onlyTrashed = FALSE;
-        if ($tab = $request->tab AND $tab == 'trash') {
+        if ($tab = $request->tab AND $tab == 'sampah') {
             $users = User::onlyTrashed();
             $onlyTrashed = TRUE;
-        } else if ($tab = $request->tab AND $tab == 'pending') {
+        } else if ($tab = $request->tab AND $tab == 'tinjau') {
             $users = User::pending();
-        } else if ($tab = $request->tab AND $tab == 'active') {
+        } else if ($tab = $request->tab AND $tab == 'aktif') {
             $users = User::active();
         } else {
             $users = User::where('id', '>=', 1);
@@ -81,10 +81,10 @@ class UserController extends Controller
     private function tabFilters($request)
     {
         return [
-            'all'       => User::search($request->only(['search']))->filter($request)->count(),
-            'pending'   => User::pending()->search($request->only(['search']))->filter($request)->count(),
-            'active'    => User::active()->search($request->only(['search']))->filter($request)->count(),
-            'trash'     => User::onlyTrashed()->search($request->only(['search']))->filter($request)->count()
+            'total'     => User::search($request->only(['search']))->filter($request)->count(),
+            'tinjau'    => User::pending()->search($request->only(['search']))->filter($request)->count(),
+            'aktif'     => User::active()->search($request->only(['search']))->filter($request)->count(),
+            'sampah'    => User::onlyTrashed()->search($request->only(['search']))->filter($request)->count()
         ];
     }
 

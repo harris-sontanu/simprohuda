@@ -37,7 +37,7 @@
                 <div class="card-body p-0 border-top">
                     <ul class="nav nav-tabs nav-tabs-bottom mb-0 border-bottom-0">
                         @foreach ($tabFilters as $key => $value)
-                            @php $active = ((empty(Request::get('tab')) AND $key === 'all') OR Request::get('tab') == $key) ? ' active' : '' @endphp
+                            @php $active = ((empty(Request::get('tab')) AND $key === 'total') OR Request::get('tab') == $key) ? ' active' : '' @endphp
                             <li class="nav-item">
                                 <a href="{{ route('user.index', ['tab' => $key] + Request::all()) }}" class="nav-link{{ $active }}">
                                     {{ Str::ucfirst($key) }}<span class="badge badge-secondary badge-pill ml-2">{{ $value }}</span>
@@ -84,7 +84,7 @@
                             <th class="@php echo (!empty($sort) AND Request::get('order') == 'role') ? 'sorting_' . $sort : 'sorting'; @endphp">
                                 <a href="{{ route('user.index', ['order' => 'role', 'sort' => $sortState] + Request::all()) }}" class="text-dark d-block">Level</a>
                             </th>
-                            <th>Status</th>
+                            <th class="text-center">Status</th>
                             <th class="@php echo (!empty($sort) AND Request::get('order') == 'last_logged_in_at') ? 'sorting_' . $sort : 'sorting'; @endphp">
                                 <a href="{{ route('user.index', ['order' => 'last_logged_in_at', 'sort' => $sortState] + Request::all()) }}" class="text-dark d-block">Login Terakhir</a>
                             </th>
@@ -108,7 +108,7 @@
                                 </td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->role }}</td>
-                                <td>{!! $user->statusBadgeHtml !!}</td>
+                                <td class="text-center">{!! $user->statusBadgeHtml !!}</td>
                                 <td><abbr data-popup="tooltip" title="{{ $user->dateFormatted($user->last_logged_in_at, true) }}">{{ $user->dateFormatted($user->last_logged_in_at) }}</abbr></td>
                                 <td><abbr data-popup="tooltip" title="{{ $user->dateFormatted($user->created_at, true) }}">{{ $user->dateFormatted($user->created_at) }}</abbr></td>
                                 <td class="text-center safezone">

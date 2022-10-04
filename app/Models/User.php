@@ -162,11 +162,11 @@ class User extends Authenticatable
         $status = $this->status();
 
         if ($status == 'active') {
-            $badgeHtml = '<span class="badge badge-pill badge-success">'.$status.'</span>';
+            $badgeHtml = '<span class="badge badge-pill badge-success">Aktif</span>';
         } else if ($status == 'pending') {
-            $badgeHtml = '<span class="badge badge-pill badge-warning">'.$status.'</span>';
+            $badgeHtml = '<span class="badge badge-pill badge-warning">Tinjau</span>';
         } else if ($status == 'trash') {
-            $badgeHtml = '<span class="badge badge-pill badge-dark">'.$status.'</span>';
+            $badgeHtml = '<span class="badge badge-pill badge-dark">Sampah</span>';
         } else {
             $badgeHtml = '<span class="badge badge-pill badge-light">'.$status.'</span>';
         }
