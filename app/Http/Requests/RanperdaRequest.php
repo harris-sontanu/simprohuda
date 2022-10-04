@@ -66,7 +66,7 @@ class RanperdaRequest extends FormRequest
                     Rule::unique('legislations')->ignore($this->route('ranperda'))
                 ];
 
-                if ($request->has('post')) {
+                if ($request->has('post') OR $request->has('revise')) {
 
                     // Check document requirements
                     foreach ($requirements as $requirement) {  

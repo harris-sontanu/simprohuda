@@ -64,7 +64,7 @@
                                                     <button type="submit" name="draft" class="btn btn-light mr-2">Simpan ke Draf</button>
                                                     <button type="submit" name="post" class="btn btn-secondary">Simpan & Ajukan</button>
                                                 @else
-                                                    <button type="submit" name="post" class="btn btn-secondary">Ubah</button>
+                                                    <button type="submit" name="revise" class="btn btn-secondary">Ubah</button>
                                                 @endif                                                    
                                             </div>
                                         </div>
