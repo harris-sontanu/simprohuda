@@ -59,6 +59,7 @@ class RanperdaRequest extends FormRequest
                         $rules[$requirement->term] = 'required|file|mimes:'.$requirement->format.'|max:2048';
                     }
                 }
+                break;
             case 'PUT':
             case 'PATCH':
                 $rules['slug'] = [
