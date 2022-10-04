@@ -38,4 +38,10 @@ class Requirement extends Model
                     ->where('category', 'requirement')
                     ->orderBy('order');
     }
+
+    public function scopeMandatory($query, $type_id)
+    {
+        return $query->where('type_id', $type_id)
+                    ->orderBy('order');
+    }
 }

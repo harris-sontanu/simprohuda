@@ -8,6 +8,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Models\Requirement;
+use App\Models\Document;
 
 class RanperdaRequest extends FormRequest
 {
@@ -49,23 +50,33 @@ class RanperdaRequest extends FormRequest
             'institute_id'  => 'required',
         ];
 
-        if ($request->has('post')) {
-            $master = Requirement::master(1)->first();
-            $rules[$master->term] = 'required|file|mimes:'.$master->format.'|max:2048';
-
-            $requirements = Requirement::requirements(1)->get();
-            foreach ($requirements as $requirement) {                
-                $rules[$requirement->term] = 'required|file|mimes:'.$requirement->format.'|max:2048';
-            }
-        }
+        $requirements = Requirement::mandatory(1)->get();
 
         switch ($this->method()) {
+            case 'POST':
+                if ($request->has('post')) {
+                    foreach ($requirements as $requirement) {                
+                        $rules[$requirement->term] = 'required|file|mimes:'.$requirement->format.'|max:2048';
+                    }
+                }
             case 'PUT':
             case 'PATCH':
                 $rules['slug'] = [
                     'required',
                     Rule::unique('legislations')->ignore($this->route('ranperda'))
                 ];
+
+                if ($request->has('post')) {
+
+                    // Check document requirements
+                    foreach ($requirements as $requirement) {  
+                        $document = Document::where('legislation_id', $this->route('ranperda')->id)
+                                        ->where('requirement_id', $requirement->id);
+                        if ($document->doesntExist()) {
+                            $rules[$requirement->term] = 'required';
+                        }
+                    }
+                }
 
                 $rules = Arr::except($rules, ['institute_id']);
                 break;
@@ -85,19 +96,5 @@ class RanperdaRequest extends FormRequest
             'slug' => Str::slug($this->title),
         ]);
     }
-
-    /**
-     * Get the error messages for the defined validation rules.
-     *
-     * @return array
-     */
-    // public function messages()
-    // {
-    //     return [
-    //         'master.required'   => 'Dokumen Draf Ranperda belum diunggah',
-    //         'surat_pengantar.required'   => 'Dokumen Surat Pengantar belum diunggah',
-    //         'naskah_akademik.required'   => 'Dokumen Naskah Akademik belum diunggah',
-    //         'notulensi_rapat.required'   => 'Dokumen Notulensi Rapat belum diunggah',
-    //     ];
-    // }
+    
 }

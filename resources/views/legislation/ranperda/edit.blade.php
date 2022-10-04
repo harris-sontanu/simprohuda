@@ -10,23 +10,11 @@
 
         @include('layouts.message')
 
-        @if ($errors->has(['master', 'surat_pengantar', 'naskah_akademik', 'notulensi_rapat']))
+        @if ($errors->any())
             <div class="alert alert-danger border-0 alert-dismissible">
                 <button type="button" class="close" data-dismiss="alert"><span>×</span></button>
                 <ul class="list-unstyled mb-0">
-                    @foreach ($errors->get('master') as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                    @foreach ($errors->get('attachments.*') as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                    @foreach ($errors->get('surat_pengantar') as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                    @foreach ($errors->get('naskah_akademik') as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                    @foreach ($errors->get('notulensi_rapat') as $error)
+                    @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
                     @endforeach
                 </ul>
@@ -138,7 +126,7 @@
                                                 <td>{!! $document->statusBadge !!}</td>
                                                 <td class="text-center">
                                                     <div class="list-icons">
-                                                        <a href="#" class="list-icons-item" data-popup="tooltip" title="Pratinjau Dokumen"><i class="icon-file-eye"></i></a>
+                                                        <a href="#" class="list-icons-item" data-popup="tooltip" title="Pratinjau"><i class="icon-file-eye"></i></a>
                                                         <a 
                                                             href="#" 
                                                             class="list-icons-item upload-document" 
@@ -147,7 +135,7 @@
                                                             data-action="edit" 
                                                             data-id="{{ $document->id }}"
                                                             data-popup="tooltip" 
-                                                            title="Perbaiki Dokumen">
+                                                            title="Perbaiki">
                                                             <i class="icon-file-upload"></i>
                                                         </a>
                                                     </div>
@@ -157,14 +145,14 @@
                                         @endif
                                     @endforeach  
                                     @if ($row)                                        
-                                        <tr>
+                                        <tr @error($requirement->term) class="table-danger" @enderror>
                                             <td>{{ $requirement->title }}</td>
                                             <td>-</td>
                                             <td>-</td>
                                             <td>-</td>
                                             <td class="text-center">
                                                 <div class="list-icons">
-                                                    <a href="#" class="list-icons-item"><i class="icon-file-plus"></i></a>
+                                                    <a href="#" class="list-icons-item" data-popup="tooltip" title="Unggah"><i class="icon-file-plus"></i></a>
                                                 </div>
                                             </td>
                                         </tr>
