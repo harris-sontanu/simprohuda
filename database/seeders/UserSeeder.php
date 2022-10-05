@@ -25,7 +25,21 @@ class UserSeeder extends Seeder
         ]);
 
         User::factory()
-            ->count(12)
-            ->create();
-    }
+            ->count(2)
+            ->create([
+                'role'  => 'administrator'
+            ]);
+
+        User::factory()
+            ->count(6)
+            ->create([
+                'role'  => 'bagianhukum'
+            ]);
+
+        User::factory()
+            ->count(31)
+            ->create([
+                'role'  => 'opd'
+            ]);
+        }
 }

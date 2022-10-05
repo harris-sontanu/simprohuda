@@ -98,20 +98,6 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        <div class="form-group row">
-                                            <label for="operator_id" class="col-lg-3 col-form-label font-weight-semibold">Operator:</label>
-                                            <div class="col-lg-9">
-                                                <select name="operator_id" id="operator_id" class="select @error('operator_id') is-invalid @enderror">
-                                                    <option value="">Pilih Operator</option>
-                                                    @foreach ($operators as $key => $value)
-                                                        <option value="{{ $key }}" @selected(old('operator_id') == $key)>{{ $value }}</option>
-                                                    @endforeach
-                                                </select>
-                                                @error('operator_id')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @endif
-                                            </div>
-                                        </div>
                                     </fieldset>
 
                                 </div>

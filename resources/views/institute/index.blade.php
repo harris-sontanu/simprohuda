@@ -45,13 +45,11 @@
                             <th class="@php echo (!empty($sort) AND Request::get('order') == 'abbrev') ? 'sorting_' . $sort : 'sorting'; @endphp">
                                 <a href="{{ route('institute.index', ['order' => 'abbrev', 'sort' => $sortState] + Request::all()) }}" class="text-dark d-block">Singkatan</a>
                             </th>
-                            <th class="@php echo (!empty($sort) AND Request::get('order') == 'code') ? 'sorting_' . $sort : 'sorting'; @endphp">
-                                <a href="{{ route('institute.index', ['order' => 'code', 'sort' => $sortState] + Request::all()) }}" class="text-dark d-block">Kode</a>
-                            </th>
+                            <th>Operator</th>
                             <th class="text-center @php echo (!empty($sort) AND Request::get('order') == 'total') ? 'sorting_' . $sort : 'sorting'; @endphp">
                                 <a href="{{ route('institute.index', ['order' => 'total', 'sort' => $sortState] + Request::all()) }}" class="text-dark d-block"><abbr data-popup="tooltip" title="Total Rancangan yang diusulkan">Total</abbr></a>
                             </th>
-                            <th class="@php echo (!empty($sort) AND Request::get('order') == 'corrector') ? 'sorting_' . $sort : 'sorting'; @endphp">
+                            <th class="text-center @php echo (!empty($sort) AND Request::get('order') == 'corrector') ? 'sorting_' . $sort : 'sorting'; @endphp">
                                 <a href="{{ route('institute.index', ['order' => 'corrector', 'sort' => $sortState] + Request::all()) }}" class="text-dark d-block">Pemeriksa</a>
                             </th>
                             <th width="1" class="text-center">Aksi</th>
@@ -65,20 +63,19 @@
                                     <span class="text-muted">{{ $institute->category }}</span>
                                 </td>
                                 <td>{{ $institute->abbrev }}</td>
-                                <td>{{ $institute->code }}</td>
-                                <td class="text-center"><span class="badge badge-dark badge-pill">{{ $institute->legislations->count() }}</span></td>
                                 <td>
-                                    
-                                    @empty ($institute->corrector)
-                                        <button type="button" class="btn btn-icon btn-light btn-sm rounded-pill"><i class="icon-user-plus"></i></button>    
-                                    @else 
-                                        <div class="d-flex align-items-center">
-                                            <div class="mr-2">
-                                                <img src="{{ $institute->userPictureUrl($institute->corrector->picture, $institute->corrector->name) }}" alt="{{ $institute->corrector->name }}" class="rounded-circle" width="32" height="32">
-                                            </div>
-                                            <div class="div">{{ $institute->corrector->name }}</div>
-                                        </div>                                            
-                                    @endempty
+                                    @foreach ($institute->users as $user)
+                                        <a href="#" data-popup="tooltip" title="{{ $user->name }}">
+                                            <img src="{{ $institute->userPictureUrl($user->picture, $user->name) }}" alt="{{ $user->name }}" class="rounded-circle" width="32" height="32">
+                                        </a>
+                                    @endforeach
+                                    <button type="button" class="btn btn-icon btn-light btn-sm rounded-pill"><i class="icon-user-plus"></i></button>
+                                </td>
+                                <td class="text-center"><span class="badge badge-dark badge-pill">{{ $institute->legislations->count() }}</span></td>
+                                <td class="text-center">
+                                    <a href="#" data-popup="tooltip" title="{{ $institute->corrector->name }}">
+                                        <img src="{{ $institute->userPictureUrl($institute->corrector->picture, $institute->corrector->name) }}" alt="{{ $institute->corrector->name }}" class="rounded-circle" width="32" height="32">
+                                    </a>
                                 </td>
                                 <td class="text-center safezone">
                                     <div class="list-icons">

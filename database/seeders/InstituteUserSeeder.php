@@ -24,7 +24,7 @@ class InstituteUserSeeder extends Seeder
 
                 for ($i=0; $i < rand(1, 3); $i++) {                 
                     $user_id = User::opd()->get()->random()->id;
-                    if (DB::table('institute_user')->where('institute_id', $institute->id)->where('user_id', $user_id)->doesntExist()) {
+                    if (DB::table('institute_user')->where('user_id', $user_id)->doesntExist()) {
                         DB::table('institute_user')->insert([
                             'institute_id'  => $institute->id,
                             'user_id'       => $user_id,
