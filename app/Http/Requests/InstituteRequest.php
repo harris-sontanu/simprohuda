@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Http\Request;
 
 class InstituteRequest extends FormRequest
 {
@@ -23,7 +24,7 @@ class InstituteRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(Request $request)
     {
         $rules = [
             'name'      => 'required|max:255',
@@ -31,6 +32,8 @@ class InstituteRequest extends FormRequest
             'abbrev'    => 'nullable|unique:institutes',
             'category'  => 'required',
             'corrector_id' => 'required',
+            'users'     => 'nullable|array',
+            'users.*'   => 'sometimes|unique:institute_user,user_id',
             'code'      => 'nullable',
             'desc'      => 'nullable',
         ];
@@ -47,6 +50,16 @@ class InstituteRequest extends FormRequest
                     'nullable',
                     Rule::unique('institutes')->ignore($this->route('institute'))
                 ];
+
+                foreach ($request->users as $user) {
+                    $rules['users.*'] = [
+                        'sometimes',
+                        Rule::unique('institute_user', 'user_id')->ignore($user, 'user_id')
+                    ];
+                }
+
+                // dd($request['users']);
+
                 break;
         }
 

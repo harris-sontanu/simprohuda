@@ -33,7 +33,7 @@
                                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $institute->name }}">
                                                 @error('name')
                                                     <div class="invalid-feedback">{{ $message }}</div>
-                                                @endif
+                                                @enderror
                                             </div>
                                         </div>
             
@@ -43,7 +43,7 @@
                                                 <input id="abbrev" type="text" class="form-control @error('abbrev') is-invalid @enderror" name="abbrev" value="{{ $institute->abbrev }}">
                                                 @error('abbrev')
                                                     <div class="invalid-feedback">{{ $message }}</div>
-                                                @endif
+                                                @enderror
                                             </div>
                                         </div>
                             
@@ -58,7 +58,7 @@
                                                 </select>
                                                 @error('category')
                                                     <div class="invalid-feedback">{{ $message }}</div>
-                                                @endif
+                                                @enderror
                                             </div>
                                         </div>
                             
@@ -68,7 +68,7 @@
                                                 <input id="code" type="text" class="form-control @error('code') is-invalid @enderror" name="code" value="{{ $institute->code }}">
                                                 @error('code')
                                                     <div class="invalid-feedback">{{ $message }}</div>
-                                                @endif
+                                                @enderror
                                             </div>
                                         </div>
                             
@@ -78,7 +78,7 @@
                                                 <textarea id="desc" rows="4" class="form-control @error('desc') is-invalid @enderror" name="desc">{{ $institute->desc }}</textarea>
                                                 @error('desc')
                                                     <div class="invalid-feedback">{{ $message }}</div>
-                                                @endif
+                                                @enderror
                                             </div>
                                         </div>
                                     </fieldset>
@@ -96,7 +96,29 @@
                                                 </select>
                                                 @error('corrector_id')
                                                     <div class="invalid-feedback">{{ $message }}</div>
-                                                @endif
+                                                @enderror
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="users" class="col-lg-3 col-form-label font-weight-semibold">Operator:</label>
+                                            <div class="col-lg-9">
+                                                <div id="user-options">
+                                                    <select name="users[]" multiple="multiple" class="form-control select @error('users.*') is-invalid @enderror">
+                                                        <option value="">Pilih Operator</option>
+                                                        @foreach ($users as $key => $value)       
+                                                            @php $selected = false; @endphp 
+                                                            @foreach ($institute->users as $user)  
+                                                                @if ($user->id == $key)
+                                                                    @php $selected = true; @endphp 
+                                                                @endif                        
+                                                            @endforeach    
+                                                            <option value="{{ $key }}" @selected($selected)>{{ $value }}</option>  
+                                                        @endforeach
+                                                    </select>
+                                                    @error('users.*')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
                                             </div>
                                         </div>
                                     </fieldset>

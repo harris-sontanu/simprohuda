@@ -133,6 +133,7 @@ class InstituteController extends Controller
         
         $categories = $this->categories;
         $correctors = User::bagianHukum()->sorted()->pluck('name', 'id');
+        $users = User::opd()->sorted()->pluck('name', 'id');
 
         $plugins = [
             'assets/js/plugins/forms/selects/select2.min.js',
@@ -144,6 +145,7 @@ class InstituteController extends Controller
             'breadCrumbs',
             'institute',
             'categories',
+            'users',
             'correctors',
             'plugins'
         ));
@@ -159,7 +161,8 @@ class InstituteController extends Controller
     public function update(InstituteRequest $request, Institute $institute)
     {        
         $validated = $request->validated();
-        $institute->update($validated);
+        // dd($validated);
+        // $institute->update($validated);
 
         return redirect('/institute')->with('message', '<strong>Berhasil!</strong> Data Perangkat Daerah telah berhasil diperbarui');
     }
