@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Institute;
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class InstituteSeeder extends Seeder
@@ -17,7 +17,7 @@ class InstituteSeeder extends Seeder
     public function run()
     {
         $name = 'Inspektorat';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'lembaga teknis daerah',
@@ -25,7 +25,7 @@ class InstituteSeeder extends Seeder
         ]);
 
         $name = 'Badan Kepegawaian dan Pengembangan Sumber Daya Manusia';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'lembaga teknis daerah',
@@ -33,7 +33,7 @@ class InstituteSeeder extends Seeder
         ]);
 
         $name = 'Badan Pengelolaan Keuangan dan Pendapatan Daerah';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'lembaga teknis daerah',
@@ -41,7 +41,7 @@ class InstituteSeeder extends Seeder
         ]);
 
         $name = 'Badan Perencanaan, Penelitian dan Pengembangan';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'lembaga teknis daerah',
@@ -49,7 +49,7 @@ class InstituteSeeder extends Seeder
         ]);
 
         $name = 'Badan Penanggulangan Bencana Daerah';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'lembaga teknis daerah',
@@ -57,7 +57,7 @@ class InstituteSeeder extends Seeder
         ]);
 
         $name = 'Badan Kesatuan Bangsa dan Politik';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'lembaga teknis daerah',
@@ -65,7 +65,7 @@ class InstituteSeeder extends Seeder
         ]);
 
         $name = 'Bagian Pemerintahan dan Kesejahteraan';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'sekretariat daerah',
@@ -73,7 +73,7 @@ class InstituteSeeder extends Seeder
         ]);
 
         $name = 'Bagian Hukum';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'sekretariat daerah',
@@ -81,7 +81,7 @@ class InstituteSeeder extends Seeder
         ]);
 
         $name = 'Bagian Administrasi Pembangunan, Perekonomian, dan Sumber Daya Alam';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'sekretariat daerah',
@@ -89,7 +89,7 @@ class InstituteSeeder extends Seeder
         ]);
 
         $name = 'Bagian Pengadaan Barang/Jasa';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'sekretariat daerah',
@@ -97,7 +97,7 @@ class InstituteSeeder extends Seeder
         ]);
 
         $name = 'Bagian Umum';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'sekretariat daerah',
@@ -105,7 +105,7 @@ class InstituteSeeder extends Seeder
         ]);
 
         $name = 'Bagian Protokol dan Komunikasi Pimpinan';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'sekretariat daerah',
@@ -113,7 +113,7 @@ class InstituteSeeder extends Seeder
         ]);
 
         $name = 'Bagian Organisasi';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'sekretariat daerah',
@@ -121,7 +121,7 @@ class InstituteSeeder extends Seeder
         ]);
 
         $name = 'Dinas Kesehatan';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
@@ -129,7 +129,7 @@ class InstituteSeeder extends Seeder
         ]);
         
         $name = 'Dinas Sosial, Pemberdayaan Perempuan dan Perlindungan Anak';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
@@ -137,7 +137,7 @@ class InstituteSeeder extends Seeder
         ]);
 
         $name = 'Dinas Pekerjaan Umum, Penataan Ruang, Perumahan dan Kawasan Permukiman';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
@@ -145,7 +145,7 @@ class InstituteSeeder extends Seeder
         ]);
 
         $name = 'Dinas Pendidikan, Kepemudaan, dan Olahraga';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
@@ -153,7 +153,7 @@ class InstituteSeeder extends Seeder
         ]);
 
         $name = 'Dinas Pemberdayaan Masyarakat dan Desa, Pengendalian Penduduk dan Keluarga Berencana';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
@@ -161,7 +161,7 @@ class InstituteSeeder extends Seeder
         ]);
 
         $name = 'Dinas Kependudukan dan Pencatatan Sipil';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
@@ -169,7 +169,7 @@ class InstituteSeeder extends Seeder
         ]);
 
         $name = 'Dinas Kearsipan dan Perpustakaan';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
@@ -177,7 +177,7 @@ class InstituteSeeder extends Seeder
         ]);
 
         $name = 'Dinas Kebudayaan';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
@@ -185,7 +185,7 @@ class InstituteSeeder extends Seeder
         ]);
 
         $name = 'Dinas Komunikasi dan Informatika';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
@@ -193,7 +193,7 @@ class InstituteSeeder extends Seeder
         ]);
 
         $name = 'Dinas Koperasi, Usaha Kecil dan Menengah, Perindustrian dan Perdagangan';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
@@ -201,7 +201,7 @@ class InstituteSeeder extends Seeder
         ]);
 
         $name = 'Dinas Lingkungan Hidup dan Pertanahan';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
@@ -209,7 +209,7 @@ class InstituteSeeder extends Seeder
         ]);
 
         $name = 'Dinas Ketahanan Pangan dan Perikanan';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
@@ -217,7 +217,7 @@ class InstituteSeeder extends Seeder
         ]);
 
         $name = 'Dinas Penanaman Modal dan Pelayanan Terpadu Satu Pintu';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
@@ -225,7 +225,7 @@ class InstituteSeeder extends Seeder
         ]);
 
         $name = 'Dinas Perhubungan';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
@@ -233,7 +233,7 @@ class InstituteSeeder extends Seeder
         ]);
 
         $name = 'Dinas Ketenagakerjaan';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
@@ -241,7 +241,7 @@ class InstituteSeeder extends Seeder
         ]);
 
         $name = 'Dinas Pariwisata';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
@@ -249,7 +249,7 @@ class InstituteSeeder extends Seeder
         ]);
 
         $name = 'Dinas Pertanian';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
@@ -257,7 +257,7 @@ class InstituteSeeder extends Seeder
         ]);
 
         $name = 'Satuan Polisi Pamong Praja dan Pemadam Kebakaran';
-        DB::table('institutes')->insert([
+        Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'lembaga teknis daerah',

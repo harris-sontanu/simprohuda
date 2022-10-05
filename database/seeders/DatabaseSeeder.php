@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             TypeSeeder::class,
             LegislationSeeder::class,
             RequirementSeeder::class,
+            InstituteUserSeeder::class,
         ]);
     }
 }
