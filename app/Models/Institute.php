@@ -25,10 +25,10 @@ class Institute extends Model
         'code',
         'desc',
         'sort',
-        'operator_id',
+        'corrector_id',
     ];
 
-    public function operator()
+    public function corrector()
     {
         return $this->belongsTo(User::class);
     }

@@ -62,7 +62,7 @@ class User extends Authenticatable
 
     public function institutes()
     {
-        return $this->hasMany(Institute::class, 'operator_id');
+        return $this->hasMany(Institute::class, 'corrector_id');
     }
 
     public function legislations()

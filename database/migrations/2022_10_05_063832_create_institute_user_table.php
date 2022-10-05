@@ -18,6 +18,10 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->primary(['institute_id', 'user_id']);
         });
+
+        Schema::table('institutes', function (Blueprint $table) {
+            $table->renameColumn('operator_id', 'corrector_id');
+        });
     }
 
     /**
@@ -28,5 +32,9 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('institute_user');
+        
+        Schema::table('institutes', function (Blueprint $table) {
+            $table->renameColumn('corrector_id', 'operator_id');
+        });
     }
 };

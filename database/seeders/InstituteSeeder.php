@@ -21,7 +21,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'lembaga teknis daerah',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
 
         $name = 'Badan Kepegawaian dan Pengembangan Sumber Daya Manusia';
@@ -29,7 +29,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'lembaga teknis daerah',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
 
         $name = 'Badan Pengelolaan Keuangan dan Pendapatan Daerah';
@@ -37,7 +37,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'lembaga teknis daerah',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
 
         $name = 'Badan Perencanaan, Penelitian dan Pengembangan';
@@ -45,7 +45,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'lembaga teknis daerah',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
 
         $name = 'Badan Penanggulangan Bencana Daerah';
@@ -53,7 +53,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'lembaga teknis daerah',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
 
         $name = 'Badan Kesatuan Bangsa dan Politik';
@@ -61,7 +61,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'lembaga teknis daerah',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
 
         $name = 'Bagian Pemerintahan dan Kesejahteraan';
@@ -69,7 +69,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'sekretariat daerah',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
 
         $name = 'Bagian Hukum';
@@ -77,7 +77,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'sekretariat daerah',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
 
         $name = 'Bagian Administrasi Pembangunan, Perekonomian, dan Sumber Daya Alam';
@@ -85,7 +85,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'sekretariat daerah',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
 
         $name = 'Bagian Pengadaan Barang/Jasa';
@@ -93,7 +93,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'sekretariat daerah',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
 
         $name = 'Bagian Umum';
@@ -101,7 +101,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'sekretariat daerah',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
 
         $name = 'Bagian Protokol dan Komunikasi Pimpinan';
@@ -109,7 +109,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'sekretariat daerah',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
 
         $name = 'Bagian Organisasi';
@@ -117,7 +117,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'sekretariat daerah',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
 
         $name = 'Dinas Kesehatan';
@@ -125,7 +125,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
         
         $name = 'Dinas Sosial, Pemberdayaan Perempuan dan Perlindungan Anak';
@@ -133,7 +133,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
 
         $name = 'Dinas Pekerjaan Umum, Penataan Ruang, Perumahan dan Kawasan Permukiman';
@@ -141,7 +141,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
 
         $name = 'Dinas Pendidikan, Kepemudaan, dan Olahraga';
@@ -149,7 +149,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
 
         $name = 'Dinas Pemberdayaan Masyarakat dan Desa, Pengendalian Penduduk dan Keluarga Berencana';
@@ -157,7 +157,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
 
         $name = 'Dinas Kependudukan dan Pencatatan Sipil';
@@ -165,7 +165,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
 
         $name = 'Dinas Kearsipan dan Perpustakaan';
@@ -173,7 +173,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
 
         $name = 'Dinas Kebudayaan';
@@ -181,7 +181,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
 
         $name = 'Dinas Komunikasi dan Informatika';
@@ -189,7 +189,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
 
         $name = 'Dinas Koperasi, Usaha Kecil dan Menengah, Perindustrian dan Perdagangan';
@@ -197,7 +197,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
 
         $name = 'Dinas Lingkungan Hidup dan Pertanahan';
@@ -205,7 +205,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
 
         $name = 'Dinas Ketahanan Pangan dan Perikanan';
@@ -213,7 +213,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
 
         $name = 'Dinas Penanaman Modal dan Pelayanan Terpadu Satu Pintu';
@@ -221,7 +221,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
 
         $name = 'Dinas Perhubungan';
@@ -229,7 +229,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
 
         $name = 'Dinas Ketenagakerjaan';
@@ -237,7 +237,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
 
         $name = 'Dinas Pariwisata';
@@ -245,7 +245,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
 
         $name = 'Dinas Pertanian';
@@ -253,7 +253,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'dinas',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
 
         $name = 'Satuan Polisi Pamong Praja dan Pemadam Kebakaran';
@@ -261,7 +261,7 @@ class InstituteSeeder extends Seeder
             'name'      => $name,
             'slug'      => Str::slug($name),
             'category'  => 'lembaga teknis daerah',
-            'operator_id'   => (rand(0, 1) === 0) ? null : User::where('role', 'opd')->get()->random()->id,
+            'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
     }
 }

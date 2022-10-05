@@ -51,8 +51,8 @@
                             <th class="text-center @php echo (!empty($sort) AND Request::get('order') == 'total') ? 'sorting_' . $sort : 'sorting'; @endphp">
                                 <a href="{{ route('institute.index', ['order' => 'total', 'sort' => $sortState] + Request::all()) }}" class="text-dark d-block"><abbr data-popup="tooltip" title="Total Rancangan yang diusulkan">Total</abbr></a>
                             </th>
-                            <th class="@php echo (!empty($sort) AND Request::get('order') == 'operator') ? 'sorting_' . $sort : 'sorting'; @endphp">
-                                <a href="{{ route('institute.index', ['order' => 'operator', 'sort' => $sortState] + Request::all()) }}" class="text-dark d-block">Operator</a>
+                            <th class="@php echo (!empty($sort) AND Request::get('order') == 'corrector') ? 'sorting_' . $sort : 'sorting'; @endphp">
+                                <a href="{{ route('institute.index', ['order' => 'corrector', 'sort' => $sortState] + Request::all()) }}" class="text-dark d-block">Pemeriksa</a>
                             </th>
                             <th width="1" class="text-center">Aksi</th>
                         </tr>
@@ -69,14 +69,14 @@
                                 <td class="text-center"><span class="badge badge-dark badge-pill">{{ $institute->legislations->count() }}</span></td>
                                 <td>
                                     
-                                    @empty ($institute->operator)
+                                    @empty ($institute->corrector)
                                         <button type="button" class="btn btn-icon btn-light btn-sm rounded-pill"><i class="icon-user-plus"></i></button>    
                                     @else 
                                         <div class="d-flex align-items-center">
                                             <div class="mr-2">
-                                                <img src="{{ $institute->userPictureUrl($institute->operator->picture, $institute->operator->name) }}" alt="{{ $institute->operator->name }}" class="rounded-circle" width="32" height="32">
+                                                <img src="{{ $institute->userPictureUrl($institute->corrector->picture, $institute->corrector->name) }}" alt="{{ $institute->corrector->name }}" class="rounded-circle" width="32" height="32">
                                             </div>
-                                            <div class="div">{{ $institute->operator->name }}</div>
+                                            <div class="div">{{ $institute->corrector->name }}</div>
                                         </div>                                            
                                     @endempty
                                 </td>
