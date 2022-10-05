@@ -30,7 +30,7 @@ class InstituteRequest extends FormRequest
             'slug'      => 'required|unique:institutes',
             'abbrev'    => 'nullable|unique:institutes',
             'category'  => 'required',
-            'operator_id' => 'nullable',
+            'corrector_id' => 'required',
             'code'      => 'nullable',
             'desc'      => 'nullable',
         ];

@@ -132,7 +132,7 @@ class InstituteController extends Controller
         ];
         
         $categories = $this->categories;
-        $operators = User::opd()->sorted()->pluck('name', 'id');
+        $correctors = User::bagianHukum()->sorted()->pluck('name', 'id');
 
         $plugins = [
             'assets/js/plugins/forms/selects/select2.min.js',
@@ -144,7 +144,7 @@ class InstituteController extends Controller
             'breadCrumbs',
             'institute',
             'categories',
-            'operators',
+            'correctors',
             'plugins'
         ));
     }

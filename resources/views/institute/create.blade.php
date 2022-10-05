@@ -133,10 +133,6 @@
                             <table class="table table-borderless border-0 table-xs">
                                 <tbody>
                                     <tr>
-                                        <td class="font-weight-semibold text-nowrap"><i class="icon-user-tie mr-2"></i>Operator:</td>
-                                        <td class="text-right">{{ Auth::user()->name }}</td>
-                                    </tr>
-                                    <tr>
                                         <td class="font-weight-semibold text-nowrap"><i class="icon-calendar22 mr-2"></i>Tgl. Dibuat:</td>
                                         <td class="text-right">{{ now()->translatedFormat('j F Y') }}</td>
                                     </tr>
