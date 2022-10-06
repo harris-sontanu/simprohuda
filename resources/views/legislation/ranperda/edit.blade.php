@@ -284,8 +284,12 @@
                                     <td class="text-right">{{ $legislation->institute->name }}</td>
                                 </tr>
                                 <tr>
-                                    <td class="font-weight-semibold text-nowrap"><i class="icon-user-tie mr-2"></i>Operator:</td>
+                                    <td class="font-weight-semibold text-nowrap"><i class="icon-user mr-2"></i>Operator:</td>
                                     <td class="text-right">{{ $legislation->user->name }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-weight-semibold text-nowrap"><i class="icon-user-tie mr-2"></i>Pemeriksa:</td>
+                                    <td class="text-right">{{ $legislation->institute->corrector->name }}</td>
                                 </tr>
                                 <tr>
                                     <td class="font-weight-semibold text-nowrap"><i class="icon-embed2 mr-2"></i>Nomor Registrasi:</td>

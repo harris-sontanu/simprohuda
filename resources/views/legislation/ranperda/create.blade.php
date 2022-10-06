@@ -133,7 +133,7 @@
                                         <td class="text-right"><span class="badge badge-pill badge-light">Draf</span></td>
                                     </tr>
                                     <tr>
-                                        <td class="font-weight-semibold text-nowrap"><i class="icon-user-tie mr-2"></i>Operator:</td>
+                                        <td class="font-weight-semibold text-nowrap"><i class="icon-user mr-2"></i>Operator:</td>
                                         <td class="text-right">{{ Auth::user()->name }}</td>
                                     </tr>
                                     <tr>
