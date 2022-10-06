@@ -183,83 +183,40 @@
 
                     <div class="card-body">
                         <ul class="media-list media-chat media-chat-scrollable mb-3">
-                            <li class="media content-divider justify-content-center text-muted mx-0">Today</li>
+                            @forelse ($legislation->comments as $comment)
+                                @if ($comment->author->getRawOriginal('role') === 'opd')
+                                    <li class="media">
+                                        <div class="mr-3">
+                                            <img src="{{ $comment->userPictureUrl($comment->author->picture, $comment->author->name) }}" class="rounded-circle" alt="{{ $comment->author->name }}" width="40" height="40" data-popup="tooltip" title="{{ $comment->author->name }}">
+                                        </div>
 
-                            <li class="media media-chat-item-reverse">
-                                <div class="media-body">
-                                    <div class="media-chat-item">Thus superb the tapir the wallaby blank frog execrably much since dalmatian by in hot. Uninspiringly arose mounted stared one curt safe</div>
-                                    <div class="font-size-sm text-muted mt-2">Tue, 8:12 am <a href="#"><i class="icon-pin-alt ml-2 text-muted"></i></a></div>
-                                </div>
+                                        <div class="media-body">
+                                            <div class="media-chat-item">{{ $comment->comment }}</div>
+                                            <div class="font-size-sm text-muted mt-2">{{ $comment->timeDifference($comment->created_at) }}</div>
+                                        </div>
+                                    </li>
+                                @else
+                                    <li class="media media-chat-item-reverse">
+                                        <div class="media-body">
+                                            <div class="media-chat-item">{{ $comment->comment }}</div>
+                                            <div class="font-size-sm text-muted mt-2">{{ $comment->timeDifference($comment->created_at) }}</div>
+                                        </div>
 
-                                <div class="ml-3">
-                                    <a href="#">
-                                        <img src="{{ asset('assets/images/placeholders/user.png') }}" class="rounded-circle" alt="" width="40" height="40">
-                                    </a>
-                                </div>
-                            </li>
-
-                            <li class="media">
-                                <div class="mr-3">
-                                    <a href="#">
-                                        <img src="{{ $legislation->userPictureUrl($legislation->user->picture, $legislation->user->name) }}" class="rounded-circle" alt="" width="40" height="40">
-                                    </a>
-                                </div>
-
-                                <div class="media-body">
-                                    <div class="media-chat-item">Tolerantly some understood this stubbornly after snarlingly frog far added insect into snorted more auspiciously heedless drunkenly jeez foolhardy oh.</div>
-                                    <div class="font-size-sm text-muted mt-2">Wed, 4:20 pm <a href="#"><i class="icon-pin-alt ml-2 text-muted"></i></a></div>
-                                </div>
-                            </li>
-
-                            <li class="media media-chat-item-reverse">
-                                <div class="media-body">
-                                    <div class="media-chat-item">Satisfactorily strenuously while sleazily dear frustratingly insect menially some shook far sardonic badger telepathic much jeepers immature much hey.</div>
-                                    <div class="font-size-sm text-muted mt-2">2 hours ago <a href="#"><i class="icon-pin-alt ml-2 text-muted"></i></a></div>
-                                </div>
-
-                                <div class="ml-3">
-                                    <a href="#">
-                                        <img src="{{ asset('assets/images/placeholders/user.png') }}" class="rounded-circle" alt="" width="40" height="40">
-                                    </a>
-                                </div>
-                            </li>
-
-                            <li class="media">
-                                <div class="mr-3">
-                                    <a href="#">
-                                        <img src="{{ $legislation->userPictureUrl($legislation->user->picture, $legislation->user->name) }}" class="rounded-circle" alt="" width="40" height="40">
-                                    </a>
-                                </div>
-
-                                <div class="media-body">
-                                    <div class="media-chat-item">Grunted smirked and grew less but rewound much despite and impressive via alongside out and gosh easy manatee dear ineffective yikes.</div>
-                                    <div class="font-size-sm text-muted mt-2">13 minutes ago <a href="#"><i class="icon-pin-alt ml-2 text-muted"></i></a></div>
-                                </div>
-                            </li>
-
-                            <li class="media media-chat-item-reverse">
-                                <div class="media-body">
-                                    <div class="media-chat-item"><i class="icon-menu"></i></div>
-                                </div>
-
-                                <div class="ml-3">
-                                    <a href="#">
-                                        <img src="{{ asset('assets/images/placeholders/user.png') }}" class="rounded-circle" alt="" width="40" height="40">
-                                    </a>
-                                </div>
-                            </li>
+                                        <div class="ml-3">
+                                            <img src="{{ $comment->userPictureUrl($comment->author->picture, $comment->author->name) }}" class="rounded-circle" alt="{{ $comment->author->name }}" width="40" height="40" data-popup="tooltip" title="{{ $comment->author->name }}">
+                                        </div>
+                                    </li>
+                                @endif
+                            @empty
+                                <li>Belum ada diskusi</li>
+                            @endforelse
                         </ul>
 
-                        <textarea name="enter-message" class="form-control mb-3" rows="3" cols="1" placeholder="Enter your message..."></textarea>
+                        <textarea name="enter-message" class="form-control mb-3" rows="3" cols="1" placeholder="Ketik pesan anda..."></textarea>
 
                         <div class="d-flex align-items-center">
-                            <div class="list-icons list-icons-extended">
-                                <a href="#" class="list-icons-item" data-popup="tooltip" data-container="body" title="" data-original-title="Send photo"><i class="icon-file-picture"></i></a>
-                                <a href="#" class="list-icons-item" data-popup="tooltip" data-container="body" title="" data-original-title="Send video"><i class="icon-file-video"></i></a>
-                                <a href="#" class="list-icons-item" data-popup="tooltip" data-container="body" title="" data-original-title="Send file"><i class="icon-file-plus"></i></a>
-                            </div>
 
-                            <button type="button" class="btn btn-teal btn-labeled btn-labeled-right ml-auto"><b><i class="icon-paperplane"></i></b> Send</button>
+                            <button type="button" class="btn btn-secondary btn-labeled btn-labeled-right ml-auto"><b><i class="icon-paperplane"></i></b> Kirim</button>
                         </div>
                     </div>
                 </div>

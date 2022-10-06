@@ -18,6 +18,11 @@ trait HelperTrait
         }
     } 
 
+    public function timeDifference($time)
+    {
+        return Carbon::parse($time)->diffForHumans();
+    }
+
     public function userPictureUrl($picture, $name)
     {
         $pictureUrl = "https://ui-avatars.com/api/?name={$name}&size=170&background=random&font-size=0.35";
