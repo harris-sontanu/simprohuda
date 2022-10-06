@@ -5,7 +5,6 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
-use Illuminate\Http\Request;
 
 class InstituteRequest extends FormRequest
 {
@@ -24,7 +23,7 @@ class InstituteRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules(Request $request)
+    public function rules()
     {
         $rules = [
             'name'      => 'required|max:255',
@@ -51,14 +50,14 @@ class InstituteRequest extends FormRequest
                     Rule::unique('institutes')->ignore($this->route('institute'))
                 ];
 
-                foreach ($request->users as $user) {
-                    $rules['users.*'] = [
-                        'sometimes',
-                        Rule::unique('institute_user', 'user_id')->ignore($user, 'user_id')
-                    ];
-                }
-
-                // dd($request['users']);
+                $ignored_users = $this->route('institute')->users->pluck('id');
+                $rules['users.*'] = [
+                    'sometimes',
+                    Rule::unique('institute_user', 'user_id')->where(function ($query) use ($ignored_users) {
+                        $query->whereNotIn('user_id', $ignored_users);
+                        return $query;
+                    })
+                ];
 
                 break;
         }
