@@ -149,6 +149,10 @@ class Legislation extends Model
             $query->where('title', 'LIKE', '%' . $title . '%');
         }
 
+        if ($reg_number = $request->reg_number AND $reg_number = $request->reg_number) {
+            $query->where('reg_number', $reg_number);
+        }
+
         if ($institute = $request->institute AND $institute = $request->institute) {
             $query->where('legislations.institute_id', '=', $institute);
         }
