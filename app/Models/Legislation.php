@@ -60,6 +60,11 @@ class Legislation extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function scopeDraft($query)
     {
         return $query->whereNull('posted_at');

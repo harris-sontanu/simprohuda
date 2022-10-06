@@ -70,6 +70,11 @@ class User extends Authenticatable
         return $this->hasMany(Legislation::class);
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'author_id');
+    }
+
     public function scopeSorted($query, $request = [])
     {
         if (isset($request['order'])) {
