@@ -268,6 +268,46 @@
 
                     </div>
 
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="font-weight-bold">Riwayat</h5>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="list-feed">
+                                <div class="list-feed-item">
+                                    <a href="#">David Linner</a> requested refund for a double bank card charge
+                                    <div class="text-muted">Jan 12, 12:47</div>
+                                </div>
+
+                                <div class="list-feed-item">
+                                    User <a href="#">Christopher Wallace</a> from Google is awaiting for staff reply
+                                    <div class="text-muted">Jan 11, 10:25</div>
+                                </div>
+
+                                <div class="list-feed-item">
+                                    Ticket <strong>#43683</strong> has been resolved by <a href="#">Victoria Wilson</a>
+                                    <div class="text-muted">Jan 10, 09:37</div>
+                                </div>
+
+                                <div class="list-feed-item">
+                                    <a href="#">Eugene Kopyov</a> merged <strong>Master</strong>, <strong>Demo</strong> and <strong>Dev</strong> branches
+                                    <div class="text-muted">Jan 9, 08:28</div>
+                                </div>
+
+                                <div class="list-feed-item">
+                                    All sellers have received payouts for December, 2016!
+                                    <div class="text-muted">Jan 8, 07:58</div>
+                                </div>
+
+                                <div class="list-feed-item">
+                                    <a href="#">Chris Arney</a> created a new ticket <strong>#43136</strong> and assigned to <a href="#">John Nod</a>
+                                    <div class="text-muted">Jan 7, 06:32</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
