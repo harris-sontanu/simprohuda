@@ -96,7 +96,7 @@
 								<tr>
 									<td>{{ $legislation->reg_number }}</td>
 									<td>{{ $legislation->type->name }}</td>
-									<td>{{ $legislation->title }}</td>
+									<td><span class="font-weight-semibold">{{ $legislation->title }}</span></td>
 									<td>{{ $legislation->institute->name }}</td>
 									<td><abbr data-popup="tooltip" title="{{ $legislation->dateFormatted($legislation->posted_at, true) }}">{{ $legislation->dateFormatted($legislation->posted_at) }}</abbr></td>
 								</tr>
