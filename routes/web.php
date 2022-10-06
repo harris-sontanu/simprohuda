@@ -7,6 +7,7 @@ use App\Http\Controllers\InstituteController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Legislation\RanperdaController;
 use App\Http\Controllers\Legislation\DocumentController;
+use App\Http\Controllers\Legislation\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,6 +76,8 @@ Route::middleware('auth')->group(function() {
         ]);
         Route::post('/legislation/document/create', [DocumentController::class, 'create'])
             ->name('document.create');
+
+        Route::resource('/legislation/comment', CommentController::class);
     });
 
 });

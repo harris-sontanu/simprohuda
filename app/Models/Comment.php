@@ -10,6 +10,20 @@ class Comment extends Model
 {
     use HasFactory, HelperTrait;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'legislation_id',
+        'author_id',
+        'comment',
+        'read',
+        'year',
+    ];
+
+
     public function legislation()
     {
         return $this->belongsTo(Legislation::class);

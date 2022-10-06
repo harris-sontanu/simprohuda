@@ -211,13 +211,20 @@
                                 <li>Belum ada diskusi</li>
                             @endforelse
                         </ul>
-
-                        <textarea name="enter-message" class="form-control mb-3" rows="3" cols="1" placeholder="Ketik pesan anda..."></textarea>
-
-                        <div class="d-flex align-items-center">
-
-                            <button type="button" class="btn btn-secondary btn-labeled btn-labeled-right ml-auto"><b><i class="icon-paperplane"></i></b> Kirim</button>
-                        </div>
+                        
+                        <form action="{{ route('legislation.comment.store') }}" method="post" novalidate>
+                            @csrf
+                            <input type="hidden" name="legislation_id" value="{{ $legislation->id }}">
+                            <textarea name="comment" class="form-control @error('comment') is-invalid @enderror" rows="3" cols="1" placeholder="Ketik pesan Anda..."></textarea>
+                            @error('comment')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+    
+                            <div class="d-flex align-items-center mt-3">
+    
+                                <button type="submmit" class="btn btn-secondary btn-labeled btn-labeled-right ml-auto"><b><i class="icon-paperplane"></i></b> Kirim</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
