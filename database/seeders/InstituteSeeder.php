@@ -28,6 +28,7 @@ class InstituteSeeder extends Seeder
         Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
+            'abbrev'    => 'BKPSDM',
             'category'  => 'lembaga teknis daerah',
             'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
@@ -36,6 +37,7 @@ class InstituteSeeder extends Seeder
         Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
+            'abbrev'    => 'BPKPD',
             'category'  => 'lembaga teknis daerah',
             'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
@@ -44,6 +46,7 @@ class InstituteSeeder extends Seeder
         Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
+            'abbrev'    => 'BPPP',
             'category'  => 'lembaga teknis daerah',
             'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
@@ -52,6 +55,7 @@ class InstituteSeeder extends Seeder
         Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
+            'abbrev'    => 'BPBD',
             'category'  => 'lembaga teknis daerah',
             'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
@@ -60,6 +64,7 @@ class InstituteSeeder extends Seeder
         Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
+            'abbrev'    => 'BKBP',
             'category'  => 'lembaga teknis daerah',
             'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
@@ -68,6 +73,7 @@ class InstituteSeeder extends Seeder
         Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
+            'abbrev'    => 'BPK',
             'category'  => 'sekretariat daerah',
             'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
@@ -76,6 +82,7 @@ class InstituteSeeder extends Seeder
         Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
+            'abbrev'    => 'BH',
             'category'  => 'sekretariat daerah',
             'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
@@ -84,6 +91,7 @@ class InstituteSeeder extends Seeder
         Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
+            'abbrev'    => 'BAPPSDA',
             'category'  => 'sekretariat daerah',
             'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
@@ -92,6 +100,7 @@ class InstituteSeeder extends Seeder
         Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
+            'abbrev'    => 'BPBJ',
             'category'  => 'sekretariat daerah',
             'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
@@ -100,6 +109,7 @@ class InstituteSeeder extends Seeder
         Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
+            'abbrev'    => 'BU',
             'category'  => 'sekretariat daerah',
             'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
@@ -108,6 +118,7 @@ class InstituteSeeder extends Seeder
         Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
+            'abbrev'    => 'BPKP',
             'category'  => 'sekretariat daerah',
             'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);
@@ -116,6 +127,7 @@ class InstituteSeeder extends Seeder
         Institute::factory()->create([
             'name'      => $name,
             'slug'      => Str::slug($name),
+            'abbrev'    => 'BO',
             'category'  => 'sekretariat daerah',
             'corrector_id'   => User::where('role', 'bagianhukum')->get()->random()->id,
         ]);

@@ -23,7 +23,6 @@ class InstituteFactory extends Factory
         return [
             'name'   => Str::title($name),
             'slug'   => Str::slug($name),
-            'abbrev' => Str::upper(fake()->unique()->word()),
             'category' => $categories[rand(0, 5)],
         ];
     }
