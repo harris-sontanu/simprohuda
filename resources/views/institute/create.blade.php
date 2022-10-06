@@ -98,6 +98,20 @@
                                                 @endif
                                             </div>
                                         </div>
+                                        <div class="form-group row">
+                                            <label for="users" class="col-lg-3 col-form-label font-weight-semibold">Operator:</label>
+                                            <div class="col-lg-9">
+                                                <select name="users[]" multiple="multiple" class="form-control select @error('users.*') is-invalid @enderror">
+                                                    <option value="">Pilih Operator</option>
+                                                    @foreach ($users as $key => $value)          
+                                                        <option value="{{ $key }}" @selected(old('users.*') == $key)>{{ $value }}</option>  
+                                                    @endforeach
+                                                </select>
+                                                @error('users.*')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
                                     </fieldset>
 
                                 </div>

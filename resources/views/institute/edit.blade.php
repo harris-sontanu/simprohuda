@@ -102,23 +102,21 @@
                                         <div class="form-group row">
                                             <label for="users" class="col-lg-3 col-form-label font-weight-semibold">Operator:</label>
                                             <div class="col-lg-9">
-                                                <div id="user-options">
-                                                    <select name="users[]" multiple="multiple" class="form-control select @error('users.*') is-invalid @enderror">
-                                                        <option value="">Pilih Operator</option>
-                                                        @foreach ($users as $key => $value)       
-                                                            @php $selected = false; @endphp 
-                                                            @foreach ($institute->users as $user)  
-                                                                @if ($user->id == $key)
-                                                                    @php $selected = true; @endphp 
-                                                                @endif                        
-                                                            @endforeach    
-                                                            <option value="{{ $key }}" @selected($selected)>{{ $value }}</option>  
-                                                        @endforeach
-                                                    </select>
-                                                    @error('users.*')
-                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                    @enderror
-                                                </div>
+                                                <select name="users[]" multiple="multiple" class="form-control select @error('users.*') is-invalid @enderror">
+                                                    <option value="">Pilih Operator</option>
+                                                    @foreach ($users as $key => $value)       
+                                                        @php $selected = false; @endphp 
+                                                        @foreach ($institute->users as $user)  
+                                                            @if ($user->id == $key)
+                                                                @php $selected = true; @endphp 
+                                                            @endif                        
+                                                        @endforeach    
+                                                        <option value="{{ $key }}" @selected($selected)>{{ $value }}</option>  
+                                                    @endforeach
+                                                </select>
+                                                @error('users.*')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
                                             </div>
                                         </div>
                                     </fieldset>

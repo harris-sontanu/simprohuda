@@ -69,7 +69,7 @@
                                             <img src="{{ $institute->userPictureUrl($user->picture, $user->name) }}" alt="{{ $user->name }}" class="rounded-circle" width="32" height="32">
                                         </a>
                                     @endforeach
-                                    <button type="button" class="btn btn-icon btn-light btn-sm rounded-pill" data-popup="tooltip" title="Tambah Operator Perangkat Daerah"><i class="icon-user-plus"></i></button>
+                                    {{-- <button type="button" class="btn btn-icon btn-light btn-sm rounded-pill" data-popup="tooltip" title="Tambah Operator Perangkat Daerah"><i class="icon-user-plus"></i></button> --}}
                                 </td>
                                 <td class="text-center"><span class="badge badge-dark badge-pill">{{ $institute->legislations->count() }}</span></td>
                                 <td class="text-center">

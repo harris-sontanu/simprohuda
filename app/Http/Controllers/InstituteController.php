@@ -74,6 +74,7 @@ class InstituteController extends Controller
         $categories = $this->categories;
         $correctors = User::bagianHukum()->sorted()->pluck('name', 'id');
         $operators = User::opd()->sorted()->pluck('name', 'id');
+        $users = User::opd()->sorted()->pluck('name', 'id');
 
         $plugins = [
             'assets/js/plugins/forms/selects/select2.min.js',
@@ -85,6 +86,7 @@ class InstituteController extends Controller
             'breadCrumbs',
             'correctors',
             'categories',
+            'users',
             'operators',
             'plugins'
         ));
@@ -99,7 +101,9 @@ class InstituteController extends Controller
     public function store(InstituteRequest $request)
     {
         $validated = $request->validated();
-        Institute::create($validated);
+        $new_institute = Institute::create($validated);
+
+        $new_institute->users()->attach($request->users);
 
         return redirect('/institute')->with('message', '<strong>Berhasil!</strong> Data Perangkat Daerah telah berhasil disimpan');
     }
@@ -161,8 +165,9 @@ class InstituteController extends Controller
     public function update(InstituteRequest $request, Institute $institute)
     {        
         $validated = $request->validated();
-        // dd($validated);
-        // $institute->update($validated);
+        $institute->update($validated);
+
+        $institute->users()->sync($request->users);
 
         return redirect('/institute')->with('message', '<strong>Berhasil!</strong> Data Perangkat Daerah telah berhasil diperbarui');
     }
