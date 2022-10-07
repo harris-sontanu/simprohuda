@@ -17,7 +17,7 @@ return [
     |
     */
 
-    'default' => env('LOG_CHANNEL', 'stack'),
+    'default' => env('LOG_CHANNEL', 'mysql'),
 
     /*
     |--------------------------------------------------------------------------
@@ -51,6 +51,13 @@ return [
     */
 
     'channels' => [
+        'mysql' => [
+            'driver' => 'custom',
+            'via' => ITelmenko\Logger\Laravel\Logging\MySQLLogger::class,
+            'connection' => env('DB_LOG_CONNECTION'),
+            'table' => env('DB_LOG_TABLE'),
+        ],
+
         'stack' => [
             'driver' => 'stack',
             'channels' => ['single'],

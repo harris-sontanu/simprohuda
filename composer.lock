@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5d263613d099c820178b78fdae9db2d1",
+    "content-hash": "19e4181da7ad2218be7b9bdf3a2be4e0",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -1419,6 +1419,63 @@
                 }
             ],
             "time": "2022-05-21T17:30:32+00:00"
+        },
+        {
+            "name": "itelmenko/laravel-mysql-logger",
+            "version": "v1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/itelmenko/laravel-mysql-logger.git",
+                "reference": "b31238882009b57e4269c5b59a7949cb8636554e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/itelmenko/laravel-mysql-logger/zipball/b31238882009b57e4269c5b59a7949cb8636554e",
+                "reference": "b31238882009b57e4269c5b59a7949cb8636554e",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^5.3|^6.0|^7.0|^8.0|^9.0",
+                "php": ">=7.3.0",
+                "rorecek/laravel-ulid": "^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "ITelmenko\\Logger\\Laravel\\Providers\\MonologMysqlHandlerServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "ITelmenko\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Igor Telmenko",
+                    "email": "igor.telmenko@gmail.com"
+                }
+            ],
+            "description": "Laravel 5.6+ MySQL driver for Monolog",
+            "homepage": "https://github.com/itelmenko/laravel-mysql-logger",
+            "keywords": [
+                "laravel",
+                "laravel5.6",
+                "log",
+                "monolog",
+                "mysql"
+            ],
+            "support": {
+                "issues": "https://github.com/itelmenko/laravel-mysql-logger/issues",
+                "source": "https://github.com/itelmenko/laravel-mysql-logger/tree/v1.0.4"
+            },
+            "time": "2022-05-29T07:33:00+00:00"
         },
         {
             "name": "laravel/fortify",
@@ -3589,6 +3646,66 @@
                 }
             ],
             "time": "2022-09-16T03:22:46+00:00"
+        },
+        {
+            "name": "rorecek/laravel-ulid",
+            "version": "v2.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rorecek/laravel-ulid.git",
+                "reference": "66b95e1b6ae8fcb157c600e44b3b1d4f105aebfa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rorecek/laravel-ulid/zipball/66b95e1b6ae8fcb157c600e44b3b1d4f105aebfa",
+                "reference": "66b95e1b6ae8fcb157c600e44b3b1d4f105aebfa",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "^5.3|^6.0|^7.0|^8.0|^9.0",
+                "php": "^7.0|^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Rorecek\\Ulid\\UlidServiceProvider"
+                    ],
+                    "aliases": {
+                        "Ulid": "Rorecek\\Ulid\\Facades\\Ulid"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Rorecek\\Ulid\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pavel Rorecek",
+                    "email": "info@laravelist.com",
+                    "homepage": "https://laravelist.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel package for ULID (Universally Unique Lexicographically Sortable Identifier)",
+            "homepage": "https://github.com/rorecek/laravel-ulid",
+            "keywords": [
+                "guid",
+                "identifier",
+                "ulid",
+                "uuid"
+            ],
+            "support": {
+                "issues": "https://github.com/rorecek/laravel-ulid/issues",
+                "source": "https://github.com/rorecek/laravel-ulid/tree/v2.0.5"
+            },
+            "time": "2022-02-09T12:10:12+00:00"
         },
         {
             "name": "symfony/console",

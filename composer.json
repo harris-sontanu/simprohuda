@@ -9,6 +9,7 @@
         "doctrine/dbal": "^3.4",
         "guzzlehttp/guzzle": "^7.2",
         "intervention/image": "^2.7",
+        "itelmenko/laravel-mysql-logger": "^1.0",
         "laravel/fortify": "^1.13",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
