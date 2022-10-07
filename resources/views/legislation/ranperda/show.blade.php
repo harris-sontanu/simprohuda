@@ -39,52 +39,52 @@
                             <div class="col">
                                 <table class="table">
                                     <tr>
-                                        <td class="font-weight-semibold">Nomor Registrasi</td>
+                                        <td class="font-weight-semibold text-nowrap">Nomor Registrasi</td>
                                         <td>:</td>
                                         <td>{{ $legislation->reg_number }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="font-weight-semibold">Perangkat Daerah</td>
+                                        <td class="font-weight-semibold text-nowrap">Perangkat Daerah</td>
                                         <td>:</td>
                                         <td>{{ $legislation->institute->name }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="font-weight-semibold">Operator</td>
+                                        <td class="font-weight-semibold text-nowrap">Operator</td>
                                         <td>:</td>
                                         <td>{{ $legislation->user->name }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="font-weight-semibold">Pemeriksa</td>
+                                        <td class="font-weight-semibold text-nowrap">Pemeriksa</td>
                                         <td>:</td>
                                         <td>{{ $legislation->institute->corrector->name }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="font-weight-semibold">Alasan Pengajuan</td>
+                                        <td class="font-weight-semibold text-nowrap">Alasan Pengajuan</td>
                                         <td>:</td>
                                         <td>{{ $legislation->background }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="font-weight-semibold">Tanggal Dibuat</td>
+                                        <td class="font-weight-semibold text-nowrap">Tanggal Dibuat</td>
                                         <td>:</td>
                                         <td>{{ $legislation->dateFormatted($legislation->created_at, true) }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="font-weight-semibold">Tanggal Diajukan</td>
+                                        <td class="font-weight-semibold text-nowrap">Tanggal Diajukan</td>
                                         <td>:</td>
                                         <td>{{ $legislation->dateFormatted($legislation->posted_at, true) }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="font-weight-semibold">Tanggal Revisi</td>
+                                        <td class="font-weight-semibold text-nowrap">Tanggal Revisi</td>
                                         <td>:</td>
                                         <td>{{ $legislation->dateFormatted($legislation->revised_at, true) }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="font-weight-semibold">Tanggal Divalidasi</td>
+                                        <td class="font-weight-semibold text-nowrap">Tanggal Divalidasi</td>
                                         <td>:</td>
                                         <td>{{ $legislation->dateFormatted($legislation->validated_at, true) }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="font-weight-semibold">Waktu Proses</td>
+                                        <td class="font-weight-semibold text-nowrap">Waktu Proses</td>
                                         <td>:</td>
                                         <td>-</td>
                                     </tr>
