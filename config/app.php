@@ -186,7 +186,6 @@ return [
          * Package Service Providers...
          */
         App\Providers\FortifyServiceProvider::class,
-        ITelmenko\Logger\Laravel\Providers\MonologMysqlHandlerServiceProvider::class,
 
         /*
          * Application Service Providers...

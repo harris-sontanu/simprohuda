@@ -11,7 +11,6 @@ use App\Models\Document;
 use Illuminate\Http\Request;
 use App\Http\Requests\RanperdaRequest;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Log;
 
 class RanperdaController extends LegislationController
 {
@@ -229,8 +228,6 @@ class RanperdaController extends LegislationController
             route('legislation.ranperda.index') => $legislation->type->name,
             'Detail' => true
         ];
-        
-        Log::channel('mysql')->info('Showing the legislation detail.', ['user_id' => auth()->user()->id, 'legislation_id' => $legislation->id]);
 
         $requirements = Requirement::requirements($legislation->type_id)->get();
         $master = Document::requirements($legislation->id)->first();
@@ -320,7 +317,7 @@ class RanperdaController extends LegislationController
     {
         $legislation->update(['validated_at' => now()]);
 
-        return redirect('/legislation/ranperda/' . $legislation->id)->with('message', '<strong>Berhasil!</strong> Data Pengajuan Rancangan Peraturan Daerah telah berhasil divalidasi');
+        return redirect('/legislation/ranperda/' . $legislation->id . '/edit')->with('message', '<strong>Berhasil!</strong> Data Pengajuan Rancangan Peraturan Daerah telah berhasil divalidasi');
     }
 
     /**
