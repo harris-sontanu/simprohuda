@@ -43,6 +43,16 @@ class Document extends Model
         return $this->belongsTo(Requirement::class);
     }
 
+    public function ext(): Attribute
+    {
+        $file = explode('.', $this->path);
+        $ext = $file[1];
+
+        return Attribute::make(
+            get: fn ($value) => $ext
+        );
+    }
+
     public function extClass(): Attribute
     {         
         $file = explode('.', $this->path);

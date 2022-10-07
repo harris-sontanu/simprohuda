@@ -14,24 +14,81 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <h5 class="card-title font-weight-bold">{{ $legislation->title }}</h5>
+                        <h5 class="card-title font-weight-bold text-uppercase">{{ $legislation->title }}</h5>
                     </div>
 
                     <div class="card-body">
-                        <h6 class="font-weight-semibold">Alasan Pengajuan</h6>
-                        <p>@empty ($legislation->background) - @else {{ $legislation->background }} @endempty</p>
 
                         <div class="row">
                             <div class="col">
-                                <iframe
-                                    src="{{ asset('assets/js/plugins/pdfjs/web/viewer.html') }}?file={{ $master->source }}" 
-                                    width="100%"
-                                    height="600px"
-                                ></iframe>
+                                @if ($master)     
+                                    @if ($master->ext === 'pdf')
+                                        <iframe
+                                            src="{{ asset('assets/js/plugins/pdfjs/web/viewer.html') }}?file={{ $master->source }}" 
+                                            width="100%"
+                                            height="600px"
+                                        ></iframe>
+                                    @else                                        
+                                        <iframe src='https://view.officeapps.live.com/op/embed.aspx?src={{ asset($master->source) }}' width='100%' height='650px' frameborder='0'></iframe>
+                                    @endif                           
+                                @else
+                                    <img src="{{ asset('assets/images/placeholders/file-not-found.jpg') }}" class="img-fluid">
+                                @endif
                             </div>
 
                             <div class="col">
-                                
+                                <table class="table">
+                                    <tr>
+                                        <td class="font-weight-semibold">Nomor Registrasi</td>
+                                        <td>:</td>
+                                        <td>{{ $legislation->reg_number }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-semibold">Perangkat Daerah</td>
+                                        <td>:</td>
+                                        <td>{{ $legislation->institute->name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-semibold">Operator</td>
+                                        <td>:</td>
+                                        <td>{{ $legislation->user->name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-semibold">Pemeriksa</td>
+                                        <td>:</td>
+                                        <td>{{ $legislation->institute->corrector->name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-semibold">Alasan Pengajuan</td>
+                                        <td>:</td>
+                                        <td>{{ $legislation->background }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-semibold">Tanggal Dibuat</td>
+                                        <td>:</td>
+                                        <td>{{ $legislation->dateFormatted($legislation->created_at, true) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-semibold">Tanggal Diajukan</td>
+                                        <td>:</td>
+                                        <td>{{ $legislation->dateFormatted($legislation->posted_at, true) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-semibold">Tanggal Revisi</td>
+                                        <td>:</td>
+                                        <td>{{ $legislation->dateFormatted($legislation->revised_at, true) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-semibold">Tanggal Divalidasi</td>
+                                        <td>:</td>
+                                        <td>{{ $legislation->dateFormatted($legislation->validated_at, true) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-weight-semibold">Waktu Proses</td>
+                                        <td>:</td>
+                                        <td>-</td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -40,7 +97,7 @@
                         <table class="table">
                             <thead>
                                 <tr class="bg-light">
-                                    <th>Nama</th>
+                                    <th>Judul</th>
                                     <th>Dokumen Persyaratan</th>
                                     <th>Tgl. Unggah</th>
                                     <th>Tgl. Revisi</th>
@@ -139,41 +196,6 @@
             <div class="sidebar sidebar-light bg-transparent sidebar-component sidebar-component-right wmin-lg-350 border-0 shadow-none order-1 order-lg-2 sidebar-expand-lg">
 
                 <div class="sidebar-content">
-                    
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title font-weight-bold"><i class="icon-embed2 mr-2"></i>Metadata</h5>
-                        </div>
-
-                        <table class="table table-borderless border-0 table-xs mb-3">
-                            <tbody>
-                                <tr>
-                                    <td class="font-weight-semibold text-nowrap"><i class="icon-pen mr-2"></i>Status:</td>
-                                    <td class="text-right">{!! $legislation->statusBadge !!}</td>
-                                </tr><tr>
-                                    <td class="font-weight-semibold text-nowrap"><i class="icon-office mr-2"></i>Perangkat Daerah:</td>
-                                    <td class="text-right">{{ $legislation->institute->name }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="font-weight-semibold text-nowrap"><i class="icon-user mr-2"></i>Operator:</td>
-                                    <td class="text-right">{{ $legislation->user->name }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="font-weight-semibold text-nowrap"><i class="icon-user-tie mr-2"></i>Pemeriksa:</td>
-                                    <td class="text-right">{{ $legislation->institute->corrector->name }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="font-weight-semibold text-nowrap"><i class="icon-list-ordered mr-2"></i>Nomor Registrasi:</td>
-                                    <td class="text-right">{{ $legislation->reg_number }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="font-weight-semibold text-nowrap"><i class="icon-calendar22 mr-2"></i>Tgl. Dibuat:</td>
-                                    <td class="text-right">{{ $legislation->dateFormatted($legislation->created_at) }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                    </div>
 
                     <div class="card">
                         <div class="card-header">
