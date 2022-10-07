@@ -209,6 +209,31 @@
                 });
             })
         })
+
+        $(document).on('click', '.ratify', function() {
+            let button   = $(this),
+                docTitle = button.data('title');
+
+            bootbox.confirm({
+                title: 'Konfirmasi Perintah',
+                message: 'Apakah Anda yakin ingin memvalidasi dokumen ' + docTitle + '?',
+                buttons: {
+                    confirm: {
+                        label: 'Yakin',
+                        className: 'btn-secondary'
+                    },
+                    cancel: {
+                        label: 'Batal',
+                        className: 'btn-link'
+                    }
+                },
+                callback: function (result) {
+                    if (result == true) {
+                        button.parent().submit();
+                    }
+                }
+            });
+        })
         
     })
 

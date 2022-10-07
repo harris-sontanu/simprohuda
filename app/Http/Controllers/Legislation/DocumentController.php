@@ -127,6 +127,16 @@ class DocumentController extends LegislationController
         }
     }
 
+    public function ratify(Request $request, Document $document)
+    {
+        $document->update([
+            'validated_at'  => now()
+        ]);
+
+        return redirect('/legislation/' . $document->legislation->type->slug . '/' . $document->legislation->id . '/edit')
+            ->with('message', '<strong>Berhasil!</strong> Dokumen ' . $document->title . ' telah berhasil divalidasi');
+    }
+
     /**
      * Remove the specified resource from storage.
      *

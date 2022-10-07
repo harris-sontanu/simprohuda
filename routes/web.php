@@ -76,6 +76,8 @@ Route::middleware('auth')->group(function() {
         ]);
         Route::post('/legislation/document/create', [DocumentController::class, 'create'])
             ->name('document.create');
+        Route::put('/legislation/document/{document}/ratify', [DocumentController::class, 'ratify'])
+            ->name('document.ratify');
 
         Route::resource('/legislation/comment', CommentController::class);
     });

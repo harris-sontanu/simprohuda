@@ -244,6 +244,7 @@ class RanperdaController extends LegislationController
         $documents = Document::requirements($legislation->id)->get();
 
         $plugins = [
+            'assets/js/plugins/notifications/bootbox.min.js',
             'assets/js/plugins/forms/selects/select2.min.js',
         ];
 
