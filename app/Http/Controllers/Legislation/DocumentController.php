@@ -119,6 +119,7 @@ class DocumentController extends LegislationController
             'path'  => $path,
             'name'  => $file_name,
             'revised_at' => empty($legislation->posted_at) ? null : now(),
+            'validated_at' => null,
         ]);
 
         // Update legislation revise date except for draft

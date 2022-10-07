@@ -236,6 +236,10 @@
                 }
             });
         })
+
+        $('.btn-ratify').click(function() {
+            $(this).parent().submit();
+        })
         
     })
 

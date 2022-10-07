@@ -145,11 +145,11 @@
                                                             title="Perbaiki">
                                                             <i class="icon-file-upload"></i>
                                                         </a>
-                                                        @if (!empty($legislation->posted_at)) 
+                                                        @if (!empty($legislation->posted_at) AND empty($document->validated_at)) 
                                                             <form action="{{ route('legislation.document.ratify', $document->id) }}" method="post">
                                                                 @csrf
                                                                 @method('PUT')
-                                                                <a role="button" class="list-icons-item ratify" data-title="{{ $document->title }}" data-popup="tooltip" title="Validasi"><i class="icon-file-check"></i></a>
+                                                                <a role="button" class="list-icons-item btn-ratify" data-title="{{ $document->title }}" data-popup="tooltip" title="Validasi"><i class="icon-file-check"></i></a>
                                                             </form>                                               
                                                         @endif
                                                     </div>
