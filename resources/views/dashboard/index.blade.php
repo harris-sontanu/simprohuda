@@ -117,7 +117,7 @@
 
 				<div class="card">
                     <div class="card-header">
-                        <h5 class="card-title font-weight-bold">Status Rancangan</h6>
+                        <h5 class="card-title font-weight-bold">Status Rancangan Produk Hukum</h6>
                     </div>
                     <div class="card-body">
 

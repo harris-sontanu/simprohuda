@@ -133,6 +133,23 @@ class DocumentController extends LegislationController
             'validated_at'  => now()
         ]);
 
+        // Update legislation validated date if all requirement documets are validated
+        // $validated = true;
+        // $requirements = Requirement::mandatory($document->legislation->type_id)->get();
+        // foreach ($requirements as $requirement) {
+        //     $requiredDocument = Document::where('legislation_id', $document->legislation->id)
+        //                             ->where('requirement_id', $requirement->id)
+        //                             ->first();
+
+        //     if (empty($requiredDocument) OR empty($requiredDocument->validated_at)) {
+        //         $validated = false;
+        //     } 
+        // }
+
+        // if ($validated) {
+        //     $document->legislation->update(['validated_at' => now()]);
+        // }
+
         return redirect('/legislation/' . $document->legislation->type->slug . '/' . $document->legislation->id . '/edit')
             ->with('message', '<strong>Berhasil!</strong> Dokumen ' . $document->title . ' telah berhasil divalidasi');
     }
