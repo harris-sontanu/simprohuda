@@ -243,6 +243,17 @@ class RanperdaController extends LegislationController
         $requirements = Requirement::mandatory($this->type->id)->get();
         $documents = Document::requirements($legislation->id)->get();
 
+        $validateButton = true;
+        foreach ($requirements as $requirement) {
+            $requiredDocument = Document::where('legislation_id', $legislation->id)
+                                    ->where('requirement_id', $requirement->id)
+                                    ->first();
+
+            if (empty($requiredDocument) OR empty($requiredDocument->validated_at)) {
+                $validateButton = false;
+            } 
+        }
+
         $plugins = [
             'assets/js/plugins/notifications/bootbox.min.js',
             'assets/js/plugins/forms/selects/select2.min.js',
@@ -255,6 +266,7 @@ class RanperdaController extends LegislationController
             'requirements',
             'documents',
             'legislation',
+            'validateButton',
             'plugins',
         ));
     }
@@ -278,6 +290,13 @@ class RanperdaController extends LegislationController
         $legislation->update($validated);
 
         return redirect('/legislation/ranperda/' . $legislation->id . '/edit')->with('message', '<strong>Berhasil!</strong> Data Pengajuan Rancangan Peraturan Daerah telah berhasil diperbarui');
+    }
+
+    public function approve(Request $request, Legislation $legislation)
+    {
+        $legislation->update(['validated_at' => now()]);
+
+        return redirect('/legislation/ranperda/' . $legislation->id . '/edit')->with('message', '<strong>Berhasil!</strong> Data Pengajuan Rancangan Peraturan Daerah telah berhasil divalidasi');
     }
 
     /**

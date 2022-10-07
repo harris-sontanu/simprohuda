@@ -31,9 +31,10 @@
                             <div class="col-lg-8 offset-lg-2">
 
                                 <!-- Form -->
-                                <form method="POST" action="{{ route('legislation.ranperda.update', $legislation->id) }}" novalidate>
+                                <form id="update-form" method="POST" action="{{ route('legislation.ranperda.update', $legislation->id) }}" novalidate>
                                     @method('PUT')
                                     @csrf
+                                </form>
 
                                     <fieldset>
                                         <legend class="font-weight-bold"><i class="icon-reading mr-2"></i> Formulir Pengajuan Ranperda</legend>
@@ -41,7 +42,7 @@
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label" for="title">Judul:</label>
                                             <div class="col-lg-9">
-                                                <textarea class="form-control @error('title') is-invalid @enderror" name="title" id="title" spellcheck="false" cols="30" rows="4" autofocus>{{ $legislation->title }}</textarea>
+                                                <textarea class="form-control @error('title') is-invalid @enderror" form="update-form" name="title" id="title" spellcheck="false" cols="30" rows="4" autofocus>{{ $legislation->title }}</textarea>
                                                 @error('title')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @endif
@@ -51,7 +52,7 @@
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label" for="background">Alasan Pengajuan:</label>
                                             <div class="col-lg-9">
-                                                <textarea class="form-control @error('background') is-invalid @enderror" name="background" id="background" spellcheck="false" cols="30" rows="4" >{{ $legislation->background }}</textarea>
+                                                <textarea class="form-control @error('background') is-invalid @enderror" form="update-form" name="background" id="background" spellcheck="false" cols="30" rows="4" >{{ $legislation->background }}</textarea>
                                                 @error('background')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @endif
@@ -61,16 +62,22 @@
                                         <div class="form-group row mb-0">
                                             <div class="col-lg-9 offset-lg-3">
                                                 @if ($legislation->status() === 'draft')
-                                                    <button type="submit" name="draft" class="btn btn-light mr-2">Simpan ke Draf</button>
-                                                    <button type="submit" name="post" class="btn btn-secondary">Simpan & Ajukan</button>
+                                                    <button type="submit" form="update-form" name="draft" class="btn btn-light mr-2">Simpan ke Draf</button>
+                                                    <button type="submit" form="update-form" name="post" class="btn btn-secondary">Simpan & Ajukan</button>
                                                 @else
-                                                    <button type="submit" name="revise" class="btn btn-secondary">Ubah</button>
+                                                    <button type="submit" form="update-form" name="revise" class="btn btn-secondary">Ubah</button>
+                                                    @if ($validateButton)  
+                                                        <form id="validation-form" action="{{ route('legislation.ranperda.approve', $legislation->id) }}" method="post" class="d-inline-block" data-title="{{ $legislation->title }}">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <button type="submit" class="btn btn-success btn-labeled btn-labeled-right ml-2"><b><i class="icon-checkmark4"></i></b>Valid</button>
+                                                        </form>                                                    
+                                                    @endif
                                                 @endif                                                    
                                             </div>
                                         </div>
 
                                     </fieldset>
-                                </form>
 
                             </div>
                         </div>
@@ -228,7 +235,7 @@
     
                             <div class="d-flex align-items-center mt-3">
     
-                                <button type="submmit" class="btn btn-secondary btn-labeled btn-labeled-right ml-auto"><b><i class="icon-paperplane"></i></b> Kirim</button>
+                                <button type="submit" class="btn btn-secondary btn-labeled btn-labeled-right ml-auto"><b><i class="icon-paperplane"></i></b> Kirim</button>
                             </div>
                         </form>
                     </div>

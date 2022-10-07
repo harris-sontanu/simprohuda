@@ -67,6 +67,7 @@ Route::middleware('auth')->group(function() {
         Route::resource('/legislation/ranperda', RanperdaController::class);
         Route::controller(RanperdaController::class)->group(function () {
             Route::post('/legislation/ranperda/trigger', 'trigger')->name('ranperda.trigger');
+            Route::put('/legislation/ranperda/{ranperda}/approve', 'approve')->name('ranperda.approve');
             Route::put('/legislation/ranperda/{id}/restore', 'restore')->name('ranperda.restore');
             Route::delete('/legislation/ranperda/{id}/force-destroy', 'forceDestroy')->name('ranperda.force-destroy');
         });

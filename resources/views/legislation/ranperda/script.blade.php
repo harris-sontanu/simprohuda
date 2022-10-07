@@ -210,13 +210,15 @@
             })
         })
 
-        $(document).on('click', '.ratify', function() {
-            let button   = $(this),
-                docTitle = button.data('title');
+        $('#validation-form').submit(function(e) {
+            e.preventDefault();
+
+            let form     = $(this),
+                docTitle = form.data('title');
 
             bootbox.confirm({
                 title: 'Konfirmasi Perintah',
-                message: 'Apakah Anda yakin ingin memvalidasi dokumen ' + docTitle + '?',
+                message: 'Apakah Anda yakin ingin memvalidasi Rancangan Peraturan Daerah <b>' + docTitle + '</b>?',
                 buttons: {
                     confirm: {
                         label: 'Yakin',
@@ -229,7 +231,7 @@
                 },
                 callback: function (result) {
                     if (result == true) {
-                        button.parent().submit();
+                        form.unbind('submit').submit();
                     }
                 }
             });
