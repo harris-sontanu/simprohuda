@@ -207,6 +207,11 @@ class RanperdaController extends LegislationController
 
         $new_legislation = $request->user()->legislations()->create($validated);
 
+        $new_legislation->logs()->create([
+            'user_id'   => $request->user()->id,
+            'message'   => 'membuat ranperda ' . $msg_append,
+        ]);
+
         $this->documentUpload($new_legislation, $request);
 
         return redirect('/legislation/ranperda')->with('message', '<strong>Berhasil!</strong> Data Rancangan Peraturan Daerah telah berhasil disimpan ' . $msg_append);

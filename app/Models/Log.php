@@ -12,6 +12,17 @@ class Log extends Model
     public $timestamps = ["created_at"];
     const UPDATED_AT = null;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'legislation_id',
+        'user_id',
+        'message',
+    ];
+
     public function legislation()
     {
         return $this->belongsTo(Legislation::class);
