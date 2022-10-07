@@ -220,7 +220,28 @@ class RanperdaController extends LegislationController
      */
     public function show(Legislation $legislation)
     {
-        //
+        $pageHeader = 'Detail Rancangan Peraturan Daerah';
+        $pageTitle = $pageHeader . $this->pageTitle;
+        $breadCrumbs = [
+            route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
+            '#' => 'Produk Hukum',
+            route('legislation.ranperda.index') => $legislation->type->name,
+            'Detail' => true
+        ];
+
+        $requirements = Requirement::requirements($legislation->type_id)->get();
+        $master = Document::requirements($legislation->id)->first();
+        $documents = Document::requirements($legislation->id)->get();
+
+        return view('legislation.ranperda.show', compact(
+            'pageTitle',
+            'pageHeader',
+            'breadCrumbs',
+            'legislation',
+            'requirements',
+            'master',
+            'documents',
+        ));
     }
 
     /**

@@ -130,7 +130,7 @@
                                 @endif
                                 <td class="text-center safezone">
                                     <div class="list-icons">
-                                        <a href="#" class="list-icons-item" data-popup="tooltip" title="Pratinjau" data-toggle="modal" data-target="#show-modal" data-id="{{ $legislation->id }}"><i class="icon-eye"></i></a>
+                                        <a href="{{ route('legislation.ranperda.show', $legislation->id) }}" class="list-icons-item" data-popup="tooltip" title="Pratinjau" data-id="{{ $legislation->id }}"><i class="icon-eye"></i></a>
                                         @if ($onlyTrashed)
                                             <form action="{{ route('legislation.ranperda.restore', $legislation->id) }}" method="POST">
                                                 @method('PUT')

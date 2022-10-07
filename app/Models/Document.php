@@ -159,6 +159,7 @@ class Document extends Model
     {
         return $query->select(['documents.*', 'requirements.category', 'requirements.title', 'requirements.term', 'requirements.desc', 'requirements.format', 'requirements.order'])
             ->join('requirements', 'documents.requirement_id', '=', 'requirements.id')
-            ->where('documents.legislation_id', $legislation_id);
+            ->where('documents.legislation_id', $legislation_id)
+            ->orderBy('requirements.order');
     }
 }
