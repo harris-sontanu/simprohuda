@@ -75,10 +75,10 @@ Route::middleware('auth')->group(function() {
         Route::resource('/legislation/document', DocumentController::class)->except([
             'index', 'create'
         ]);
-        Route::post('/legislation/document/create', [DocumentController::class, 'create'])
-            ->name('document.create');
-        Route::put('/legislation/document/{document}/ratify', [DocumentController::class, 'ratify'])
-            ->name('document.ratify');
+        Route::controller(DocumentController::class)->group(function () {
+            Route::post('/legislation/document/create', 'create')->name('document.create');
+            Route::put('/legislation/document/{document}/ratify', 'ratify')->name('document.ratify');
+        });
 
         Route::resource('/legislation/comment', CommentController::class);
     });

@@ -86,7 +86,7 @@
                                     <tr>
                                         <td class="font-weight-semibold text-nowrap">Waktu Proses</td>
                                         <td>:</td>
-                                        <td>-</td>
+                                        <td></td>
                                     </tr>
                                 </table>
                             </div>

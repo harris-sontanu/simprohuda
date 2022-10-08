@@ -240,6 +240,10 @@
         $('.btn-ratify').click(function() {
             $(this).parent().submit();
         })
+
+        $('.btn-delete').click(function() {
+            $(this).parent().submit();
+        })
         
     })
 

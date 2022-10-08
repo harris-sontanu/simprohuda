@@ -8,6 +8,7 @@ use App\Models\Requirement;
 use App\Models\Log;
 use Illuminate\Http\Request;
 use App\Models\Legislation;
+use Illuminate\Support\Facades\Auth;
 
 class DocumentController extends LegislationController
 {
@@ -118,15 +119,15 @@ class DocumentController extends LegislationController
 
         $path = $file->storeAs($documentStorage['path'], $file_name, 'public');
 
-        // Remove old file
-        $this->removeDocument($document->path);
-
         $document->update([
             'path'  => $path,
             'name'  => $file_name,
             'revised_at' => empty($legislation->posted_at) ? null : now(),
             'validated_at' => null,
         ]);
+
+        // Remove old file
+        $this->removeDocument($document->path);
 
         $legislation->logs()->create([
             'user_id'   => $request->user()->id,
@@ -163,6 +164,21 @@ class DocumentController extends LegislationController
      */
     public function destroy(Document $document)
     {
-        //
+        $type   = $document->legislation->type->slug;
+        $id     = $document->legislation->id;
+        $title  = $document->title;
+
+        $document->delete();
+
+        $this->removeDocument($document->path);
+
+        Log::create([
+            'legislation_id'=> $document->legislation->id,
+            'user_id'       => Auth::user()->id,
+            'message'       => 'menghapus dokumen ' . $document->requirement->title,
+        ]);
+
+        return redirect('/legislation/' . $type . '/' . $id . '/edit')
+            ->with('message', '<strong>Berhasil!</strong> Dokumen ' . $title . ' telah berhasil dihapus');
     }
 }
