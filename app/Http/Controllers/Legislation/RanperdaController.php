@@ -306,14 +306,25 @@ class RanperdaController extends LegislationController
      */
     public function update(RanperdaRequest $request, Legislation $legislation)
     {
-        $validated = $request->validated();   
-        if ($request->has('post')) {
+        $validated = $request->validated(); 
+        $log_messsage = 'memperbaiki data ranperda';  
+        
+        if ($request->has('post')) 
+        {
             $validated['posted_at'] = now();
             $legislation->documents()->update(['posted_at' => now()]);
-        } else if ($request->has('revise')) {
+            $log_messsage = 'memperbaiki data ranperda dan mengajukan ke Bagian Hukum';
+        } 
+        else if ($request->has('revise')) 
+        {
             $validated['revised_at'] = now();
         }  
         $legislation->update($validated);
+
+        $legislation->logs()->create([
+            'user_id'   => $request->user()->id,
+            'message'   => $log_messsage,
+        ]);
 
         return redirect('/legislation/ranperda/' . $legislation->id . '/edit')->with('message', '<strong>Berhasil!</strong> Data Pengajuan Rancangan Peraturan Daerah telah berhasil diperbarui');
     }
