@@ -46,6 +46,11 @@ class CommentController extends Controller
 
         $request->user()->comments()->create($validated);
 
+        $legislation->logs()->create([
+            'user_id'   => $request->user()->id,
+            'message'   => 'memberikan komentar',
+        ]);
+
         return redirect('/legislation/' . $legislation->type->slug . '/' . $legislation->id . '/edit')
             ->with('message', '<strong>Berhasil!</strong> Komentar Anda telah berhasil disimpan');
     }

@@ -283,14 +283,14 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="font-weight-bold">Riwayat</h5>
+                            <h5 class="font-weight-bold"><i class="icon-history mr-2"></i>Riwayat</h5>
                         </div>
 
                         <div class="card-body">
                             <div class="list-feed">
-                                @forelse ($legislation->logs as $log)                                    
+                                @forelse ($legislation->logs->take(5) as $log)                                    
                                     <div class="list-feed-item">
-                                        <a href="#">{{ $log->user->name }}</a> {{ $log->message }}
+                                        <span class="font-weight-semibold">{{ $log->user->name }}</span> {{ $log->message }}
                                         <div class="text-muted">{{ $log->timeDifference($log->created_at) }}</div>
                                     </div>
                                 @empty
