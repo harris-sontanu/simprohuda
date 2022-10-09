@@ -82,7 +82,7 @@ class DocumentController extends LegislationController
      */
     public function show(Document $document)
     {
-        //
+        return view('legislation.document.show', compact('document'));
     }
 
     /**

@@ -237,6 +237,15 @@
             });
         })
 
+        $('#preview-doc-modal').on('show.bs.modal', function(event) {
+            let button = $(event.relatedTarget), // Button that triggered the modal
+                route     = button.data('route');
+
+            $.get(route, function(html) {
+                $('#document-modal-body').html(html);
+            })
+        })
+
         $('.btn-ratify').click(function() {
             $(this).parent().submit();
         })

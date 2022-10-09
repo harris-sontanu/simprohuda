@@ -133,7 +133,16 @@
                                                 <td>{!! $document->statusBadge !!}</td>
                                                 <td class="text-center">
                                                     <div class="list-icons">
-                                                        <a href="#" class="list-icons-item" data-popup="tooltip" title="Pratinjau"><i class="icon-file-eye"></i></a>
+                                                        <a 
+                                                            href="#" 
+                                                            class="list-icons-item" 
+                                                            data-route="{{ route('legislation.document.show', $document->id) }}"
+                                                            data-toggle="modal"
+                                                            data-target="#preview-doc-modal"
+                                                            data-popup="tooltip"
+                                                            title="Pratinjau">
+                                                            <i class="icon-file-eye"></i>
+                                                        </a>
                                                         <a 
                                                             href="#" 
                                                             class="list-icons-item upload-document" 
@@ -335,6 +344,7 @@
 
 @section('modal')
     @include('legislation.document.upload-modal')
+    @include('legislation.document.preview-modal')
 @endsection
 
 @section('script')
