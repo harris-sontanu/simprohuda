@@ -156,7 +156,7 @@ class Legislation extends Model
     public function scopeYear($query, $request)
     {   
         if (isset($request['year']) AND $year = $request['year']) {
-            $query->whereYear('created_at', $year);
+            $query->whereYear('legislations.created_at', $year);
         }
     }
 

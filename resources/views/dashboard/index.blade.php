@@ -6,20 +6,27 @@
 <!-- Breadcrumb -->
 <div class="page-header page-header-light">
 
-	<div class="breadcrumb-line breadcrumb-line-light header-elements-sm-inline border-top-0">
+	<div class="breadcrumb-line breadcrumb-line-light header-elements-sm-inline border-top-0 py-sm-0">
 		<div class="d-flex">
 			<h3 class="breadcrumb-elements-item mb-0 font-weight-bold">{{ $pageHeader }}</h3>
 			<a href="#" class="header-elements-toggle text-body d-sm-none"><i class="icon-more2"></i></a>
 		</div>
 
-		<div class="header-elements d-none">
+		<div class="header-elements">
 			<form action="{{ route('dashboard') }}" method="get">
-				<select name="year" id="year" class="form-control select">
-					<option value="">Pilih Tahun</option>
-					<option value="2022">2022</option>
-					<option value="2021">2021</option>
-					<option value="2020">2020</option>
-				</select>
+				<ul class="list-inline-condensed mb-0">
+					<li class="list-inline-item">
+						<select name="year" id="year" class="form-control select d-inline-block">
+							<option value="">Pilih Tahun</option>
+							<option value="2022">2022</option>
+							<option value="2021">2021</option>
+							<option value="2020">2020</option>
+						</select>
+					</li>
+					<li class="list-inline-item">
+						<button type="submit" class="btn btn-secondary">OK</button>
+					</li>
+				</ul>				
 			</form>
 		</div>
 	</div>
