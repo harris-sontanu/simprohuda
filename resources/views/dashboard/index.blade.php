@@ -13,12 +13,14 @@
 		</div>
 
 		<div class="header-elements d-none">
-           	<select name="year" id="year" class="form-control select">
-				<option value="">Pilih Tahun</option>
-				<option value="2022">2022</option>
-				<option value="2021">2021</option>
-				<option value="2020">2020</option>
-		   	</select>
+			<form action="{{ route('dashboard') }}" method="get">
+				<select name="year" id="year" class="form-control select">
+					<option value="">Pilih Tahun</option>
+					<option value="2022">2022</option>
+					<option value="2021">2021</option>
+					<option value="2020">2020</option>
+				</select>
+			</form>
 		</div>
 	</div>
 </div>

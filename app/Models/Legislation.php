@@ -153,6 +153,13 @@ class Legislation extends Model
         }
     }
 
+    public function scopeYear($query, $request)
+    {   
+        if (isset($request['year']) AND $year = $request['year']) {
+            $query->whereYear('created_at', $year);
+        }
+    }
+
     public function scopeFilter($query, $request)
     {
         if ($title = $request->title AND $title = $request->title) {

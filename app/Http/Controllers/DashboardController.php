@@ -7,15 +7,15 @@ use App\Models\Legislation;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $pageHeader = 'Dasbor';
         $pageTitle = $pageHeader . $this->pageTitle;
 
-        $total 		  = Legislation::all()->count();
-        $totalPerda   = Legislation::ranperda()->count();
-        $totalPerbup  = Legislation::ranperbup()->count();
-        $totalSk 	  = Legislation::ransk()->count();
+        $total 		  = Legislation::year($request->only(['year']))->count();
+        $totalPerda   = Legislation::ranperda()->year($request->only(['year']))->count();
+        $totalPerbup  = Legislation::ranperbup()->year($request->only(['year']))->count();
+        $totalSk 	  = Legislation::ransk()->year($request->only(['year']))->count();
 
         $legislations = Legislation::posted()
 							->latest()
