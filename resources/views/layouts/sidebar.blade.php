@@ -56,32 +56,40 @@
                     </ul>
                 </li>
 
-                <li class="nav-item nav-item-submenu {{ request()->is('institute*') ? 'nav-item-expanded nav-item-open' : '' }}">
-                    <a href="#" class="nav-link"><i class="icon-office"></i> <span>Perangkat Daerah</span></a>
+                @cannot('isOpd')                    
+                    <li class="nav-item nav-item-submenu {{ request()->is('institute*') ? 'nav-item-expanded nav-item-open' : '' }}">
+                        <a href="#" class="nav-link"><i class="icon-office"></i> <span>Perangkat Daerah</span></a>
 
-                    <ul class="nav nav-group-sub" data-submenu-title="Perangkat Daerah">
-                        <li class="nav-item"><a href="{{ route('institute.create') }}" class="nav-link {{ (request()->is('institute/create')) ? 'active' : '' }}">Tambah</a></li>
-                        <li class="nav-item"><a href="{{ route('institute.index') }}" class="nav-link {{ (request()->is('institute')) ? 'active' : '' }}">Daftar Perangkat Daerah</a></li>
-                    </ul>
-                </li>
+                        <ul class="nav nav-group-sub" data-submenu-title="Perangkat Daerah">
+                            @can('isAdmin')                                
+                                <li class="nav-item"><a href="{{ route('institute.create') }}" class="nav-link {{ (request()->is('institute/create')) ? 'active' : '' }}">Tambah</a></li>
+                            @endcan
+                            <li class="nav-item"><a href="{{ route('institute.index') }}" class="nav-link {{ (request()->is('institute')) ? 'active' : '' }}">Daftar Perangkat Daerah</a></li>
+                        </ul>
+                    </li>
+                
+                    <li class="nav-item nav-item-submenu {{ request()->is('user*') ? 'nav-item-expanded nav-item-open' : '' }}">
+                        <a href="#" class="nav-link"><i class="icon-users"></i> <span>Operator</span></a>
 
-                <li class="nav-item nav-item-submenu {{ request()->is('user*') ? 'nav-item-expanded nav-item-open' : '' }}">
-                    <a href="#" class="nav-link"><i class="icon-users"></i> <span>Operator</span></a>
+                        <ul class="nav nav-group-sub" data-submenu-title="Operator">
+                            @can('isAdmin')                                
+                                <li class="nav-item"><a href="{{ route('user.create') }}" class="nav-link {{ (request()->is('user/create')) ? 'active' : '' }}">Tambah</a></li>
+                            @endcan
+                            <li class="nav-item"><a href="{{ route('user.index') }}" class="nav-link {{ (request()->is('user')) ? 'active' : '' }}">Daftar Operator</a></li>
+                            <li class="nav-item"><a href="{{ route('user.edit', Auth::user()->id) }}" class="nav-link">Profilku</a></li>
+                        </ul>
+                    </li>
+                @endcannot
+                
+                @can('isAdmin')  
+                    <li class="nav-item nav-item-submenu">
+                        <a href="#" class="nav-link"><i class="icon-cog"></i> <span>Pengaturan</span></a>
 
-                    <ul class="nav nav-group-sub" data-submenu-title="Operator">
-                        <li class="nav-item"><a href="{{ route('user.create') }}" class="nav-link {{ (request()->is('user/create')) ? 'active' : '' }}">Tambah</a></li>
-                        <li class="nav-item"><a href="{{ route('user.index') }}" class="nav-link {{ (request()->is('user')) ? 'active' : '' }}">Daftar Operator</a></li>
-                        <li class="nav-item"><a href="{{ route('user.edit', Auth::user()->id) }}" class="nav-link">Profilku</a></li>
-                    </ul>
-                </li>
-
-                <li class="nav-item nav-item-submenu">
-                    <a href="#" class="nav-link"><i class="icon-cog"></i> <span>Pengaturan</span></a>
-
-                    <ul class="nav nav-group-sub" data-submenu-title="Page layouts">
-                        <li class="nav-item"><a href="#" class="nav-link">Aplikasi</a></li>
-                    </ul>
-                </li>
+                        <ul class="nav nav-group-sub" data-submenu-title="Page layouts">
+                            <li class="nav-item"><a href="#" class="nav-link">Aplikasi</a></li>
+                        </ul>
+                    </li>
+                @endcan
 
                 <li class="nav-item">
                     <a href="#" class="nav-link">
