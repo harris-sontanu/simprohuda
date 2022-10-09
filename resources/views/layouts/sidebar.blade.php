@@ -67,19 +67,21 @@
                             <li class="nav-item"><a href="{{ route('institute.index') }}" class="nav-link {{ (request()->is('institute')) ? 'active' : '' }}">Daftar Perangkat Daerah</a></li>
                         </ul>
                     </li>
-                
-                    <li class="nav-item nav-item-submenu {{ request()->is('user*') ? 'nav-item-expanded nav-item-open' : '' }}">
-                        <a href="#" class="nav-link"><i class="icon-users"></i> <span>Operator</span></a>
-
-                        <ul class="nav nav-group-sub" data-submenu-title="Operator">
-                            @can('isAdmin')                                
-                                <li class="nav-item"><a href="{{ route('user.create') }}" class="nav-link {{ (request()->is('user/create')) ? 'active' : '' }}">Tambah</a></li>
-                            @endcan
-                            <li class="nav-item"><a href="{{ route('user.index') }}" class="nav-link {{ (request()->is('user')) ? 'active' : '' }}">Daftar Operator</a></li>
-                            <li class="nav-item"><a href="{{ route('user.edit', Auth::user()->id) }}" class="nav-link">Profilku</a></li>
-                        </ul>
-                    </li>
                 @endcannot
+                
+                <li class="nav-item nav-item-submenu {{ request()->is('user*') ? 'nav-item-expanded nav-item-open' : '' }}">
+                    <a href="#" class="nav-link"><i class="icon-users"></i> <span>Operator</span></a>
+
+                    <ul class="nav nav-group-sub" data-submenu-title="Operator">
+                        @can('isAdmin')                                
+                            <li class="nav-item"><a href="{{ route('user.create') }}" class="nav-link {{ (request()->is('user/create')) ? 'active' : '' }}">Tambah</a></li>
+                        @endcan
+                        @cannot('isOpd')                            
+                            <li class="nav-item"><a href="{{ route('user.index') }}" class="nav-link {{ (request()->is('user')) ? 'active' : '' }}">Daftar Operator</a></li>
+                        @endcannot
+                        <li class="nav-item"><a href="{{ route('user.edit', Auth::user()->id) }}" class="nav-link">Profilku</a></li>
+                    </ul>
+                </li>
                 
                 @can('isAdmin')  
                     <li class="nav-item nav-item-submenu">
