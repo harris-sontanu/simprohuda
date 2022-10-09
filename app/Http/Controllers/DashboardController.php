@@ -23,6 +23,7 @@ class DashboardController extends Controller
 							->get();
 
         $plugins = [
+            'assets/js/plugins/forms/selects/select2.min.js',
             'assets/js/plugins/visualization/echarts/echarts.min.js',
 			'assets/js/plugins/visualization/d3/d3.min.js',
 			'assets/js/plugins/visualization/d3/d3_tooltip.js',

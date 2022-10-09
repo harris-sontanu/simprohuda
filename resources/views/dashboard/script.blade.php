@@ -1,5 +1,8 @@
 <script>
     $(function() {
+        $('.select').select2({
+            minimumResultsForSearch: Infinity
+        });
 
         $.ajaxSetup({
             headers: {

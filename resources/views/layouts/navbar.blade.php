@@ -45,6 +45,13 @@
             </a>
         </li>
 
+        <li class="nav-item">
+            <a href="#" class="navbar-nav-link navbar-nav-link-toggler">
+                <i class="icon-bubbles4"></i>
+                <span class="badge badge-warning badge-pill ml-auto ml-lg-0">4</span>
+            </a>
+        </li>
+
         <li class="nav-item nav-item-dropdown-lg dropdown dropdown-user h-100">
             <a href="#" class="navbar-nav-link navbar-nav-link-toggler dropdown-toggle d-inline-flex align-items-center h-100" data-toggle="dropdown">
                 <img src="{{ Auth::user()->userPictureUrl(Auth::user()->picture, Auth::user()->name) }}" class="rounded-pill mr-lg-2" height="34" alt="">

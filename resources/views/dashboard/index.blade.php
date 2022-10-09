@@ -3,7 +3,26 @@
 @section('title', $pageTitle)
 @section('content')
 
-@include('layouts.breadcrumb')
+<!-- Breadcrumb -->
+<div class="page-header page-header-light">
+
+	<div class="breadcrumb-line breadcrumb-line-light header-elements-sm-inline border-top-0">
+		<div class="d-flex">
+			<h3 class="breadcrumb-elements-item mb-0 font-weight-bold">{{ $pageHeader }}</h3>
+			<a href="#" class="header-elements-toggle text-body d-sm-none"><i class="icon-more2"></i></a>
+		</div>
+
+		<div class="header-elements d-none">
+           	<select name="year" id="year" class="form-control select">
+				<option value="">Pilih Tahun</option>
+				<option value="2022">2022</option>
+				<option value="2021">2021</option>
+				<option value="2020">2020</option>
+		   	</select>
+		</div>
+	</div>
+</div>
+<!-- /breadcrumb -->
 
 <!-- Content area -->
 <div class="content">
@@ -77,7 +96,7 @@
 			<!-- Basic table -->
 			<div class="card">
 				<div class="card-header">
-					<h5 class="card-title font-weight-bold">Rancangan Produk Hukum Terbaru</h5>
+					<h5 class="card-title font-weight-bold">Pengajuan Rancangan Produk Hukum Terbaru</h5>
 				</div>
 
 				<div class="table-responsive">
