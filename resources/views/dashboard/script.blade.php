@@ -4,6 +4,7 @@
             minimumResultsForSearch: Infinity
         });
 
+        var year = $('#year').val();
         $.ajaxSetup({
             headers: {
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
@@ -12,8 +13,8 @@
         $.ajax({
             url: '/dashboard/pie-chart',
             type: 'POST',
+            data: {year: year},
             dataType: 'JSON',
-            contentType : 'application/json',
         }).done(function(response) {
             donutWithDetails("#donut_basic_details", 146, response);
         });

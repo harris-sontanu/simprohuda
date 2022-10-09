@@ -18,9 +18,9 @@
 					<li class="list-inline-item">
 						<select name="year" id="year" class="form-control select d-inline-block">
 							<option value="">Pilih Tahun</option>
-							<option value="2022">2022</option>
-							<option value="2021">2021</option>
-							<option value="2020">2020</option>
+							<option value="2022" @selected(Request::get('year') == 2022)>2022</option>
+							<option value="2021" @selected(Request::get('year') == 2021)>2021</option>
+							<option value="2020" @selected(Request::get('year') == 2020)>2020</option>
 						</select>
 					</li>
 					<li class="list-inline-item">

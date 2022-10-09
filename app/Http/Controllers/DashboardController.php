@@ -41,12 +41,12 @@ class DashboardController extends Controller
         ));
     }
 
-    public function pieChart()
+    public function pieChart(Request $request)
 	{
-        $draft 		= Legislation::draft()->count();
-        $posted 	= Legislation::posted()->count();
-        $revised 	= Legislation::revised()->count();
-        $validated 	= Legislation::validated()->count();
+        $draft 		= Legislation::year($request->only(['year']))->draft()->count();
+        $posted 	= Legislation::year($request->only(['year']))->posted()->count();
+        $revised 	= Legislation::year($request->only(['year']))->revised()->count();
+        $validated 	= Legislation::year($request->only(['year']))->validated()->count();
 
 		$json = [
 			[
