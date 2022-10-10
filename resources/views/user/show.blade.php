@@ -62,7 +62,11 @@
     @if ($user->getRawOriginal('role') === 'opd')        
         <div class="d-sm-flex flex-sm-wrap mb-3">
             <div class="font-weight-semibold">Instansi:</div>
-            <div class="ml-sm-auto mt-2 mt-sm-0">{{ $user->institutes->first()->name }}</div>
+            @empty ($user->institutes->first()->name)
+                <div class="ml-sm-auto mt-2 mt-sm-0">-</div>
+            @else
+                <div class="ml-sm-auto mt-2 mt-sm-0">{{ $user->institutes->first()->name }}</div>
+            @endempty
         </div>        
     @endif
 

@@ -113,7 +113,7 @@
                                 <td><abbr data-popup="tooltip" title="{{ $user->dateFormatted($user->created_at, true) }}">{{ $user->dateFormatted($user->created_at) }}</abbr></td>
                                 <td class="text-center safezone">
                                     <div class="list-icons">
-                                        <a href="#" class="list-icons-item" data-popup="tooltip" title="Pratinjau" data-toggle="modal" data-id="{{ $user->id }}" data-name="{{ $user->name }}"><i class="icon-eye"></i></a>
+                                        <a href="#" class="list-icons-item" data-popup="tooltip" title="Pratinjau" data-toggle="modal" data-target="#show-modal" data-id="{{ $user->id }}" data-name="{{ $user->name }}"><i class="icon-eye"></i></a>
                                         @if ($onlyTrashed)
                                             <form action="{{ route('user.restore', $user->id) }}" method="POST">
                                                 @method('PUT')
