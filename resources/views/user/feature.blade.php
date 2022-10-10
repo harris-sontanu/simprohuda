@@ -29,6 +29,8 @@
                 @endif
             </div>
         </div>
-        <a href="{{ route('user.create') }}" class="btn btn-secondary btn-sm"><i class="icon-user-plus mr-2"></i>Tambah</a>
+        @can('isAdmin')
+            <a href="{{ route('user.create') }}" class="btn btn-secondary btn-sm"><i class="icon-user-plus mr-2"></i>Tambah</a>
+        @endcan
     </div>
 </div>

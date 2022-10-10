@@ -54,7 +54,9 @@
             });
         }
 
-        new findData();
+        if ($().finderSelect) {
+            new findData();
+        }
 
         $(document).on('click', '.trigger', function() {
             let items  = new collect_data(),

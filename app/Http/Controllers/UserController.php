@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Carbon;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
@@ -67,8 +68,11 @@ class UserController extends Controller
             'assets/js/plugins/notifications/bootbox.min.js',
             'assets/js/plugins/ui/moment/moment.min.js',
             'assets/js/plugins/pickers/daterangepicker.js',
-            'assets/js/plugins/table/finderSelect/jquery.finderSelect.min.js',
         ];
+
+        if (Gate::allows('isAdmin')) {
+            $plugins[] = 'assets/js/plugins/table/finderSelect/jquery.finderSelect.min.js';
+        }
 
         return view('user.index', compact(
             'pageTitle',
@@ -139,9 +143,8 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        $user = User::withTrashed()->findOrFail($id);
         return view('user.show', compact('user'));
     }
 

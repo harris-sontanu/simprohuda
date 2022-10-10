@@ -19,7 +19,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        if (Gate::allows('isAdmin')) return true;
+        if (Gate::any(['isAdmin', 'isBagianHukum'])) return true;
     }
 
     /**
@@ -31,7 +31,7 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        //
+        return true;
     }
 
     /**

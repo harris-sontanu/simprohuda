@@ -74,7 +74,9 @@
                             @else
                                 @php $sortState = 'asc' @endphp
                             @endif
-                            <th width="1"><input type="checkbox" /></th>
+                            @can('isAdmin')                                
+                                <th width="1"><input type="checkbox" /></th>
+                            @endcan
                             <th class="@php echo (!empty($sort) AND Request::get('order') == 'name') ? 'sorting_' . $sort : 'sorting'; @endphp">
                                 <a href="{{ route('user.index', ['order' => 'name', 'sort' => $sortState] + Request::all()) }}" class="text-dark d-block">Nama</a>
                             </th>
@@ -97,7 +99,9 @@
                     <tbody>
                         @forelse ($users as $user)
                             <tr>
-                                <td><input type="checkbox" class="checkbox" data-item="{{ $user->id }}"></td>
+                                @can('isAdmin')                                    
+                                    <td><input type="checkbox" class="checkbox" data-item="{{ $user->id }}"></td>
+                                @endcan
                                 <td>
                                     <div class="d-flex align-items-center">
                                         <div class="mr-2">
@@ -114,26 +118,28 @@
                                 <td class="text-center safezone">
                                     <div class="list-icons">
                                         <a href="#" class="list-icons-item" data-popup="tooltip" title="Pratinjau" data-toggle="modal" data-target="#show-modal" data-id="{{ $user->id }}" data-name="{{ $user->name }}"><i class="icon-eye"></i></a>
-                                        @if ($onlyTrashed)
-                                            <form action="{{ route('user.restore', $user->id) }}" method="POST">
-                                                @method('PUT')
-                                                @csrf
-                                                <button type="submit" class="btn btn-link list-icons-item p-0" data-popup="tooltip" title="Kembalikan"><i class="icon-undo2"></i></button>
-                                            </form>
-                                            <form class="delete-form" action="{{ route('user.force-destroy', $user->id) }}" method="POST">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button type="submit" class="btn btn-link list-icons-item p-0" data-popup="tooltip" title="Hapus"><i class="icon-cross2"></i></button>
-                                            </form>
-                                        @else
-                                            <a href="{{ route('user.edit', $user->id) }}" class="list-icons-item" data-popup="tooltip" title="Ubah"><i class="icon-pencil"></i></a>
-                                            @php $disabled = ($user->id == 1 OR $user->id == Auth::user()->id) ? 'disabled' : ''; @endphp
-                                            <form action="{{ route('user.destroy', $user->id) }}" method="POST">
-                                                @method('DELETE')
-                                                @csrf
-                                                <button type="submit" class="btn btn-link list-icons-item p-0" {{ $disabled }} data-popup="tooltip" title="Buang"><i class="icon-trash"></i></button>
-                                            </form>
-                                        @endif
+                                        @can('isAdmin')                                            
+                                            @if ($onlyTrashed)
+                                                <form action="{{ route('user.restore', $user->id) }}" method="POST">
+                                                    @method('PUT')
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-link list-icons-item p-0" data-popup="tooltip" title="Kembalikan"><i class="icon-undo2"></i></button>
+                                                </form>
+                                                <form class="delete-form" action="{{ route('user.force-destroy', $user->id) }}" method="POST">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-link list-icons-item p-0" data-popup="tooltip" title="Hapus"><i class="icon-cross2"></i></button>
+                                                </form>
+                                            @else
+                                                <a href="{{ route('user.edit', $user->id) }}" class="list-icons-item" data-popup="tooltip" title="Ubah"><i class="icon-pencil"></i></a>
+                                                @php $disabled = ($user->id == 1 OR $user->id == Auth::user()->id) ? 'disabled' : ''; @endphp
+                                                <form action="{{ route('user.destroy', $user->id) }}" method="POST">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-link list-icons-item p-0" {{ $disabled }} data-popup="tooltip" title="Buang"><i class="icon-trash"></i></button>
+                                                </form>
+                                            @endif
+                                        @endcan
                                     </div>
                                 </td>
                             </tr>
