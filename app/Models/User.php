@@ -60,9 +60,14 @@ class User extends Authenticatable
         'last_logged_in_at' => 'datetime'
     ];
 
-    public function institutes()
+    public function responsibles()
     {
         return $this->hasMany(Institute::class, 'corrector_id');
+    }
+
+    public function institutes()
+    {
+        return $this->belongsToMany(Institute::class);
     }
 
     public function legislations()

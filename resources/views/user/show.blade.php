@@ -59,6 +59,13 @@
         <div class="ml-sm-auto mt-2 mt-sm-0">{{ $user->email }}</div>
     </div>
 
+    @if ($user->getRawOriginal('role') === 'opd')        
+        <div class="d-sm-flex flex-sm-wrap mb-3">
+            <div class="font-weight-semibold">Instansi:</div>
+            <div class="ml-sm-auto mt-2 mt-sm-0">{{ $user->institutes->first()->name }}</div>
+        </div>        
+    @endif
+
     <div class="d-sm-flex flex-sm-wrap mb-3">
         <div class="font-weight-semibold">Telepon:</div>
         <div class="ml-sm-auto mt-2 mt-sm-0">{{ $user->phone }}</div>
