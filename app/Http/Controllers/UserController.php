@@ -19,6 +19,11 @@ class UserController extends Controller
         'opd' => 'Perangkat Daerah'
     ];
 
+    public function __construct()
+    {
+        $this->authorizeResource(User::class, 'user');
+    }
+
     /**
      * Display a listing of the resource.
      *
