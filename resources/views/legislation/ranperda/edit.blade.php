@@ -67,11 +67,13 @@
                                                 @else
                                                     <button type="submit" form="update-form" name="revise" class="btn btn-secondary">Ubah</button>
                                                     @if ($validateButton)  
-                                                        <form id="validation-form" action="{{ route('legislation.ranperda.approve', $legislation->id) }}" method="post" class="d-inline-block" data-title="{{ $legislation->title }}">
-                                                            @csrf
-                                                            @method('PUT')
-                                                            <button type="submit" class="btn btn-success btn-labeled btn-labeled-right ml-2"><b><i class="icon-checkmark4"></i></b>Valid</button>
-                                                        </form>                                                    
+                                                        @cannot('isOpd')                                                            
+                                                            <form id="validation-form" action="{{ route('legislation.ranperda.approve', $legislation->id) }}" method="post" class="d-inline-block" data-title="{{ $legislation->title }}">
+                                                                @csrf
+                                                                @method('PUT')
+                                                                <button type="submit" class="btn btn-success btn-labeled btn-labeled-right ml-2"><b><i class="icon-checkmark4"></i></b>Valid</button>
+                                                            </form>                                                    
+                                                        @endcannot
                                                     @endif
                                                 @endif                                                    
                                             </div>
@@ -169,18 +171,20 @@
                                                             </form>
                                                         @endif
                                                         @if (!empty($legislation->posted_at) AND empty($document->validated_at)) 
-                                                            <form action="{{ route('legislation.document.ratify', $document->id) }}" method="post">
-                                                                @csrf
-                                                                @method('PUT')
-                                                                <a 
-                                                                    role="button" 
-                                                                    class="list-icons-item btn-ratify" 
-                                                                    data-title="{{ $document->title }}" 
-                                                                    data-popup="tooltip" 
-                                                                    title="Validasi">
-                                                                    <i class="icon-file-check"></i>
-                                                                </a>
-                                                            </form>                                               
+                                                            @cannot('isOpd')                                                                
+                                                                <form action="{{ route('legislation.document.ratify', $document->id) }}" method="post">
+                                                                    @csrf
+                                                                    @method('PUT')
+                                                                    <a 
+                                                                        role="button" 
+                                                                        class="list-icons-item btn-ratify" 
+                                                                        data-title="{{ $document->title }}" 
+                                                                        data-popup="tooltip" 
+                                                                        title="Validasi">
+                                                                        <i class="icon-file-check"></i>
+                                                                    </a>
+                                                                </form>                                               
+                                                            @endcannot
                                                         @endif
                                                     </div>
                                                 </td>

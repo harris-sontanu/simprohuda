@@ -21,6 +21,7 @@ class RanperdaController extends LegislationController
     public function __construct()
     {
         $this->type = Type::where('slug', 'ranperda')->first();
+        $this->authorizeResource(Legislation::class, 'ranperda');
     }
     
     /**
@@ -350,6 +351,7 @@ class RanperdaController extends LegislationController
 
     public function approve(Request $request, Legislation $legislation)
     {
+        $this->authorize('approve', $legislation);
         $legislation->update(['validated_at' => now()]);
 
         return redirect('/legislation/ranperda/' . $legislation->id . '/edit')->with('message', '<strong>Berhasil!</strong> Data Pengajuan Rancangan Peraturan Daerah telah berhasil divalidasi');
