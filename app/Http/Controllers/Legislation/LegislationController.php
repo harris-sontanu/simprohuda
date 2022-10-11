@@ -12,7 +12,7 @@ class LegislationController extends Controller
     protected function nextRegNumber($type_id, $year) 
     {
         $number = Legislation::where('type_id', $type_id)
-                    ->whereYear('created_at', $year)->max('reg_number');
+                    ->whereYear('legislations.created_at', $year)->max('reg_number');
 
         return $number + 1;
     }
