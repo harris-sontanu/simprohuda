@@ -11,6 +11,8 @@ use App\Models\Document;
 use Illuminate\Http\Request;
 use App\Http\Requests\RanperdaRequest;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 class RanperdaController extends LegislationController
 {
@@ -65,7 +67,13 @@ class RanperdaController extends LegislationController
 
         $tabFilters = $this->tabFilters($request);
 
-        $institutes = Institute::sorted()->pluck('name', 'id');
+        if (Gate::allows('isBagianHukum')) {
+            $institutes = Institute::where('corrector_id', Auth::user()->id)->sorted()->pluck('name', 'id');
+        } else if (Gate::allows('isAdmin')) {
+            $institutes = Institute::sorted()->pluck('name', 'id');
+        } else {
+            $institutes = null;
+        }
 
         $plugins = [
             'assets/js/plugins/notifications/bootbox.min.js',
@@ -165,9 +173,16 @@ class RanperdaController extends LegislationController
 
         $nextRegNumber = $this->nextRegNumber($this->type->id, now()->translatedFormat('Y'));
         $nextRegNumber = Str::padLeft($nextRegNumber, 4, '0');
-        $institutes = Institute::sorted()->pluck('name', 'id');
         $master = Requirement::master($this->type->id)->first();
         $requirements = Requirement::requirements($this->type->id)->get();
+
+        if (Gate::allows('isBagianHukum')) {
+            $institutes = Institute::where('corrector_id', Auth::user()->id)->sorted()->pluck('name', 'id');
+        } else if (Gate::allows('isAdmin')) {
+            $institutes = Institute::sorted()->pluck('name', 'id');
+        } else {
+            $institutes = null;
+        }
 
         $plugins = [
             'assets/js/plugins/forms/selects/select2.min.js',

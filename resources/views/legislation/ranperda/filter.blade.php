@@ -3,7 +3,7 @@
 <div class="card-body bg-light">
     <form action="{{ route('legislation.ranperda.index') }}" id="filter-form" class="filter-form" method="GET">
         <div class="row">
-            <div class="col-md-3">
+            <div class="@empty($institutes) col-md-6 @else col-md-3 @endempty">
                 <div class="form-group">
                     <input type="text" class="form-control" name="title" placeholder="Judul" value="{{ Request::get('title') }}">
                 </div>
@@ -13,16 +13,18 @@
                     <input type="number" class="form-control" name="reg_number" placeholder="Nomor Registrasi" value="{{ Request::get('reg_number') }}">
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="form-group">
-                    <select name="institute" id="institute" class="select">
-                        <option value="">Pilih Perangkat Daerah</option>
-                        @foreach ($institutes as $key => $value)
-                            <option value="{{ $key }}" @selected(Request::get('institute') == $key)>{{ $value }}</option>
-                        @endforeach
-                    </select>
+            @if (!empty($institutes))                
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <select name="institute" id="institute" class="select">
+                            <option value="">Pilih Perangkat Daerah</option>
+                            @foreach ($institutes as $key => $value)
+                                <option value="{{ $key }}" @selected(Request::get('institute') == $key)>{{ $value }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
-            </div>
+            @endif
             <div class="col-md-3">
                 <div class="form-group">
                     <div class="input-group">
