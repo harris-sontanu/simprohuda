@@ -107,6 +107,7 @@
                                     <a href="{{ route('legislation.ranperda.index', ['order' => 'posted_at', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block">Tgl. Valid</a>
                                 </th>
                             @endif
+                            <th class="text-center">Pengusul</th>
                             <th width="1" class="text-center">Aksi</th>
                         </tr>
                     </thead>
@@ -132,6 +133,11 @@
                                 @if (Request::get('tab') === 'valid') 
                                     <td><abbr data-popup="tooltip" title="{{ $legislation->dateFormatted($legislation->validated_at, true) }}">{{ $legislation->dateFormatted($legislation->validated_at) }}</abbr></td>
                                 @endif
+                                <td class="text-center">
+                                    <a href="#" data-popup="tooltip" title="{{ $legislation->user->name }}">
+                                        <img src="{{ $legislation->userPictureUrl($legislation->user->picture, $legislation->user->name) }}" alt="{{ $legislation->user->name }}" class="rounded-circle" width="32" height="32">
+                                    </a>
+                                </td>
                                 <td class="text-center safezone">
                                     <div class="list-icons">
                                         <a href="{{ route('legislation.ranperda.show', $legislation->id) }}" class="list-icons-item" data-popup="tooltip" title="Pratinjau" data-id="{{ $legislation->id }}"><i class="icon-eye"></i></a>
