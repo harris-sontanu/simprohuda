@@ -145,11 +145,21 @@ class RanperdaController extends LegislationController
             {
                 $legislation->delete();
                 $message = 'data Rancangan Peraturan Daerah telah berhasil dibatalkan';
+
+                $legislation->logs()->create([
+                    'user_id'   => $request->user()->id,
+                    'message'   => 'membatalkan ranperda',
+                ]);
             }
             else if ($request->action === 'delete')
             {
                 $legislation->forceDelete();
                 $message = 'data Rancangan Peraturan Daerah telah berhasil dihapus';
+
+                $legislation->logs()->create([
+                    'user_id'   => $request->user()->id,
+                    'message'   => 'menghapus ranperda',
+                ]);
             }
         }
 
@@ -354,6 +364,11 @@ class RanperdaController extends LegislationController
         $this->authorize('approve', $legislation);
         $legislation->update(['validated_at' => now()]);
 
+        $legislation->logs()->create([
+            'user_id'   => $request->user()->id,
+            'message'   => 'memvalidasi pengajuan ranperda',
+        ]);
+
         return redirect('/legislation/ranperda/' . $legislation->id . '/edit')->with('message', '<strong>Berhasil!</strong> Data Pengajuan Rancangan Peraturan Daerah telah berhasil divalidasi');
     }
 
@@ -368,6 +383,11 @@ class RanperdaController extends LegislationController
         $action = route('legislation.ranperda.restore', $legislation->id);
         $legislation->delete();
 
+        $legislation->logs()->create([
+            'user_id'   => Auth::user()->id,
+            'message'   => 'membatalkan ranperda',
+        ]);
+
         return redirect('/legislation/ranperda')->with('trash-message', ['<strong>Berhasil!</strong> Data Rancangan Peraturan Daerah telah dibatalkan', $action]);
     }
 
@@ -376,6 +396,11 @@ class RanperdaController extends LegislationController
         $legislation = Legislation::withTrashed()->findOrFail($id);
         $legislation->restore();
 
+        $legislation->logs()->create([
+            'user_id'   => Auth::user()->id,
+            'message'   => 'mengembalikan ranperda',
+        ]);
+
         return redirect()->back()->with('message', 'Data Rancangan Peraturan Daerah telah dikembalikan');
     }
 
@@ -383,6 +408,11 @@ class RanperdaController extends LegislationController
     {
         $legislation = Legislation::withTrashed()->findOrFail($id);
         $legislation->forceDelete();
+
+        $legislation->logs()->create([
+            'user_id'   => Auth::user()->id,
+            'message'   => 'menghapus ranperda',
+        ]);
 
         foreach ($legislation->documents as $document) {
             $this->removeDocument($document->path);
