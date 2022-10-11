@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Legislation;
 
 use App\Http\Controllers\Controller;
+use App\Models\Comment;
 use App\Models\Legislation;
 use Illuminate\Http\Request;
 
@@ -16,6 +17,8 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Comment::class);
+        
         $validated = $request->validate([
             'legislation_id' => 'required',
             'comment' => 'required',
