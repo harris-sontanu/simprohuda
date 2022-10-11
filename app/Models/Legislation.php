@@ -9,6 +9,8 @@ use App\Models\Traits\HelperTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 class Legislation extends Model
 {
@@ -205,23 +207,56 @@ class Legislation extends Model
 
     public function scopeRanperda($query)
     {
-        return $query->select(['legislations.*', 'institutes.abbrev AS institute_abbrev', 'institutes.name AS institute_name'])
+        $query->select(['legislations.*', 'institutes.abbrev AS institute_abbrev', 'institutes.name AS institute_name'])
             ->join('institutes', 'legislations.institute_id', '=', 'institutes.id')
             ->where('type_id', 1);
+
+        if (Gate::allows('isBagianHukum')) {
+            $query->where('institutes.corrector_id', Auth::user()->id);
+        }
+
+        if (Gate::allows('isOpd')) {
+            $user_institute = Auth::user()->institutes->first();
+            $query->where('institutes.id', $user_institute->id);
+        }
+
+        return $query;
     }
 
     public function scopeRanperbup($query)
     {
-        return $query->select(['legislations.*', 'institutes.abbrev AS institute_abbrev', 'institutes.name AS institute_name'])
+        $query->select(['legislations.*', 'institutes.abbrev AS institute_abbrev', 'institutes.name AS institute_name'])
             ->join('institutes', 'legislations.institute_id', '=', 'institutes.id')
             ->where('type_id', 2);
+
+        if (Gate::allows('isBagianHukum')) {
+            $query->where('institutes.corrector_id', Auth::user()->id);
+        }
+
+        if (Gate::allows('isOpd')) {
+            $user_institute = Auth::user()->institutes->first();
+            $query->where('institutes.id', $user_institute->id);
+        }
+
+        return $query;
     }
 
     public function scopeRansk($query)
     {
-        return $query->select(['legislations.*', 'institutes.abbrev AS institute_abbrev', 'institutes.name AS institute_name'])
+        $query->select(['legislations.*', 'institutes.abbrev AS institute_abbrev', 'institutes.name AS institute_name'])
             ->join('institutes', 'legislations.institute_id', '=', 'institutes.id')
             ->where('type_id', 3);
+
+        if (Gate::allows('isBagianHukum')) {
+            $query->where('institutes.corrector_id', Auth::user()->id);
+        }
+
+        if (Gate::allows('isOpd')) {
+            $user_institute = Auth::user()->institutes->first();
+            $query->where('institutes.id', $user_institute->id);
+        }
+
+        return $query;
     }
 
 }
