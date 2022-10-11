@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\Auth;
 
 class DocumentController extends LegislationController
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Document::class, 'document');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -142,6 +147,7 @@ class DocumentController extends LegislationController
 
     public function ratify(Request $request, Document $document)
     {
+        $this->authorize('ratify', $document);
         $document->update([
             'validated_at'  => now()
         ]);

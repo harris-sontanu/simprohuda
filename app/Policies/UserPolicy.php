@@ -5,7 +5,6 @@ namespace App\Policies;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Auth;
 
 class UserPolicy
 {
@@ -54,7 +53,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        return $model->id === Auth::user()->id;
+        return $model->id === $user->id;
     }
 
     /**
@@ -95,6 +94,6 @@ class UserPolicy
 
     public function setNewPassword(User $user, User $model)
     {
-        return $model->id === Auth::user()->id;
+        return $model->id === $user->id;
     }
 }

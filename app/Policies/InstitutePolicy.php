@@ -6,7 +6,6 @@ use App\Models\Institute;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Auth;
 
 class InstitutePolicy
 {
@@ -55,7 +54,7 @@ class InstitutePolicy
      */
     public function update(User $user, Institute $institute)
     {
-        if (Gate::allows('isAdmin') OR $institute->corrector_id === Auth::user()->id) return true;
+        if (Gate::allows('isAdmin') OR $institute->corrector_id === $user->id) return true;
     }
 
     /**
