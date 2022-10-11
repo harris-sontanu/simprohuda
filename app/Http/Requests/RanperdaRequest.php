@@ -45,7 +45,7 @@ class RanperdaRequest extends FormRequest
     {
         $rules = [
             'title'         => 'required|max:767',
-            'slug'          => 'required|unique:legislations',
+            'slug'          => 'unique:legislations',
             'background'    => 'nullable',
             'institute_id'  => 'required',
         ];

@@ -15,7 +15,7 @@
                 <div class="card-title">
                     <div class="form-group-feedback form-group-feedback-left">
                         <form action="{{ route('legislation.ranperda.index') }}" method="get">
-                            <input type="search" name="search" class="form-control rounded-pill" placeholder="Cari judul, perangkat daerah..." @if (Request::get('search')) value="{{ Request::get('search') }}" @endif autofocus>
+                            <input type="search" name="search" class="form-control rounded-pill" placeholder="Cari judul..." @if (Request::get('search')) value="{{ Request::get('search') }}" @endif autofocus>
                             <div class="form-control-feedback">
                                 <i class="icon-search4 opacity-50 font-size-base"></i>
                             </div>
@@ -81,9 +81,11 @@
                             <th class="@php echo (!empty($sort) AND Request::get('order') == 'title') ? 'sorting_' . $sort : 'sorting'; @endphp">
                                 <a href="{{ route('legislation.ranperda.index', ['order' => 'title', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block">Judul</a>
                             </th>
-                            <th class="@php echo (!empty($sort) AND Request::get('order') == 'institute') ? 'sorting_' . $sort : 'sorting'; @endphp">
-                                <a href="{{ route('legislation.ranperda.index', ['order' => 'institute', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block">Perangkat Daerah</a>
-                            </th>
+                            @cannot('isOpd')                                
+                                <th class="@php echo (!empty($sort) AND Request::get('order') == 'institute') ? 'sorting_' . $sort : 'sorting'; @endphp">
+                                    <a href="{{ route('legislation.ranperda.index', ['order' => 'institute', 'sort' => $sortState] + Request::all()) }}" class="text-body d-block">Perangkat Daerah</a>
+                                </th>
+                            @endcannot
                             <th>Status</th>
                             @if (in_array(Request::get('tab'), ['total', 'draf', 'aktif']))    
                             <th class="text-nowrap @php echo (!empty($sort) AND Request::get('order') == 'created_at') ? 'sorting_' . $sort : 'sorting'; @endphp">
@@ -114,7 +116,9 @@
                                 <td><input type="checkbox" class="checkbox" data-item="{{ $legislation->id }}"></td>
                                 <td>{{ $legislation->reg_number }}</td>
                                 <td><span class="font-weight-semibold">{{ $legislation->title }}</span></td>
-                                <td>{{ $legislation->institute->name }}</td>
+                                @cannot('isOpd')                                    
+                                    <td>{{ $legislation->institute->name }}</td>
+                                @endcannot
                                 <td>{!! $legislation->statusBadge !!}</td>                                
                                 @if (in_array(Request::get('tab'), ['total', 'draf', 'aktif'])) 
                                     <td><abbr data-popup="tooltip" title="{{ $legislation->dateFormatted($legislation->created_at, true) }}">{{ $legislation->dateFormatted($legislation->created_at) }}</abbr></td>

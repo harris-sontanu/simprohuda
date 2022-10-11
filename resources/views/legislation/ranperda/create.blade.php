@@ -26,20 +26,22 @@
                                     <fieldset>
                                         <legend class="font-weight-bold"><i class="icon-reading mr-2"></i> Formulir Pengajuan Ranperda</legend>
                                         
-                                        <div class="form-group row">
-                                            <label class="col-lg-3 col-form-label" for="phone">Perangkat Daerah:</label>
-                                            <div class="col-lg-9">
-                                                <select name="institute_id" id="institute_id" class="select @error('institute_id') is-invalid @enderror" autofocus>
-                                                    <option value="">Pilih Perangkat Daerah</option>
-                                                    @foreach ($institutes as $key => $value)
-                                                        <option value="{{ $key }}" @selected(old('institute_id') == $key)>{{ $value }}</option>
-                                                    @endforeach
-                                                </select>
-                                                @error('institute_id')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @endif
+                                        @cannot('isOpd')                                            
+                                            <div class="form-group row">
+                                                <label class="col-lg-3 col-form-label" for="phone">Perangkat Daerah:</label>
+                                                <div class="col-lg-9">
+                                                    <select name="institute_id" id="institute_id" class="select @error('institute_id') is-invalid @enderror" autofocus>
+                                                        <option value="">Pilih Perangkat Daerah</option>
+                                                        @foreach ($institutes as $key => $value)
+                                                            <option value="{{ $key }}" @selected(old('institute_id') == $key)>{{ $value }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('institute_id')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @endif
+                                                </div>
                                             </div>
-                                        </div>
+                                        @endcannot
 
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label" for="title">Judul:</label>
@@ -136,6 +138,17 @@
                                         <td class="font-weight-semibold text-nowrap"><i class="icon-user mr-2"></i>Operator:</td>
                                         <td class="text-right">{{ Auth::user()->name }}</td>
                                     </tr>
+                                    @can('isOpd')                                       
+                                        <input name="institute_id" type="hidden" value="{{ Auth::user()->institutes->first()->id }}" />                                    
+                                        <tr>
+                                            <td class="font-weight-semibold text-nowrap"><i class="icon-office mr-2"></i>Perangkat Daerah:</td>
+                                            <td class="text-right">{{ Auth::user()->institutes->first()->name }}</td>
+                                        </tr>                         
+                                        <tr>
+                                            <td class="font-weight-semibold text-nowrap"><i class="icon-user-tie mr-2"></i>Pemeriksa:</td>
+                                            <td class="text-right">{{ Auth::user()->institutes->first()->corrector->name }}</td>
+                                        </tr>
+                                    @endcan
                                     <tr>
                                         <td class="font-weight-semibold text-nowrap"><i class="icon-embed2 mr-2"></i>Nomor Registrasi:</td>
                                         <td class="text-right">{{ $nextRegNumber }}</td>

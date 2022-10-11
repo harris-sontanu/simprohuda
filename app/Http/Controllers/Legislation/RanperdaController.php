@@ -272,6 +272,10 @@ class RanperdaController extends LegislationController
      */
     public function edit(Legislation $legislation)
     {
+        if ($legislation->status() === 'validated') {
+            abort(403);
+        }
+
         $pageHeader = 'Perbaikan Rancangan Peraturan Daerah';
         $pageTitle = $pageHeader . $this->pageTitle;
         $breadCrumbs = [
