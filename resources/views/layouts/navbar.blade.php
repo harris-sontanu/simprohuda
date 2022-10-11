@@ -41,7 +41,7 @@
         <li class="nav-item">
             <a href="#" class="navbar-nav-link navbar-nav-link-toggler">
                 <i class="icon-bell2"></i>
-                <span class="badge badge-warning badge-pill ml-auto ml-lg-0">2</span>
+                <span class="badge badge-warning badge-pill ml-auto ml-lg-0">{{ $legislationNotifications->count() }}</span>
             </a>
         </li>
 
