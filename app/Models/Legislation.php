@@ -187,6 +187,10 @@ class Legislation extends Model
             $query->where('legislations.institute_id', '=', $institute);
         }
 
+        if ($user = $request->user AND $user = $request->user) {
+            $query->where('legislations.user_id', $user);
+        }
+
         if ($created_at = $request->created_at AND $created_at = $request->created_at) {
             $query->whereDate('legislations.created_at', Carbon::parse($created_at)->format('Y-m-d'));
         }

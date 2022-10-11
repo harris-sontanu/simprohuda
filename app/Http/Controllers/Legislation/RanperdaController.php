@@ -8,6 +8,7 @@ use App\Models\Legislation;
 use App\Models\Type;
 use App\Models\Requirement;
 use App\Models\Document;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\RanperdaRequest;
 use Illuminate\Support\Str;
@@ -76,6 +77,8 @@ class RanperdaController extends LegislationController
             $institutes = null;
         }
 
+        $users = User::orderBy('name')->pluck('name', 'id');
+
         $plugins = [
             'assets/js/plugins/notifications/bootbox.min.js',
             'assets/js/plugins/forms/selects/select2.min.js',
@@ -93,6 +96,7 @@ class RanperdaController extends LegislationController
             'onlyTrashed',
             'count',
             'institutes',
+            'users',
             'plugins'
         ));
     }

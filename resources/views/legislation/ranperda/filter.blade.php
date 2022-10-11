@@ -3,7 +3,7 @@
 <div class="card-body bg-light">
     <form action="{{ route('legislation.ranperda.index') }}" id="filter-form" class="filter-form" method="GET">
         <div class="row">
-            <div class="@empty($institutes) col-md-6 @else col-md-3 @endempty">
+            <div class="col-md-3">
                 <div class="form-group">
                     <input type="text" class="form-control" name="title" placeholder="Judul" value="{{ Request::get('title') }}">
                 </div>
@@ -24,7 +24,19 @@
                         </select>
                     </div>
                 </div>
-            @endif
+            @endif   
+            @cannot('isOpd')                
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <select name="user" id="user" class="select">
+                            <option value="">Pilih Pengusul</option>
+                            @foreach ($users as $key => $value)
+                                <option value="{{ $key }}" @selected(Request::get('user') == $key)>{{ $value }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            @endcannot             
             <div class="col-md-3">
                 <div class="form-group">
                     <div class="input-group">
@@ -35,9 +47,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <div class="row">
             <div class="col-md-3">
                 <div class="form-group">
                     <div class="input-group">
@@ -75,5 +84,6 @@
                 </div>
             </div>
         </div>
+
     </form>
 </div>
