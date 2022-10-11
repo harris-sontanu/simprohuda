@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
 use App\Models\Legislation;
+use App\Models\User;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -39,7 +40,11 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         Route::bind('ranperda', function ($value) {
-            return Legislation::where('id', $value)->firstOrFail();
+            return Legislation::withTrashed()->findOrFail($value);
+        });
+
+        Route::bind('user', function ($value) {
+            return User::withTrashed()->findOrFail($value);
         });
     }
 

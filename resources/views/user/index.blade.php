@@ -131,7 +131,9 @@
                                                     <button type="submit" class="btn btn-link list-icons-item p-0" data-popup="tooltip" title="Hapus"><i class="icon-cross2"></i></button>
                                                 </form>
                                             @else
-                                                <a href="{{ route('user.edit', $user->id) }}" class="list-icons-item" data-popup="tooltip" title="Ubah"><i class="icon-pencil"></i></a>
+                                                @can('update', $user)                                                    
+                                                    <a href="{{ route('user.edit', $user->id) }}" class="list-icons-item" data-popup="tooltip" title="Ubah"><i class="icon-pencil"></i></a>
+                                                @endcan
                                                 @php $disabled = ($user->id == 1 OR $user->id == Auth::user()->id) ? 'disabled' : ''; @endphp
                                                 <form action="{{ route('user.destroy', $user->id) }}" method="POST">
                                                     @method('DELETE')
