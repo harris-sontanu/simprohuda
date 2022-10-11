@@ -80,7 +80,8 @@ Route::middleware('auth')->group(function() {
             Route::put('/legislation/document/{document}/ratify', 'ratify')->name('document.ratify');
         });
 
-        Route::resource('/legislation/comment', CommentController::class);
+        Route::post('/legislation/comment', [CommentController::class, 'store'])
+            ->name('comment.store');
     });
 
 });
