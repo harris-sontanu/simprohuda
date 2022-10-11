@@ -85,20 +85,22 @@
                                     
                                     <fieldset>
                                         <legend class="font-weight-bold"><i class="icon-users4 mr-2"></i>Akun</legend>
-                                        <div class="form-group row">
-                                            <label for="corrector_id" class="col-lg-3 col-form-label font-weight-semibold">Pemeriksa:</label>
-                                            <div class="col-lg-9">
-                                                <select name="corrector_id" id="corrector_id" class="select @error('corrector_id') is-invalid @enderror">
-                                                    <option value="">Pilih Pemeriksa</option>
-                                                    @foreach ($correctors as $key => $value)
-                                                        <option value="{{ $key }}" @selected($institute->corrector_id == $key)>{{ $value }}</option>
-                                                    @endforeach
-                                                </select>
-                                                @error('corrector_id')
-                                                    <div class="invalid-feedback">{{ $message }}</div>
-                                                @enderror
+                                        @can('isAdmin')                                            
+                                            <div class="form-group row">
+                                                <label for="corrector_id" class="col-lg-3 col-form-label font-weight-semibold">Pemeriksa:</label>
+                                                <div class="col-lg-9">
+                                                    <select name="corrector_id" id="corrector_id" class="select @error('corrector_id') is-invalid @enderror">
+                                                        <option value="">Pilih Pemeriksa</option>
+                                                        @foreach ($correctors as $key => $value)
+                                                            <option value="{{ $key }}" @selected($institute->corrector_id == $key)>{{ $value }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @error('corrector_id')
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @enderror
+                                                </div>
                                             </div>
-                                        </div>
+                                        @endcan
                                         <div class="form-group row">
                                             <label for="users" class="col-lg-3 col-form-label font-weight-semibold">Operator:</label>
                                             <div class="col-lg-9">

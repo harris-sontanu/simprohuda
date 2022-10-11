@@ -22,11 +22,13 @@
                         </form>
                     </div>
                 </div>    
-                <div class="header-elements">
-                    <div class="d-flex justify-content-center">
-                        <a href="{{ route('institute.create') }}" class="btn btn-secondary btn-sm"><i class="icon-plus22 mr-2"></i>Tambah</a>
-                    </div>
-                </div>    
+                @can('create', App\Models\Institute::class)                    
+                    <div class="header-elements">
+                        <div class="d-flex justify-content-center">
+                            <a href="{{ route('institute.create') }}" class="btn btn-secondary btn-sm"><i class="icon-plus22 mr-2"></i>Tambah</a>
+                        </div>
+                    </div>    
+                @endcan
             </div>
 
             <div class="table-responsive">
@@ -79,12 +81,16 @@
                                 </td>
                                 <td class="text-center safezone">
                                     <div class="list-icons">
-                                        <a href="{{ route('institute.edit', $institute->id) }}" class="list-icons-item" data-popup="tooltip" title="Ubah"><i class="icon-pencil"></i></a>
-                                        <form class="delete-form" action="{{ route('institute.destroy', $institute->id) }}" data-name="{{ $institute->name; }}" method="POST">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button type="submit" class="btn btn-link list-icons-item p-0 delete" data-popup="tooltip" title="Hapus"><i class="icon-trash"></i></button>
-                                        </form>
+                                        @can('update', $institute)                                            
+                                            <a href="{{ route('institute.edit', $institute->id) }}" class="list-icons-item" data-popup="tooltip" title="Ubah"><i class="icon-pencil"></i></a>
+                                        @endcan
+                                        @can('delete', $institute)                                            
+                                            <form class="delete-form" action="{{ route('institute.destroy', $institute->id) }}" data-name="{{ $institute->name; }}" method="POST">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-link list-icons-item p-0 delete" data-popup="tooltip" title="Hapus"><i class="icon-trash"></i></button>
+                                            </form>
+                                        @endcan
                                     </div>
                                 </td>
                             </tr>

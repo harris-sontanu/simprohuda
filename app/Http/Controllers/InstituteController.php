@@ -18,6 +18,11 @@ class InstituteController extends Controller
         'kelurahan' => 'Kelurahan',
     ];
 
+    public function __construct()
+    {
+        $this->authorizeResource(Institute::class, 'institute');
+    }
+
     /**
      * Display a listing of the resource.
      *
