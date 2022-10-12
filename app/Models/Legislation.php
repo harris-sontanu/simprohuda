@@ -83,6 +83,14 @@ class Legislation extends Model
         return $this->hasMany(Log::class)->latest();
     }
 
+    public function unreadComments()
+    {
+        return $this->comments()
+                    ->where('read', 0)
+                    ->where('to_id', Auth::user()->id);
+
+    }
+
     public function scopeDraft($query)
     {
         return $query->whereNull('posted_at');
@@ -103,6 +111,16 @@ class Legislation extends Model
     public function scopeValidated($query)
     {
         return $query->whereNotNull('validated_at');
+    }
+
+    public function scopeProcessed($query)
+    {
+        return $query->where(function ($q) {
+                        $q->whereNotNull('posted_at')
+                            ->orWhereNotNull('revised_at');
+                    })
+                    ->whereNull('validated_at')
+                    ->orderBy('posted_at', 'desc');
     }
 
     public function status()

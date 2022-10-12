@@ -305,12 +305,7 @@ class RanperdaController extends LegislationController
         $documents = Document::requirements($legislation->id)->get();
 
         // Read the comments
-        $unreadComments = $legislation->comments()
-                                ->where('read', 0)
-                                ->where('to_id', Auth::user()->id)
-                                ->get();
-
-        foreach ($unreadComments as $comment) {
+        foreach ($legislation->unreadComments()->get() as $comment) {
             $comment->update(['read' => 1]);
         }                
 

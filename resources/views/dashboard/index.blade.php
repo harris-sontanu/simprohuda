@@ -115,7 +115,10 @@
 								<th><abbr title="Nomor Urut Registrasi" data-popup="tooltip">Nomor</abbr></th>
 								<th>Jenis</th>
 								<th>Judul</th>
-								<th>Perangkat Daerah</th>
+								@cannot('isOpd')
+									<th>Perangkat Daerah</th>
+								@endcannot
+								<th class="text-center">Status</th>
 								<th>Tgl. Diajukan</th>
 							</tr>
 						</thead>
@@ -124,8 +127,11 @@
 								<tr>
 									<td>{{ $legislation->reg_number }}</td>
 									<td>{{ $legislation->type->name }}</td>
-									<td><a href="{{ route('legislation.ranperda.show', $legislation->id) }}" class="font-weight-semibold text-body">{{ $legislation->title }}</a></td>
-									<td>{{ $legislation->institute->name }}</td>
+									<td><a href="{{ route('legislation.ranperda.edit', $legislation->id) }}" class="font-weight-semibold text-body">{{ $legislation->title }}</a></td>
+									@cannot('isOpd')
+										<td>{{ $legislation->institute->name }}</td>
+									@endcannot
+									<td>{!! $legislation->statusBadge !!}</td>
 									<td><abbr data-popup="tooltip" title="{{ $legislation->dateFormatted($legislation->posted_at, true) }}">{{ $legislation->dateFormatted($legislation->posted_at) }}</abbr></td>
 								</tr>
 							@empty

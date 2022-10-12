@@ -29,12 +29,7 @@ class ViewServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer('layouts.navbar', function ($view) {
-            $legislationNotifications = Legislation::where(function ($query) {
-                                                        $query->whereNotNull('posted_at')
-                                                            ->orWhereNotNull('revised_at');
-                                                    })
-                                                    ->whereNull('validated_at')
-                                                    ->orderBy('posted_at', 'desc')
+            $legislationNotifications = Legislation::processed()
                                                     ->get();
 
             $commentNotifications = Comment::unread()

@@ -17,8 +17,7 @@ class DashboardController extends Controller
         $totalPerbup  = Legislation::ranperbup()->year($request->only(['year']))->count();
         $totalSk 	  = Legislation::ransk()->year($request->only(['year']))->count();
 
-        $legislations = Legislation::posted()
-							->latest()
+        $legislations = Legislation::processed()
 							->take(5)
 							->get();
 
