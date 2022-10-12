@@ -24,6 +24,29 @@ class UserSeeder extends Seeder
             'role'  => 'administrator',
         ]);
 
+        User::factory()->create([
+            'name'  => 'Ib. Gede Dhiksita',
+            'username' => 'gusdedhikshita',
+            'email' => 'ibgd98@mail.ugm.ac.id',
+            'password'  => Hash::make('HtrXjng8YNm8mfd'),
+            'role'  => 'administrator',
+        ]);
+
+        User::factory()->create([
+            'name'  => 'John Doe',
+            'username' => 'adminBagHukum',
+            'email' => 'bagian.hukum@mail.com',
+            'password'  => Hash::make('admin123'),
+            'role'  => 'bagianhukum',
+        ]);
+
+        User::factory()->create([
+            'username' => 'adminOpd',
+            'email' => 'perangkat.daerah@mail.com',
+            'password'  => Hash::make('12345678'),
+            'role'  => 'opd',
+        ]);
+
         User::factory()
             ->count(2)
             ->create([
