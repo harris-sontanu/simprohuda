@@ -18,15 +18,20 @@ return new class extends Migration
             $table->foreignId('legislation_id')
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->unsignedBigInteger('author_id');
-            $table->foreign('author_id')
+            $table->unsignedBigInteger('sender_id');
+            $table->foreign('sender_id')
+                ->references('id')
+                ->on('users')
+                ->cascadeOnDelete();
+            $table->unsignedBigInteger('to_id');
+            $table->foreign('to_id')
                 ->references('id')
                 ->on('users')
                 ->cascadeOnDelete();
             $table->text('comment');
             $table->boolean('read')
                 ->default(0);
-            $table->timestamps();
+            $table->timestamp('created_at');
         });
     }
 

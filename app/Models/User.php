@@ -77,7 +77,12 @@ class User extends Authenticatable
 
     public function comments()
     {
-        return $this->hasMany(Comment::class, 'author_id');
+        return $this->hasMany(Comment::class, 'sender_id');
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(Comment::class, 'to_id');
     }
 
     public function logs()

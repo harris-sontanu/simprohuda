@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             InstituteUserSeeder::class,
             LegislationSeeder::class,
             RequirementSeeder::class,
+            CommentSeeder::class,
         ]);
     }
 }

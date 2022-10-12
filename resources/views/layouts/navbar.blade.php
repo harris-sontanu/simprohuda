@@ -77,10 +77,7 @@
 
                         </ul>
                     </div>
-
-                    <div class="dropdown-content-footer justify-content-center p-0">
-                        <a href="#" class="btn btn-light btn-block border-0 rounded-top-0" data-popup="tooltip" title="Load more"><i class="icon-menu7"></i></a>
-                    </div>
+                    
                 </div>
             @endif
         </li>

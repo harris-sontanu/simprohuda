@@ -27,13 +27,16 @@ class CommentSeeder extends Seeder
                     $user[] = $legislation->user_id;
                     $user[] = $legislation->institute->corrector->id;
 
+                    $key = rand(0, 1);
+                    $switchKey = $key === 1 ? 0 : 1;
+
                     $new_created_at = Carbon::parse($created_at)->addHours(rand(2, 10));
 
                     Comment::factory()->create([
                         'legislation_id'    => $legislation->id,
-                        'author_id'         => $user[rand(0, 1)],
-                        'created_at'        => $new_created_at,
-                        'updated_at'        => rand(0, 1) ? Carbon::parse($new_created_at)->addHours(rand(1, 3)) : $new_created_at,
+                        'sender_id'         => $user[$key],
+                        'to_id'             => $user[$switchKey],
+                        'created_at'        => $new_created_at
                     ]);
                 }
             }

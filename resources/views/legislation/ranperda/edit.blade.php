@@ -231,10 +231,10 @@
                     <div class="card-body">
                         <ul class="media-list media-chat media-chat-scrollable mb-3">
                             @forelse ($legislation->comments as $comment)
-                                @if ($comment->author->getRawOriginal('role') === 'opd')
+                                @if ($comment->sender->getRawOriginal('role') === 'opd')
                                     <li class="media">
                                         <div class="mr-3">
-                                            <img src="{{ $comment->userPictureUrl($comment->author->picture, $comment->author->name) }}" class="rounded-circle" alt="{{ $comment->author->name }}" width="40" height="40" data-popup="tooltip" title="{{ $comment->author->name }}">
+                                            <img src="{{ $comment->userPictureUrl($comment->sender->picture, $comment->sender->name) }}" class="rounded-circle" alt="{{ $comment->sender->name }}" width="40" height="40" data-popup="tooltip" title="{{ $comment->sender->name }}">
                                         </div>
 
                                         <div class="media-body">
@@ -250,7 +250,7 @@
                                         </div>
 
                                         <div class="ml-3">
-                                            <img src="{{ $comment->userPictureUrl($comment->author->picture, $comment->author->name) }}" class="rounded-circle" alt="{{ $comment->author->name }}" width="40" height="40" data-popup="tooltip" title="{{ $comment->author->name }}">
+                                            <img src="{{ $comment->userPictureUrl($comment->sender->picture, $comment->sender->name) }}" class="rounded-circle" alt="{{ $comment->sender->name }}" width="40" height="40" data-popup="tooltip" title="{{ $comment->sender->name }}">
                                         </div>
                                     </li>
                                 @endif

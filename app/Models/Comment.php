@@ -10,6 +10,9 @@ class Comment extends Model
 {
     use HasFactory, HelperTrait;
 
+    public $timestamps = ["created_at"];
+    const UPDATED_AT = null;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -17,7 +20,8 @@ class Comment extends Model
      */
     protected $fillable = [
         'legislation_id',
-        'author_id',
+        'sender_id',
+        'to_id',
         'comment',
         'read',
         'year',
@@ -29,7 +33,12 @@ class Comment extends Model
         return $this->belongsTo(Legislation::class);
     }
 
-    public function author()
+    public function sender()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function to()
     {
         return $this->belongsTo(User::class);
     }
