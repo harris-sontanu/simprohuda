@@ -1,9 +1,6 @@
 <!-- Main navbar -->
 <div class="navbar navbar-expand-lg navbar-dark navbar-static">
     <div class="d-flex flex-1 d-lg-none">
-        {{-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-mobile">
-            <i class="icon-paragraph-justify3"></i>
-        </button> --}}
         <button type="button" class="navbar-toggler sidebar-mobile-main-toggle">
             <i class="icon-transmission"></i>
         </button>
@@ -38,13 +35,13 @@
     </div>
 
     <ul class="navbar-nav flex-row order-1 order-lg-2 flex-1 flex-lg-0 justify-content-end align-items-center">
-        <li class="nav-item nav-item-dropdown-lg dropdown">
-            <a href="#" class="navbar-nav-link navbar-nav-link-toggler" data-toggle="dropdown">
-                <i class="icon-bell2"></i>
-                <span class="badge badge-yellow badge-pill ml-auto ml-lg-0">{{ $legislationNotifications->count() }}</span>
-            </a>
-
-            @if ( ! empty($legislationNotifications) AND count($legislationNotifications) > 0)                
+        @if ( ! empty($legislationNotifications) AND count($legislationNotifications) > 0)    
+            <li class="nav-item nav-item-dropdown-lg dropdown">
+                <a href="#" class="navbar-nav-link navbar-nav-link-toggler" data-toggle="dropdown">
+                    <i class="icon-bell2"></i>
+                    <span class="badge badge-yellow badge-pill ml-auto ml-lg-0">{{ $legislationNotifications->count() }}</span>
+                </a>
+                
                 <div class="dropdown-menu dropdown-menu-right dropdown-content wmin-lg-350">
                     <div class="dropdown-content-header">
                         <span class="font-weight-semibold">Tinjau Rancangan Produk Hukum</span>
@@ -66,7 +63,7 @@
                                             </div>
                                         @endcannot
 
-                                        <a href="#" class="text-body">{{ Str::limit($legislation->title, 75); }}</a>
+                                        <a href="{{ route('legislation.' . $legislation->type->slug . '.edit', $legislation->id) }}" class="text-body">{{ Str::limit($legislation->title, 75); }}</a>
                                         <ul class="list-inline list-inline-condensed list-inline-dotted mt-1 font-size-sm text-muted">
                                             <li class="list-inline-item">{{ $legislation->type->name }}</li>
                                             <li class="list-inline-item">{{ $legislation->timeDifference($legislation->posted_at) }}</li>
@@ -79,16 +76,16 @@
                     </div>
                     
                 </div>
-            @endif
-        </li>
+            </li>
+        @endif
 
-        <li class="nav-item nav-item-dropdown-lg dropdown">
-            <a href="#" class="navbar-nav-link navbar-nav-link-toggler" data-toggle="dropdown">
-                <i class="icon-bubbles4"></i>
-                <span class="badge badge-yellow badge-pill ml-auto ml-lg-0">{{ $commentNotifications->count() }}</span>
-            </a>
-
-            @if ( ! empty($commentNotifications) AND count($commentNotifications) > 0)                
+        @if ( ! empty($commentNotifications) AND count($commentNotifications) > 0)    
+            <li class="nav-item nav-item-dropdown-lg dropdown">
+                <a href="#" class="navbar-nav-link navbar-nav-link-toggler" data-toggle="dropdown">
+                    <i class="icon-bubbles4"></i>
+                    <span class="badge badge-yellow badge-pill ml-auto ml-lg-0">{{ $commentNotifications->count() }}</span>
+                </a>
+                
                 <div class="dropdown-menu dropdown-menu-right dropdown-content wmin-lg-350">
                     <div class="dropdown-content-header">
                         <span class="font-weight-semibold">Pesan Masuk</span>
@@ -108,7 +105,7 @@
                                             <span class="font-weight-semibold">{{ $comment->sender->name }}</span>
                                         </div>
 
-                                        <a href="#" class="text-body">{{ Str::limit($comment->comment, 75); }}</a>
+                                        <a href="{{ route('legislation.' . $comment->legislation->type->slug . '.edit', $comment->legislation_id) }}" class="text-body">{{ Str::limit($comment->comment, 75); }}</a>
                                         <ul class="list-inline list-inline-condensed list-inline-dotted mt-1 font-size-sm text-muted">
                                             <li class="list-inline-item">{{ $comment->timeDifference($comment->created_at) }}</li>
                                         </ul>
@@ -120,8 +117,8 @@
                     </div>
                     
                 </div>
-            @endif
-        </li>
+            </li>
+        @endif
 
         <li class="nav-item nav-item-dropdown-lg dropdown dropdown-user h-100">
             <a href="#" class="navbar-nav-link navbar-nav-link-toggler dropdown-toggle d-inline-flex align-items-center h-100" data-toggle="dropdown">
