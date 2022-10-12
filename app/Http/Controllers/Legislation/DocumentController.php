@@ -114,6 +114,8 @@ class DocumentController extends LegislationController
             $document->requirement->term => 'required|file|mimes:'.$document->requirement->format.'|max:2048',
         ]);
 
+        $old_document = $document->path;
+
         $currentTime = '_' . now()->timestamp;
 
         $file = $request->file($document->requirement->term);
@@ -132,7 +134,7 @@ class DocumentController extends LegislationController
         ]);
 
         // Remove old file
-        $this->removeDocument($document->path);
+        $this->removeDocument($old_document);
 
         $legislation->logs()->create([
             'user_id'   => $request->user()->id,
