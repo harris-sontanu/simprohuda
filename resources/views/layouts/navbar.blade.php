@@ -48,7 +48,7 @@
                 <div class="dropdown-menu dropdown-menu-right dropdown-content wmin-lg-350">
                     <div class="dropdown-content-header">
                         <span class="font-weight-semibold">Tinjau Rancangan Produk Hukum</span>
-                        <a href="#" class="text-body"><i class="icon-info22"></i></a>
+                        <a href="#" class="text-body"><i class="icon-bell2"></i></a>
                     </div>
                     
                     <div class="dropdown-content-body dropdown-scrollable">
@@ -82,11 +82,45 @@
             @endif
         </li>
 
-        <li class="nav-item">
-            <a href="#" class="navbar-nav-link navbar-nav-link-toggler">
+        <li class="nav-item nav-item-dropdown-lg dropdown">
+            <a href="#" class="navbar-nav-link navbar-nav-link-toggler" data-toggle="dropdown">
                 <i class="icon-bubbles4"></i>
-                <span class="badge badge-warning badge-pill ml-auto ml-lg-0">4</span>
+                <span class="badge badge-warning badge-pill ml-auto ml-lg-0">{{ $commentNotifications->count() }}</span>
             </a>
+
+            @if ( ! empty($commentNotifications) AND count($commentNotifications) > 0)                
+                <div class="dropdown-menu dropdown-menu-right dropdown-content wmin-lg-350">
+                    <div class="dropdown-content-header">
+                        <span class="font-weight-semibold">Pesan Masuk</span>
+                        <a href="#" class="text-body"><i class="icon-bubbles4"></i></a>
+                    </div>
+                    
+                    <div class="dropdown-content-body dropdown-scrollable">
+                        <ul class="media-list">
+                            @foreach ($commentNotifications as $comment)                                
+                                <li class="media">
+                                    <div class="mr-3 position-relative">
+                                        <img src="{{ $comment->userPictureUrl($comment->sender->picture, $comment->sender->name) }}" alt="{{ $comment->sender->name }}" width="36" height="36" class="rounded-circle" data-popup="tooltip" title="{{ $comment->sender->name }}">
+                                    </div>
+
+                                    <div class="media-body">                                     
+                                        <div class="media-title">
+                                            <span class="font-weight-semibold">{{ $comment->sender->name }}</span>
+                                        </div>
+
+                                        <a href="#" class="text-body">{{ Str::limit($comment->comment, 75); }}</a>
+                                        <ul class="list-inline list-inline-condensed list-inline-dotted mt-1 font-size-sm text-muted">
+                                            <li class="list-inline-item">{{ $comment->timeDifference($comment->created_at) }}</li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            @endforeach
+
+                        </ul>
+                    </div>
+                    
+                </div>
+            @endif
         </li>
 
         <li class="nav-item nav-item-dropdown-lg dropdown dropdown-user h-100">

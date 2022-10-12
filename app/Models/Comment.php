@@ -42,4 +42,9 @@ class Comment extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function scopeUnread($query)
+    {
+        return $query->where('read', 0);
+    }
 }

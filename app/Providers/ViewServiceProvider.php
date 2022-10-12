@@ -4,9 +4,11 @@ namespace App\Providers;
  
 use App\View\Composers\ProfileComposer;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Legislation;
- 
+use App\Models\Comment;
+
 class ViewServiceProvider extends ServiceProvider
 {
     /**
@@ -34,8 +36,14 @@ class ViewServiceProvider extends ServiceProvider
                                                     ->whereNull('validated_at')
                                                     ->orderBy('posted_at', 'desc')
                                                     ->get();
+
+            $commentNotifications = Comment::unread()
+                                        ->where('to_id', Auth::user()->id)
+                                        ->latest()
+                                        ->get();
             
-            return $view->with('legislationNotifications', $legislationNotifications);                                                   
+            return $view->with('legislationNotifications', $legislationNotifications)
+                        ->with('commentNotifications', $commentNotifications);                                                   
         });
     }
 }
