@@ -10,19 +10,19 @@ use App\Models\Requirement;
 use App\Models\Document;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Requests\RanperdaRequest;
+use App\Http\Requests\RanperbupRequest;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 
-class RanperdaController extends LegislationController
+class RanperbupController extends LegislationController
 {
     protected $type;
 
     public function __construct()
     {
-        $this->type = Type::where('slug', 'ranperda')->first();
-        $this->authorizeResource(Legislation::class, 'ranperda');
+        $this->type = Type::where('slug', 'ranperbup')->first();
+        $this->authorizeResource(Legislation::class, 'ranperbup');
     }
     
     /**
@@ -32,7 +32,7 @@ class RanperdaController extends LegislationController
      */
     public function index(Request $request)
     {
-        $pageHeader = 'Rancangan Peraturan Daerah';
+        $pageHeader = 'Rancangan Peraturan Bupati';
         $pageTitle = $pageHeader . $this->pageTitle;
         $breadCrumbs = [
             route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
@@ -40,7 +40,7 @@ class RanperdaController extends LegislationController
             $this->type->name => TRUE
         ];
 
-        $legislations = Legislation::ranperda();
+        $legislations = Legislation::ranperbup();
 
         $onlyTrashed = FALSE;
         if ($tab = $request->tab)
@@ -87,7 +87,7 @@ class RanperdaController extends LegislationController
             'assets/js/plugins/table/finderSelect/jquery.finderSelect.min.js',
         ];
 
-        return view('legislation.ranperda.index', compact(
+        return view('legislation.ranperbup.index', compact(
             'pageTitle',
             'pageHeader',
             'breadCrumbs',
@@ -104,31 +104,31 @@ class RanperdaController extends LegislationController
     private function tabFilters($request)
     {
         return [
-            'total'     => Legislation::ranperda()
+            'total'     => Legislation::ranperbup()
                                 ->search($request->only(['search']))
                                 ->filter($request)
                                 ->count(),
-            'draf'      => Legislation::ranperda()
+            'draf'      => Legislation::ranperbup()
                                 ->search($request->only(['search']))
                                 ->filter($request)
                                 ->draft()
                                 ->count(),
-            'aktif'     => Legislation::ranperda()
+            'aktif'     => Legislation::ranperbup()
                                 ->search($request->only(['search']))
                                 ->filter($request)
                                 ->posted()
                                 ->count(),
-            'revisi'    => Legislation::ranperda()
+            'revisi'    => Legislation::ranperbup()
                                 ->search($request->only(['search']))
                                 ->filter($request)
                                 ->revised()
                                 ->count(),
-            'valid'     => Legislation::ranperda()
+            'valid'     => Legislation::ranperbup()
                                 ->search($request->only(['search']))
                                 ->filter($request)
                                 ->validated()
                                 ->count(),
-            'batal'     => Legislation::ranperda()
+            'batal'     => Legislation::ranperbup()
                                 ->search($request->only(['search']))
                                 ->filter($request)
                                 ->onlyTrashed()
@@ -141,28 +141,28 @@ class RanperdaController extends LegislationController
         $ids = $request->items;
         $count = count($ids);
 
-        $message = 'data Rancangan Peraturan Daerah telah berhasil diperbarui';
+        $message = 'data Rancangan Peraturan Bupati telah berhasil diperbarui';
         foreach ($ids as $id)
         {
             $legislation = Legislation::withTrashed()->find($id);
             if ($request->action === 'trash')
             {
                 $legislation->delete();
-                $message = 'data Rancangan Peraturan Daerah telah berhasil dibatalkan';
+                $message = 'data Rancangan Peraturan Bupati telah berhasil dibatalkan';
 
                 $legislation->logs()->create([
                     'user_id'   => $request->user()->id,
-                    'message'   => 'membatalkan ranperda',
+                    'message'   => 'membatalkan ranperbup',
                 ]);
             }
             else if ($request->action === 'delete')
             {
                 $legislation->forceDelete();
-                $message = 'data Rancangan Peraturan Daerah telah berhasil dihapus';
+                $message = 'data Rancangan Peraturan Bupati telah berhasil dihapus';
 
                 $legislation->logs()->create([
                     'user_id'   => $request->user()->id,
-                    'message'   => 'menghapus ranperda',
+                    'message'   => 'menghapus ranperbup',
                 ]);
             }
         }
@@ -177,12 +177,12 @@ class RanperdaController extends LegislationController
      */
     public function create()
     {
-        $pageHeader = 'Pengajuan Rancangan Peraturan Daerah';
+        $pageHeader = 'Pengajuan Rancangan Peraturan Bupati';
         $pageTitle = $pageHeader . $this->pageTitle;
         $breadCrumbs = [
             route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
             '#' => 'Produk Hukum',
-            route('legislation.ranperda.index') => $this->type->name,
+            route('legislation.ranperbup.index') => $this->type->name,
             'Pengajuan' => true
         ];
 
@@ -203,7 +203,7 @@ class RanperdaController extends LegislationController
             'assets/js/plugins/forms/selects/select2.min.js',
         ];
 
-        return view('legislation.ranperda.create', compact(
+        return view('legislation.ranperbup.create', compact(
             'pageTitle',
             'pageHeader',
             'breadCrumbs',
@@ -221,7 +221,7 @@ class RanperdaController extends LegislationController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(RanperdaRequest $request)
+    public function store(RanperbupRequest $request)
     {
         $validated = $request->validated();
 
@@ -239,12 +239,12 @@ class RanperdaController extends LegislationController
 
         $new_legislation->logs()->create([
             'user_id'   => $request->user()->id,
-            'message'   => 'membuat ranperda ' . $msg_append,
+            'message'   => 'membuat ranperbup ' . $msg_append,
         ]);
 
         $this->documentUpload($new_legislation, $request);
 
-        return redirect('/legislation/ranperda')->with('message', '<strong>Berhasil!</strong> Data Rancangan Peraturan Daerah telah berhasil disimpan ' . $msg_append);
+        return redirect('/legislation/ranperbup')->with('message', '<strong>Berhasil!</strong> Data Rancangan Peraturan Bupati telah berhasil disimpan ' . $msg_append);
     }
 
     /**
@@ -255,12 +255,12 @@ class RanperdaController extends LegislationController
      */
     public function show(Legislation $legislation)
     {
-        $pageHeader = 'Detail Rancangan Peraturan Daerah';
+        $pageHeader = 'Detail Rancangan Peraturan Bupati';
         $pageTitle = $pageHeader . $this->pageTitle;
         $breadCrumbs = [
             route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
             '#' => 'Produk Hukum',
-            route('legislation.ranperda.index') => $legislation->type->name,
+            route('legislation.ranperbup.index') => $legislation->type->name,
             'Detail' => true
         ];
 
@@ -268,7 +268,7 @@ class RanperdaController extends LegislationController
         $master = Document::requirements($legislation->id)->first();
         $documents = Document::requirements($legislation->id)->get();
 
-        return view('legislation.ranperda.show', compact(
+        return view('legislation.ranperbup.show', compact(
             'pageTitle',
             'pageHeader',
             'breadCrumbs',
@@ -291,12 +291,12 @@ class RanperdaController extends LegislationController
             abort(403);
         }
 
-        $pageHeader = 'Perbaikan Rancangan Peraturan Daerah';
+        $pageHeader = 'Perbaikan Rancangan Peraturan Bupati';
         $pageTitle = $pageHeader . $this->pageTitle;
         $breadCrumbs = [
             route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
             '#' => 'Produk Hukum',
-            route('legislation.ranperda.index') => $this->type->name,
+            route('legislation.ranperbup.index') => $this->type->name,
             'Perbaikan' => true
         ];
         
@@ -325,7 +325,7 @@ class RanperdaController extends LegislationController
             'assets/js/plugins/forms/selects/select2.min.js',
         ];
 
-        return view('legislation.ranperda.edit', compact(
+        return view('legislation.ranperbup.edit', compact(
             'pageTitle',
             'pageHeader',
             'breadCrumbs',
@@ -344,16 +344,16 @@ class RanperdaController extends LegislationController
      * @param  \App\Models\Legislation  $legislation
      * @return \Illuminate\Http\Response
      */
-    public function update(RanperdaRequest $request, Legislation $legislation)
+    public function update(RanperbupRequest $request, Legislation $legislation)
     {
         $validated = $request->validated(); 
-        $log_messsage = 'memperbaiki data ranperda';  
+        $log_messsage = 'memperbaiki data ranperbup';  
         
         if ($request->has('post')) 
         {
             $validated['posted_at'] = now();
             $legislation->documents()->update(['posted_at' => now()]);
-            $log_messsage = 'memperbaiki data ranperda dan mengajukan ke Bagian Hukum';
+            $log_messsage = 'memperbaiki data ranperbup dan mengajukan ke Bagian Hukum';
         } 
         else if ($request->has('revise')) 
         {
@@ -366,7 +366,7 @@ class RanperdaController extends LegislationController
             'message'   => $log_messsage,
         ]);
 
-        return redirect('/legislation/ranperda/' . $legislation->id . '/edit')->with('message', '<strong>Berhasil!</strong> Data Pengajuan Rancangan Peraturan Daerah telah berhasil diperbarui');
+        return redirect('/legislation/ranperbup/' . $legislation->id . '/edit')->with('message', '<strong>Berhasil!</strong> Data Pengajuan Rancangan Peraturan Bupati telah berhasil diperbarui');
     }
 
     public function approve(Request $request, Legislation $legislation)
@@ -376,10 +376,10 @@ class RanperdaController extends LegislationController
 
         $legislation->logs()->create([
             'user_id'   => $request->user()->id,
-            'message'   => 'memvalidasi pengajuan ranperda',
+            'message'   => 'memvalidasi pengajuan ranperbup',
         ]);
 
-        return redirect('/legislation/ranperda/' . $legislation->id . '/edit')->with('message', '<strong>Berhasil!</strong> Data Pengajuan Rancangan Peraturan Daerah telah berhasil divalidasi');
+        return redirect('/legislation/ranperbup/' . $legislation->id . '/edit')->with('message', '<strong>Berhasil!</strong> Data Pengajuan Rancangan Peraturan Bupati telah berhasil divalidasi');
     }
 
     /**
@@ -390,15 +390,15 @@ class RanperdaController extends LegislationController
      */
     public function destroy(Legislation $legislation)
     {
-        $action = route('legislation.ranperda.restore', $legislation->id);
+        $action = route('legislation.ranperbup.restore', $legislation->id);
         $legislation->delete();
 
         $legislation->logs()->create([
             'user_id'   => Auth::user()->id,
-            'message'   => 'membatalkan ranperda',
+            'message'   => 'membatalkan ranperbup',
         ]);
 
-        return redirect('/legislation/ranperda')->with('trash-message', ['<strong>Berhasil!</strong> Data Rancangan Peraturan Daerah telah dibatalkan', $action]);
+        return redirect('/legislation/ranperbup')->with('trash-message', ['<strong>Berhasil!</strong> Data Rancangan Peraturan Bupati telah dibatalkan', $action]);
     }
 
     public function restore($id)
@@ -408,10 +408,10 @@ class RanperdaController extends LegislationController
 
         $legislation->logs()->create([
             'user_id'   => Auth::user()->id,
-            'message'   => 'mengembalikan ranperda',
+            'message'   => 'mengembalikan ranperbup',
         ]);
 
-        return redirect()->back()->with('message', 'Data Rancangan Peraturan Daerah telah dikembalikan');
+        return redirect()->back()->with('message', 'Data Rancangan Peraturan Bupati telah dikembalikan');
     }
 
     public function forceDestroy($id)
@@ -421,13 +421,13 @@ class RanperdaController extends LegislationController
 
         $legislation->logs()->create([
             'user_id'   => Auth::user()->id,
-            'message'   => 'menghapus ranperda',
+            'message'   => 'menghapus ranperbup',
         ]);
 
         foreach ($legislation->documents as $document) {
             $this->removeDocument($document->path);
         }
 
-        return redirect('/admin/legislation/ranperda?tab=batal')->with('message', '<strong>Berhasil!</strong> Data Rancangan Peraturan Daerah telah berhasil dihapus');
+        return redirect('/admin/legislation/ranperbup?tab=batal')->with('message', '<strong>Berhasil!</strong> Data Rancangan Peraturan Bupati telah berhasil dihapus');
     }
 }

@@ -51,7 +51,7 @@
 
                     <ul class="nav nav-group-sub" data-submenu-title="Produk Hukum">
                         <li class="nav-item"><a href="{{ route('legislation.ranperda.index') }}" class="nav-link {{ (request()->is('legislation/ranperda*')) ? 'active' : '' }}">Ranperda</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Ranperbup</a></li>
+                        <li class="nav-item"><a href="{{ route('legislation.ranperbup.index') }}" class="nav-link {{ (request()->is('legislation/ranperbup*')) ? 'active' : '' }}">Ranperbup</a></li>
                         <li class="nav-item"><a href="#" class="nav-link">Rancangan SK</a></li>
                     </ul>
                 </li>

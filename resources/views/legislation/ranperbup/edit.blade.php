@@ -31,13 +31,13 @@
                             <div class="col-lg-8 offset-lg-2">
 
                                 <!-- Form -->
-                                <form id="update-form" method="POST" action="{{ route('legislation.ranperda.update', $legislation->id) }}" novalidate>
+                                <form id="update-form" method="POST" action="{{ route('legislation.ranperbup.update', $legislation->id) }}" novalidate>
                                     @method('PUT')
                                     @csrf
                                 </form>
 
                                     <fieldset>
-                                        <legend class="font-weight-bold"><i class="icon-reading mr-2"></i> Formulir Pengajuan Ranperda</legend>
+                                        <legend class="font-weight-bold"><i class="icon-reading mr-2"></i> Formulir Pengajuan Ranperbup</legend>
 
                                         <div class="form-group row">
                                             <label class="col-lg-3 col-form-label" for="title">Judul:</label>
@@ -68,7 +68,7 @@
                                                     <button type="submit" form="update-form" name="revise" class="btn btn-secondary">Ubah</button>
                                                     @if ($validateButton)  
                                                         @cannot('isOpd')                                                            
-                                                            <form id="validation-form" action="{{ route('legislation.ranperda.approve', $legislation->id) }}" method="post" class="d-inline-block" data-title="{{ $legislation->title }}">
+                                                            <form id="validation-form" action="{{ route('legislation.ranperbup.approve', $legislation->id) }}" method="post" class="d-inline-block" data-title="{{ $legislation->title }}">
                                                                 @csrf
                                                                 @method('PUT')
                                                                 <button type="submit" class="btn btn-success btn-labeled btn-labeled-right ml-2"><b><i class="icon-checkmark4"></i></b>Valid</button>
@@ -352,5 +352,5 @@
 @endsection
 
 @section('script')
-    @include('legislation.ranperda.script')
+    @include('legislation.ranperbup.script')
 @endsection

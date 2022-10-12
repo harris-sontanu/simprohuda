@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InstituteController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Legislation\RanperdaController;
+use App\Http\Controllers\Legislation\RanperbupController;
 use App\Http\Controllers\Legislation\DocumentController;
 use App\Http\Controllers\Legislation\CommentController;
 
@@ -70,6 +71,14 @@ Route::middleware('auth')->group(function() {
             Route::put('/legislation/ranperda/{ranperda}/approve', 'approve')->name('ranperda.approve');
             Route::put('/legislation/ranperda/{id}/restore', 'restore')->name('ranperda.restore');
             Route::delete('/legislation/ranperda/{id}/force-destroy', 'forceDestroy')->name('ranperda.force-destroy');
+        });
+
+        Route::resource('/legislation/ranperbup', RanperbupController::class);
+        Route::controller(RanperbupController::class)->group(function () {
+            Route::post('/legislation/ranperbup/trigger', 'trigger')->name('ranperbup.trigger');
+            Route::put('/legislation/ranperbup/{ranperbup}/approve', 'approve')->name('ranperbup.approve');
+            Route::put('/legislation/ranperbup/{id}/restore', 'restore')->name('ranperbup.restore');
+            Route::delete('/legislation/ranperbup/{id}/force-destroy', 'forceDestroy')->name('ranperbup.force-destroy');
         });
 
         Route::resource('/legislation/document', DocumentController::class)->except([
