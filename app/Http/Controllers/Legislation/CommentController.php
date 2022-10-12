@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Legislation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class CommentController extends Controller
 {
@@ -25,6 +26,12 @@ class CommentController extends Controller
         ]);
 
         $legislation = Legislation::find($request->legislation_id);
+
+        if (Gate::allows('isOpd')) {
+            $validated['to_id'] = $legislation->institute->corrector_id;
+        } else {
+            $validated['to_id'] = $legislation->user_id;
+        }
 
         $request->user()->comments()->create($validated);
 

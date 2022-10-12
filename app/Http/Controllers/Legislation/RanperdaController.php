@@ -14,6 +14,7 @@ use App\Http\Requests\RanperdaRequest;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Schema\Builder;
 
 class RanperdaController extends LegislationController
 {
@@ -303,6 +304,17 @@ class RanperdaController extends LegislationController
         $requirements = Requirement::mandatory($this->type->id)->get();
         $documents = Document::requirements($legislation->id)->get();
 
+        // Read the comments
+        $unreadComments = $legislation->comments()
+                                ->where('read', 0)
+                                ->where('to_id', Auth::user()->id)
+                                ->get();
+
+        foreach ($unreadComments as $comment) {
+            $comment->update(['read' => 1]);
+        }                
+
+        // Check if all the requirements are validated
         $validateButton = true;
         foreach ($requirements as $requirement) {
             $requiredDocument = Document::where('legislation_id', $legislation->id)
