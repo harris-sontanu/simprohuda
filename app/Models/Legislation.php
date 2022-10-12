@@ -149,7 +149,7 @@ class Legislation extends Model
         } else if ($this->status() == 'posted') {
             $statusBadge = '<span class="badge badge-pill badge-primary">Aktif</span>';
         } else if ($this->status() == 'revised') {
-            $statusBadge = '<span class="badge badge-pill badge-warning">Revisi</span>';
+            $statusBadge = '<span class="badge badge-pill badge-yellow">Revisi</span>';
         } else if ($this->status() == 'validated') {
             $statusBadge = '<span class="badge badge-pill badge-success">Valid</span>';
         } else if ($this->status() == 'canceled') {

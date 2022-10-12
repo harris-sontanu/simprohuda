@@ -135,7 +135,7 @@
 									<td><abbr data-popup="tooltip" title="{{ $legislation->dateFormatted($legislation->posted_at, true) }}">{{ $legislation->dateFormatted($legislation->posted_at) }}</abbr></td>
 								</tr>
 							@empty
-								
+								<tr class="table-warning"><td colspan="100">Belum ada data</td></tr>
 							@endforelse							
 						</tbody>
 					</table>

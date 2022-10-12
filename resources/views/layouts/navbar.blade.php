@@ -41,7 +41,7 @@
         <li class="nav-item nav-item-dropdown-lg dropdown">
             <a href="#" class="navbar-nav-link navbar-nav-link-toggler" data-toggle="dropdown">
                 <i class="icon-bell2"></i>
-                <span class="badge badge-warning badge-pill ml-auto ml-lg-0">{{ $legislationNotifications->count() }}</span>
+                <span class="badge badge-yellow badge-pill ml-auto ml-lg-0">{{ $legislationNotifications->count() }}</span>
             </a>
 
             @if ( ! empty($legislationNotifications) AND count($legislationNotifications) > 0)                
@@ -85,7 +85,7 @@
         <li class="nav-item nav-item-dropdown-lg dropdown">
             <a href="#" class="navbar-nav-link navbar-nav-link-toggler" data-toggle="dropdown">
                 <i class="icon-bubbles4"></i>
-                <span class="badge badge-warning badge-pill ml-auto ml-lg-0">{{ $commentNotifications->count() }}</span>
+                <span class="badge badge-yellow badge-pill ml-auto ml-lg-0">{{ $commentNotifications->count() }}</span>
             </a>
 
             @if ( ! empty($commentNotifications) AND count($commentNotifications) > 0)                
