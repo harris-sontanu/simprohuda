@@ -32,6 +32,7 @@ class ViewServiceProvider extends ServiceProvider
                                                             ->orWhereNotNull('revised_at');
                                                     })
                                                     ->whereNull('validated_at')
+                                                    ->orderBy('posted_at', 'desc')
                                                     ->get();
             
             return $view->with('legislationNotifications', $legislationNotifications);                                                   

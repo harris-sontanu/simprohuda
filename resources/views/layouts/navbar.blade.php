@@ -38,11 +38,51 @@
     </div>
 
     <ul class="navbar-nav flex-row order-1 order-lg-2 flex-1 flex-lg-0 justify-content-end align-items-center">
-        <li class="nav-item">
-            <a href="#" class="navbar-nav-link navbar-nav-link-toggler">
+        <li class="nav-item nav-item-dropdown-lg dropdown">
+            <a href="#" class="navbar-nav-link navbar-nav-link-toggler" data-toggle="dropdown">
                 <i class="icon-bell2"></i>
                 <span class="badge badge-warning badge-pill ml-auto ml-lg-0">{{ $legislationNotifications->count() }}</span>
             </a>
+
+            @if ( ! empty($legislationNotifications) AND count($legislationNotifications) > 0)                
+                <div class="dropdown-menu dropdown-menu-right dropdown-content wmin-lg-350">
+                    <div class="dropdown-content-header">
+                        <span class="font-weight-semibold">Tinjau Rancangan Produk Hukum</span>
+                        <a href="#" class="text-body"><i class="icon-info22"></i></a>
+                    </div>
+                    
+                    <div class="dropdown-content-body dropdown-scrollable">
+                        <ul class="media-list">
+                            @foreach ($legislationNotifications as $legislation)                                
+                                <li class="media">
+                                    <div class="mr-3 position-relative">
+                                        <img src="{{ $legislation->userPictureUrl($legislation->user->picture, $legislation->user->name) }}" alt="{{ $legislation->user->name }}" width="36" height="36" class="rounded-circle" data-popup="tooltip" title="{{ $legislation->user->name }}">
+                                    </div>
+
+                                    <div class="media-body">
+                                        @cannot('isOpd')                                            
+                                            <div class="media-title">
+                                                <span class="font-weight-semibold">{{ $legislation->institute->name }}</span>
+                                            </div>
+                                        @endcannot
+
+                                        <a href="#" class="text-body">{{ Str::limit($legislation->title, 75); }}</a>
+                                        <ul class="list-inline list-inline-condensed list-inline-dotted mt-1 font-size-sm text-muted">
+                                            <li class="list-inline-item">{{ $legislation->type->name }}</li>
+                                            <li class="list-inline-item">{{ $legislation->timeDifference($legislation->posted_at) }}</li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            @endforeach
+
+                        </ul>
+                    </div>
+
+                    <div class="dropdown-content-footer justify-content-center p-0">
+                        <a href="#" class="btn btn-light btn-block border-0 rounded-top-0" data-popup="tooltip" title="Load more"><i class="icon-menu7"></i></a>
+                    </div>
+                </div>
+            @endif
         </li>
 
         <li class="nav-item">
