@@ -7,6 +7,7 @@ use App\Http\Controllers\InstituteController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Legislation\RanperdaController;
 use App\Http\Controllers\Legislation\RanperbupController;
+use App\Http\Controllers\Legislation\RanskController;
 use App\Http\Controllers\Legislation\DocumentController;
 use App\Http\Controllers\Legislation\CommentController;
 
@@ -79,6 +80,14 @@ Route::middleware('auth')->group(function() {
             Route::put('/legislation/ranperbup/{ranperbup}/approve', 'approve')->name('ranperbup.approve');
             Route::put('/legislation/ranperbup/{id}/restore', 'restore')->name('ranperbup.restore');
             Route::delete('/legislation/ranperbup/{id}/force-destroy', 'forceDestroy')->name('ranperbup.force-destroy');
+        });
+
+        Route::resource('/legislation/ransk', RanskController::class);
+        Route::controller(RanskController::class)->group(function () {
+            Route::post('/legislation/ransk/trigger', 'trigger')->name('ransk.trigger');
+            Route::put('/legislation/ransk/{ransk}/approve', 'approve')->name('ransk.approve');
+            Route::put('/legislation/ransk/{id}/restore', 'restore')->name('ransk.restore');
+            Route::delete('/legislation/ransk/{id}/force-destroy', 'forceDestroy')->name('ransk.force-destroy');
         });
 
         Route::resource('/legislation/document', DocumentController::class)->except([

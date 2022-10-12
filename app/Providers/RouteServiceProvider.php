@@ -47,6 +47,10 @@ class RouteServiceProvider extends ServiceProvider
             return Legislation::withTrashed()->findOrFail($value);
         });
 
+        Route::bind('ransk', function ($value) {
+            return Legislation::withTrashed()->findOrFail($value);
+        });
+
         Route::bind('user', function ($value) {
             return User::withTrashed()->findOrFail($value);
         });

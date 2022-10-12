@@ -19,7 +19,7 @@ class RequirementSeeder extends Seeder
             'type_id'  => 1,
             'category' => 'master',
             'title'    => 'Draf Ranperda',
-            'term'     => 'master',
+            'term'     => 'ranperda',
             'format'   => 'pdf,doc,docx',
             'order'    => 1, 
         ]);
@@ -52,6 +52,91 @@ class RequirementSeeder extends Seeder
             'desc'     => 'Notulensi rapat pembahasan Ranperda yg diadakan oleh Perangkat Daerah.',
             'format'   => 'pdf,doc,docx',
             'order'    => 3, 
+        ]);
+
+        DB::table('requirements')->insert([
+            'type_id'  => 2,
+            'category' => 'master',
+            'title'    => 'Draf Ranperbup',
+            'term'     => 'ranperbup',
+            'format'   => 'pdf,doc,docx',
+            'order'    => 1, 
+        ]);
+
+        DB::table('requirements')->insert([
+            'type_id'  => 2,
+            'category' => 'requirement',
+            'title'    => 'Surat Pengantar',
+            'term'     => 'surat_pengantar',
+            'desc'     => 'Surat Pengantar Kepala Perangkat Daerah pemrakarsa Ranperbup.',
+            'format'   => 'pdf,doc,docx',
+            'order'    => 1, 
+        ]);
+
+        DB::table('requirements')->insert([
+            'type_id'  => 2,
+            'category' => 'requirement',
+            'title'    => 'Kajian Akademik',
+            'term'     => 'kajian_akademik',
+            'desc'     => 'Kajian Akademik Ranperbup.',
+            'format'   => 'pdf,doc,docx',
+            'order'    => 2, 
+        ]);
+
+        DB::table('requirements')->insert([
+            'type_id'  => 2,
+            'category' => 'requirement',
+            'title'    => 'Notulensi Rapat Pembahasan',
+            'term'     => 'notulensi_rapat',
+            'desc'     => 'Notulensi rapat pembahasan usulan Ranperbup yang diadakan oleh Perangkat Daerah.',
+            'format'   => 'pdf,doc,docx',
+            'order'    => 3, 
+        ]);
+
+        DB::table('requirements')->insert([
+            'type_id'  => 3,
+            'category' => 'master',
+            'title'    => 'Draf Rancangan SK',
+            'term'     => 'rancangan_sk',
+            'format'   => 'pdf,doc,docx',
+            'order'    => 1, 
+        ]);
+
+        DB::table('requirements')->insert([
+            'type_id'  => 3,
+            'category' => 'requirement',
+            'title'    => 'Surat Pengantar',
+            'term'     => 'surat_pengantar',
+            'format'   => 'pdf,doc,docx',
+            'order'    => 1, 
+        ]);
+
+        DB::table('requirements')->insert([
+            'type_id'  => 3,
+            'category' => 'requirement',
+            'title'    => 'Resume Keputusan Bupati',
+            'term'     => 'resume',
+            'format'   => 'pdf,doc,docx',
+            'order'    => 2, 
+        ]);
+
+        DB::table('requirements')->insert([
+            'type_id'  => 3,
+            'category' => 'requirement',
+            'title'    => 'DPA/RKA-KL',
+            'term'     => 'dpa_rka_kl',
+            'format'   => 'pdf,doc,docx',
+            'order'    => 3, 
+        ]);
+
+        DB::table('requirements')->insert([
+            'type_id'  => 3,
+            'category' => 'requirement',
+            'title'    => 'Notulensi Rapat Pembahasan',
+            'term'     => 'notulensi_rapat',
+            'desc'     => 'Notulensi rapat pembahasan usulan SK terakhir.',
+            'format'   => 'pdf,doc,docx',
+            'order'    => 4, 
         ]);
     }
 }
