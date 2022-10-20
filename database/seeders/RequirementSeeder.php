@@ -55,6 +55,17 @@ class RequirementSeeder extends Seeder
         ]);
 
         DB::table('requirements')->insert([
+            'type_id'  => 1,
+            'category' => 'requirement',
+            'title'    => 'Peta Keterkaitan',
+            'term'     => 'peta_keterkaitan',
+            'desc'     => 'Peta Keterkaitan Rancangan Produk Hukum Daerah yang diajukan',
+            'format'   => 'pdf,doc,docx',
+            'order'    => 4, 
+            'mandatory'=> 0,
+        ]);
+
+        DB::table('requirements')->insert([
             'type_id'  => 2,
             'category' => 'master',
             'title'    => 'Draf Ranperbup',
@@ -94,6 +105,17 @@ class RequirementSeeder extends Seeder
         ]);
 
         DB::table('requirements')->insert([
+            'type_id'  => 2,
+            'category' => 'requirement',
+            'title'    => 'Peta Keterkaitan',
+            'term'     => 'peta_keterkaitan',
+            'desc'     => 'Peta Keterkaitan Rancangan Produk Hukum Daerah yang diajukan',
+            'format'   => 'pdf,doc,docx',
+            'order'    => 4, 
+            'mandatory'=> 0,
+        ]);
+
+        DB::table('requirements')->insert([
             'type_id'  => 3,
             'category' => 'master',
             'title'    => 'Draf Rancangan SK',
@@ -127,6 +149,7 @@ class RequirementSeeder extends Seeder
             'term'     => 'dpa_rka_kl',
             'format'   => 'pdf,doc,docx',
             'order'    => 3, 
+            'mandatory'=> 0,
         ]);
 
         DB::table('requirements')->insert([
