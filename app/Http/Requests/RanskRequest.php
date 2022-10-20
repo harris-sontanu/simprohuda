@@ -56,7 +56,7 @@ class RanskRequest extends FormRequest
             case 'POST':
                 if ($request->has('post')) {
                     foreach ($requirements as $requirement) {                
-                        $rules[$requirement->term] = 'required|file|mimes:'.$requirement->format.'|max:2048';
+                        $rules[$requirement->term] = ($requirement->mandatory) ? 'required|' : '' . 'file|mimes:'.$requirement->format.'|max:2048';
                     }
                 }
                 break;
@@ -74,7 +74,7 @@ class RanskRequest extends FormRequest
                         $document = Document::where('legislation_id', $this->route('ransk')->id)
                                         ->where('requirement_id', $requirement->id);
                         if ($document->doesntExist()) {
-                            $rules[$requirement->term] = 'required|file|mimes:'.$requirement->format.'|max:2048';
+                            $rules[$requirement->term] = ($requirement->mandatory) ? 'required|' : '' . 'file|mimes:'.$requirement->format.'|max:2048';
                         }
                     }
                 }
