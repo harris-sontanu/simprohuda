@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Legislation;
 
 use App\Http\Controllers\Controller;
 use App\Models\Legislation;
+use App\Models\Scopes\RoleScope;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 
@@ -11,7 +12,8 @@ class LegislationController extends Controller
 {
     protected function nextRegNumber($type_id, $year) 
     {
-        $number = Legislation::where('type_id', $type_id)
+        $number = Legislation::withoutGlobalScope(RoleScope::class)
+                    ->where('type_id', $type_id)
                     ->whereYear('legislations.created_at', $year)->max('reg_number');
 
         return $number + 1;
