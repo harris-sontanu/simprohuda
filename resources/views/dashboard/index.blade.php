@@ -127,7 +127,7 @@
 								<tr>
 									<td>{{ $legislation->reg_number }}</td>
 									<td>{{ $legislation->type->name }}</td>
-									<td><a href="{{ route('legislation.ranperda.edit', $legislation->id) }}" class="font-weight-semibold text-body">{{ $legislation->title }}</a></td>
+									<td><a href="{{ route('legislation.' . $legislation->type->slug . '.edit', $legislation->id) }}" class="font-weight-semibold text-body">{{ $legislation->title }}</a></td>
 									@cannot('isOpd')
 										<td>{{ $legislation->institute->name }}</td>
 									@endcannot

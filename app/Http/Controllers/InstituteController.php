@@ -10,10 +10,10 @@ use App\Http\Requests\InstituteRequest;
 class InstituteController extends Controller
 {
     protected $categories = [
-        'sekretariat daerah' => 'Sekretariat Daerah',
+        'bagian' => 'Bagian',
         'sekretariat dprd' => 'Sekretariat DPRD',
         'dinas' => 'Dinas',
-        'lembaga teknis daerah' => 'Lembaga Teknis Daerah',
+        'badan' => 'Badan',
         'kecamatan' => 'Kecamatan',
         'kelurahan' => 'Kelurahan',
     ];

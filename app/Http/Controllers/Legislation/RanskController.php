@@ -239,7 +239,7 @@ class RanskController extends LegislationController
 
         $new_legislation->logs()->create([
             'user_id'   => $request->user()->id,
-            'message'   => 'membuat ransk ' . $msg_append,
+            'message'   => 'membuat rancangan SK ' . $msg_append,
         ]);
 
         $this->documentUpload($new_legislation, $request);
@@ -264,7 +264,7 @@ class RanskController extends LegislationController
             'Detail' => true
         ];
 
-        $requirements = Requirement::requirements($legislation->type_id)->get();
+        $requirements = Requirement::requirements($legislation->type_id)->where('mandatory', 1)->get();
         $master = Document::requirements($legislation->id)->first();
         $documents = Document::requirements($legislation->id)->get();
 
@@ -347,13 +347,13 @@ class RanskController extends LegislationController
     public function update(RanskRequest $request, Legislation $legislation)
     {
         $validated = $request->validated(); 
-        $log_messsage = 'memperbaiki data ransk';  
+        $log_messsage = 'memperbaiki data rancangan SK';  
         
         if ($request->has('post')) 
         {
             $validated['posted_at'] = now();
             $legislation->documents()->update(['posted_at' => now()]);
-            $log_messsage = 'memperbaiki data ransk dan mengajukan ke Bagian Hukum';
+            $log_messsage = 'memperbaiki data rancangan SK dan mengajukan ke Bagian Hukum';
         } 
         else if ($request->has('revise')) 
         {
@@ -376,7 +376,7 @@ class RanskController extends LegislationController
 
         $legislation->logs()->create([
             'user_id'   => $request->user()->id,
-            'message'   => 'memvalidasi pengajuan ransk',
+            'message'   => 'memvalidasi pengajuan rancangan SK',
         ]);
 
         return redirect('/legislation/ransk/' . $legislation->id . '/edit')->with('message', '<strong>Berhasil!</strong> Data Pengajuan Rancangan SK telah berhasil divalidasi');
@@ -395,7 +395,7 @@ class RanskController extends LegislationController
 
         $legislation->logs()->create([
             'user_id'   => Auth::user()->id,
-            'message'   => 'membatalkan ransk',
+            'message'   => 'membatalkan rancangan SK',
         ]);
 
         return redirect('/legislation/ransk')->with('trash-message', ['<strong>Berhasil!</strong> Data Rancangan SK telah dibatalkan', $action]);
@@ -408,7 +408,7 @@ class RanskController extends LegislationController
 
         $legislation->logs()->create([
             'user_id'   => Auth::user()->id,
-            'message'   => 'mengembalikan ransk',
+            'message'   => 'mengembalikan rancangan SK',
         ]);
 
         return redirect()->back()->with('message', 'Data Rancangan SK telah dikembalikan');
@@ -421,7 +421,7 @@ class RanskController extends LegislationController
 
         $legislation->logs()->create([
             'user_id'   => Auth::user()->id,
-            'message'   => 'menghapus ransk',
+            'message'   => 'menghapus rancangan SK',
         ]);
 
         foreach ($legislation->documents as $document) {
