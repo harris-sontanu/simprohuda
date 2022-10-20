@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->string('abbrev')->unique()->nullable();
-            $table->enum('category', ['sekretariat daerah', 'sekretariat dprd', 'dinas', 'lembaga teknis daerah', 'kecamatan', 'kelurahan'])
-                    ->default('sekretariat daerah');
+            $table->enum('category', ['bagian', 'sekretariat dprd', 'dinas', 'badan', 'kecamatan', 'kelurahan'])
+                    ->default('bagian');
             $table->string('code')->nullable();
             $table->text('desc')->nullable();
             $table->integer('sort')->default(0);

@@ -46,10 +46,10 @@ class Institute extends Model
     protected function category(): Attribute
     {
         $categories = [
-            'sekretariat daerah' => 'Sekretariat Daerah',
+            'bagian' => 'Bagian',
             'sekretariat dprd' => 'Sekretariat DPRD',
             'dinas' => 'Dinas',
-            'lembaga teknis daerah' => 'Lembaga Teknis Daerah',
+            'badan' => 'Badan',
             'kecamatan' => 'Kecamatan',
             'kelurahan' => 'Kelurahan',
         ];
