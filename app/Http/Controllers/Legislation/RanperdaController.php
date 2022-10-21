@@ -35,7 +35,7 @@ class RanperdaController extends LegislationController
         $pageHeader = 'Rancangan Peraturan Daerah';
         $pageTitle = $pageHeader . $this->pageTitle;
         $breadCrumbs = [
-            route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
+            route('dashboard') => '<i class="ph-home me-2"></i>Dasbor',
             '#' => 'Produk Hukum',
             $this->type->name => TRUE
         ];
@@ -61,7 +61,6 @@ class RanperdaController extends LegislationController
         
         $legislations = $legislations->search($request->only(['search']));
         $legislations = $legislations->filter($request);
-        $count = $legislations->count();
         !empty($request->order) ? $legislations->order($request) : $legislations->latest();
         $limit = !empty($request->limit) ? $request->limit : $this->limit;
         $legislations = $legislations->paginate($limit)
@@ -79,12 +78,12 @@ class RanperdaController extends LegislationController
 
         $users = User::orderBy('name')->pluck('name', 'id');
 
-        $plugins = [
-            'assets/js/plugins/notifications/bootbox.min.js',
-            'assets/js/plugins/forms/selects/select2.min.js',
-            'assets/js/plugins/ui/moment/moment.min.js',
-            'assets/js/plugins/pickers/daterangepicker.js',
-            'assets/js/plugins/table/finderSelect/jquery.finderSelect.min.js',
+        $vendors = [
+            'assets/js/vendor/notifications/bootbox.min.js',
+            'assets/js/vendor/forms/selects/select2.min.js',
+            'assets/js/vendor/ui/moment/moment.min.js',
+            'assets/js/vendor/pickers/daterangepicker.js',
+            'assets/js/vendor/tables/finderSelect/jquery.finderSelect.min.js',
         ];
 
         return view('legislation.ranperda.index', compact(
@@ -94,10 +93,9 @@ class RanperdaController extends LegislationController
             'legislations',
             'tabFilters',
             'onlyTrashed',
-            'count',
             'institutes',
             'users',
-            'plugins'
+            'vendors'
         ));
     }
 
@@ -180,7 +178,7 @@ class RanperdaController extends LegislationController
         $pageHeader = 'Pengajuan Rancangan Peraturan Daerah';
         $pageTitle = $pageHeader . $this->pageTitle;
         $breadCrumbs = [
-            route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
+            route('dashboard') => '<i class="ph-home me-2"></i>Dasbor',
             '#' => 'Produk Hukum',
             route('legislation.ranperda.index') => $this->type->name,
             'Pengajuan' => true
@@ -258,7 +256,7 @@ class RanperdaController extends LegislationController
         $pageHeader = 'Detail Rancangan Peraturan Daerah';
         $pageTitle = $pageHeader . $this->pageTitle;
         $breadCrumbs = [
-            route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
+            route('dashboard') => '<i class="ph-home me-2"></i>Dasbor',
             '#' => 'Produk Hukum',
             route('legislation.ranperda.index') => $legislation->type->name,
             'Detail' => true
@@ -294,7 +292,7 @@ class RanperdaController extends LegislationController
         $pageHeader = 'Perbaikan Rancangan Peraturan Daerah';
         $pageTitle = $pageHeader . $this->pageTitle;
         $breadCrumbs = [
-            route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
+            route('dashboard') => '<i class="ph-home me-2"></i>Dasbor',
             '#' => 'Produk Hukum',
             route('legislation.ranperda.index') => $this->type->name,
             'Perbaikan' => true
