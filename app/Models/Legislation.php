@@ -145,15 +145,15 @@ class Legislation extends Model
     public function statusBadge(): Attribute
     {
         if ($this->status() == 'draft') {
-            $statusBadge = '<span class="badge badge-pill badge-light">Draf</span>';
+            $statusBadge = '<span class="badge bg-pink bg-opacity-20 text-pink">Draf</span>';
         } else if ($this->status() == 'posted') {
-            $statusBadge = '<span class="badge badge-pill badge-primary">Aktif</span>';
+            $statusBadge = '<span class="badge bg-primary bg-opacity-20 text-primary">Aktif</span>';
         } else if ($this->status() == 'revised') {
-            $statusBadge = '<span class="badge badge-pill badge-yellow">Revisi</span>';
+            $statusBadge = '<span class="badge bg-warning bg-opacity-20 text-warning">Revisi</span>';
         } else if ($this->status() == 'validated') {
-            $statusBadge = '<span class="badge badge-pill badge-success">Valid</span>';
+            $statusBadge = '<span class="badge bg-success bg-opacity-20 text-success">Valid</span>';
         } else if ($this->status() == 'canceled') {
-            $statusBadge = '<span class="badge badge-pill badge-dark">Batal</span>';
+            $statusBadge = '<span class="badge bg-danger bg-opacity-20 text-danger">Batal</span>';
         }
 
         return Attribute::make(
