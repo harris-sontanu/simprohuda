@@ -77,8 +77,8 @@
                                         <div class="mb-3 row">
                                             <label class="col-lg-3 col-form-label" for="background">{{ $master->title }}:</label>
                                             <div class="col-lg-9">
-                                                <input type="file" class="form-control @error('master') is-invalid @enderror" name="{{ $master->term }}">                                                
-                                                @error('master')
+                                                <input type="file" class="form-control @error($master->term) is-invalid @enderror" name="{{ $master->term }}">                                                
+                                                @error($master->term)
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @endif
                                             </div>
@@ -123,40 +123,40 @@
                                 <h5 class="mb-0"><i class="ph-globe-hemisphere-east me-2"></i>Publikasi</h5>
                             </div>
 
-                            <table class="table table-borderless border-0 table-xs">
+                            <table class="table table-borderless my-2 table-xs">
                                 <tbody>
                                     <tr>
-                                        <td class="font-weight-semibold text-nowrap"><i class="icon-pen mr-2"></i>Status:</td>
-                                        <td class="text-right"><span class="badge badge-pill badge-light">Draf</span></td>
+                                        <td class="fw-semibold text-nowrap"><i class="ph-pen me-2"></i>Status:</td>
+                                        <td class="text-end"><span class="badge bg-pink bg-opacity-20 text-pink">Draf</span></td>
                                     </tr>
                                     <tr>
-                                        <td class="font-weight-semibold text-nowrap"><i class="icon-user mr-2"></i>Operator:</td>
-                                        <td class="text-right">{{ Auth::user()->name }}</td>
+                                        <td class="fw-semibold text-nowrap"><i class="ph-user me-2"></i>Operator:</td>
+                                        <td class="text-end">{{ Auth::user()->name }}</td>
                                     </tr>
                                     @can('isOpd')                                       
                                         <input name="institute_id" type="hidden" value="{{ Auth::user()->institutes->first()->id }}" />                                    
                                         <tr>
-                                            <td class="font-weight-semibold text-nowrap"><i class="icon-office mr-2"></i>Perangkat Daerah:</td>
-                                            <td class="text-right">{{ Auth::user()->institutes->first()->name }}</td>
+                                            <td class="fw-semibold text-nowrap"><i class="ph-buildings me-2"></i>Perangkat Daerah:</td>
+                                            <td class="text-end">{{ Auth::user()->institutes->first()->name }}</td>
                                         </tr>                         
                                         <tr>
-                                            <td class="font-weight-semibold text-nowrap"><i class="icon-user-tie mr-2"></i>Pemeriksa:</td>
-                                            <td class="text-right">{{ Auth::user()->institutes->first()->corrector->name }}</td>
+                                            <td class="fw-semibold text-nowrap"><i class="ph-user me-2"></i>Pemeriksa:</td>
+                                            <td class="text-end">{{ Auth::user()->institutes->first()->corrector->name }}</td>
                                         </tr>
                                     @endcan
                                     <tr>
-                                        <td class="font-weight-semibold text-nowrap"><i class="icon-embed2 mr-2"></i>Nomor Registrasi:</td>
-                                        <td class="text-right">{{ $nextRegNumber }}</td>
+                                        <td class="fw-semibold text-nowrap"><i class="ph-calculator me-2"></i>No. Registrasi:</td>
+                                        <td class="text-end">{{ $nextRegNumber }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="font-weight-semibold text-nowrap"><i class="icon-calendar22 mr-2"></i>Tgl. Dibuat:</td>
-                                        <td class="text-right">{{ now()->translatedFormat('j F Y') }}</td>
+                                        <td class="fw-semibold text-nowrap"><i class="ph-calendar-blank me-2"></i>Tgl. Dibuat:</td>
+                                        <td class="text-end">{{ now()->translatedFormat('j F Y') }}</td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <div class="card-footer bg-white border-0 d-flex justify-content-between align-items-center">
+                            <div class="card-footer d-flex justify-content-between">
                                 <button type="submit" name="draft" class="btn btn-link px-0">Simpan ke Draf</button>
-                                <button type="submit" name="post" class="btn btn-secondary">Simpan & Ajukan</button>
+                                <button type="submit" name="post" class="btn btn-indigo">Simpan & Ajukan</button>
                             </div>
                         </div>
 
