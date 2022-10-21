@@ -36,7 +36,7 @@
             <ul class="nav nav-sidebar" data-nav-type="accordion">
 
                 <li class="nav-item">
-                    <a href="dashboard" class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
+                    <a href="/dashboard" class="nav-link {{ request()->is('dashboard') ? 'active' : '' }}">
                         <i class="ph-house"></i>
                         <span>
                             Dasbor
