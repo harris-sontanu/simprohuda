@@ -197,8 +197,8 @@ class RanperdaController extends LegislationController
             $institutes = null;
         }
 
-        $plugins = [
-            'assets/js/plugins/forms/selects/select2.min.js',
+        $vendors = [
+            'assets/js/vendor/forms/selects/select2.min.js',
         ];
 
         return view('legislation.ranperda.create', compact(
@@ -209,7 +209,7 @@ class RanperdaController extends LegislationController
             'institutes',
             'master',
             'requirements',
-            'plugins'
+            'vendors'
         ));
     }
 

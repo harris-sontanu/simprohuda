@@ -3,10 +3,8 @@
 @section('title', $pageTitle)
 @section('content')
 
-    @include('layouts.breadcrumb')
-
     <!-- Content area -->
-    <div class="content">
+    <div class="content pt-0">
 
         @include('layouts.message')
 
@@ -14,9 +12,11 @@
         <form method="POST" action="{{ route('legislation.ranperda.store') }}" novalidate enctype="multipart/form-data">
             @csrf
 
-            <div class="d-lg-flex align-items-lg-start">            
+            <!-- Inner container -->
+            <div class="d-flex align-items-stretch align-items-lg-start flex-column flex-lg-row">
 
-                <div class="flex-1">
+                <!-- Left content -->
+                <div class="flex-1 order-2 order-lg-1">
 
                     <div class="card">
                         <div class="card-body">
@@ -24,11 +24,11 @@
                                 <div class="col-lg-8 offset-lg-2">
 
                                     <fieldset>
-                                        <legend class="font-weight-bold"><i class="icon-reading mr-2"></i> Formulir Pengajuan Ranperda</legend>
+                                        <legend class="fw-bold fs-base border-bottom pb-2 mb-3"><i class="ph-note me-2"></i>Formulir Pengajuan Ranperda</legend>
                                         
                                         @cannot('isOpd')                                            
-                                            <div class="form-group row">
-                                                <label class="col-lg-3 col-form-label" for="phone">Perangkat Daerah:</label>
+                                            <div class="mb-3 row">
+                                                <label class="col-lg-3 col-form-label">Perangkat Daerah:</label>
                                                 <div class="col-lg-9">
                                                     <select name="institute_id" id="institute_id" class="select @error('institute_id') is-invalid @enderror" autofocus>
                                                         <option value="">Pilih Perangkat Daerah</option>
@@ -43,7 +43,7 @@
                                             </div>
                                         @endcannot
 
-                                        <div class="form-group row">
+                                        <div class="mb-3 row">
                                             <label class="col-lg-3 col-form-label" for="title">Judul:</label>
                                             <div class="col-lg-9">
                                                 <textarea class="form-control 
@@ -59,7 +59,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group row">
+                                        <div class="mb-3 row">
                                             <label class="col-lg-3 col-form-label" for="background">Alasan Pengajuan:</label>
                                             <div class="col-lg-9">
                                                 <textarea class="form-control @error('background') is-invalid @enderror" name="background" id="background" spellcheck="false" cols="30" rows="4" >{{ old('background') }}</textarea>
@@ -72,39 +72,33 @@
                                     </fieldset>
 
                                     <fieldset>
-                                        <legend class="font-weight-bold"><i class="icon-file-text2 mr-2"></i>Dokumen Rancangan</legend>
+                                        <legend class="fw-bold fs-base border-bottom pb-2 mb-3"><i class="ph-file-arrow-up me-2"></i>Dokumen Rancangan</legend>
 
-                                        <div class="form-group row">
+                                        <div class="mb-3 row">
                                             <label class="col-lg-3 col-form-label" for="background">{{ $master->title }}:</label>
                                             <div class="col-lg-9">
-                                                <div class="custom-file">
-                                                    <input id="customFile" type="file" class="custom-file-input @error('master') is-invalid @enderror" name="{{ $master->term }}">
-                                                    <label class="custom-file-label" for="customFile">Choose file</label>
-                                                    @error('master')
-                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                    @endif
-                                                </div>
+                                                <input type="file" class="form-control @error('master') is-invalid @enderror" name="{{ $master->term }}">                                                
+                                                @error('master')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @endif
                                             </div>
                                         </div>
 
                                     </fieldset>
 
                                     <fieldset>
-                                        <legend class="font-weight-bold"><i class="icon-stack mr-2"></i>Dokumen Persyaratan</legend>
+                                        <legend class="fw-bold fs-base border-bottom pb-2 mb-3"><i class="ph-stack me-2"></i>Dokumen Persyaratan</legend>
                                         
                                         @foreach ($requirements as $requirement)                                   
-                                            <div class="form-group row">
+                                            <div class="mb-3 row">
                                                 <label class="col-lg-3 col-form-label" for="background">{{ $requirement->title }}:</label>
-                                                <div class="col-lg-9">
-                                                    <div class="custom-file">
-                                                        <input id="customFile" type="file" class="custom-file-input @error($requirement->term) is-invalid @enderror" name="{{ $requirement->term }}">
-                                                        <label class="custom-file-label" for="customFile">Choose file</label>
-                                                        @error($requirement->term)
-                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                        @endif
-                                                    </div>
+                                                <div class="col-lg-9">                                                    
+                                                    <input type="file" class="form-control @error($requirement->term) is-invalid @enderror" name="{{ $requirement->term }}">
+                                                    @error($requirement->term)
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @endif
                                                     @if (!empty($requirement->desc))
-                                                        <span class="form-text text-muted font-size-sm">{{ $requirement->desc }}</span>
+                                                        <span class="form-text text-muted fs-sm">{{ $requirement->desc }}</span>
                                                     @endif
                                                 </div>
                                             </div>
@@ -118,14 +112,15 @@
                         </div>
                     </div>
                 </div>
-            
-                <div class="sidebar sidebar-light bg-transparent sidebar-component sidebar-component-right wmin-lg-350 border-0 shadow-none order-1 order-lg-2 sidebar-expand-lg">
-
+                <!-- /left content -->
+    
+                <div class="sidebar sidebar-component sidebar-expand-lg bg-transparent shadow-none order-1 order-lg-2 ms-lg-3 mb-3">
+    
                     <div class="sidebar-content">
                         
                         <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title font-weight-bold"><i class="icon-earth mr-2"></i>Publikasi</h5>
+                            <div class="sidebar-section-header border-bottom">
+                                <h5 class="mb-0"><i class="ph-globe-hemisphere-east me-2"></i>Publikasi</h5>
                             </div>
 
                             <table class="table table-borderless border-0 table-xs">
