@@ -264,7 +264,6 @@ class RanskController extends LegislationController
             'Detail' => true
         ];
 
-        $requirements = Requirement::requirements($legislation->type_id)->where('mandatory', true)->get();
         $master = Document::requirements($legislation->id)->first();
         $documents = Document::requirements($legislation->id)->get();
 
@@ -273,7 +272,6 @@ class RanskController extends LegislationController
             'pageHeader',
             'breadCrumbs',
             'legislation',
-            'requirements',
             'master',
             'documents',
         ));
