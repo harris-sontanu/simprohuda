@@ -145,7 +145,7 @@ class Legislation extends Model
     public function statusBadge(): Attribute
     {
         if ($this->status() == 'draft') {
-            $statusBadge = '<span class="badge bg-pink bg-opacity-20 text-pink">Draf</span>';
+            $statusBadge = '<span class="badge bg-info bg-opacity-20 text-info">Draf</span>';
         } else if ($this->status() == 'posted') {
             $statusBadge = '<span class="badge bg-primary bg-opacity-20 text-primary">Aktif</span>';
         } else if ($this->status() == 'revised') {

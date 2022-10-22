@@ -114,7 +114,7 @@
                 </div>
                 <!-- /left content -->
     
-                <div class="sidebar sidebar-component sidebar-expand-lg bg-transparent shadow-none order-1 order-lg-2 ms-lg-3 mb-3">
+                <div class="sidebar sidebar-component sidebar-expand-lg bg-transparent wmin-lg-350 shadow-none order-1 order-lg-2 ms-lg-3 mb-3">
     
                     <div class="sidebar-content">
                         

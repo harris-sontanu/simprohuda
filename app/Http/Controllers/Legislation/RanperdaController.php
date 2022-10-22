@@ -262,7 +262,7 @@ class RanperdaController extends LegislationController
             'Detail' => true
         ];
 
-        $requirements = Requirement::requirements($legislation->type_id)->get();
+        $requirements = Requirement::requirements($legislation->type_id)->where('mandatory', true)->get();
         $master = Document::requirements($legislation->id)->first();
         $documents = Document::requirements($legislation->id)->get();
 
@@ -308,19 +308,27 @@ class RanperdaController extends LegislationController
 
         // Check if all the requirements are validated
         $validateButton = true;
-        foreach ($requirements as $requirement) {
-            $requiredDocument = Document::where('legislation_id', $legislation->id)
-                                    ->where('requirement_id', $requirement->id)
-                                    ->first();
+        foreach ($requirements as $requirement) 
+        {
+            if ($requirement->mandatory === 1)
+            {
+                $requiredDocument = Document::where('legislation_id', $legislation->id)
+                                        ->where('requirement_id', $requirement->id)
+                                        ->first();
 
-            if (empty($requiredDocument) OR empty($requiredDocument->validated_at)) {
-                $validateButton = false;
-            } 
+                if (empty($requiredDocument) OR empty($requiredDocument->validated_at)) {
+                    $validateButton = false;
+                } 
+            }
         }
 
-        $plugins = [
-            'assets/js/plugins/notifications/bootbox.min.js',
-            'assets/js/plugins/forms/selects/select2.min.js',
+        $styles = [
+            'assets/icons/icomoon/styles.min.css',
+        ];
+
+        $vendors = [
+            'assets/js/vendor/notifications/bootbox.min.js',
+            'assets/js/vendor/forms/selects/select2.min.js',
         ];
 
         return view('legislation.ranperda.edit', compact(
@@ -331,7 +339,8 @@ class RanperdaController extends LegislationController
             'documents',
             'legislation',
             'validateButton',
-            'plugins',
+            'styles',
+            'vendors',
         ));
     }
 
@@ -377,7 +386,7 @@ class RanperdaController extends LegislationController
             'message'   => 'memvalidasi pengajuan ranperda',
         ]);
 
-        return redirect('/legislation/ranperda/' . $legislation->id . '/edit')->with('message', '<strong>Berhasil!</strong> Data Pengajuan Rancangan Peraturan Daerah telah berhasil divalidasi');
+        return redirect('/legislation/ranperda/' . $legislation->id)->with('message', '<strong>Berhasil!</strong> Data Pengajuan Rancangan Peraturan Daerah telah berhasil divalidasi');
     }
 
     /**

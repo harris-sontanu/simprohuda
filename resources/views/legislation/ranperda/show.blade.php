@@ -23,7 +23,7 @@
                                 @if ($master)     
                                     @if ($master->ext === 'pdf')
                                         <iframe
-                                            src="{{ asset('assets/js/plugins/pdfjs/web/viewer.html') }}?file={{ $master->source }}" 
+                                            src="{{ asset('assets/js/vendor/pdfjs/web/viewer.html') }}?file={{ $master->source }}" 
                                             width="100%"
                                             height="600px"
                                         ></iframe>
@@ -113,16 +113,15 @@
                                             <tr>
                                                 <td>{{ $document->title }}</td>
                                                 <td>
-                                                    <div class="media">
-                                                        <div class="me-3">
-                                                            <i class="{{ $document->extClass; }} icon-2x top-0 mt-1"></i>
+                                                    <div class="d-flex align-items-start">
+                                                        <div class="me-2">
+                                                            <i class="{{ $document->extClass; }} ph-2x"></i>
                                                         </div>
                 
-                                                        <div class="media-body">
-                                                            <a href="{{ $document->source }}" class="media-title d-block fw-semibold text-body m-0" title="{{ $document->name }}" target="_blank" download>{{ $document->name; }}</a>
-                
-                                                            <ul class="list-inline list-inline-condensed list-inline-dotted font-size-sm text-muted mb-0">
-                                                                <li class="list-inline-item">{{ $document->size(); }}</li>
+                                                        <div class="flex-fill overflow-hidden">
+                                                            <a href="{{ $document->source }}" class="fw-semibold text-body text-truncate" target="_blank" download>{{ $document->name; }}</a>
+                                                            <ul class="list-inline list-inline-bullet fs-sm text-muted mb-0">
+                                                                <li class="list-inline-item me-1">{{ $document->size() }}</li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -197,7 +196,7 @@
             </div>
             
             <!-- Sidebar -->
-            <div class="sidebar sidebar-component sidebar-expand-lg bg-transparent shadow-none order-1 order-lg-2 ms-lg-3 mb-3">
+            <div class="sidebar sidebar-component sidebar-expand-lg bg-transparent wmin-lg-350 shadow-none order-1 order-lg-2 ms-lg-3 mb-3">
     
                 <div class="sidebar-content">
 

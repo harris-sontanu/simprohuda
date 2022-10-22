@@ -143,6 +143,8 @@
             let button = $(event.relatedTarget), // Button that triggered the modal
                 action = button.data('action');
 
+            console.log(action);
+
             if (action == 'create') 
             {
                 var requirement = button.data('requirement'),

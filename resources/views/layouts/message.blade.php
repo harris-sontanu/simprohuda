@@ -18,7 +18,7 @@
         <form action="{{ $action }}" method="post" class="d-inline-block">
             @method('PUT')
             @csrf
-            <button type="submit" class="btn btn-info btn-sm"><i class="icon-undo mr-2"></i>Batal</button>
+            <button type="submit" class="btn btn-info btn-sm"><i class="ph-arrow-arc-left me-2"></i>Batal</button>
         </form>
     </div>
 @endif

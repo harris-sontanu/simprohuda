@@ -59,19 +59,19 @@ class Document extends Model
         $ext = $file[1];
 
         if ($ext === 'pdf') {
-            $class = 'icon-file-pdf text-danger';
+            $class = 'ph-file-pdf text-danger';
         } else if ($ext === 'doc' OR $ext === 'docx') {
-            $class = 'icon-file-word text-primary';
+            $class = 'ph-file-doc text-primary';
         } else if ($ext === 'xls' OR $ext === 'xlsx') {
-            $class = 'icon-file-excel text-success';
+            $class = 'ph-file-xls text-success';
         } else if ($ext === 'ppt' OR $ext === 'pptx') {
-            $class = 'icon-file-presentation text-warning';
+            $class = 'ph-file-ppt text-warning';
         } else if ($ext === 'zip' OR $ext === 'rar') {
-            $class = 'icon-file-zip text-teal';
+            $class = 'ph-file-zip text-teal';
         } else if ($ext === 'txt' OR $ext === 'rtf') {
-            $class = 'icon-file-text2 text-pink';
+            $class = 'ph-file-text text-pink';
         } else {
-            $class = 'icon-file-empty text-secondary';
+            $class = 'ph-file text-secondary';
         }
 
         return Attribute::make(
@@ -151,13 +151,13 @@ class Document extends Model
     public function statusBadge(): Attribute
     {
         if ($this->status() == 'draft') {
-            $statusBadge = '<span class="badge badge-pill badge-light">Draf</span>';
+            $statusBadge = '<span class="badge bg-info bg-opacity-20 text-info">Draf</span>';
         } else if ($this->status() == 'posted') {
-            $statusBadge = '<span class="badge badge-pill badge-primary">Aktif</span>';
+            $statusBadge = '<span class="badge bg-primary bg-opacity-20 text-primary">Aktif</span>';
         } else if ($this->status() == 'revised') {
-            $statusBadge = '<span class="badge badge-pill badge-warning">Revisi</span>';
+            $statusBadge = '<span class="badge bg-warning bg-opacity-20 text-warning">Revisi</span>';
         } else if ($this->status() == 'validated') {
-            $statusBadge = '<span class="badge badge-pill badge-success">Valid</span>';
+            $statusBadge = '<span class="badge bg-success bg-opacity-20 text-success">Valid</span>';
         }
 
         return Attribute::make(
