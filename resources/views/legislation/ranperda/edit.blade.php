@@ -266,7 +266,7 @@
                             <form action="{{ route('legislation.comment.store') }}" method="post" novalidate>
                                 @csrf
                                 <input type="hidden" name="legislation_id" value="{{ $legislation->id }}">
-                                <textarea name="comment" class="form-control @error('comment') is-invalid @enderror" rows="3" cols="1" placeholder="Ketik pesan Anda..."></textarea>
+                                <textarea name="comment" class="form-control @error('comment') is-invalid @enderror" rows="3" cols="1" spellcheck="false" placeholder="Ketik pesan Anda..."></textarea>
                                 @error('comment')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
