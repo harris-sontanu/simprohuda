@@ -9,15 +9,15 @@
     <title>{{ config('app.name') }}</title>
 
     <!-- Global stylesheets -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
-    <link rel="stylesheet" href="{{ asset('assets/css/icons/icomoon/styles.min.css') }}" type="text/css">
-    <link href="{{ asset('assets/css/all.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('assets/fonts/inter/inter.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ asset('assets/icons/phosphor/styles.min.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ asset('assets/css/all.min.css') }}" rel="stylesheet" type="text/css">
+	<link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" type="text/css">
     <!-- /global stylesheets -->
 
     <!-- Core JS files -->
-    <script src="{{ asset('assets/js/main/jquery.min.js') }}"></script>
-    <script src="{{ asset('assets/js/main/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/demo/demo_configurator.js') }}"></script>
+	<script src="{{ asset('assets/js/bootstrap/bootstrap.bundle.min.js') }}"></script>
     <!-- /core JS files -->
 
     <!-- Theme JS files -->
@@ -26,7 +26,7 @@
 
 </head>
 
-<body class="bg-dark">
+<body>
 
     @yield('content')
 

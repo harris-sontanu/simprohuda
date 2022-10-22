@@ -33,7 +33,7 @@ class InstituteController extends Controller
         $pageHeader = 'Perangkat Daerah';
         $pageTitle = $pageHeader . $this->pageTitle;
         $breadCrumbs = [
-            route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
+            route('dashboard') => '<i class="ph-house me-2"></i>Dasbor',
             route('institute.index') => 'Perangkat Daerah',
             'Daftar' => TRUE
         ];
@@ -46,9 +46,9 @@ class InstituteController extends Controller
         $institutes = $institutes->paginate($limit)
                     ->withQueryString();
 
-        $plugins = [
-            'assets/js/plugins/notifications/bootbox.min.js',
-            'assets/js/plugins/forms/selects/select2.min.js',
+        $vendors = [
+            'assets/js/vendor/notifications/bootbox.min.js',
+            'assets/js/vendor/forms/selects/select2.min.js',
         ];
 
         return view('institute.index', compact(
@@ -57,7 +57,7 @@ class InstituteController extends Controller
             'breadCrumbs',
             'institutes',
             'count',
-            'plugins'
+            'vendors'
         ));
     }
 
@@ -71,7 +71,7 @@ class InstituteController extends Controller
         $pageHeader = 'Tambah Perangkat Daerah';
         $pageTitle = $pageHeader . $this->pageTitle;
         $breadCrumbs = [
-            route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
+            route('dashboard') => '<i class="ph-house me-2"></i>Dasbor',
             route('institute.index') => 'Perangkat Daerah',
             'Tambah' => TRUE
         ];
@@ -81,8 +81,8 @@ class InstituteController extends Controller
         $operators = User::opd()->sorted()->pluck('name', 'id');
         $users = User::opd()->sorted()->pluck('name', 'id');
 
-        $plugins = [
-            'assets/js/plugins/forms/selects/select2.min.js',
+        $vendors = [
+            'assets/js/vendor/forms/selects/select2.min.js',
         ];
 
         return view('institute.create', compact(
@@ -93,7 +93,7 @@ class InstituteController extends Controller
             'categories',
             'users',
             'operators',
-            'plugins'
+            'vendors'
         ));
     }
 
@@ -135,7 +135,7 @@ class InstituteController extends Controller
         $pageHeader = 'Ubah Perangkat Daerah';
         $pageTitle = $pageHeader . $this->pageTitle;
         $breadCrumbs = [
-            route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
+            route('dashboard') => '<i class="ph-house me-2"></i>Dasbor',
             route('institute.index') => 'Perangkat Daerah',
             'Ubah' => TRUE
         ];
@@ -144,8 +144,8 @@ class InstituteController extends Controller
         $correctors = User::bagianHukum()->sorted()->pluck('name', 'id');
         $users = User::opd()->sorted()->pluck('name', 'id');
 
-        $plugins = [
-            'assets/js/plugins/forms/selects/select2.min.js',
+        $vendors = [
+            'assets/js/vendor/forms/selects/select2.min.js',
         ];
 
         return view('institute.edit', compact(
@@ -156,7 +156,7 @@ class InstituteController extends Controller
             'categories',
             'users',
             'correctors',
-            'plugins'
+            'vendors'
         ));
     }
 

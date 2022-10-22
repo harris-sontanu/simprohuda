@@ -35,7 +35,7 @@ class RanperdaController extends LegislationController
         $pageHeader = 'Rancangan Peraturan Daerah';
         $pageTitle = $pageHeader . $this->pageTitle;
         $breadCrumbs = [
-            route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
+            route('dashboard') => '<i class="ph-house me-2"></i>Dasbor',
             '#' => 'Produk Hukum',
             $this->type->name => TRUE
         ];
@@ -61,7 +61,6 @@ class RanperdaController extends LegislationController
         
         $legislations = $legislations->search($request->only(['search']));
         $legislations = $legislations->filter($request);
-        $count = $legislations->count();
         !empty($request->order) ? $legislations->order($request) : $legislations->latest();
         $limit = !empty($request->limit) ? $request->limit : $this->limit;
         $legislations = $legislations->paginate($limit)
@@ -79,12 +78,12 @@ class RanperdaController extends LegislationController
 
         $users = User::orderBy('name')->pluck('name', 'id');
 
-        $plugins = [
-            'assets/js/plugins/notifications/bootbox.min.js',
-            'assets/js/plugins/forms/selects/select2.min.js',
-            'assets/js/plugins/ui/moment/moment.min.js',
-            'assets/js/plugins/pickers/daterangepicker.js',
-            'assets/js/plugins/table/finderSelect/jquery.finderSelect.min.js',
+        $vendors = [
+            'assets/js/vendor/notifications/bootbox.min.js',
+            'assets/js/vendor/forms/selects/select2.min.js',
+            'assets/js/vendor/ui/moment/moment.min.js',
+            'assets/js/vendor/pickers/daterangepicker.js',
+            'assets/js/vendor/tables/finderSelect/jquery.finderSelect.min.js',
         ];
 
         return view('legislation.ranperda.index', compact(
@@ -94,10 +93,9 @@ class RanperdaController extends LegislationController
             'legislations',
             'tabFilters',
             'onlyTrashed',
-            'count',
             'institutes',
             'users',
-            'plugins'
+            'vendors'
         ));
     }
 
@@ -180,7 +178,7 @@ class RanperdaController extends LegislationController
         $pageHeader = 'Pengajuan Rancangan Peraturan Daerah';
         $pageTitle = $pageHeader . $this->pageTitle;
         $breadCrumbs = [
-            route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
+            route('dashboard') => '<i class="ph-house me-2"></i>Dasbor',
             '#' => 'Produk Hukum',
             route('legislation.ranperda.index') => $this->type->name,
             'Pengajuan' => true
@@ -199,8 +197,8 @@ class RanperdaController extends LegislationController
             $institutes = null;
         }
 
-        $plugins = [
-            'assets/js/plugins/forms/selects/select2.min.js',
+        $vendors = [
+            'assets/js/vendor/forms/selects/select2.min.js',
         ];
 
         return view('legislation.ranperda.create', compact(
@@ -211,7 +209,7 @@ class RanperdaController extends LegislationController
             'institutes',
             'master',
             'requirements',
-            'plugins'
+            'vendors'
         ));
     }
 
@@ -258,13 +256,13 @@ class RanperdaController extends LegislationController
         $pageHeader = 'Detail Rancangan Peraturan Daerah';
         $pageTitle = $pageHeader . $this->pageTitle;
         $breadCrumbs = [
-            route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
+            route('dashboard') => '<i class="ph-house me-2"></i>Dasbor',
             '#' => 'Produk Hukum',
             route('legislation.ranperda.index') => $legislation->type->name,
             'Detail' => true
         ];
 
-        $requirements = Requirement::requirements($legislation->type_id)->get();
+        $requirements = Requirement::requirements($legislation->type_id)->where('mandatory', true)->get();
         $master = Document::requirements($legislation->id)->first();
         $documents = Document::requirements($legislation->id)->get();
 
@@ -294,7 +292,7 @@ class RanperdaController extends LegislationController
         $pageHeader = 'Perbaikan Rancangan Peraturan Daerah';
         $pageTitle = $pageHeader . $this->pageTitle;
         $breadCrumbs = [
-            route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
+            route('dashboard') => '<i class="ph-house me-2"></i>Dasbor',
             '#' => 'Produk Hukum',
             route('legislation.ranperda.index') => $this->type->name,
             'Perbaikan' => true
@@ -310,19 +308,27 @@ class RanperdaController extends LegislationController
 
         // Check if all the requirements are validated
         $validateButton = true;
-        foreach ($requirements as $requirement) {
-            $requiredDocument = Document::where('legislation_id', $legislation->id)
-                                    ->where('requirement_id', $requirement->id)
-                                    ->first();
+        foreach ($requirements as $requirement) 
+        {
+            if ($requirement->mandatory === 1)
+            {
+                $requiredDocument = Document::where('legislation_id', $legislation->id)
+                                        ->where('requirement_id', $requirement->id)
+                                        ->first();
 
-            if (empty($requiredDocument) OR empty($requiredDocument->validated_at)) {
-                $validateButton = false;
-            } 
+                if (empty($requiredDocument) OR empty($requiredDocument->validated_at)) {
+                    $validateButton = false;
+                } 
+            }
         }
 
-        $plugins = [
-            'assets/js/plugins/notifications/bootbox.min.js',
-            'assets/js/plugins/forms/selects/select2.min.js',
+        $styles = [
+            'assets/icons/icomoon/styles.min.css',
+        ];
+
+        $vendors = [
+            'assets/js/vendor/notifications/bootbox.min.js',
+            'assets/js/vendor/forms/selects/select2.min.js',
         ];
 
         return view('legislation.ranperda.edit', compact(
@@ -333,7 +339,8 @@ class RanperdaController extends LegislationController
             'documents',
             'legislation',
             'validateButton',
-            'plugins',
+            'styles',
+            'vendors',
         ));
     }
 
@@ -379,7 +386,7 @@ class RanperdaController extends LegislationController
             'message'   => 'memvalidasi pengajuan ranperda',
         ]);
 
-        return redirect('/legislation/ranperda/' . $legislation->id . '/edit')->with('message', '<strong>Berhasil!</strong> Data Pengajuan Rancangan Peraturan Daerah telah berhasil divalidasi');
+        return redirect('/legislation/ranperda/' . $legislation->id)->with('message', '<strong>Berhasil!</strong> Data Pengajuan Rancangan Peraturan Daerah telah berhasil divalidasi');
     }
 
     /**

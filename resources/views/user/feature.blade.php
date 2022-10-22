@@ -1,18 +1,18 @@
-<div class="header-elements">
+<div class="ms-sm-auto my-sm-auto">
     <div class="d-flex justify-content-center">
-        <button type="button" id="filter" class="btn btn-light btn-sm mr-2"><i class="icon-equalizer mr-2"></i>Filter</button>
-        <div id="bulk-actions" class="btn-group mr-2" style="display: none">
-            <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown"><span id="count-selected" class="badge badge-pill badge-pink mr-2">0</span>Aksi</button>
-            <div class="dropdown-menu dropdown-menu-right">
+        <button type="button" id="filter" class="btn btn-light me-2"><i class="ph-faders-horizontal me-2"></i>Filter</button>
+        <div id="bulk-actions" class="btn-group me-2" style="display: none">
+            <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown"><span id="count-selected" class="badge bg-yellow rounded-pill me-2 text-black">0</span>Aksi</button>
+            <div class="dropdown-menu dropdown-menu-end">
                 @if (Request::get('tab') != 'trash')
-                    <div class="dropdown-submenu dropdown-submenu-left">
+                    <div class="dropdown-submenu dropdown-submenu-start">
                         <a href="#" class="dropdown-item">Status</a>
                         <div class="dropdown-menu">
                             <a href="#" class="dropdown-item trigger" data-action="status" data-val="active">Aktif</a>
                             <a href="#" class="dropdown-item trigger" data-action="status" data-val="pending">Tinjau</a>
                         </div>
                     </div>
-                    <div class="dropdown-submenu dropdown-submenu-left">
+                    <div class="dropdown-submenu dropdown-submenu-start">
                         <a href="#" class="dropdown-item">Level</a>
                         <div class="dropdown-menu">
                             <a href="#" class="dropdown-item trigger" data-action="role" data-val="opd">Perangkat Daerah</a>
@@ -30,7 +30,7 @@
             </div>
         </div>
         @can('isAdmin')
-            <a href="{{ route('user.create') }}" class="btn btn-secondary btn-sm"><i class="icon-user-plus mr-2"></i>Tambah</a>
+            <a href="{{ route('user.create') }}" class="btn btn-indigo"><i class="ph-user-plus me-2"></i>Tambah</a>
         @endcan
     </div>
 </div>

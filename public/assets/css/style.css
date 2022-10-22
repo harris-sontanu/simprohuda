@@ -1,5 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap');
 
+.select2-container {
+  position: relative;
+  z-index: 2;
+  /* float: left; */
+  width: 100%;
+  margin-bottom: 0;
+  display: table;
+  table-layout: fixed;
+}
+
 .font-title {
     font-family: 'Montserrat', sans-serif;
 }
@@ -8,95 +18,83 @@
     display: none;
 }
 
-.navbar-nav-underline .navbar-nav-link.active::before {
-	background-color: #f57d9e;
-}
-
 .table {
-	margin: 0;
-	max-width: none;
-}
+	--dt-spacer-y: var(--spacer);
+	--dt-spacer-x: var(--spacer);
+	--dt-filter-width: 15rem;
+	position: relative;
+  }
 
 .table thead th,
 .table thead td {
-	outline: 0;
-	position: relative;
+  position: relative;
 }
-
-.table thead .sorting_asc,
-.table thead .sorting_desc,
 .table thead .sorting {
-	cursor: pointer;
+  cursor: pointer;
+  padding-right: calc(var(--dt-spacer-y) * 2);
 }
-
-.table thead .sorting,
-.table thead .sorting_asc,
-.table thead .sorting_desc,
-.table thead .sorting_asc_disabled,
-.table thead .sorting_desc_disabled {
-	padding-right: 2.5rem;
-}
-
 .table thead .sorting:before,
 .table thead .sorting:after,
-.table thead .sorting_asc:after,
-.table thead .sorting_desc:after,
-.table thead .sorting_asc_disabled:after,
+.table thead .sorting_asc_disabled:before,
 .table thead .sorting_desc_disabled:after {
-	content: '';
-	font-family: "icomoon";
-	position: absolute;
-	top: 50%;
-	right: 1.25rem;
-	font-size: 0.75rem;
-	margin-top: -0.375rem;
-	display: inline-block;
-	line-height: 1;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+  content: "";
+  font-family: var(--icon-font-family);
+  position: absolute;
+  top: 50%;
+  right: var(--dt-spacer-y);
+  font-size: var(--body-font-size);
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  display: inline-block;
+  line-height: 1;
+  opacity: 0.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.table thead .sorting:not([class*=sorting_asc]):not([class*=sorting_desc]):before {
+  -webkit-transform: translateY(-20%);
+          transform: translateY(-20%);
+}
+.table thead .sorting:not([class*=sorting_asc]):not([class*=sorting_desc]):after {
+  -webkit-transform: translateY(-80%);
+          transform: translateY(-80%);
+}
+.table thead .sorting:not(.sorting_desc):before, .table thead .sorting_asc_disabled:before {
+  content: "\f31a";
+}
+.table thead .sorting:not(.sorting_asc):after, .table thead .sorting_desc_disabled:after {
+  content: "\f31d";
+}
+.table thead .sorting_asc:before, .table thead .sorting_asc:after, .table thead .sorting_desc:before, .table thead .sorting_desc:after {
+  opacity: 1;
+}
+.table tbody th.active,
+.table tbody td.active {
+  background-color: var(--table-hover-bg);
+}
+.table .tables_empty {
+  text-align: center;
 }
 
-.table thead .sorting:before {
-	content: "";
-	margin-top: -0.125rem;
-	opacity: 0.5;
+.tables_processing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: var(--spacer);
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  text-align: center;
+  background-color: var(--gray-100);
 }
 
-.table thead .sorting:after {
-	content: "";
-	margin-top: -0.625rem;
-	opacity: 0.5;
-}
-
-.table thead .sorting_asc:after {
-	content: "";
-	opacity: 1;
-}
-
-.table thead .sorting_desc:after {
-	content: "";
-	opacity: 1;
-}
-
-.table thead .sorting_asc_disabled:after {
-	content: "";
-	opacity: 0.25;
-}
-
-.table thead .sorting_desc_disabled:after {
-	content: "";
-	opacity: 0.25;
-}
-
-button.list-icons-item:not([class*="text-"]) {
-	color: inherit;
-}
-
-button.list-icons-item {
-	display: inline-block;
-	transition: color ease-in-out .15s;
-}
-
-button.list-icons-item:hover {
-	opacity: 0.7;
+.table-header,
+.table-footer {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+      align-items: center;
+  -ms-flex-pack: justify;
+      justify-content: space-between;
+  padding: var(--dt-spacer-y);
+  padding-bottom: 0;
 }

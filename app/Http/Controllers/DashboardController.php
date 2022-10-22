@@ -21,11 +21,11 @@ class DashboardController extends Controller
 							->take(5)
 							->get();
 
-        $plugins = [
-            'assets/js/plugins/forms/selects/select2.min.js',
-            'assets/js/plugins/visualization/echarts/echarts.min.js',
-			'assets/js/plugins/visualization/d3/d3.min.js',
-			'assets/js/plugins/visualization/d3/d3_tooltip.js',
+        $vendors = [
+            'assets/js/vendor/forms/selects/select2.min.js',
+            'assets/js/vendor/visualization/echarts/echarts.min.js',
+			'assets/js/vendor/visualization/d3/d3.min.js',
+			'assets/js/vendor/visualization/d3/d3_tooltip.js',
         ];
 
         return view('dashboard.index', compact(
@@ -36,7 +36,7 @@ class DashboardController extends Controller
             'totalPerbup',
             'totalSk',
             'legislations',
-            'plugins',
+            'vendors',
         ));
     }
 

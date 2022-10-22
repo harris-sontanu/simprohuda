@@ -79,12 +79,12 @@ class RanskController extends LegislationController
 
         $users = User::orderBy('name')->pluck('name', 'id');
 
-        $plugins = [
-            'assets/js/plugins/notifications/bootbox.min.js',
-            'assets/js/plugins/forms/selects/select2.min.js',
-            'assets/js/plugins/ui/moment/moment.min.js',
-            'assets/js/plugins/pickers/daterangepicker.js',
-            'assets/js/plugins/table/finderSelect/jquery.finderSelect.min.js',
+        $vendors = [
+            'assets/js/vendor/notifications/bootbox.min.js',
+            'assets/js/vendor/forms/selects/select2.min.js',
+            'assets/js/vendor/ui/moment/moment.min.js',
+            'assets/js/vendor/pickers/daterangepicker.js',
+            'assets/js/vendor/tables/finderSelect/jquery.finderSelect.min.js',
         ];
 
         return view('legislation.ransk.index', compact(
@@ -97,7 +97,7 @@ class RanskController extends LegislationController
             'count',
             'institutes',
             'users',
-            'plugins'
+            'vendors'
         ));
     }
 
@@ -199,8 +199,8 @@ class RanskController extends LegislationController
             $institutes = null;
         }
 
-        $plugins = [
-            'assets/js/plugins/forms/selects/select2.min.js',
+        $vendors = [
+            'assets/js/vendor/forms/selects/select2.min.js',
         ];
 
         return view('legislation.ransk.create', compact(
@@ -211,7 +211,7 @@ class RanskController extends LegislationController
             'institutes',
             'master',
             'requirements',
-            'plugins'
+            'vendors'
         ));
     }
 
@@ -320,9 +320,9 @@ class RanskController extends LegislationController
             } 
         }
 
-        $plugins = [
-            'assets/js/plugins/notifications/bootbox.min.js',
-            'assets/js/plugins/forms/selects/select2.min.js',
+        $vendors = [
+            'assets/js/vendor/notifications/bootbox.min.js',
+            'assets/js/vendor/forms/selects/select2.min.js',
         ];
 
         return view('legislation.ransk.edit', compact(
@@ -333,7 +333,7 @@ class RanskController extends LegislationController
             'documents',
             'legislation',
             'validateButton',
-            'plugins',
+            'vendors',
         ));
     }
 

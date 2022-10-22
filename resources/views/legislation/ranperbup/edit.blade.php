@@ -3,16 +3,14 @@
 @section('title', $pageTitle)
 @section('content')
 
-    @include('layouts.breadcrumb')
-
     <!-- Content area -->
-    <div class="content">
+    <div class="content pt-0">
 
         @include('layouts.message')
 
         @if ($errors->any())
             <div class="alert alert-danger border-0 alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert"><span>×</span></button>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                 <ul class="list-unstyled mb-0">
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -21,9 +19,11 @@
             </div>
         @endif
 
-        <div class="d-lg-flex align-items-lg-start">            
+        <!-- Inner container -->
+        <div class="d-flex align-items-stretch align-items-lg-start flex-column flex-lg-row">
 
-            <div class="flex-1">
+            <!-- Left content -->
+            <div class="flex-1 order-2 order-lg-1">
 
                 <div class="card">
                     <div class="card-body">
@@ -37,9 +37,9 @@
                                 </form>
 
                                     <fieldset>
-                                        <legend class="font-weight-bold"><i class="icon-reading mr-2"></i> Formulir Pengajuan Ranperbup</legend>
+                                        <legend class="fw-bold fs-base border-bottom pb-2 mb-3"><i class="ph-note me-2"></i>Formulir Pengajuan Ranperbup</legend>
 
-                                        <div class="form-group row">
+                                        <div class="mb-3 row">
                                             <label class="col-lg-3 col-form-label" for="title">Judul:</label>
                                             <div class="col-lg-9">
                                                 <textarea class="form-control @error('title') is-invalid @enderror" form="update-form" name="title" id="title" spellcheck="false" cols="30" rows="4" autofocus>{{ $legislation->title }}</textarea>
@@ -49,7 +49,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group row">
+                                        <div class="mb-3 row">
                                             <label class="col-lg-3 col-form-label" for="background">Alasan Pengajuan:</label>
                                             <div class="col-lg-9">
                                                 <textarea class="form-control @error('background') is-invalid @enderror" form="update-form" name="background" id="background" spellcheck="false" cols="30" rows="4" >{{ $legislation->background }}</textarea>
@@ -59,19 +59,21 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group row mb-0">
+                                        <div class="mb-3 row mb-0">
                                             <div class="col-lg-9 offset-lg-3">
                                                 @if ($legislation->status() === 'draft')
-                                                    <button type="submit" form="update-form" name="draft" class="btn btn-light mr-2">Simpan ke Draf</button>
-                                                    <button type="submit" form="update-form" name="post" class="btn btn-secondary">Simpan & Ajukan</button>
+                                                    <button type="submit" form="update-form" name="draft" class="btn btn-light me-2">Simpan ke Draf</button>
+                                                    <button type="submit" form="update-form" name="post" class="btn btn-indigo">Simpan & Ajukan</button>
                                                 @else
-                                                    <button type="submit" form="update-form" name="revise" class="btn btn-secondary">Ubah</button>
+                                                    <button type="submit" form="update-form" name="revise" class="btn btn-indigo">Ubah</button>
                                                     @if ($validateButton)  
                                                         @cannot('isOpd')                                                            
                                                             <form id="validation-form" action="{{ route('legislation.ranperbup.approve', $legislation->id) }}" method="post" class="d-inline-block" data-title="{{ $legislation->title }}">
                                                                 @csrf
                                                                 @method('PUT')
-                                                                <button type="submit" class="btn btn-success btn-labeled btn-labeled-right ml-2"><b><i class="icon-checkmark4"></i></b>Valid</button>
+                                                                <button type="submit" class="btn btn-success btn-labeled btn-labeled-start ms-2">
+                                                                    <span class="btn-labeled-icon bg-black bg-opacity-20"><i class="ph-check"></i></span>Valid
+                                                                </button>
                                                             </form>                                                    
                                                         @endcannot
                                                     @endif
@@ -89,7 +91,7 @@
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
-                                <tr class="bg-light">
+                                <tr>
                                     <th>Nama</th>
                                     <th>Dokumen</th>
                                     <th>Tgl. Unggah</th>
@@ -102,11 +104,11 @@
                                 @foreach ($requirements as $requirement)
                                     @if($category !== $requirement->category AND $requirement->category === 'master')
                                         <tr class="table-active table-border-double">
-                                            <td colspan="5"><span class="font-weight-semibold">Dokumen Rancangan</span></td>
+                                            <td colspan="5"><span class="fw-semibold">Dokumen Rancangan</span></td>
                                         </tr>
                                     @elseif ($category !== $requirement->category AND $requirement->category === 'requirement')
                                         <tr class="table-active table-border-double">
-                                            <td colspan="5"><span class="font-weight-semibold">Dokumen Persyaratan</span></td>
+                                            <td colspan="5"><span class="fw-semibold">Dokumen Persyaratan</span></td>
                                         </tr> 
                                     @endif
                                     @php $row = true; @endphp
@@ -115,44 +117,43 @@
                                             <tr>
                                                 <td>{{ $document->title }}</td>
                                                 <td>
-                                                    <div class="media">
-                                                        <div class="mr-3">
-                                                            <i class="{{ $document->extClass; }} icon-2x top-0 mt-1"></i>
+                                                    <div class="d-flex align-items-start">
+                                                        <div class="me-2">
+                                                            <i class="{{ $document->extClass; }} ph-2x"></i>
                                                         </div>
                 
-                                                        <div class="media-body">
-                                                            <a href="{{ $document->source }}" class="media-title d-block font-weight-semibold text-body m-0" title="{{ $document->name }}" target="_blank" download>{{ $document->name; }}</a>
-                
-                                                            <ul class="list-inline list-inline-condensed list-inline-dotted font-size-sm text-muted mb-0">
-                                                                <li class="list-inline-item">{{ $document->size(); }}</li>
+                                                        <div class="flex-fill overflow-hidden">
+                                                            <a href="{{ $document->source }}" class="fw-semibold text-body text-truncate" target="_blank" download>{{ $document->name; }}</a>
+                                                            <ul class="list-inline list-inline-bullet fs-sm text-muted mb-0">
+                                                                <li class="list-inline-item me-1">{{ $document->size() }}</li>
                                                             </ul>
                                                         </div>
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <abbr data-popup="tooltip" title="{{ $document->dateFormatted($document->created_at, true) }}">{{ $document->dateFormatted($document->created_at) }}</abbr>
+                                                    <abbr data-bs-popup="tooltip" title="{{ $document->dateFormatted($document->created_at, true) }}">{{ $document->dateFormatted($document->created_at) }}</abbr>
                                                 </td>
                                                 <td>{!! $document->statusBadge !!}</td>
                                                 <td class="text-center">
-                                                    <div class="list-icons">
+                                                    <div class="d-inline-flex">
                                                         <a 
                                                             href="#" 
-                                                            class="list-icons-item" 
+                                                            class="text-body" 
                                                             data-route="{{ route('legislation.document.show', $document->id) }}"
-                                                            data-toggle="modal"
-                                                            data-target="#preview-doc-modal"
-                                                            data-popup="tooltip"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#preview-doc-modal"
+                                                            data-bs-popup="tooltip"
                                                             title="Pratinjau">
                                                             <i class="icon-file-eye"></i>
                                                         </a>
                                                         <a 
                                                             href="#" 
-                                                            class="list-icons-item upload-document" 
-                                                            data-toggle="modal" 
-                                                            data-target="#upload-doc-modal" 
+                                                            class="text-body mx-2 upload-document" 
+                                                            data-bs-toggle="modal" 
+                                                            data-bs-target="#upload-doc-modal" 
                                                             data-action="edit" 
                                                             data-id="{{ $document->id }}"
-                                                            data-popup="tooltip" 
+                                                            data-bs-popup="tooltip" 
                                                             title="Perbaiki">
                                                             <i class="icon-file-upload"></i>
                                                         </a>
@@ -162,9 +163,9 @@
                                                                 @method('DELETE')
                                                                 <a 
                                                                     role="button" 
-                                                                    class="list-icons-item btn-delete" 
+                                                                    class="text-body btn-delete" 
                                                                     data-title="{{ $document->title }}" 
-                                                                    data-popup="tooltip" 
+                                                                    data-bs-popup="tooltip" 
                                                                     title="Hapus">
                                                                     <i class="icon-file-minus"></i>
                                                                 </a>
@@ -177,9 +178,9 @@
                                                                     @method('PUT')
                                                                     <a 
                                                                         role="button" 
-                                                                        class="list-icons-item btn-ratify" 
+                                                                        class="text-body btn-ratify" 
                                                                         data-title="{{ $document->title }}" 
-                                                                        data-popup="tooltip" 
+                                                                        data-bs-popup="tooltip" 
                                                                         title="Validasi">
                                                                         <i class="icon-file-check"></i>
                                                                     </a>
@@ -199,16 +200,16 @@
                                             <td>-</td>
                                             <td>-</td>
                                             <td class="text-center">
-                                                <div class="list-icons">
+                                                <div class="d-inline-flex">
                                                     <a 
                                                         href="#" 
-                                                        class="list-icons-item" 
-                                                        data-toggle="modal" 
-                                                        data-target="#upload-doc-modal"
+                                                        class="text-body" 
+                                                        data-bs-toggle="modal" 
+                                                        data-bs-target="#upload-doc-modal"
                                                         data-action="create" 
                                                         data-legislation="{{ $legislation->id }}"
                                                         data-requirement="{{ $requirement->id }}"
-                                                        data-popup="tooltip" 
+                                                        data-bs-popup="tooltip" 
                                                         title="Unggah">
                                                         <i class="icon-file-plus"></i>
                                                     </a>
@@ -224,40 +225,42 @@
                 </div>
 
                 <div class="card">
-                    <div class="card-header header-elements-inline">
-                        <h5 class="card-title font-weight-bold"><i class="icon-bubbles4 mr-2"></i>Diskusi</h5>
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="ph-chats me-2"></i>Diskusi</h5>
                     </div>
 
                     <div class="card-body">
-                        <ul class="media-list media-chat media-chat-scrollable mb-3">
-                            @forelse ($legislation->comments as $comment)
-                                @if ($comment->sender->getRawOriginal('role') === 'opd')
-                                    <li class="media">
-                                        <div class="mr-3">
-                                            <img src="{{ $comment->userPictureUrl($comment->sender->picture, $comment->sender->name) }}" class="rounded-circle" alt="{{ $comment->sender->name }}" width="40" height="40" data-popup="tooltip" title="{{ $comment->sender->name }}">
-                                        </div>
+                        <div class="media-chat-scrollable mb-3">
+                            <div class="media-chat vstack gap-2">
+                                @forelse ($legislation->comments as $comment)
+                                    @if ($comment->sender->getRawOriginal('role') === 'opd')
+                                        <div class="media-chat-item hstack align-items-start gap-3">
+                                            <a href="#" class="d-block">
+                                                <img src="{{ $comment->userPictureUrl($comment->sender->picture, $comment->sender->name) }}" class="rounded-circle" alt="{{ $comment->sender->name }}" width="40" height="40" data-bs-popup="tooltip" title="{{ $comment->sender->name }}">
+                                            </a>
 
-                                        <div class="media-body">
-                                            <div class="media-chat-item">{{ $comment->comment }}</div>
-                                            <div class="font-size-sm text-muted mt-2">{{ $comment->timeDifference($comment->created_at) }}</div>
+                                            <div>
+                                                <div class="media-chat-message">{{ $comment->comment }}</div>
+                                                <div class="fs-sm text-muted mt-2">{{ $comment->timeDifference($comment->created_at) }}</div>
+                                            </div>
                                         </div>
-                                    </li>
-                                @else
-                                    <li class="media media-chat-item-reverse">
-                                        <div class="media-body">
-                                            <div class="media-chat-item">{{ $comment->comment }}</div>
-                                            <div class="font-size-sm text-muted mt-2">{{ $comment->timeDifference($comment->created_at) }}</div>
-                                        </div>
+                                    @else
+                                        <div class="media-chat-item media-chat-item-reverse hstack align-items-start gap-3">
+                                            <a href="#" class="d-block">
+                                                <img src="{{ $comment->userPictureUrl($comment->sender->picture, $comment->sender->name) }}" class="rounded-circle" alt="{{ $comment->sender->name }}" width="40" height="40" data-bs-popup="tooltip" title="{{ $comment->sender->name }}">
+                                            </a>
 
-                                        <div class="ml-3">
-                                            <img src="{{ $comment->userPictureUrl($comment->sender->picture, $comment->sender->name) }}" class="rounded-circle" alt="{{ $comment->sender->name }}" width="40" height="40" data-popup="tooltip" title="{{ $comment->sender->name }}">
+                                            <div>
+                                                <div class="media-chat-message">{{ $comment->comment }}</div>
+                                                <div class="fs-sm text-muted mt-2">{{ $comment->timeDifference($comment->created_at) }}</div>
+                                            </div>
                                         </div>
-                                    </li>
-                                @endif
-                            @empty
-                                <li>Belum ada diskusi</li>
-                            @endforelse
-                        </ul>
+                                    @endif
+                                @empty
+                                    <li>Belum ada diskusi</li>
+                                @endforelse
+                            </div>
+                        </div>
                         
                         <form action="{{ route('legislation.comment.store') }}" method="post" novalidate>
                             @csrf
@@ -269,46 +272,49 @@
     
                             <div class="d-flex align-items-center mt-3">
     
-                                <button type="submit" class="btn btn-secondary btn-labeled btn-labeled-right ml-auto"><b><i class="icon-paperplane"></i></b> Kirim</button>
+                                <button type="submit" class="btn btn-indigo btn-labeled btn-labeled-start">
+                                    <span class="btn-labeled-icon bg-black bg-opacity-20"><i class="ph-paper-plane-tilt"></i></span>Kirim
+                                </button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
-            
-            <div class="sidebar sidebar-light bg-transparent sidebar-component sidebar-component-right wmin-lg-350 border-0 shadow-none order-1 order-lg-2 sidebar-expand-lg">
+            <!-- /left content -->
+
+            <div class="sidebar sidebar-component sidebar-expand-lg bg-transparent wmin-lg-350 shadow-none order-1 order-lg-2 ms-lg-3 mb-3">
 
                 <div class="sidebar-content">
                     
                     <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title font-weight-bold"><i class="icon-earth mr-2"></i>Publikasi</h5>
+                        <div class="sidebar-section-header border-bottom">
+                            <h5 class="mb-0"><i class="ph-globe-hemisphere-east me-2"></i>Publikasi</h5>
                         </div>
 
-                        <table class="table table-borderless border-0 table-xs mb-3">
+                        <table class="table table-borderless my-2 table-xs">
                             <tbody>
                                 <tr>
-                                    <td class="font-weight-semibold text-nowrap"><i class="icon-pen mr-2"></i>Status:</td>
-                                    <td class="text-right">{!! $legislation->statusBadge !!}</td>
+                                    <td class="fw-semibold text-nowrap"><i class="ph-tag me-2"></i>Status:</td>
+                                    <td class="text-end">{!! $legislation->statusBadge !!}</td>
                                 </tr><tr>
-                                    <td class="font-weight-semibold text-nowrap"><i class="icon-office mr-2"></i>Perangkat Daerah:</td>
-                                    <td class="text-right">{{ $legislation->institute->name }}</td>
+                                    <td class="fw-semibold text-nowrap"><i class="ph-buildings me-2"></i>Perangkat Daerah:</td>
+                                    <td class="text-end">{{ $legislation->institute->name }}</td>
                                 </tr>
                                 <tr>
-                                    <td class="font-weight-semibold text-nowrap"><i class="icon-user mr-2"></i>Operator:</td>
-                                    <td class="text-right">{{ $legislation->user->name }}</td>
+                                    <td class="fw-semibold text-nowrap"><i class="ph-user me-2"></i>Operator:</td>
+                                    <td class="text-end">{{ $legislation->user->name }}</td>
                                 </tr>
                                 <tr>
-                                    <td class="font-weight-semibold text-nowrap"><i class="icon-user-tie mr-2"></i>Pemeriksa:</td>
-                                    <td class="text-right">{{ $legislation->institute->corrector->name }}</td>
+                                    <td class="fw-semibold text-nowrap"><i class="icon-user-tie me-2"></i>Pemeriksa:</td>
+                                    <td class="text-end">{{ $legislation->institute->corrector->name }}</td>
                                 </tr>
                                 <tr>
-                                    <td class="font-weight-semibold text-nowrap"><i class="icon-embed2 mr-2"></i>Nomor Registrasi:</td>
-                                    <td class="text-right">{{ $legislation->reg_number }}</td>
+                                    <td class="fw-semibold text-nowrap"><i class="ph-calculator me-2"></i>No. Registrasi:</td>
+                                    <td class="text-end">{{ $legislation->reg_number }}</td>
                                 </tr>
                                 <tr>
-                                    <td class="font-weight-semibold text-nowrap"><i class="icon-calendar22 mr-2"></i>Tgl. Dibuat:</td>
-                                    <td class="text-right">{{ $legislation->dateFormatted($legislation->created_at) }}</td>
+                                    <td class="fw-semibold text-nowrap"><i class="ph-calendar-blank me-2"></i>Tgl. Dibuat:</td>
+                                    <td class="text-end">{{ $legislation->dateFormatted($legislation->created_at) }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -316,15 +322,15 @@
                     </div>
 
                     <div class="card">
-                        <div class="card-header">
-                            <h5 class="font-weight-bold"><i class="icon-history mr-2"></i>Riwayat</h5>
+                        <div class="sidebar-section-header border-bottom">
+                            <h5 class="mb-0"><i class="ph-arrow-counter-clockwise me-2"></i>Riwayat</h5>
                         </div>
 
-                        <div class="card-body">
+                        <div class="sidebar-section-body">
                             <div class="list-feed">
                                 @forelse ($legislation->logs->take(5) as $log)                                    
                                     <div class="list-feed-item">
-                                        <span class="font-weight-semibold">{{ $log->user->name }}</span> {{ $log->message }}
+                                        <span class="fw-semibold">{{ $log->user->name }}</span> {{ $log->message }}
                                         <div class="text-muted">{{ $log->timeDifference($log->created_at) }}</div>
                                     </div>
                                 @empty
