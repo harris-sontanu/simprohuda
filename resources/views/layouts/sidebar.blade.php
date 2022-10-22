@@ -58,7 +58,7 @@
                     <li class="nav-item nav-item-submenu {{ request()->is('institute*') ? 'nav-item-expanded nav-item-open' : '' }}">
                         <a href="#" class="nav-link"><i class="ph-buildings"></i> <span>Perangkat Daerah</span></a>
 
-                        <ul class="nav nav-group-sub {{ request()->is('institute*') ? 'show' : 'collapse' }}">
+                        <ul class="nav-group-sub {{ request()->is('institute*') ? 'show' : 'collapse' }}">
                             @can('isAdmin')                                
                                 <li class="nav-item"><a href="{{ route('institute.create') }}" class="nav-link {{ (request()->is('institute/create')) ? 'active' : '' }}">Tambah</a></li>
                             @endcan
@@ -70,7 +70,7 @@
                 <li class="nav-item nav-item-submenu {{ request()->is('user*') ? 'nav-item-expanded nav-item-open' : '' }}">
                     <a href="#" class="nav-link"><i class="ph-users"></i> <span>Operator</span></a>
 
-                    <ul class="nav nav-group-sub {{ request()->is('user*') ? 'show' : 'collapse' }}">
+                    <ul class="nav-group-sub {{ request()->is('user*') ? 'show' : 'collapse' }}">
                         @can('isAdmin')                                
                             <li class="nav-item"><a href="{{ route('user.create') }}" class="nav-link {{ (request()->is('user/create')) ? 'active' : '' }}">Tambah</a></li>
                         @endcan
@@ -85,7 +85,7 @@
                     <li class="nav-item nav-item-submenu">
                         <a href="#" class="nav-link"><i class="ph-gear"></i> <span>Pengaturan</span></a>
 
-                        <ul class="nav nav-group-sub collapse">
+                        <ul class="nav-group-sub collapse">
                             <li class="nav-item"><a href="#" class="nav-link">Aplikasi</a></li>
                         </ul>
                     </li>
