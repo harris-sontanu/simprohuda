@@ -140,7 +140,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <div class="card-footer d-flex justify-content-between">
+                            <div class="card-footer d-flex justify-content-end">
                                 <button type="submit" class="btn btn-indigo">Simpan</button>
                             </div>
                         </div>
