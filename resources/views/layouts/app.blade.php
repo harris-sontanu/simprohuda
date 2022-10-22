@@ -37,6 +37,25 @@
     @yield('script')
 	<!-- /theme JS files -->
 
+	<script>
+		$(function() {
+			var $window = $(window),
+				$html = $('#sidebar-main');
+
+			function resize() {
+				if ($window.width() > 960 && $window.width() < 1600) {
+					return $html.addClass('sidebar-main-resized');
+				}
+
+				$html.removeClass('sidebar-main-resized');
+			}
+
+			$window
+				.resize(resize)
+				.trigger('resize');
+		});
+	</script>
+
 </head>
 
 <body>
