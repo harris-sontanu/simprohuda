@@ -29,7 +29,7 @@ class ViewServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer('layouts.navbar', function ($view) {
-            $legislationNotifications = Legislation::processed()
+            $legislationNotifications = Legislation::inProgress()
                                                     ->get();
 
             $commentNotifications = Comment::unread()

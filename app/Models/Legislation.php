@@ -113,7 +113,7 @@ class Legislation extends Model
         return $query->whereNotNull('validated_at');
     }
 
-    public function scopeProcessed($query)
+    public function scopeInProgress($query)
     {
         return $query->where(function ($q) {
                         $q->whereNotNull('posted_at')
