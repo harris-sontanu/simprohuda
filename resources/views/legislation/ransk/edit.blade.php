@@ -224,61 +224,63 @@
                     </div>                    
                 </div>
 
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="mb-0"><i class="ph-chats me-2"></i>Diskusi</h5>
-                    </div>
-
-                    <div class="card-body">
-                        <div class="media-chat-scrollable mb-3">
-                            <div class="media-chat vstack gap-2">
-                                @forelse ($legislation->comments as $comment)
-                                    @if ($comment->sender->getRawOriginal('role') === 'opd')
-                                        <div class="media-chat-item hstack align-items-start gap-3">
-                                            <a href="#" class="d-block">
-                                                <img src="{{ $comment->userPictureUrl($comment->sender->picture, $comment->sender->name) }}" class="rounded-circle" alt="{{ $comment->sender->name }}" width="40" height="40" data-bs-popup="tooltip" title="{{ $comment->sender->name }}">
-                                            </a>
-
-                                            <div>
-                                                <div class="media-chat-message">{{ $comment->comment }}</div>
-                                                <div class="fs-sm text-muted mt-2">{{ $comment->timeDifference($comment->created_at) }}</div>
-                                            </div>
-                                        </div>
-                                    @else
-                                        <div class="media-chat-item media-chat-item-reverse hstack align-items-start gap-3">
-                                            <a href="#" class="d-block">
-                                                <img src="{{ $comment->userPictureUrl($comment->sender->picture, $comment->sender->name) }}" class="rounded-circle" alt="{{ $comment->sender->name }}" width="40" height="40" data-bs-popup="tooltip" title="{{ $comment->sender->name }}">
-                                            </a>
-
-                                            <div>
-                                                <div class="media-chat-message">{{ $comment->comment }}</div>
-                                                <div class="fs-sm text-muted mt-2">{{ $comment->timeDifference($comment->created_at) }}</div>
-                                            </div>
-                                        </div>
-                                    @endif
-                                @empty
-                                    <li>Belum ada diskusi</li>
-                                @endforelse
-                            </div>
+                @if ($legislation->status() !== 'draft')
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="mb-0"><i class="ph-chats me-2"></i>Diskusi</h5>
                         </div>
-                        
-                        <form action="{{ route('legislation.comment.store') }}" method="post" novalidate>
-                            @csrf
-                            <input type="hidden" name="legislation_id" value="{{ $legislation->id }}">
-                            <textarea name="comment" class="form-control @error('comment') is-invalid @enderror" rows="3" cols="1" placeholder="Ketik pesan Anda..."></textarea>
-                            @error('comment')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-    
-                            <div class="d-flex align-items-center mt-3">
-    
-                                <button type="submit" class="btn btn-indigo btn-labeled btn-labeled-start">
-                                    <span class="btn-labeled-icon bg-black bg-opacity-20"><i class="ph-paper-plane-tilt"></i></span>Kirim
-                                </button>
+
+                        <div class="card-body">
+                            <div class="media-chat-scrollable mb-3">
+                                <div class="media-chat vstack gap-2">
+                                    @forelse ($legislation->comments as $comment)
+                                        @if ($comment->sender->getRawOriginal('role') === 'opd')
+                                            <div class="media-chat-item hstack align-items-start gap-3">
+                                                <a href="#" class="d-block">
+                                                    <img src="{{ $comment->userPictureUrl($comment->sender->picture, $comment->sender->name) }}" class="rounded-circle" alt="{{ $comment->sender->name }}" width="40" height="40" data-bs-popup="tooltip" title="{{ $comment->sender->name }}">
+                                                </a>
+
+                                                <div>
+                                                    <div class="media-chat-message">{{ $comment->comment }}</div>
+                                                    <div class="fs-sm text-muted mt-2">{{ $comment->timeDifference($comment->created_at) }}</div>
+                                                </div>
+                                            </div>
+                                        @else
+                                            <div class="media-chat-item media-chat-item-reverse hstack align-items-start gap-3">
+                                                <a href="#" class="d-block">
+                                                    <img src="{{ $comment->userPictureUrl($comment->sender->picture, $comment->sender->name) }}" class="rounded-circle" alt="{{ $comment->sender->name }}" width="40" height="40" data-bs-popup="tooltip" title="{{ $comment->sender->name }}">
+                                                </a>
+
+                                                <div>
+                                                    <div class="media-chat-message">{{ $comment->comment }}</div>
+                                                    <div class="fs-sm text-muted mt-2">{{ $comment->timeDifference($comment->created_at) }}</div>
+                                                </div>
+                                            </div>
+                                        @endif
+                                    @empty
+                                        <li>Belum ada diskusi</li>
+                                    @endforelse
+                                </div>
                             </div>
-                        </form>
+                            
+                            <form action="{{ route('legislation.comment.store') }}" method="post" novalidate>
+                                @csrf
+                                <input type="hidden" name="legislation_id" value="{{ $legislation->id }}">
+                                <textarea name="comment" class="form-control @error('comment') is-invalid @enderror" rows="3" cols="1" placeholder="Ketik pesan Anda..."></textarea>
+                                @error('comment')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+        
+                                <div class="d-flex align-items-center mt-3">
+        
+                                    <button type="submit" class="btn btn-indigo btn-labeled btn-labeled-start">
+                                        <span class="btn-labeled-icon bg-black bg-opacity-20"><i class="ph-paper-plane-tilt"></i></span>Kirim
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                </div>
+                @endif
             </div>
             <!-- /left content -->
 
