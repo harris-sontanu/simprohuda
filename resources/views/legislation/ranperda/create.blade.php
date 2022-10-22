@@ -98,7 +98,7 @@
                                                         <div class="invalid-feedback">{{ $message }}</div>
                                                     @endif
                                                     @if (!empty($requirement->desc))
-                                                        <span class="form-text text-muted fs-sm">{{ $requirement->desc }}</span>
+                                                        <div class="form-text text-muted fs-sm">{{ $requirement->desc }}</div>
                                                     @endif
                                                 </div>
                                             </div>
@@ -127,7 +127,7 @@
                                 <tbody>
                                     <tr>
                                         <td class="fw-semibold text-nowrap"><i class="ph-pen me-2"></i>Status:</td>
-                                        <td class="text-end"><span class="badge bg-pink bg-opacity-20 text-pink">Draf</span></td>
+                                        <td class="text-end"><span class="badge bg-info bg-opacity-20 text-info">Draf</span></td>
                                     </tr>
                                     <tr>
                                         <td class="fw-semibold text-nowrap"><i class="ph-user me-2"></i>Operator:</td>

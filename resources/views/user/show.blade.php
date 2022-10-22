@@ -92,12 +92,12 @@
 
         <div class="d-sm-flex flex-sm-wrap mb-3">
             <div class="fw-semibold">Login Terakhir:</div>
-            <div class="ms-sm-auto mt-2 mt-sm-0"><abbr data-popup="tooltip" title="{{ $user->dateFormatted($user->last_logged_in_at, true) }}">{{ $user->dateFormatted($user->last_logged_in_at) }}</abbr></div>
+            <div class="ms-sm-auto mt-2 mt-sm-0"><abbr data-bs-popup="tooltip" title="{{ $user->dateFormatted($user->last_logged_in_at, true) }}">{{ $user->dateFormatted($user->last_logged_in_at) }}</abbr></div>
         </div>
 
         <div class="d-sm-flex flex-sm-wrap">
             <div class="fw-semibold">Terdaftar:</div>
-            <div class="ms-sm-auto mt-2 mt-sm-0"><abbr data-popup="tooltip" title="{{ $user->dateFormatted($user->created_at, true) }}">{{ $user->dateFormatted($user->created_at) }}</abbr></div>
+            <div class="ms-sm-auto mt-2 mt-sm-0"><abbr data-bs-popup="tooltip" title="{{ $user->dateFormatted($user->created_at, true) }}">{{ $user->dateFormatted($user->created_at) }}</abbr></div>
         </div>
 
     </div>
