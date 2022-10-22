@@ -112,11 +112,17 @@ class UserController extends Controller
         ];
 
         $roles = $this->roles;
+
+        $vendors = [
+            'assets/js/vendor/forms/selects/select2.min.js',
+        ];
+
         return view('user.create', compact(
             'pageTitle',
             'pageHeader',
             'breadCrumbs',
             'roles',
+            'vendors'
         ));
     }
 
