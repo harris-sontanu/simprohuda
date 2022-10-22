@@ -1,9 +1,9 @@
-<div class="header-elements">
+<div class="ms-sm-auto my-sm-auto">
     <div class="d-flex justify-content-center">
-        <button type="button" id="filter" class="btn btn-light btn-sm mr-2"><i class="icon-equalizer mr-2"></i>Filter</button>
-        <div id="bulk-actions" class="btn-group mr-2" style="display: none">
-            <button type="button" class="btn btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown"><span id="count-selected" class="badge badge-pill badge-pink mr-2">0</span>Aksi</button>
-            <div class="dropdown-menu dropdown-menu-right">
+        <button type="button" id="filter" class="btn btn-light me-2"><i class="ph-faders-horizontal me-2"></i>Filter</button>
+        <div id="bulk-actions" class="btn-group me-2" style="display: none">
+            <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown"><span id="count-selected" class="badge bg-yellow rounded-pill me-2 text-black">0</span>Aksi</button>
+            <div class="dropdown-menu dropdown-menu-end">
                 @if (Request::get('tab') == 'batal')
                     <a href="#" class="dropdown-item trigger" data-action="delete">Hapus</a>
                 @else
@@ -11,6 +11,6 @@
                 @endif
             </div>
         </div>
-        <a href="{{ route('legislation.ransk.create') }}" class="btn btn-secondary btn-sm"><i class="icon-plus22 mr-2"></i>Ajukan Rancangan SK</a>
+        <a href="{{ route('legislation.ransk.create') }}" class="btn btn-indigo"><i class="ph-plus me-2"></i>Ajukan Rancangan SK</a>
     </div>
 </div>
