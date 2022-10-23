@@ -113,7 +113,7 @@ class Legislation extends Model
         return $query->whereNotNull('validated_at');
     }
 
-    public function scopeProcessed($query)
+    public function scopeInProgress($query)
     {
         return $query->where(function ($q) {
                         $q->whereNotNull('posted_at')
@@ -145,15 +145,15 @@ class Legislation extends Model
     public function statusBadge(): Attribute
     {
         if ($this->status() == 'draft') {
-            $statusBadge = '<span class="badge badge-pill badge-light">Draf</span>';
+            $statusBadge = '<span class="badge bg-info bg-opacity-20 text-info">Draf</span>';
         } else if ($this->status() == 'posted') {
-            $statusBadge = '<span class="badge badge-pill badge-primary">Aktif</span>';
+            $statusBadge = '<span class="badge bg-primary bg-opacity-20 text-primary">Aktif</span>';
         } else if ($this->status() == 'revised') {
-            $statusBadge = '<span class="badge badge-pill badge-yellow">Revisi</span>';
+            $statusBadge = '<span class="badge bg-warning bg-opacity-20 text-warning">Revisi</span>';
         } else if ($this->status() == 'validated') {
-            $statusBadge = '<span class="badge badge-pill badge-success">Valid</span>';
+            $statusBadge = '<span class="badge bg-success bg-opacity-20 text-success">Valid</span>';
         } else if ($this->status() == 'canceled') {
-            $statusBadge = '<span class="badge badge-pill badge-dark">Batal</span>';
+            $statusBadge = '<span class="badge bg-danger bg-opacity-20 text-danger">Batal</span>';
         }
 
         return Attribute::make(
@@ -173,6 +173,19 @@ class Legislation extends Model
         return Attribute::make(
             get: fn ($value) => Carbon::parse($this->created_at)->translatedFormat('Y')
         );
+    }
+
+    public function validatedTime()
+    {   
+        $diff = 'Belum selesai';
+        if ($this->status() === 'validated') {
+            $posted_at = Carbon::parse($this->posted_at);
+            $validated_at = Carbon::parse($this->validated_at);
+
+            $diff = $posted_at->diffInDays($validated_at) . ' hari';
+        }
+
+        return $diff;
     }
 
     public function scopeSearch($query, $request)

@@ -79,12 +79,12 @@ class RanperbupController extends LegislationController
 
         $users = User::orderBy('name')->pluck('name', 'id');
 
-        $plugins = [
-            'assets/js/plugins/notifications/bootbox.min.js',
-            'assets/js/plugins/forms/selects/select2.min.js',
-            'assets/js/plugins/ui/moment/moment.min.js',
-            'assets/js/plugins/pickers/daterangepicker.js',
-            'assets/js/plugins/table/finderSelect/jquery.finderSelect.min.js',
+        $vendors = [
+            'assets/js/vendor/notifications/bootbox.min.js',
+            'assets/js/vendor/forms/selects/select2.min.js',
+            'assets/js/vendor/ui/moment/moment.min.js',
+            'assets/js/vendor/pickers/daterangepicker.js',
+            'assets/js/vendor/tables/finderSelect/jquery.finderSelect.min.js',
         ];
 
         return view('legislation.ranperbup.index', compact(
@@ -97,7 +97,7 @@ class RanperbupController extends LegislationController
             'count',
             'institutes',
             'users',
-            'plugins'
+            'vendors'
         ));
     }
 
@@ -199,8 +199,8 @@ class RanperbupController extends LegislationController
             $institutes = null;
         }
 
-        $plugins = [
-            'assets/js/plugins/forms/selects/select2.min.js',
+        $vendors = [
+            'assets/js/vendor/forms/selects/select2.min.js',
         ];
 
         return view('legislation.ranperbup.create', compact(
@@ -211,7 +211,7 @@ class RanperbupController extends LegislationController
             'institutes',
             'master',
             'requirements',
-            'plugins'
+            'vendors'
         ));
     }
 
@@ -264,7 +264,7 @@ class RanperbupController extends LegislationController
             'Detail' => true
         ];
 
-        $requirements = Requirement::requirements($legislation->type_id)->get();
+        $requirements = Requirement::requirements($legislation->type_id)->where('mandatory', true)->get();
         $master = Document::requirements($legislation->id)->first();
         $documents = Document::requirements($legislation->id)->get();
 
@@ -310,19 +310,27 @@ class RanperbupController extends LegislationController
 
         // Check if all the requirements are validated
         $validateButton = true;
-        foreach ($requirements as $requirement) {
-            $requiredDocument = Document::where('legislation_id', $legislation->id)
-                                    ->where('requirement_id', $requirement->id)
-                                    ->first();
+        foreach ($requirements as $requirement) 
+        {
+            if ($requirement->mandatory === 1)
+            {
+                $requiredDocument = Document::where('legislation_id', $legislation->id)
+                                        ->where('requirement_id', $requirement->id)
+                                        ->first();
 
-            if (empty($requiredDocument) OR empty($requiredDocument->validated_at)) {
-                $validateButton = false;
-            } 
+                if (empty($requiredDocument) OR empty($requiredDocument->validated_at)) {
+                    $validateButton = false;
+                } 
+            }
         }
 
-        $plugins = [
-            'assets/js/plugins/notifications/bootbox.min.js',
-            'assets/js/plugins/forms/selects/select2.min.js',
+        $styles = [
+            'assets/icons/icomoon/styles.min.css',
+        ];
+
+        $vendors = [
+            'assets/js/vendor/notifications/bootbox.min.js',
+            'assets/js/vendor/forms/selects/select2.min.js',
         ];
 
         return view('legislation.ranperbup.edit', compact(
@@ -333,7 +341,8 @@ class RanperbupController extends LegislationController
             'documents',
             'legislation',
             'validateButton',
-            'plugins',
+            'styles',
+            'vendors',
         ));
     }
 
@@ -379,7 +388,7 @@ class RanperbupController extends LegislationController
             'message'   => 'memvalidasi pengajuan ranperbup',
         ]);
 
-        return redirect('/legislation/ranperbup/' . $legislation->id . '/edit')->with('message', '<strong>Berhasil!</strong> Data Pengajuan Rancangan Peraturan Bupati telah berhasil divalidasi');
+        return redirect('/legislation/ranperbup/' . $legislation->id)->with('message', '<strong>Berhasil!</strong> Data Pengajuan Rancangan Peraturan Bupati telah berhasil divalidasi');
     }
 
     /**
