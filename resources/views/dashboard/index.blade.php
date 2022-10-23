@@ -4,34 +4,31 @@
 @section('content')
 
 <!-- Breadcrumb -->
-{{-- <div class="page-header page-header-light">
+<div class="page-header">
+    <div class="page-header-content d-lg-flex">
+        <div class="d-flex">
+            <h4 class="page-title mb-0">
+                {{ $pageHeader }}
+            </h4>
 
-	<div class="breadcrumb-line breadcrumb-line-light header-elements-sm-inline border-top-0 py-sm-0">
-		<div class="d-flex">
-			<h3 class="breadcrumb-elements-item mb-0 font-weight-bold">{{ $pageHeader }}</h3>
-			<a href="#" class="header-elements-toggle text-body d-sm-none"><i class="icon-more2"></i></a>
-		</div>
+            <a href="#page_header" class="btn btn-light align-self-center collapsed d-lg-none border-transparent rounded-pill p-0 ms-auto" data-bs-toggle="collapse">
+                <i class="ph-caret-down collapsible-indicator ph-sm m-1"></i>
+            </a>
+        </div>
 
-		<div class="header-elements">
-			<form action="{{ route('dashboard') }}" method="get">
-				<ul class="list-inline-condensed mb-0">
-					<li class="list-inline-item">
-						<select name="year" id="year" class="form-control select d-inline-block">
-							<option value="">Pilih Tahun</option>
-							<option value="2022" @selected(Request::get('year') == 2022)>2022</option>
-							<option value="2021" @selected(Request::get('year') == 2021)>2021</option>
-							<option value="2020" @selected(Request::get('year') == 2020)>2020</option>
-						</select>
-					</li>
-					<li class="list-inline-item">
-						<button type="submit" class="btn btn-secondary">OK</button>
-					</li>
-				</ul>				
-			</form>
-		</div>
-	</div>
-</div> --}}
-<!-- /breadcrumb -->
+        <div class="collapse d-lg-block my-lg-auto ms-lg-auto" id="page_header">
+            <div class="btn-group my-auto ms-auto">
+				<button class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Tahun</button>
+
+				<div class="dropdown-menu dropdown-menu-end">
+					<a href="{{ route('dashboard', ['year' => 2022]) }}" class="dropdown-item">2022</a>
+					<a href="{{ route('dashboard', ['year' => 2021]) }}" class="dropdown-item">2021</a>
+					<a href="{{ route('dashboard', ['year' => 2020]) }}" class="dropdown-item">2020</a>
+				</div>
+			</div>
+        </div>
+    </div>
+</div>
 
 <!-- Content area -->
 <div class="content pt-0">

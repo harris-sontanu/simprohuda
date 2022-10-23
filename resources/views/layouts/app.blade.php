@@ -73,7 +73,9 @@
 			<!-- Inner content -->
 			<div class="content-inner">
 
-				@include('layouts.header')
+				@if (!request()->routeIs('dashboard'))
+					@include('layouts.header')
+				@endif
 
 				@yield('content')
 
