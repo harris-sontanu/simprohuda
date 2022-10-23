@@ -7,6 +7,7 @@ use App\Models\Legislation;
 use App\Models\Scopes\RoleScope;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 
 class LegislationController extends Controller
 {
@@ -94,5 +95,15 @@ class LegislationController extends Controller
         if (Storage::disk('public')->exists($documentPath)) {
             Storage::disk('public')->delete($documentPath);
         }
+    }
+
+    public function search(Request $request)
+    {
+        $term       = $request->search;
+        $ranperda   = Legislation::ranperda()->search($request->only(['search']))->take(3)->get();
+        $ranperbup  = Legislation::ranperbup()->search($request->only(['search']))->take(3)->get();
+        $ransk 	    = Legislation::ransk()->search($request->only(['search']))->take(3)->get();
+
+        return view('legislation.search', compact('term', 'ranperda', 'ranperbup', 'ransk'));
     }
 }

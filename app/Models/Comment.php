@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Traits\HelperTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Scopes\RoleScope;
 
 class Comment extends Model
 {
@@ -30,7 +31,7 @@ class Comment extends Model
 
     public function legislation()
     {
-        return $this->belongsTo(Legislation::class);
+        return $this->belongsTo(Legislation::class)->withoutGlobalScope(RoleScope::class);
     }
 
     public function sender()
