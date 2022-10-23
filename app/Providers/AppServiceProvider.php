@@ -26,8 +26,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {   
-        // $appName = Setting::where('key', 'appName')->first()->value;
-        // View::share('appName', $appName);
+        $appName = Setting::where('key', 'appName')->first()->value;
+        View::share('appName', $appName);
         
         Paginator::useBootstrapFour();
     }
