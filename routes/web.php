@@ -105,5 +105,7 @@ Route::middleware('auth')->group(function() {
 
     Route::get('/setting', [SettingController::class, 'app'])
         ->name('setting.app');
+    Route::put('/setting', [SettingController::class, 'update'])
+        ->name('setting.update');
 
 });
