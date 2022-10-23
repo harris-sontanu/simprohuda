@@ -113,7 +113,7 @@ class Legislation extends Model
         return $query->whereNotNull('validated_at');
     }
 
-    public function scopeProcessed($query)
+    public function scopeInProgress($query)
     {
         return $query->where(function ($q) {
                         $q->whereNotNull('posted_at')
@@ -173,6 +173,19 @@ class Legislation extends Model
         return Attribute::make(
             get: fn ($value) => Carbon::parse($this->created_at)->translatedFormat('Y')
         );
+    }
+
+    public function validatedTime()
+    {   
+        $diff = 'Belum selesai';
+        if ($this->status() === 'validated') {
+            $posted_at = Carbon::parse($this->posted_at);
+            $validated_at = Carbon::parse($this->validated_at);
+
+            $diff = $posted_at->diffInDays($validated_at) . ' hari';
+        }
+
+        return $diff;
     }
 
     public function scopeSearch($query, $request)

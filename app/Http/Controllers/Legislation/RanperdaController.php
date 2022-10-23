@@ -196,6 +196,10 @@ class RanperdaController extends LegislationController
         } else {
             $institutes = null;
         }
+        
+        $styles = [
+            'assets/icons/icomoon/styles.min.css',
+        ];
 
         $vendors = [
             'assets/js/vendor/forms/selects/select2.min.js',
@@ -209,6 +213,7 @@ class RanperdaController extends LegislationController
             'institutes',
             'master',
             'requirements',
+            'styles',
             'vendors'
         ));
     }

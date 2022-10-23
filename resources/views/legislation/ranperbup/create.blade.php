@@ -140,7 +140,7 @@
                                             <td class="text-end">{{ Auth::user()->institutes->first()->name }}</td>
                                         </tr>                         
                                         <tr>
-                                            <td class="fw-semibold text-nowrap"><i class="ph-user me-2"></i>Pemeriksa:</td>
+                                            <td class="fw-semibold text-nowrap"><i class="icon-user-tie me-2"></i>Pemeriksa:</td>
                                             <td class="text-end">{{ Auth::user()->institutes->first()->corrector->name }}</td>
                                         </tr>
                                     @endcan

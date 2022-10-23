@@ -64,6 +64,11 @@
                                             <td>{{ $legislation->background }}</td>
                                         </tr>
                                         <tr>
+                                            <td class="fw-semibold text-nowrap">Status</td>
+                                            <td>:</td>
+                                            <td>{!! $legislation->statusBadge !!}</td>
+                                        </tr>
+                                        <tr>
                                             <td class="fw-semibold text-nowrap">Tanggal Dibuat</td>
                                             <td>:</td>
                                             <td>{{ $legislation->dateFormatted($legislation->created_at, true) }}</td>
@@ -86,7 +91,7 @@
                                         <tr>
                                             <td class="fw-semibold text-nowrap">Waktu Proses</td>
                                             <td>:</td>
-                                            <td></td>
+                                            <td>{{ $legislation->validatedTime() }}</td>
                                         </tr>
                                     </table>
                                 </div>
@@ -106,49 +111,36 @@
                                 </tr>
                             </thead>
                             <tbody id="status-relation-table-body">
-                                @foreach ($requirements as $requirement)
-                                    @php $row = true; @endphp
-                                    @foreach ($documents as $document)
-                                        @if ($document->requirement_id === $requirement->id)
-                                            <tr>
-                                                <td>{{ $document->title }}</td>
-                                                <td>
-                                                    <div class="d-flex align-items-start">
-                                                        <div class="me-2">
-                                                            <i class="{{ $document->extClass; }} ph-2x"></i>
-                                                        </div>
-                
-                                                        <div class="flex-fill overflow-hidden">
-                                                            <a href="{{ $document->source }}" class="fw-semibold text-body text-truncate" target="_blank" download>{{ $document->name; }}</a>
-                                                            <ul class="list-inline list-inline-bullet fs-sm text-muted mb-0">
-                                                                <li class="list-inline-item me-1">{{ $document->size() }}</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <abbr data-bs-popup="tooltip" title="{{ $document->dateFormatted($document->created_at, true) }}">{{ $document->dateFormatted($document->created_at) }}</abbr>
-                                                </td>
-                                                <td>
-                                                    <abbr data-bs-popup="tooltip" title="{{ $document->dateFormatted($document->revised_at, true) }}">{{ $document->dateFormatted($document->revised_at) }}</abbr>
-                                                </td>
-                                                <td>
-                                                    <abbr data-bs-popup="tooltip" title="{{ $document->dateFormatted($document->validated_at, true) }}">{{ $document->dateFormatted($document->validated_at) }}</abbr>
-                                                </td>                                                
-                                            </tr>
-                                            @php $row = false; @endphp
-                                        @endif
-                                    @endforeach  
-                                    @if ($row)                                        
-                                        <tr @error($requirement->term) class="table-danger" @enderror>
-                                            <td>{{ $requirement->title }}</td>
-                                            <td>-</td>
-                                            <td>-</td>
-                                            <td>-</td>
-                                            <td>-</td>
-                                        </tr>
-                                    @endif                               
-                                @endforeach                                                                        
+                                @forelse ($documents as $document)
+                                    <tr>
+                                        <td>{{ $document->title }}</td>
+                                        <td>
+                                            <div class="d-flex align-items-start">
+                                                <div class="me-2">
+                                                    <i class="{{ $document->extClass; }} ph-2x"></i>
+                                                </div>
+        
+                                                <div class="flex-fill overflow-hidden">
+                                                    <a href="{{ $document->source }}" class="fw-semibold text-body text-truncate" target="_blank" download>{{ $document->name; }}</a>
+                                                    <ul class="list-inline list-inline-bullet fs-sm text-muted mb-0">
+                                                        <li class="list-inline-item me-1">{{ $document->size() }}</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <abbr data-bs-popup="tooltip" title="{{ $document->dateFormatted($document->created_at, true) }}">{{ $document->dateFormatted($document->created_at) }}</abbr>
+                                        </td>
+                                        <td>
+                                            <abbr data-bs-popup="tooltip" title="{{ $document->dateFormatted($document->revised_at, true) }}">{{ $document->dateFormatted($document->revised_at) }}</abbr>
+                                        </td>
+                                        <td>
+                                            <abbr data-bs-popup="tooltip" title="{{ $document->dateFormatted($document->validated_at, true) }}">{{ $document->dateFormatted($document->validated_at) }}</abbr>
+                                        </td>                                                
+                                    </tr>
+                                @empty
+                                    <tr class="table-warning"><td colspan="100" class="text-center">Belum ada dokumen</td></tr>
+                                @endforelse                                                                       
                             </tbody>
                         </table>
                     </div>                    
