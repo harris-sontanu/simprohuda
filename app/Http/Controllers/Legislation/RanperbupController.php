@@ -35,7 +35,7 @@ class RanperbupController extends LegislationController
         $pageHeader = 'Rancangan Peraturan Bupati';
         $pageTitle = $pageHeader . $this->pageTitle;
         $breadCrumbs = [
-            route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
+            route('dashboard') => '<i class="ph-house me-2"></i>Dasbor',
             '#' => 'Produk Hukum',
             $this->type->name => TRUE
         ];
@@ -180,7 +180,7 @@ class RanperbupController extends LegislationController
         $pageHeader = 'Pengajuan Rancangan Peraturan Bupati';
         $pageTitle = $pageHeader . $this->pageTitle;
         $breadCrumbs = [
-            route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
+            route('dashboard') => '<i class="ph-house me-2"></i>Dasbor',
             '#' => 'Produk Hukum',
             route('legislation.ranperbup.index') => $this->type->name,
             'Pengajuan' => true
@@ -258,7 +258,7 @@ class RanperbupController extends LegislationController
         $pageHeader = 'Detail Rancangan Peraturan Bupati';
         $pageTitle = $pageHeader . $this->pageTitle;
         $breadCrumbs = [
-            route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
+            route('dashboard') => '<i class="ph-house me-2"></i>Dasbor',
             '#' => 'Produk Hukum',
             route('legislation.ranperbup.index') => $legislation->type->name,
             'Detail' => true
@@ -294,7 +294,7 @@ class RanperbupController extends LegislationController
         $pageHeader = 'Perbaikan Rancangan Peraturan Bupati';
         $pageTitle = $pageHeader . $this->pageTitle;
         $breadCrumbs = [
-            route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
+            route('dashboard') => '<i class="ph-house me-2"></i>Dasbor',
             '#' => 'Produk Hukum',
             route('legislation.ranperbup.index') => $this->type->name,
             'Perbaikan' => true

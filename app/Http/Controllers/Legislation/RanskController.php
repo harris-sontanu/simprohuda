@@ -35,7 +35,7 @@ class RanskController extends LegislationController
         $pageHeader = 'Rancangan SK';
         $pageTitle = $pageHeader . $this->pageTitle;
         $breadCrumbs = [
-            route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
+            route('dashboard') => '<i class="ph-house me-2"></i>Dasbor',
             '#' => 'Produk Hukum',
             $this->type->name => TRUE
         ];
@@ -180,7 +180,7 @@ class RanskController extends LegislationController
         $pageHeader = 'Pengajuan Rancangan SK';
         $pageTitle = $pageHeader . $this->pageTitle;
         $breadCrumbs = [
-            route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
+            route('dashboard') => '<i class="ph-house me-2"></i>Dasbor',
             '#' => 'Produk Hukum',
             route('legislation.ransk.index') => $this->type->name,
             'Pengajuan' => true
@@ -258,7 +258,7 @@ class RanskController extends LegislationController
         $pageHeader = 'Detail Rancangan SK';
         $pageTitle = $pageHeader . $this->pageTitle;
         $breadCrumbs = [
-            route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
+            route('dashboard') => '<i class="ph-house me-2"></i>Dasbor',
             '#' => 'Produk Hukum',
             route('legislation.ransk.index') => $legislation->type->name,
             'Detail' => true
@@ -292,7 +292,7 @@ class RanskController extends LegislationController
         $pageHeader = 'Perbaikan Rancangan SK';
         $pageTitle = $pageHeader . $this->pageTitle;
         $breadCrumbs = [
-            route('dashboard') => '<i class="icon-home2 mr-2"></i>Dasbor',
+            route('dashboard') => '<i class="ph-house me-2"></i>Dasbor',
             '#' => 'Produk Hukum',
             route('legislation.ransk.index') => $this->type->name,
             'Perbaikan' => true
