@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
 use Illuminate\Pagination\Paginator;
+use App\Models\Setting;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,7 +25,10 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {
+    {   
+        $appName = Setting::where('name', 'appName')->first()->value;
+        View::share('appName', $appName);
+        
         Paginator::useBootstrapFour();
     }
 }
