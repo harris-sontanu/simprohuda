@@ -18,12 +18,11 @@
 
         <div class="collapse d-lg-block my-lg-auto ms-lg-auto" id="page_header">
             <div class="btn-group my-auto ms-auto">
-				<button class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-					Tahun 
+				<button id="year-option" class="btn btn-light dropdown-toggle" data-year="{{ Request::get('year') }}" data-bs-toggle="dropdown" aria-expanded="false">					 
 					@empty (Request::get('year'))
-						{{ now()->year }} 
+						Pilih Tahun
 					@else 
-						{{ Request::get('year') }}
+					   	Tahun {{ Request::get('year') }}
 					@endempty
 				</button>
 
