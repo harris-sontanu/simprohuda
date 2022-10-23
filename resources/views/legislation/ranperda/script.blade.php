@@ -7,11 +7,6 @@
             minimumResultsForSearch: Infinity
         });
 
-        $(document).on('change', '.custom-file-input', function() {
-            let filename = $(this)[0].files[0].name;
-            $(this).next().html(filename);
-        })
-
         const daterangepickerConfig = {
             parentEl: '.content-inner',
             autoApply: true,
@@ -91,7 +86,7 @@
                     buttons: {
                         confirm: {
                             label: 'Yakin',
-                            className: 'btn-secondary'
+                            className: 'btn-indigo'
                         },
                         cancel: {
                             label: 'Batal',
@@ -120,7 +115,7 @@
                 buttons: {
                     confirm: {
                         label: 'Yakin',
-                        className: 'btn-secondary'
+                        className: 'btn-indigo'
                     },
                     cancel: {
                         label: 'Batal',
@@ -139,11 +134,6 @@
             $('#filter-options').slideToggle('fast');
         })
 
-        $('.reset').click(function() {
-            $('.filter-form').trigger('reset');
-            $('.daterange-single').val('');
-        })
-
         $(".filter-form").submit(function() {
             $(this).find(":input").filter(function(){ return !this.value; }).attr("disabled", "disabled");
             return true;
@@ -152,6 +142,8 @@
         $('#upload-doc-modal').on('show.bs.modal', function(event) {
             let button = $(event.relatedTarget), // Button that triggered the modal
                 action = button.data('action');
+
+            console.log(action);
 
             if (action == 'create') 
             {
@@ -222,7 +214,7 @@
                 buttons: {
                     confirm: {
                         label: 'Yakin',
-                        className: 'btn-secondary'
+                        className: 'btn-indigo'
                     },
                     cancel: {
                         label: 'Batal',
@@ -283,7 +275,7 @@
     function findData(){
 
         // Initialise the Demo with the Ctrl Click Functionality as the Default
-        var list = $('.table tbody').finderSelect({enableDesktopCtrlDefault:true, selectClass:'table-info'});
+        var list = $('.table tbody').finderSelect({enableDesktopCtrlDefault:true, selectClass:'table-primary'});
 
         // Add a hook to the highlight function so that checkboxes in the selection are also checked.
         list.finderSelect('addHook','highlight:before', function(el) {

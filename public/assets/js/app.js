@@ -22,12 +22,12 @@ const App = function () {
 
     // Disable all transitions
     const transitionsDisabled = function() {
-        $('body').addClass('no-transitions');
+        document.body.classList.add('no-transitions');
     };
 
     // Enable all transitions
     const transitionsEnabled = function() {
-        $('body').removeClass('no-transitions');
+        document.body.classList.remove('no-transitions');
     };
 
 
@@ -43,7 +43,7 @@ const App = function () {
               customScrollbarsClass = 'custom-scrollbars';
 
         // Add class if OS is windows
-        windowsPlatforms.indexOf(platform) != -1 && $('body').addClass(customScrollbarsClass);
+        windowsPlatforms.indexOf(platform) != -1 && document.documentElement.classList.add(customScrollbarsClass);
     };
 
 
@@ -59,87 +59,108 @@ const App = function () {
     const sidebarMainResize = function() {
 
         // Elements
-        const sidebarMainElement = $('.sidebar-main'),
-              sidebarMainToggler = $('.sidebar-main-resize'),
+        const sidebarMainElement = document.querySelector('.sidebar-main'),
+              sidebarMainToggler = document.querySelectorAll('.sidebar-main-resize'),
               resizeClass = 'sidebar-main-resized',
               unfoldClass = 'sidebar-main-unfold';
 
 
-        // Define variables
-        const unfoldDelay = 150;
-        let timerStart,
-            timerFinish;
+        // Config
+        if (sidebarMainElement) {
 
-        // Toggle classes on click
-        sidebarMainToggler.on('click', function(e) {
-            sidebarMainElement.toggleClass(resizeClass);
-            !sidebarMainElement.hasClass(resizeClass) && sidebarMainElement.removeClass(unfoldClass);
-        });
+            // Define variables
+            const unfoldDelay = 150;
+            let timerStart,
+                timerFinish;
 
-        // Add class on mouse enter
-        sidebarMainElement.on('mouseenter', function() {
-            clearTimeout(timerFinish);
-            timerStart = setTimeout(function() {
-                sidebarMainElement.hasClass(resizeClass) && sidebarMainElement.addClass(unfoldClass);
-            }, unfoldDelay);
-        });
+            // Toggle classes on click
+            sidebarMainToggler.forEach(function(toggler) {
+                toggler.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    sidebarMainElement.classList.toggle(resizeClass);
+                    !sidebarMainElement.classList.contains(resizeClass) && sidebarMainElement.classList.remove(unfoldClass);
+                });                
+            });
 
-        // Remove class on mouse leave
-        sidebarMainElement.on('mouseleave', function() {
-            clearTimeout(timerStart);
-            timerFinish = setTimeout(function() {
-                sidebarMainElement.removeClass(unfoldClass);
-            }, unfoldDelay);
-        });
+            // Add class on mouse enter
+            sidebarMainElement.addEventListener('mouseenter', function() {
+                clearTimeout(timerFinish);
+                timerStart = setTimeout(function() {
+                    sidebarMainElement.classList.contains(resizeClass) && sidebarMainElement.classList.add(unfoldClass);
+                }, unfoldDelay);
+            });
+
+            // Remove class on mouse leave
+            sidebarMainElement.addEventListener('mouseleave', function() {
+                clearTimeout(timerStart);
+                timerFinish = setTimeout(function() {
+                    sidebarMainElement.classList.remove(unfoldClass);
+                }, unfoldDelay);
+            });
+        }
     };
 
     // Toggle main sidebar
     const sidebarMainToggle = function() {
 
         // Elements
-        const sidebarMainElement = $('.sidebar-main'),
-              sidebarMainRestElements = $('.sidebar:not(.sidebar-main):not(.sidebar-component)'),
-              sidebarMainDesktopToggler = $('.sidebar-main-toggle'),
-              sidebarMainMobileToggler = $('.sidebar-mobile-main-toggle'),
+        const sidebarMainElement = document.querySelector('.sidebar-main'),
+              sidebarMainRestElements = document.querySelectorAll('.sidebar:not(.sidebar-main):not(.sidebar-component)'),
+              sidebarMainDesktopToggler = document.querySelectorAll('.sidebar-main-toggle'),
+              sidebarMainMobileToggler = document.querySelectorAll('.sidebar-mobile-main-toggle'),
               sidebarCollapsedClass = 'sidebar-collapsed',
               sidebarMobileExpandedClass = 'sidebar-mobile-expanded';
 
         // On desktop
-        sidebarMainDesktopToggler.on('click', function(e) {
-            e.preventDefault();
-            sidebarMainElement.toggleClass(sidebarCollapsedClass);
-        });                
+        sidebarMainDesktopToggler.forEach(function(toggler) {
+            toggler.addEventListener('click', function(e) {
+                e.preventDefault();
+                sidebarMainElement.classList.toggle(sidebarCollapsedClass);
+            });                
+        });
 
         // On mobile
-        sidebarMainMobileToggler.on('click', function(e) {
-            e.preventDefault();
-            sidebarMainElement.toggleClass(sidebarMobileExpandedClass);
-            sidebarMainRestElements.removeClass(sidebarMobileExpandedClass);
-        });                
+        sidebarMainMobileToggler.forEach(function(toggler) {
+            toggler.addEventListener('click', function(e) {
+                e.preventDefault();
+                sidebarMainElement.classList.toggle(sidebarMobileExpandedClass);
+
+                sidebarMainRestElements.forEach(function(sidebars) {
+                    sidebars.classList.remove(sidebarMobileExpandedClass);
+                });
+            });                
+        });
     };
 
     // Toggle secondary sidebar
     const sidebarSecondaryToggle = function() {
 
         // Elements
-        const sidebarSecondaryElement = $('.sidebar-secondary'),
-              sidebarSecondaryRestElements = $('.sidebar:not(.sidebar-secondary):not(.sidebar-component)'),
-              sidebarSecondaryDesktopToggler = $('.sidebar-secondary-toggle'),
-              sidebarSecondaryMobileToggler = $('.sidebar-mobile-secondary-toggle'),
+        const sidebarSecondaryElement = document.querySelector('.sidebar-secondary'),
+              sidebarSecondaryRestElements = document.querySelectorAll('.sidebar:not(.sidebar-secondary):not(.sidebar-component)'),
+              sidebarSecondaryDesktopToggler = document.querySelectorAll('.sidebar-secondary-toggle'),
+              sidebarSecondaryMobileToggler = document.querySelectorAll('.sidebar-mobile-secondary-toggle'),
               sidebarCollapsedClass = 'sidebar-collapsed',
               sidebarMobileExpandedClass = 'sidebar-mobile-expanded';
 
         // On desktop
-        sidebarSecondaryDesktopToggler.on('click', function(e) {
-            e.preventDefault();
-            sidebarSecondaryElement.toggleClass(sidebarCollapsedClass);
+        sidebarSecondaryDesktopToggler.forEach(function(toggler) {
+            toggler.addEventListener('click', function(e) {
+                e.preventDefault();
+                sidebarSecondaryElement.classList.toggle(sidebarCollapsedClass);
+            });                
         });
 
         // On mobile
-        sidebarSecondaryMobileToggler.on('click', function(e) {
-            e.preventDefault();
-            sidebarSecondaryElement.toggleClass(sidebarMobileExpandedClass);
-            sidebarSecondaryRestElements.removeClass(sidebarMobileExpandedClass);
+        sidebarSecondaryMobileToggler.forEach(function(toggler) {
+            toggler.addEventListener('click', function(e) {
+                e.preventDefault();
+                sidebarSecondaryElement.classList.toggle(sidebarMobileExpandedClass);
+
+                sidebarSecondaryRestElements.forEach(function(sidebars) {
+                    sidebars.classList.remove(sidebarMobileExpandedClass);
+                });
+            });                
         });
     };
 
@@ -147,39 +168,48 @@ const App = function () {
     const sidebarRightToggle = function() {
 
         // Elements
-        const sidebarRightElement = $('.sidebar-right'),
-              sidebarRightRestElements = $('.sidebar:not(.sidebar-right):not(.sidebar-component)'),
-              sidebarRightDesktopToggler = $('.sidebar-right-toggle'),
-              sidebarRightMobileToggler = $('.sidebar-mobile-right-toggle'),
+        const sidebarRightElement = document.querySelector('.sidebar-end'),
+              sidebarRightRestElements = document.querySelectorAll('.sidebar:not(.sidebar-end):not(.sidebar-component)'),
+              sidebarRightDesktopToggler = document.querySelectorAll('.sidebar-end-toggle'),
+              sidebarRightMobileToggler = document.querySelectorAll('.sidebar-mobile-end-toggle'),
               sidebarCollapsedClass = 'sidebar-collapsed',
               sidebarMobileExpandedClass = 'sidebar-mobile-expanded';
 
         // On desktop
-        sidebarRightDesktopToggler.on('click', function(e) {
-            e.preventDefault();
-            sidebarRightElement.toggleClass(sidebarCollapsedClass);
+        sidebarRightDesktopToggler.forEach(function(toggler) {
+            toggler.addEventListener('click', function(e) {
+                e.preventDefault();
+                sidebarRightElement.classList.toggle(sidebarCollapsedClass);
+            });                
         });
 
         // On mobile
-        sidebarRightMobileToggler.on('click', function(e) {
-            e.preventDefault();
-            sidebarRightElement.toggleClass(sidebarMobileExpandedClass);
-            sidebarRightRestElements.removeClass(sidebarMobileExpandedClass);
-        });                
+        sidebarRightMobileToggler.forEach(function(toggler) {
+            toggler.addEventListener('click', function(e) {
+                e.preventDefault();
+                sidebarRightElement.classList.toggle(sidebarMobileExpandedClass);
+
+                sidebarRightRestElements.forEach(function(sidebars) {
+                    sidebars.classList.remove(sidebarMobileExpandedClass);
+                });
+            });                
+        });
     };
 
     // Toggle component sidebar
     const sidebarComponentToggle = function() {
 
         // Elements
-        const sidebarComponentElement = $('.sidebar-component'),
-              sidebarComponentMobileToggler = $('.sidebar-mobile-component-toggle'),
+        const sidebarComponentElement = document.querySelector('.sidebar-component'),
+              sidebarComponentMobileToggler = document.querySelectorAll('.sidebar-mobile-component-toggle'),
               sidebarMobileExpandedClass = 'sidebar-mobile-expanded';
 
         // Toggle classes
-        sidebarComponentMobileToggler.on('click', function(e) {
-            e.preventDefault();
-            sidebarComponentElement.toggleClass(sidebarMobileExpandedClass);
+        sidebarComponentMobileToggler.forEach(function(toggler) {
+            toggler.addEventListener('click', function(e) {
+                e.preventDefault();
+                sidebarComponentElement.classList.toggle(sidebarMobileExpandedClass);
+            });                
         });
     };
 
@@ -190,61 +220,47 @@ const App = function () {
     // Sidebar navigation
     const navigationSidebar = function() {
 
-        // Define default class names and options
-        var navClass = 'nav-sidebar',
-            navItemClass = 'nav-item',
-            navItemOpenClass = 'nav-item-open',
-            navLinkClass = 'nav-link',
-            navSubmenuClass = 'nav-group-sub',
-            navScrollSpyClass = 'nav-scrollspy',
-            navSlidingSpeed = 250;
+        // Elements
+        const navContainerClass = 'nav-sidebar',
+              navItemOpenClass = 'nav-item-open',
+              navLinkClass = 'nav-link',
+              navLinkDisabledClass = 'disabled',
+              navSubmenuContainerClass = 'nav-item-submenu',
+              navSubmenuClass = 'nav-group-sub',
+              navScrollSpyClass = 'nav-scrollspy',
+              sidebarNavElement = document.querySelectorAll(`.${navContainerClass}:not(.${navScrollSpyClass})`);
 
-        // Configure collapsible functionality
-        $('.' + navClass + ':not(.' + navScrollSpyClass + ')').each(function() {
-            $(this).find('.' + navItemClass).has('.' + navSubmenuClass).children('.' + navItemClass + ' > ' + '.' + navLinkClass).not('.disabled').on('click', function (e) {
-                e.preventDefault();
+        // Setup
+        sidebarNavElement.forEach(function(nav) {
+            nav.querySelectorAll(`.${navSubmenuContainerClass} > .${navLinkClass}:not(.${navLinkDisabledClass})`).forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const submenuContainer = link.closest(`.${navSubmenuContainerClass}`);
+                    const submenu = link.closest(`.${navSubmenuContainerClass}`).querySelector(`:scope > .${navSubmenuClass}`);
 
-                // Simplify stuff
-                var $target = $(this);
+                    // Collapsible
+                    if(submenuContainer.classList.contains(navItemOpenClass)) {
+                        new bootstrap.Collapse(submenu).hide();
+                        submenuContainer.classList.remove(navItemOpenClass);
+                    }
+                    else {
+                        new bootstrap.Collapse(submenu).show();
+                        submenuContainer.classList.add(navItemOpenClass);
+                    }
 
-                // Collapsible
-                if($target.parent('.' + navItemClass).hasClass(navItemOpenClass)) {
-                    $target.parent('.' + navItemClass).removeClass(navItemOpenClass).children('.' + navSubmenuClass).slideUp(navSlidingSpeed);
-                }
-                else {
-                    $target.parent('.' + navItemClass).addClass(navItemOpenClass).children('.' + navSubmenuClass).slideDown(navSlidingSpeed);
-                }
-
-                // Accordion
-                if ($target.parents('.' + navClass).data('nav-type') == 'accordion') {
-                    $target.parent('.' + navItemClass).siblings(':has(.' + navSubmenuClass + ')').removeClass(navItemOpenClass).children('.' + navSubmenuClass).slideUp(navSlidingSpeed);
-                }
+                    // Accordion
+                    if (link.closest(`.${navContainerClass}`).getAttribute('data-nav-type') == 'accordion') {
+                        for (let sibling of link.parentNode.parentNode.children) {
+                            if (sibling != link.parentNode && sibling.classList.contains(navItemOpenClass)) {
+                                sibling.querySelectorAll(`:scope > .${navSubmenuClass}`).forEach(function(submenu) {
+                                    new bootstrap.Collapse(submenu).hide();
+                                    sibling.classList.remove(navItemOpenClass);
+                                });
+                            }
+                        }
+                    }
+                });
             });
-        });
-
-        // Disable click in disabled navigation items
-        $(document).on('click', '.' + navClass + ' .disabled', function(e) {
-            e.preventDefault();
-        });
-    };
-
-    // Navbar navigation
-    const navigationNavbar = function() {
-
-        // Prevent dropdown from closing on click
-        $(document).on('click', '.dropdown-content', function(e) {
-            e.stopPropagation();
-        });
-
-        // Disabled links
-        $('.navbar-nav .disabled a, .nav-item-levels .disabled').on('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        });
-
-        // Show tabs inside dropdowns
-        $('.dropdown-content a[data-toggle="tab"]').on('click', function() {
-            $(this).tab('show');
         });
     };
 
@@ -254,15 +270,23 @@ const App = function () {
 
     // Tooltip
     const componentTooltip = function() {
-        $('[data-popup="tooltip"]').tooltip({
-            boundary: '.page-content'
+        const tooltipSelector = document.querySelectorAll('[data-bs-popup="tooltip"]');
+
+        tooltipSelector.forEach(function(popup) {
+            new bootstrap.Tooltip(popup, {
+                boundary: '.page-content'
+            });
         });
     };
 
     // Popover
     const componentPopover = function() {
-        $('[data-popup="popover"]').popover({
-            boundary: '.page-content'
+        const popoverSelector = document.querySelectorAll('[data-bs-popup="popover"]');
+
+        popoverSelector.forEach(function(popup) {
+            new bootstrap.Popover(popup, {
+                boundary: '.page-content'
+            });
         });
     };
 
@@ -270,39 +294,52 @@ const App = function () {
     const componentToTopButton = function() {
 
         // Elements
-        const toTopContainer = $('.content-wrapper'),
-              scrollableContainer = $('.content-inner'),
-              scrollableDistance = 250;
+        const toTopContainer = document.querySelector('.content-wrapper'),
+              toTopElement = document.createElement('button'),
+              toTopElementIcon = document.createElement('i'),
+              toTopButtonContainer = document.createElement('div'),
+              toTopButtonColorClass = 'btn-secondary',
+              toTopButtonIconClass = 'ph-arrow-up',
+              scrollableContainer = document.querySelector('.content-inner'),
+              scrollableDistance = 250,
+              footerContainer = document.querySelector('.navbar-footer');
 
 
         // Append only if container exists
         if (scrollableContainer) {
 
+            // Create button container
+            toTopContainer.appendChild(toTopButtonContainer);
+            toTopButtonContainer.classList.add('btn-to-top');
+
             // Create button
-            toTopContainer.append($('<div class="btn-to-top"><button type="button" class="btn btn-dark btn-icon rounded-pill"><i class="icon-arrow-up8"></i></button></div>'));
+            toTopElement.classList.add('btn', toTopButtonColorClass, 'btn-icon', 'rounded-pill');
+            toTopElement.setAttribute('type', 'button');
+            toTopButtonContainer.appendChild(toTopElement);
+            toTopElementIcon.classList.add(toTopButtonIconClass);
+            toTopElement.appendChild(toTopElementIcon);
 
             // Show and hide on scroll
-            const to_top_button = $('.btn-to-top'),
-                  add_class_on_scroll = function() {
-                    to_top_button.addClass('btn-to-top-visible');
-                  },
-                  remove_class_on_scroll = function() {
-                    to_top_button.removeClass('btn-to-top-visible');
-                  };
+            const to_top_button = document.querySelector('.btn-to-top'),
+                  add_class_on_scroll = () => to_top_button.classList.add('btn-to-top-visible'),
+                  remove_class_on_scroll = () => to_top_button.classList.remove('btn-to-top-visible');
 
-            scrollableContainer.on('scroll', function() { 
-                const scrollpos = scrollableContainer.scrollTop();
-                if (scrollpos >= scrollableDistance) {
-                    add_class_on_scroll();
-                }
-                else {
-                    remove_class_on_scroll();
+            scrollableContainer.addEventListener('scroll', function() { 
+                const scrollpos = scrollableContainer.scrollTop;
+                scrollpos >= scrollableDistance ? add_class_on_scroll() : remove_class_on_scroll();
+                if(footerContainer) {
+                    if (this.scrollHeight - this.scrollTop - this.clientHeight <= footerContainer.clientHeight) {
+                        to_top_button.style.bottom = footerContainer.clientHeight + 20 + 'px';
+                    }
+                    else {
+                        to_top_button.removeAttribute('style');
+                    }
                 }
             });
 
             // Scroll to top on click
-            $('.btn-to-top .btn').on('click', function() {
-                scrollableContainer.scrollTop(0);
+            document.querySelector('.btn-to-top .btn').addEventListener('click', function() {
+                scrollableContainer.scrollTo(0, 0);
             });
         }
     };
@@ -315,26 +352,38 @@ const App = function () {
     const cardActionReload = function() {
 
         // Elements
-        const buttonElement = $('[data-action=reload]'),
-              overlayContainer = '.card',
+        const buttonClass = '[data-card-action=reload]',
+              containerClass = 'card',
               overlayClass = 'card-overlay',
-              spinnerClass = 'icon-spinner9 spinner text-body',
+              spinnerClass = 'ph-circle-notch',
               overlayAnimationClass = 'card-overlay-fadeout';
 
-
         // Configure
-        buttonElement.on('click', function(e) {
-            e.preventDefault();
+        document.querySelectorAll(buttonClass).forEach(function(button) {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
 
-            // Create overlay with spinner
-            $(this).parents(overlayContainer).append($('<div class="' + overlayClass + '"><i class="' + spinnerClass + '"></i></div>'));
+                // Elements
+                const parentContainer = button.closest(`.${containerClass}`),
+                      overlayElement = document.createElement('div'),
+                      overlayElementIcon = document.createElement('i');
 
-            // Remove overlay after 2.5s, for demo only
-            setTimeout(function() {
-                $('.' + overlayClass).addClass(overlayAnimationClass).on('animationend animationcancel', function() {
-                    $(this).remove();
-                });
-            }, 2500);
+                // Append overlay with icon
+                overlayElement.classList.add(overlayClass);
+                parentContainer.appendChild(overlayElement);
+                overlayElementIcon.classList.add(spinnerClass, 'spinner', 'text-body');
+                overlayElement.appendChild(overlayElementIcon);
+
+                // Remove overlay after 2.5s, for demo only
+                setTimeout(function() {
+                    overlayElement.classList.add(overlayAnimationClass);
+                    ['animationend', 'animationcancel'].forEach(function(e) {
+                        overlayElement.addEventListener(e, function() {
+                            overlayElement.remove();
+                        });
+                    });
+                }, 2500);
+            });
         });
     };
 
@@ -342,25 +391,34 @@ const App = function () {
     const cardActionCollapse = function() {
 
         // Elements
-        const buttonElement = $('[data-action=collapse]'),
-              cardContainer = '.card',
+        const buttonClass = '[data-card-action=collapse]',
               cardCollapsedClass = 'card-collapsed';
 
-        // Configure
-        buttonElement.on('click', function(e) {
-            e.preventDefault();
+        // Setup
+        document.querySelectorAll(buttonClass).forEach(function(button) {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
 
-            const parentContainer = $(this).parents('.card'),
-                  collapsibleContainer = parentContainer.find('> .collapse');
+                const parentContainer = button.closest('.card'),
+                      collapsibleContainer = parentContainer.querySelectorAll(':scope > .collapse');
 
-            if (parentContainer.hasClass(cardCollapsedClass)) {
-                parentContainer.removeClass(cardCollapsedClass);
-                collapsibleContainer.collapse('show');
-            }
-            else {
-                parentContainer.addClass(cardCollapsedClass);
-                collapsibleContainer.collapse('hide');
-            }
+                if (parentContainer.classList.contains(cardCollapsedClass)) {
+                    parentContainer.classList.remove(cardCollapsedClass);
+                    collapsibleContainer.forEach(function(toggle) {
+                        new bootstrap.Collapse(toggle, {
+                            show: true
+                        });
+                    });
+                }
+                else {
+                    parentContainer.classList.add(cardCollapsedClass);
+                    collapsibleContainer.forEach(function(toggle) {
+                        new bootstrap.Collapse(toggle, {
+                            hide: true
+                        });
+                    });
+                }
+            });
         });
     };
 
@@ -368,13 +426,15 @@ const App = function () {
     const cardActionRemove = function() {
 
         // Elements
-        const buttonElement = $('[data-action=remove]'),
-              cardContainer = '.card';
+        const buttonClass = '[data-card-action=remove]',
+              containerClass = 'card'
 
-        // Configure
-        buttonElement.on('click', function(e) {
-            e.preventDefault();
-            $(this).parents(cardContainer).slideUp(150);
+        // Config
+        document.querySelectorAll(buttonClass).forEach(function(button) {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                button.closest(`.${containerClass}`).remove();
+            });
         });
     };
 
@@ -382,40 +442,48 @@ const App = function () {
     const cardActionFullscreen = function() {
 
         // Elements
-        const buttonElement = '[data-action=fullscreen]',
-              buttonClass = 'list-icons-item',
-              buttonContainerClass = 'list-icons',
+        const buttonAttribute = '[data-card-action=fullscreen]',
+              buttonClass = 'text-body',
+              buttonContainerClass = 'd-inline-flex',
               cardFullscreenClass = 'card-fullscreen',
               collapsedClass = 'collapsed-in-fullscreen',
               scrollableContainerClass = 'content-inner',
               fullscreenAttr = 'data-fullscreen';
 
         // Configure
-        $(buttonElement).on('click', function(e) {
-            e.preventDefault();
-            const button = $(this);
+        document.querySelectorAll(buttonAttribute).forEach(function(button) {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
 
-            // Get closest card container
-            const cardFullscreen = button.parents('.card');
+                // Get closest card container
+                const cardFullscreen = button.closest('.card');
 
-            // Toggle required classes
-            cardFullscreen.toggleClass(cardFullscreenClass);
+                // Toggle required classes
+                cardFullscreen.classList.toggle(cardFullscreenClass);
 
-            // Toggle classes depending on state
-            if (!cardFullscreen.hasClass(cardFullscreenClass)) {
-                button.removeAttr(fullscreenAttr);
-                cardFullscreen.find('.' + collapsedClass).removeClass('show');
-                $('.' + scrollableContainerClass).removeClass('overflow-hidden');
-                button.parents('.' + buttonContainerClass).find('.' + buttonClass + ':not(' + buttonElement + ')').removeClass('d-none');
-            }
-            else {
-                button.attr(fullscreenAttr, 'active');
-                cardFullscreen.removeAttr('style');
-                cardFullscreen.find('.collapse:not(.show)').addClass('show ' + collapsedClass);
-                $('.' + scrollableContainerClass).addClass('overflow-hidden');
-                button.parents('.' + buttonContainerClass).find('.' + buttonClass + ':not(' + buttonElement + ')').addClass('d-none');
-            }
-
+                // Toggle classes depending on state
+                if (!cardFullscreen.classList.contains(cardFullscreenClass)) {
+                    button.removeAttribute(fullscreenAttr);
+                    cardFullscreen.querySelectorAll(`:scope > .${collapsedClass}`).forEach(function(collapsedElement) {
+                        collapsedElement.classList.remove('show');
+                    });
+                    document.querySelector(`.${scrollableContainerClass}`).classList.remove('overflow-hidden');
+                    button.closest(`.${buttonContainerClass}`).querySelectorAll(`:scope > .${buttonClass}:not(${buttonAttribute})`).forEach(function(actions) {
+                        actions.classList.remove('d-none');
+                    });
+                }
+                else {
+                    button.setAttribute(fullscreenAttr, 'active');
+                    cardFullscreen.removeAttribute('style');
+                    cardFullscreen.querySelectorAll(`:scope > .collapse:not(.show)`).forEach(function(collapsedElement) {
+                        collapsedElement.classList.add('show', `.${collapsedClass}`);
+                    });
+                    document.querySelector(`.${scrollableContainerClass}`).classList.add('overflow-hidden');
+                    button.closest(`.${buttonContainerClass}`).querySelectorAll(`:scope > .${buttonClass}:not(${buttonAttribute})`).forEach(function(actions) {
+                        actions.classList.add('d-none');
+                    });
+                }
+            });
         });
     };
 
@@ -423,49 +491,55 @@ const App = function () {
     // Misc
     // -------------------------
 
-    // Re-declare dropdown boundary for app container
-    const dropdownMenus = function() {
-        $.fn.dropdown.Constructor.Default.boundary = '.page-content';
-    };
-
     // Dropdown submenus. Trigger on click
     const dropdownSubmenu = function() {
 
-        // All parent levels require .dropdown-toggle class
-        $('.dropdown-menu').find('.dropdown-submenu').not('.disabled').find('.dropdown-toggle').on('click', function(e) {
-            e.stopPropagation();
-            e.preventDefault();
+        // Classes
+        const menuClass = 'dropdown-menu',
+              submenuClass = 'dropdown-submenu',
+              menuToggleClass = 'dropdown-toggle',
+              disabledClass = 'disabled',
+              showClass = 'show';
 
-            const button = $(this);
+        if(submenuClass) {
 
-            // Remove "show" class in all siblings
-            button.parent().siblings().removeClass('show').find('.show').removeClass('show');
+            // Toggle submenus on all levels
+            document.querySelectorAll(`.${menuClass} .${submenuClass}:not(.${disabledClass}) .${menuToggleClass}`).forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    e.preventDefault();
 
-            // Toggle submenu
-            button.parent().toggleClass('show').children('.dropdown-menu').toggleClass('show');
+                    // Toggle classes
+                    link.closest(`.${submenuClass}`).classList.toggle(showClass);
+                    link.closest(`.${submenuClass}`).querySelectorAll(`:scope > .${menuClass}`).forEach(function(children) {
+                        children.classList.toggle(showClass);
+                    });
+
+                    // When submenu is shown, hide others in all siblings
+                    for (let sibling of link.parentNode.parentNode.children) {
+                        if (sibling != link.parentNode) {
+                            sibling.classList.remove(showClass);
+                            sibling.querySelectorAll(`.${showClass}`).forEach(function(submenu) {
+                                submenu.classList.remove(showClass);
+                            });
+                        }
+                    }
+                });
+            });
 
             // Hide all levels when parent dropdown is closed
-            button.parents('.show').on('hidden.bs.dropdown', function(e) {
-                $('.dropdown-submenu .show, .dropdown-submenu.show').removeClass('show');
+            document.querySelectorAll(`.${menuClass}`).forEach(function(link) {
+                if(!link.parentElement.classList.contains(submenuClass)) {
+                    link.parentElement.addEventListener('hidden.bs.dropdown', function(e) {
+                        link.querySelectorAll(`.${menuClass}.${showClass}`).forEach(function(children) {
+                            children.classList.remove(showClass);
+                        });
+                    });
+                }
             });
-        });
+        }
     };
 
-    // Header elements toggler
-    const componentHeaderElements = function() {
-
-        // Toggle visible state of header elements
-        $('.header-elements-toggle').on('click', function(e) {
-            e.preventDefault();
-            $(this).parents('[class*=header-elements-]:not(.header-elements-toggle)').find('.header-elements').toggleClass('d-none');
-        });
-
-        // Toggle visible state of footer elements
-        $('.footer-elements-toggle').on('click', function(e) {
-            e.preventDefault();
-            $(this).parents('.card-footer').find('.footer-elements').toggleClass('d-none');
-        });
-    };
 
 
     //
@@ -489,7 +563,6 @@ const App = function () {
             componentTooltip();
             componentPopover();
             componentToTopButton();
-            componentHeaderElements();
         },
 
         // Initialize all sidebars
@@ -504,7 +577,6 @@ const App = function () {
         // Initialize all navigations
         initNavigations: function() {
             navigationSidebar();
-            navigationNavbar();
         },
 
         // Initialize all card actions
@@ -517,7 +589,6 @@ const App = function () {
 
         // Dropdown submenu
         initDropdowns: function() {
-            dropdownMenus();
             dropdownSubmenu();
         },
 
@@ -530,7 +601,7 @@ const App = function () {
             App.initCardActions();
             App.initDropdowns();
         }
-    }
+    };
 }();
 
 

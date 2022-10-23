@@ -182,13 +182,13 @@ class User extends Authenticatable
         $status = $this->status();
 
         if ($status == 'active') {
-            $badgeHtml = '<span class="badge badge-pill badge-success">Aktif</span>';
+            $badgeHtml = '<span class="badge bg-primary bg-opacity-20 text-primary">Aktif</span>';
         } else if ($status == 'pending') {
-            $badgeHtml = '<span class="badge badge-pill badge-warning">Tinjau</span>';
+            $badgeHtml = '<span class="badge bg-warning bg-opacity-20 text-warning">Tinjau</span>';
         } else if ($status == 'trash') {
-            $badgeHtml = '<span class="badge badge-pill badge-dark">Sampah</span>';
+            $badgeHtml = '<span class="badge bg-dark bg-opacity-20 text-dark">Sampah</span>';
         } else {
-            $badgeHtml = '<span class="badge badge-pill badge-light">'.$status.'</span>';
+            $badgeHtml = '<span class="badge bg-info bg-opacity-20 text-info">'.$status.'</span>';
         }
 
         return new Attribute(

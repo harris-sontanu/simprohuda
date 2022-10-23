@@ -17,15 +17,16 @@ class DashboardController extends Controller
         $totalPerbup  = Legislation::ranperbup()->year($request->only(['year']))->count();
         $totalSk 	  = Legislation::ransk()->year($request->only(['year']))->count();
 
-        $legislations = Legislation::processed()
+        $legislations = Legislation::inProgress()
+							->year($request->only(['year']))
 							->take(5)
 							->get();
 
-        $plugins = [
-            'assets/js/plugins/forms/selects/select2.min.js',
-            'assets/js/plugins/visualization/echarts/echarts.min.js',
-			'assets/js/plugins/visualization/d3/d3.min.js',
-			'assets/js/plugins/visualization/d3/d3_tooltip.js',
+        $vendors = [
+            'assets/js/vendor/forms/selects/select2.min.js',
+            'assets/js/vendor/visualization/echarts/echarts.min.js',
+			'assets/js/vendor/visualization/d3/d3.min.js',
+			'assets/js/vendor/visualization/d3/d3_tooltip.js',
         ];
 
         return view('dashboard.index', compact(
@@ -36,16 +37,16 @@ class DashboardController extends Controller
             'totalPerbup',
             'totalSk',
             'legislations',
-            'plugins',
+            'vendors',
         ));
     }
 
     public function pieChart(Request $request)
-	{
-        $draft 		= Legislation::year($request->only(['year']))->draft()->count();
-        $posted 	= Legislation::year($request->only(['year']))->posted()->count();
-        $revised 	= Legislation::year($request->only(['year']))->revised()->count();
-        $validated 	= Legislation::year($request->only(['year']))->validated()->count();
+	{	
+        $draft 		= Legislation::draft()->year($request->only(['year']))->count();
+        $posted 	= Legislation::posted()->year($request->only(['year']))->count();
+        $revised 	= Legislation::revised()->year($request->only(['year']))->count();
+        $validated 	= Legislation::validated()->year($request->only(['year']))->count();
 
 		$json = [
 			[

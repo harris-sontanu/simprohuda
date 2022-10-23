@@ -7,17 +7,12 @@
             minimumResultsForSearch: Infinity
         });
 
-        $(document).on('change', '.custom-file-input', function() {
-            let filename = $(this)[0].files[0].name;
-            $(this).next().html(filename);
-        })
-
         const daterangepickerConfig = {
             parentEl: '.content-inner',
             autoApply: true,
             singleDatePicker: true,
             autoUpdateInput: false,
-            applyButtonClasses : 'btn-secondary',
+            applyButtonClasses : 'btn-indigo',
             locale: {
                 format: 'DD-MM-YYYY',
                 applyLabel: "Ok",
@@ -91,7 +86,7 @@
                     buttons: {
                         confirm: {
                             label: 'Yakin',
-                            className: 'btn-secondary'
+                            className: 'btn-indigo'
                         },
                         cancel: {
                             label: 'Batal',
@@ -120,7 +115,7 @@
                 buttons: {
                     confirm: {
                         label: 'Yakin',
-                        className: 'btn-secondary'
+                        className: 'btn-indigo'
                     },
                     cancel: {
                         label: 'Batal',
@@ -137,11 +132,6 @@
         
         $('#filter').click(function() {
             $('#filter-options').slideToggle('fast');
-        })
-
-        $('.reset').click(function() {
-            $('.filter-form').trigger('reset');
-            $('.daterange-single').val('');
         })
 
         $(".filter-form").submit(function() {
@@ -222,7 +212,7 @@
                 buttons: {
                     confirm: {
                         label: 'Yakin',
-                        className: 'btn-secondary'
+                        className: 'btn-indigo'
                     },
                     cancel: {
                         label: 'Batal',
@@ -283,7 +273,7 @@
     function findData(){
 
         // Initialise the Demo with the Ctrl Click Functionality as the Default
-        var list = $('.table tbody').finderSelect({enableDesktopCtrlDefault:true, selectClass:'table-info'});
+        var list = $('.table tbody').finderSelect({enableDesktopCtrlDefault:true, selectClass:'table-primary'});
 
         // Add a hook to the highlight function so that checkboxes in the selection are also checked.
         list.finderSelect('addHook','highlight:before', function(el) {

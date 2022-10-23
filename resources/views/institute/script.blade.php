@@ -17,7 +17,7 @@
                 buttons: {
                     confirm: {
                         label: 'Yakin',
-                        className: 'btn-secondary'
+                        className: 'btn-indigo'
                     },
                     cancel: {
                         label: 'Batal',

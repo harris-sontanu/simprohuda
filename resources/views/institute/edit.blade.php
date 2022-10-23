@@ -3,10 +3,8 @@
 @section('title', $pageTitle)
 @section('content')
 
-    @include('layouts.breadcrumb')
-
     <!-- Content area -->
-    <div class="content">
+    <div class="content pt-0">
 
         @include('layouts.message')
 
@@ -15,9 +13,11 @@
             @method('PUT')
             @csrf
 
-            <div class="d-lg-flex align-items-lg-start">            
+            <!-- Inner container -->
+            <div class="d-flex align-items-stretch align-items-lg-start flex-column flex-lg-row">
 
-                <div class="flex-1">
+                <!-- Left content -->
+                <div class="flex-1 order-2 order-lg-1">
 
                     <div class="card">
                         <div class="card-body">
@@ -26,9 +26,10 @@
                                 <div class="col-lg-8 offset-lg-2">
                                     
                                     <fieldset>
-                                        <legend class="font-weight-bold"><i class="icon-office mr-2"></i>Profil</legend>
-                                        <div class="form-group row">
-                                            <label class="col-lg-3 col-form-label font-weight-semibold" for="name">Nama:</label>
+                                        <legend class="fw-bold fs-base border-bottom pb-2 mb-3"><i class="ph-buildings me-2"></i>Profil</legend>
+
+                                        <div class="mb-3 row">
+                                            <label class="col-lg-3 col-form-label" for="name">Nama:</label>
                                             <div class="col-lg-9">
                                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $institute->name }}">
                                                 @error('name')
@@ -37,8 +38,8 @@
                                             </div>
                                         </div>
             
-                                        <div class="form-group row">
-                                            <label for="abbrev" class="col-lg-3 col-form-label font-weight-semibold">Singkatan:</label>
+                                        <div class="mb-3 row">
+                                            <label for="abbrev" class="col-lg-3 col-form-label">Singkatan:</label>
                                             <div class="col-lg-9">
                                                 <input id="abbrev" type="text" class="form-control @error('abbrev') is-invalid @enderror" name="abbrev" value="{{ $institute->abbrev }}">
                                                 @error('abbrev')
@@ -47,8 +48,8 @@
                                             </div>
                                         </div>
                             
-                                        <div class="form-group row">
-                                            <label for="category" class="col-lg-3 col-form-label font-weight-semibold">Jenis:</label>
+                                        <div class="mb-3 row">
+                                            <label for="category" class="col-lg-3 col-form-label">Jenis:</label>
                                             <div class="col-lg-9">
                                                 <select name="category" id="category" class="select @error('category') is-invalid @enderror">
                                                     <option value="">Pilih Jenis</option>
@@ -62,8 +63,8 @@
                                             </div>
                                         </div>
                             
-                                        <div class="form-group row">
-                                            <label for="code" class="col-lg-3 col-form-label font-weight-semibold">Kode:</label>
+                                        <div class="mb-3 row">
+                                            <label for="code" class="col-lg-3 col-form-label">Kode:</label>
                                             <div class="col-lg-9">
                                                 <input id="code" type="text" class="form-control @error('code') is-invalid @enderror" name="code" value="{{ $institute->code }}">
                                                 @error('code')
@@ -72,8 +73,8 @@
                                             </div>
                                         </div>
                             
-                                        <div class="form-group row">
-                                            <label for="desc" class="col-lg-3 col-form-label font-weight-semibold">Deskripsi:</label>
+                                        <div class="mb-3 row">
+                                            <label for="desc" class="col-lg-3 col-form-label">Deskripsi:</label>
                                             <div class="col-lg-9">
                                                 <textarea id="desc" rows="4" class="form-control @error('desc') is-invalid @enderror" name="desc">{{ $institute->desc }}</textarea>
                                                 @error('desc')
@@ -84,10 +85,11 @@
                                     </fieldset>
                                     
                                     <fieldset>
-                                        <legend class="font-weight-bold"><i class="icon-users4 mr-2"></i>Akun</legend>
+                                        <legend class="fw-bold fs-base border-bottom pb-2 mb-3"><i class="ph-users me-2"></i>Akun</legend>
+
                                         @can('isAdmin')                                            
-                                            <div class="form-group row">
-                                                <label for="corrector_id" class="col-lg-3 col-form-label font-weight-semibold">Pemeriksa:</label>
+                                            <div class="mb-3 row">
+                                                <label for="corrector_id" class="col-lg-3 col-form-label">Pemeriksa:</label>
                                                 <div class="col-lg-9">
                                                     <select name="corrector_id" id="corrector_id" class="select @error('corrector_id') is-invalid @enderror">
                                                         <option value="">Pilih Pemeriksa</option>
@@ -101,8 +103,8 @@
                                                 </div>
                                             </div>
                                         @endcan
-                                        <div class="form-group row">
-                                            <label for="users" class="col-lg-3 col-form-label font-weight-semibold">Operator:</label>
+                                        <div class="mb-3 row">
+                                            <label for="users" class="col-lg-3 col-form-label">Operator:</label>
                                             <div class="col-lg-9">
                                                 <select name="users[]" multiple="multiple" class="form-control select @error('users.*') is-invalid @enderror">
                                                     <option value="">Pilih Operator</option>
@@ -130,24 +132,24 @@
                     </div>
                 </div>
 
-                <div class="sidebar sidebar-light bg-transparent sidebar-component sidebar-component-right wmin-lg-350 border-0 shadow-none order-1 order-lg-2 sidebar-expand-lg">
+                <div class="sidebar sidebar-component sidebar-expand-lg bg-transparent wmin-lg-350 shadow-none order-1 order-lg-2 ms-lg-3 mb-3">
 
                     <div class="sidebar-content">
                         <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title font-weight-bold"><i class="icon-earth mr-2"></i>Publikasi</h5>
+                            <div class="sidebar-section-header border-bottom">
+                                <h5 class="mb-0"><i class="ph-globe-hemisphere-east me-2"></i>Publikasi</h5>
                             </div>
 
-                            <table class="table table-borderless border-0 table-xs">
+                            <table class="table table-borderless my-2 table-xs">
                                 <tbody>
                                     <tr>
-                                        <td class="font-weight-semibold text-nowrap"><i class="icon-calendar22 mr-2"></i>Tgl. Dibuat:</td>
-                                        <td class="text-right">{{ $institute->dateFormatted($institute->created_at) }}</td>
+                                        <td class="text-nowrap"><i class="ph-calendar-blank me-2"></i>Tgl. Dibuat:</td>
+                                        <td class="text-end">{{ $institute->dateFormatted($institute->created_at) }}</td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <div class="card-footer bg-white border-0 d-flex justify-content-end align-items-center">
-                                <button type="submit" class="btn btn-secondary">Ubah</button>
+                            <div class="card-footer d-flex justify-content-end">
+                                <button type="submit" class="btn btn-indigo">Ubah</button>
                             </div>
                         </div>
                     </div>

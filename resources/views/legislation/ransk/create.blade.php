@@ -3,10 +3,8 @@
 @section('title', $pageTitle)
 @section('content')
 
-    @include('layouts.breadcrumb')
-
     <!-- Content area -->
-    <div class="content">
+    <div class="content pt-0">
 
         @include('layouts.message')
 
@@ -14,9 +12,11 @@
         <form method="POST" action="{{ route('legislation.ransk.store') }}" novalidate enctype="multipart/form-data">
             @csrf
 
-            <div class="d-lg-flex align-items-lg-start">            
+            <!-- Inner container -->
+            <div class="d-flex align-items-stretch align-items-lg-start flex-column flex-lg-row">
 
-                <div class="flex-1">
+                <!-- Left content -->
+                <div class="flex-1 order-2 order-lg-1">
 
                     <div class="card">
                         <div class="card-body">
@@ -24,11 +24,11 @@
                                 <div class="col-lg-8 offset-lg-2">
 
                                     <fieldset>
-                                        <legend class="font-weight-bold"><i class="icon-reading mr-2"></i> Formulir Pengajuan Rancangan SK</legend>
+                                        <legend class="fw-bold fs-base border-bottom pb-2 mb-3"><i class="ph-note me-2"></i>Formulir Pengajuan Rancangan SK</legend>
                                         
                                         @cannot('isOpd')                                            
-                                            <div class="form-group row">
-                                                <label class="col-lg-3 col-form-label" for="phone">Perangkat Daerah:</label>
+                                            <div class="mb-3 row">
+                                                <label class="col-lg-3 col-form-label">Perangkat Daerah:</label>
                                                 <div class="col-lg-9">
                                                     <select name="institute_id" id="institute_id" class="select @error('institute_id') is-invalid @enderror" autofocus>
                                                         <option value="">Pilih Perangkat Daerah</option>
@@ -43,7 +43,7 @@
                                             </div>
                                         @endcannot
 
-                                        <div class="form-group row">
+                                        <div class="mb-3 row">
                                             <label class="col-lg-3 col-form-label" for="title">Judul:</label>
                                             <div class="col-lg-9">
                                                 <textarea class="form-control 
@@ -59,7 +59,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group row">
+                                        <div class="mb-3 row">
                                             <label class="col-lg-3 col-form-label" for="background">Alasan Pengajuan:</label>
                                             <div class="col-lg-9">
                                                 <textarea class="form-control @error('background') is-invalid @enderror" name="background" id="background" spellcheck="false" cols="30" rows="4" >{{ old('background') }}</textarea>
@@ -72,39 +72,33 @@
                                     </fieldset>
 
                                     <fieldset>
-                                        <legend class="font-weight-bold"><i class="icon-file-text2 mr-2"></i>Dokumen Rancangan</legend>
+                                        <legend class="fw-bold fs-base border-bottom pb-2 mb-3"><i class="ph-file-arrow-up me-2"></i>Dokumen Rancangan</legend>
 
-                                        <div class="form-group row">
+                                        <div class="mb-3 row">
                                             <label class="col-lg-3 col-form-label" for="background">{{ $master->title }}:</label>
                                             <div class="col-lg-9">
-                                                <div class="custom-file">
-                                                    <input id="customFile" type="file" class="custom-file-input @error('master') is-invalid @enderror" name="{{ $master->term }}">
-                                                    <label class="custom-file-label" for="customFile">Choose file</label>
-                                                    @error('master')
-                                                        <div class="invalid-feedback">{{ $message }}</div>
-                                                    @endif
-                                                </div>
+                                                <input type="file" class="form-control @error($master->term) is-invalid @enderror" name="{{ $master->term }}">                                                
+                                                @error($master->term)
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @endif
                                             </div>
                                         </div>
 
                                     </fieldset>
 
                                     <fieldset>
-                                        <legend class="font-weight-bold"><i class="icon-stack mr-2"></i>Dokumen Persyaratan</legend>
+                                        <legend class="fw-bold fs-base border-bottom pb-2 mb-3"><i class="ph-stack me-2"></i>Dokumen Persyaratan</legend>
                                         
                                         @foreach ($requirements as $requirement)                                   
-                                            <div class="form-group row">
+                                            <div class="mb-3 row">
                                                 <label class="col-lg-3 col-form-label" for="background">{{ $requirement->title }}:</label>
-                                                <div class="col-lg-9">
-                                                    <div class="custom-file">
-                                                        <input id="customFile" type="file" class="custom-file-input @error($requirement->term) is-invalid @enderror" name="{{ $requirement->term }}">
-                                                        <label class="custom-file-label" for="customFile">Choose file</label>
-                                                        @error($requirement->term)
-                                                            <div class="invalid-feedback">{{ $message }}</div>
-                                                        @endif
-                                                    </div>
+                                                <div class="col-lg-9">                                                    
+                                                    <input type="file" class="form-control @error($requirement->term) is-invalid @enderror" name="{{ $requirement->term }}">
+                                                    @error($requirement->term)
+                                                        <div class="invalid-feedback">{{ $message }}</div>
+                                                    @endif
                                                     @if (!empty($requirement->desc))
-                                                        <span class="form-text text-muted font-size-sm">{{ $requirement->desc }}</span>
+                                                        <div class="form-text text-muted fs-sm">{{ $requirement->desc }}</div>
                                                     @endif
                                                 </div>
                                             </div>
@@ -118,50 +112,51 @@
                         </div>
                     </div>
                 </div>
-            
-                <div class="sidebar sidebar-light bg-transparent sidebar-component sidebar-component-right wmin-lg-350 border-0 shadow-none order-1 order-lg-2 sidebar-expand-lg">
-
+                <!-- /left content -->
+    
+                <div class="sidebar sidebar-component sidebar-expand-lg bg-transparent wmin-lg-350 shadow-none order-1 order-lg-2 ms-lg-3 mb-3">
+    
                     <div class="sidebar-content">
                         
                         <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title font-weight-bold"><i class="icon-earth mr-2"></i>Publikasi</h5>
+                            <div class="sidebar-section-header border-bottom">
+                                <h5 class="mb-0"><i class="ph-globe-hemisphere-east me-2"></i>Publikasi</h5>
                             </div>
 
-                            <table class="table table-borderless border-0 table-xs">
+                            <table class="table table-borderless my-2 table-xs">
                                 <tbody>
                                     <tr>
-                                        <td class="font-weight-semibold text-nowrap"><i class="icon-pen mr-2"></i>Status:</td>
-                                        <td class="text-right"><span class="badge badge-pill badge-light">Draf</span></td>
+                                        <td class="fw-semibold text-nowrap"><i class="ph-pen me-2"></i>Status:</td>
+                                        <td class="text-end"><span class="badge bg-info bg-opacity-20 text-info">Draf</span></td>
                                     </tr>
                                     <tr>
-                                        <td class="font-weight-semibold text-nowrap"><i class="icon-user mr-2"></i>Operator:</td>
-                                        <td class="text-right">{{ Auth::user()->name }}</td>
+                                        <td class="fw-semibold text-nowrap"><i class="ph-user me-2"></i>Operator:</td>
+                                        <td class="text-end">{{ Auth::user()->name }}</td>
                                     </tr>
                                     @can('isOpd')                                       
                                         <input name="institute_id" type="hidden" value="{{ Auth::user()->institutes->first()->id }}" />                                    
                                         <tr>
-                                            <td class="font-weight-semibold text-nowrap"><i class="icon-office mr-2"></i>Perangkat Daerah:</td>
-                                            <td class="text-right">{{ Auth::user()->institutes->first()->name }}</td>
+                                            <td class="fw-semibold text-nowrap"><i class="ph-buildings me-2"></i>Perangkat Daerah:</td>
+                                            <td class="text-end">{{ Auth::user()->institutes->first()->name }}</td>
                                         </tr>                         
                                         <tr>
-                                            <td class="font-weight-semibold text-nowrap"><i class="icon-user-tie mr-2"></i>Pemeriksa:</td>
-                                            <td class="text-right">{{ Auth::user()->institutes->first()->corrector->name }}</td>
+                                            <td class="fw-semibold text-nowrap"><i class="icon-user-tie me-2"></i>Pemeriksa:</td>
+                                            <td class="text-end">{{ Auth::user()->institutes->first()->corrector->name }}</td>
                                         </tr>
                                     @endcan
                                     <tr>
-                                        <td class="font-weight-semibold text-nowrap"><i class="icon-embed2 mr-2"></i>Nomor Registrasi:</td>
-                                        <td class="text-right">{{ $nextRegNumber }}</td>
+                                        <td class="fw-semibold text-nowrap"><i class="ph-calculator me-2"></i>No. Registrasi:</td>
+                                        <td class="text-end">{{ $nextRegNumber }}</td>
                                     </tr>
                                     <tr>
-                                        <td class="font-weight-semibold text-nowrap"><i class="icon-calendar22 mr-2"></i>Tgl. Dibuat:</td>
-                                        <td class="text-right">{{ now()->translatedFormat('j F Y') }}</td>
+                                        <td class="fw-semibold text-nowrap"><i class="ph-calendar-blank me-2"></i>Tgl. Dibuat:</td>
+                                        <td class="text-end">{{ now()->translatedFormat('j F Y') }}</td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <div class="card-footer bg-white border-0 d-flex justify-content-between align-items-center">
+                            <div class="card-footer d-flex justify-content-between">
                                 <button type="submit" name="draft" class="btn btn-link px-0">Simpan ke Draf</button>
-                                <button type="submit" name="post" class="btn btn-secondary">Simpan & Ajukan</button>
+                                <button type="submit" name="post" class="btn btn-indigo">Simpan & Ajukan</button>
                             </div>
                         </div>
 

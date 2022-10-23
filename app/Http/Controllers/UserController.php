@@ -54,7 +54,6 @@ class UserController extends Controller
 
         $users = $users->search($request->only(['search']));
         $users = $users->filter($request);
-        $count = $users->count();
         !empty($request->order) ? $users->order($request) : $users->latest();
         $limit = !empty($request->limit) ? $request->limit : $this->limit;
         $users = $users->paginate($limit)
@@ -64,14 +63,15 @@ class UserController extends Controller
 
         $roles = $this->roles;
 
-        $plugins = [
-            'assets/js/plugins/notifications/bootbox.min.js',
-            'assets/js/plugins/ui/moment/moment.min.js',
-            'assets/js/plugins/pickers/daterangepicker.js',
+        $vendors = [
+            'assets/js/vendor/notifications/bootbox.min.js',
+            'assets/js/vendor/forms/selects/select2.min.js',
+            'assets/js/vendor/ui/moment/moment.min.js',
+            'assets/js/vendor/pickers/daterangepicker.js',
         ];
 
         if (Gate::allows('isAdmin')) {
-            $plugins[] = 'assets/js/plugins/table/finderSelect/jquery.finderSelect.min.js';
+            $vendors[] = 'assets/js/vendor/tables/finderSelect/jquery.finderSelect.min.js';
         }
 
         return view('user.index', compact(
@@ -79,11 +79,10 @@ class UserController extends Controller
             'pageHeader',
             'breadCrumbs',
             'users',
-            'count',
             'onlyTrashed',
             'tabFilters',
             'roles',
-            'plugins'
+            'vendors'
         ));
     }
 
@@ -113,11 +112,17 @@ class UserController extends Controller
         ];
 
         $roles = $this->roles;
+
+        $vendors = [
+            'assets/js/vendor/forms/selects/select2.min.js',
+        ];
+
         return view('user.create', compact(
             'pageTitle',
             'pageHeader',
             'breadCrumbs',
             'roles',
+            'vendors'
         ));
     }
 
@@ -165,12 +170,18 @@ class UserController extends Controller
         ];
 
         $roles = $this->roles;
+
+        $vendors = [
+            'assets/js/vendor/forms/selects/select2.min.js',
+        ];
+
         return view('user.edit', compact(
             'pageTitle',
             'pageHeader',
             'breadCrumbs',
             'user',
             'roles',
+            'vendors',
         ));
     }
 

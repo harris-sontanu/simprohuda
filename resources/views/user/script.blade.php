@@ -1,5 +1,9 @@
 <script>
     $(function() {
+
+        $('.select').select2({
+            minimumResultsForSearch: Infinity
+        });
         
         $(document).on('change', '.custom-file-input', function() {
             let filename = $(this)[0].files[0].name;
@@ -12,7 +16,7 @@
                 autoApply: true,
                 singleDatePicker: true,
                 autoUpdateInput: false,
-                applyButtonClasses : 'btn-secondary',
+                applyButtonClasses : 'btn-indigo',
                 locale: {
                     format: 'DD-MM-YYYY',
                     applyLabel: "Ok",
@@ -70,7 +74,7 @@
                     buttons: {
                         confirm: {
                             label: 'Yakin',
-                            className: 'btn-secondary'
+                            className: 'btn-indigo'
                         },
                         cancel: {
                             label: 'Batal',
@@ -99,7 +103,7 @@
                 buttons: {
                     confirm: {
                         label: 'Yakin',
-                        className: 'btn-secondary'
+                        className: 'btn-indigo'
                     },
                     cancel: {
                         label: 'Batal',
@@ -258,7 +262,7 @@
     function findData(){
 
         // Initialise the Demo with the Ctrl Click Functionality as the Default
-        var list = $('.table tbody').finderSelect({enableDesktopCtrlDefault:true, selectClass:'table-info'});
+        var list = $('.table tbody').finderSelect({enableDesktopCtrlDefault:true, selectClass:'table-primary'});
 
         // Add a hook to the highlight function so that checkboxes in the selection are also checked.
         list.finderSelect('addHook','highlight:before', function(el) {
