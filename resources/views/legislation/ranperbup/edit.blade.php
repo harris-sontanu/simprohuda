@@ -325,7 +325,7 @@
 
                     <div class="card">
                         <div class="sidebar-section-header border-bottom">
-                            <h5 class="mb-0"><i class="ph-arrow-counter-clockwise me-2"></i>Riwayat</h5>
+                            <h5 class="mb-0"><i class="ph-clock-counter-clockwise me-2"></i>Riwayat</h5>
                         </div>
 
                         <div class="sidebar-section-body">
