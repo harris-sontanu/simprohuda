@@ -99,7 +99,7 @@ class LegislationController extends Controller
 
     public function search(Request $request)
     {
-        $term = $request->search;
+        $term       = $request->search;
         $ranperda   = Legislation::ranperda()->search($request->only(['search']))->take(3)->get();
         $ranperbup  = Legislation::ranperbup()->search($request->only(['search']))->take(3)->get();
         $ransk 	    = Legislation::ransk()->search($request->only(['search']))->take(3)->get();
