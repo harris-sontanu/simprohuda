@@ -11,7 +11,7 @@
         </span>
 
         <ul class="nav">
-            <li class="nav-item">beta v1.0</li>
+            <li class="nav-item">beta v1.2.0</li>
         </ul>
     </div>
 </div>

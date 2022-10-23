@@ -101,8 +101,18 @@
 
 			<!-- Basic table -->
 			<div class="card">
-				<div class="card-header">
-					<h5 class="mb-0">Pengajuan Rancangan Produk Hukum Terbaru</h5>
+				<div class="card-header d-flex align-items-center py-0">
+					<h5 class="py-3 mb-0">Rancangan Produk Hukum yang Masih Diproses</h5>
+					<div class="ms-auto my-auto">
+						<div class="btn-group">
+							<button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown"><i class="ph-plus me-2"></i>Ajukan Rancangan</button>
+							<div class="dropdown-menu dropdown-menu-end" data-popper-placement="top-end">
+								<a href="{{ route('legislation.ranperda.create') }}" class="dropdown-item">Ranperda</a>
+								<a href="{{ route('legislation.ranperbup.create') }}" class="dropdown-item">Ranperbup</a>
+								<a href="{{ route('legislation.ransk.create') }}" class="dropdown-item">Rancangan SK</a>
+							</div>
+						</div>
+					</div>
 				</div>
 
 				<div class="table-responsive">
@@ -132,7 +142,7 @@
 									<td><abbr data-bs-popup="tooltip" title="{{ $legislation->dateFormatted($legislation->posted_at, true) }}">{{ $legislation->dateFormatted($legislation->posted_at) }}</abbr></td>
 								</tr>
 							@empty
-								<tr class="table-warning"><td colspan="100">Belum ada data</td></tr>
+								<tr class="table-warning"><td colspan="100" class="text-center">Tidak ada data rancangan produk hukum yang masih diproses</td></tr>
 							@endforelse							
 						</tbody>
 					</table>
