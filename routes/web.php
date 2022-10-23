@@ -10,6 +10,7 @@ use App\Http\Controllers\Legislation\RanperbupController;
 use App\Http\Controllers\Legislation\RanskController;
 use App\Http\Controllers\Legislation\DocumentController;
 use App\Http\Controllers\Legislation\CommentController;
+use App\Http\Controllers\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -101,5 +102,8 @@ Route::middleware('auth')->group(function() {
         Route::post('/legislation/comment', [CommentController::class, 'store'])
             ->name('comment.store');
     });
+
+    Route::get('/setting', [SettingController::class, 'app'])
+        ->name('setting.app');
 
 });

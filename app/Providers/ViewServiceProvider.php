@@ -32,7 +32,7 @@ class ViewServiceProvider extends ServiceProvider
         View::composer('layouts.navbar', function ($view) 
         {
             
-            $appLogo = Setting::where('name', 'appLogo')->first()->value;
+            $appLogo = Setting::where('key', 'appLogo')->first()->value;
 
             $legislationNotifications = Legislation::inProgress()
                                                     ->get();
@@ -49,10 +49,10 @@ class ViewServiceProvider extends ServiceProvider
 
         View::composer('layouts.footer', function ($view) 
         {
-            $appDesc = Setting::where('name', 'appDesc')->first()->value;
-            $appUrl = Setting::where('name', 'appUrl')->first()->value;
-            $company = Setting::where('name', 'company')->first()->value;
-            $companyUrl = Setting::where('name', 'companyUrl')->first()->value;
+            $appDesc = Setting::where('key', 'appDesc')->first()->value;
+            $appUrl = Setting::where('key', 'appUrl')->first()->value;
+            $company = Setting::where('key', 'company')->first()->value;
+            $companyUrl = Setting::where('key', 'companyUrl')->first()->value;
 
             return $view->with('appDesc', $appDesc)
                         ->with('appUrl', $appUrl)

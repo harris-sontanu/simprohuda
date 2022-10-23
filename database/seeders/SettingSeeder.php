@@ -16,32 +16,32 @@ class SettingSeeder extends Seeder
     public function run()
     {
         DB::table('settings')->insert([
-            'name'      => 'appName',
+            'key'       => 'appName',
             'value'     => 'SIMPROHUDA',
         ]);
 
         DB::table('settings')->insert([
-            'name'      => 'appDesc',
+            'key'       => 'appDesc',
             'value'     => 'Sistem Pembentukan Produk Hukum Daerah Kabupaten Klungkung',
         ]);
 
         DB::table('settings')->insert([
-            'name'      => 'appLogo',
+            'key'       => 'appLogo',
             'value'     => asset('assets/images/logo_icon.svg'),
         ]);
 
         DB::table('settings')->insert([
-            'name'      => 'appUrl',
+            'key'       => 'appUrl',
             'value'     => url()->current(),
         ]);
 
         DB::table('settings')->insert([
-            'name'      => 'company',
+            'key'       => 'company',
             'value'     => 'Bagian Hukum Kabupaten Klungkung',
         ]);
 
         DB::table('settings')->insert([
-            'name'      => 'companyUrl',
+            'key'       => 'companyUrl',
             'value'     => 'https://jdih.klungkungkab.go.id',
         ]);
     }
