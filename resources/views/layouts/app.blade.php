@@ -53,6 +53,32 @@
 			$window
 				.resize(resize)
 				.trigger('resize');
+
+			$('#search-dropdown').on('keyup change', function() {
+				let search 	= $(this).val(),
+					dom		= $('#search-dropdown-results');
+
+				if (search.length > 0) {
+					$(this).dropdown('show');
+
+					$.get('/legislation/search', {search: search})
+					.done(function(html){
+						dom.html(html);
+					});
+				}
+			})
+
+			// $('#search-dropdown').on('show.bs.dropdown', function() {
+			// 	let dom 	= $('#search-dropdown-results'),
+			// 		search	= $(this).val();
+
+			// 	console.log('search');
+
+			// 	$.get('/legislation/search', {search: search})
+			// 		.done(function(html){
+			// 			dom.html(html);
+			// 		});
+			// })
 		});
 	</script>
 

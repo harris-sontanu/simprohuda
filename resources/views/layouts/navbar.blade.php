@@ -35,10 +35,11 @@
         <div class="navbar-collapse justify-content-center flex-lg-1 order-2 order-lg-1 collapse" id="navbar_search">
             <div class="navbar-search flex-fill position-relative mt-2 mt-lg-0 mx-lg-3">
                 <div class="form-control-feedback form-control-feedback-start flex-grow-1" data-color-theme="dark">
-                    <input type="text" class="form-control bg-transparent rounded-pill" placeholder="Cari Rancangan Produk Hukum" data-bs-toggle="dropdown">
+                    <input id="search-dropdown" type="text" class="form-control bg-transparent rounded-pill" name="search" placeholder="Cari Rancangan Produk Hukum">
                     <div class="form-control-feedback-icon">
                         <i class="ph-magnifying-glass"></i>
                     </div>
+                    <div id="search-dropdown-results" class="dropdown-menu w-100" data-color-theme="light"></div>
                 </div>
 
                 <a href="#" class="navbar-nav-link align-items-center justify-content-center w-40px h-32px rounded-pill position-absolute end-0 top-50 translate-middle-y p-0 me-1" data-bs-toggle="dropdown" data-bs-auto-close="outside">
