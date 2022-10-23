@@ -35,7 +35,7 @@
         <div class="navbar-collapse justify-content-center flex-lg-1 order-2 order-lg-1 collapse" id="navbar_search">
             <div class="navbar-search flex-fill position-relative mt-2 mt-lg-0 mx-lg-3">
                 <div class="form-control-feedback form-control-feedback-start flex-grow-1" data-color-theme="dark">
-                    <input id="search-dropdown" type="text" class="form-control bg-transparent rounded-pill" name="search" placeholder="Cari Rancangan Produk Hukum">
+                    <input id="search-dropdown" type="text" class="form-control bg-transparent rounded-pill" name="search" autocomplete="off" placeholder="Cari Rancangan Produk Hukum">
                     <div class="form-control-feedback-icon">
                         <i class="ph-magnifying-glass"></i>
                     </div>

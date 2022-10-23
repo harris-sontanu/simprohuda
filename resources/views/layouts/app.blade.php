@@ -68,6 +68,10 @@
 				}
 			})
 
+			$('body').click(function() {
+				$('#search-dropdown').dropdown('hide');
+			})
+
 			// $('#search-dropdown').on('show.bs.dropdown', function() {
 			// 	let dom 	= $('#search-dropdown-results'),
 			// 		search	= $(this).val();
