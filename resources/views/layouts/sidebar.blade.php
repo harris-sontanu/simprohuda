@@ -82,11 +82,11 @@
                 </li>
                 
                 @can('isAdmin')  
-                    <li class="nav-item nav-item-submenu">
+                    <li class="nav-item nav-item-submenu {{ request()->is('setting*') ? 'nav-item-expanded nav-item-open' : '' }}">
                         <a href="#" class="nav-link"><i class="ph-gear"></i> <span>Pengaturan</span></a>
 
-                        <ul class="nav-group-sub collapse">
-                            <li class="nav-item"><a href="#" class="nav-link">Aplikasi</a></li>
+                        <ul class="nav-group-sub {{ request()->is('setting*') ? 'show' : 'collapse' }}">
+                            <li class="nav-item"><a href="{{ route('setting.app') }}" class="nav-link {{ (request()->is('setting')) ? 'active' : '' }}">Aplikasi</a></li>
                         </ul>
                     </li>
                 @endcan
