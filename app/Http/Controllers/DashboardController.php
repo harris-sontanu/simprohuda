@@ -12,10 +12,10 @@ class DashboardController extends Controller
         $pageHeader = 'Dasbor';
         $pageTitle = $pageHeader . $this->pageTitle;
 
-        $total 		  = Legislation::year($request->only(['year']))->count();
-        $totalPerda   = Legislation::ranperda()->year($request->only(['year']))->count();
-        $totalPerbup  = Legislation::ranperbup()->year($request->only(['year']))->count();
-        $totalSk 	  = Legislation::ransk()->year($request->only(['year']))->count();
+        $total 		  = Legislation::count();
+        $totalPerda   = Legislation::ranperda()->count();
+        $totalPerbup  = Legislation::ranperbup()->count();
+        $totalSk 	  = Legislation::ransk()->count();
 
         $legislations = Legislation::inProgress()
 							->take(5)
@@ -42,10 +42,10 @@ class DashboardController extends Controller
 
     public function pieChart(Request $request)
 	{
-        $draft 		= Legislation::year($request->only(['year']))->draft()->count();
-        $posted 	= Legislation::year($request->only(['year']))->posted()->count();
-        $revised 	= Legislation::year($request->only(['year']))->revised()->count();
-        $validated 	= Legislation::year($request->only(['year']))->validated()->count();
+        $draft 		= Legislation::draft()->count();
+        $posted 	= Legislation::posted()->count();
+        $revised 	= Legislation::revised()->count();
+        $validated 	= Legislation::validated()->count();
 
 		$json = [
 			[

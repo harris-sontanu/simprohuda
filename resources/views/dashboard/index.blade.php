@@ -18,12 +18,19 @@
 
         <div class="collapse d-lg-block my-lg-auto ms-lg-auto" id="page_header">
             <div class="btn-group my-auto ms-auto">
-				<button class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Tahun</button>
+				<button class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+					Tahun 
+					@empty (Request::get('year'))
+						{{ now()->year }} 
+					@else 
+						{{ Request::get('year') }}
+					@endempty
+				</button>
 
 				<div class="dropdown-menu dropdown-menu-end">
-					<a href="{{ route('dashboard', ['year' => 2022]) }}" class="dropdown-item">2022</a>
-					<a href="{{ route('dashboard', ['year' => 2021]) }}" class="dropdown-item">2021</a>
-					<a href="{{ route('dashboard', ['year' => 2020]) }}" class="dropdown-item">2020</a>
+					@for ($i = 0; $i < 3; $i++)						
+						<a href="{{ route('dashboard', ['year' => now()->year - $i]) }}" class="dropdown-item">{{ now()->year - $i }}</a>
+					@endfor
 				</div>
 			</div>
         </div>
