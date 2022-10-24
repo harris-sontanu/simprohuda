@@ -56,12 +56,12 @@
                                     <div class="col-lg-9">
                                         <div class="d-flex mt-0">
                                             <div class="me-3">
-                                                <img id="avatar-img" src="{{ $settings['appLogo'] }}" class="rounded-pill" alt="Logo" width="60" height="60">
+                                                <img id="avatar-img" src="{{ $settings['appLogo'] }}" class="rounded-pill img-fluid" alt="Logo" width="60" height="60">
                                             </div>
 
                                             <div class="flex-fill">
                                                 <div class="custom-file">
-                                                    <input id="appLogo" type="file" name="appLogo" class="form-control @error('appLogo') is-invalid @enderror" value="{{ $settings['appLogo'] }}" accept=".jpg, .jpeg, .png, .gif">
+                                                    <input id="appLogo" type="file" name="appLogo" class="form-control @error('appLogo') is-invalid @enderror" value="{{ $settings['appLogo'] }}">
                                                     <span class="form-text text-muted">Format: .jpg, .jpeg, .png, .gif, .bmp, .svg, .webp. Ukuran maks: 2Mb.
                                                     @error('appLogo')
                                                         <div class="invalid-feedback">{{ $message }}</div>
