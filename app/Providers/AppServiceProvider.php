@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Pagination\Paginator;
 use App\Models\Setting;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,7 +27,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {   
-        $appName = Setting::where('key', 'appName')->first()->value;
+        $appName = config('app.name');
+        if (Schema::hasTable('settings')) {
+            $appName = Setting::where('key', 'appName')->first()->value;
+        }
         View::share('appName', $appName);
         
         Paginator::useBootstrapFour();
