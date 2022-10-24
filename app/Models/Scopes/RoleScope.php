@@ -22,12 +22,6 @@ class RoleScope implements Scope
         $builder->select(['legislations.*', 'institutes.abbrev AS institute_abbrev', 'institutes.name AS institute_name'])
             ->join('institutes', 'legislations.institute_id', '=', 'institutes.id');
 
-        if (empty(request()->get('year'))) {
-            $builder->whereYear('legislations.created_at', now()->year);
-        } else {
-            $builder->whereYear('legislations.created_at', request()->get('year'));
-        }
-
         if (Gate::allows('isBagianHukum')) {
             $builder->where('institutes.corrector_id', Auth::user()->id);
         }

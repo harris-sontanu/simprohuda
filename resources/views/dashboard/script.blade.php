@@ -4,7 +4,7 @@
             minimumResultsForSearch: Infinity
         });
 
-        var year = $('#year').val();
+        var year = $('#year-option').data('year');
         $.ajaxSetup({
             headers: {
                 'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')

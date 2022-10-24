@@ -9,7 +9,7 @@
 
         <div class="navbar-brand flex-1 flex-lg-0">
             <a href="/dashboard" class="d-inline-flex align-items-center">
-                <img src="{{ $appLogo }}" alt="{{ $appName }}">
+                <img src="{{ $appLogoUrl }}" alt="{{ $appName }}">
                 <h3 class="fw-bold m-0 ps-2 d-none d-sm-block font-title">
                     <span class="text-pink">{{ $appName }}
                 </h3>

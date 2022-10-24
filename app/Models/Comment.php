@@ -31,7 +31,7 @@ class Comment extends Model
 
     public function legislation()
     {
-        return $this->belongsTo(Legislation::class)->withoutGlobalScope(RoleScope::class);
+        return $this->belongsTo(Legislation::class);
     }
 
     public function sender()
