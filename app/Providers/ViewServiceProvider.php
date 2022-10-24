@@ -9,6 +9,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Models\Setting;
 use App\Models\Legislation;
 use App\Models\Comment;
+use Illuminate\Support\Facades\Storage;
 
 class ViewServiceProvider extends ServiceProvider
 {
@@ -33,6 +34,7 @@ class ViewServiceProvider extends ServiceProvider
         {
             
             $appLogo = Setting::where('key', 'appLogo')->first()->value;
+            $appLogoUrl = (Storage::disk('public')->exists($appLogo)) ? Storage::url($appLogo) : '/assets/images/logo_icon.svg';
 
             $legislationNotifications = Legislation::inProgress()
                                                     ->get();
@@ -42,7 +44,7 @@ class ViewServiceProvider extends ServiceProvider
                                         ->latest()
                                         ->get();
             
-            return $view->with('appLogo', $appLogo)
+            return $view->with('appLogoUrl', $appLogoUrl)
                         ->with('legislationNotifications', $legislationNotifications)
                         ->with('commentNotifications', $commentNotifications);                                                   
         });
