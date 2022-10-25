@@ -59,9 +59,20 @@ class RequirementSeeder extends Seeder
             'category' => 'requirement',
             'title'    => 'Peta Keterkaitan',
             'term'     => 'peta_keterkaitan',
-            'desc'     => 'Peta Keterkaitan Rancangan Produk Hukum Daerah yang diajukan',
+            'desc'     => 'Peta Keterkaitan Rancangan Produk Hukum Daerah yang diajukan.',
             'format'   => 'pdf,doc,docx',
             'order'    => 4, 
+            'mandatory'=> 0,
+        ]);
+
+        DB::table('requirements')->insert([
+            'type_id'  => 1,
+            'category' => 'requirement',
+            'title'    => 'Izin prakarsa penyusunan Peraturan Daerah',
+            'term'     => 'izin',
+            'desc'     => 'Izin prakarsa penyusunan Peraturan Daerah dalam hal Rancangan Peraturan Daerah belum masuk dalam Program Pembentukan Peraturan Daerah.',
+            'format'   => 'pdf,doc,docx',
+            'order'    => 5, 
             'mandatory'=> 0,
         ]);
 
@@ -109,9 +120,20 @@ class RequirementSeeder extends Seeder
             'category' => 'requirement',
             'title'    => 'Peta Keterkaitan',
             'term'     => 'peta_keterkaitan',
-            'desc'     => 'Peta Keterkaitan Rancangan Produk Hukum Daerah yang diajukan',
+            'desc'     => 'Peta Keterkaitan Rancangan Produk Hukum Daerah yang diajukan.',
             'format'   => 'pdf,doc,docx',
             'order'    => 4, 
+            'mandatory'=> 0,
+        ]);
+
+        DB::table('requirements')->insert([
+            'type_id'  => 2,
+            'category' => 'requirement',
+            'title'    => 'Izin penyusunan Peraturan Bupati',
+            'term'     => 'izin',
+            'desc'     => 'Izin penyusunan Peraturan Bupati dalam hal Rancangan Peraturan Bupati belum masuk dalam Perencanaan Penyusunan Peraturan Bupati.',
+            'format'   => 'pdf,doc,docx',
+            'order'    => 5, 
             'mandatory'=> 0,
         ]);
 
